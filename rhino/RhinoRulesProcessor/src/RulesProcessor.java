@@ -3,11 +3,14 @@ import org.mozilla.javascript.optimizer.*;
 import java.io.*;
 
 import com.itextpdf.*;
-public class Test extends Shell{
+public class RulesProcessor extends Shell{
 
 	/**
 	 * @param args
 	 */
+	static String outFile = "files/testOut.txt";
+	static BufferedWriter out;
+	static String toWrite;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		/*try{
@@ -16,40 +19,31 @@ public class Test extends Shell{
 		}catch(Exception e){System.err.println("Test main: " + e.getMessage());}*/
 		
 		String shlArgs[] = {"files/ExampleJS.txt"};
-		/*
-		Shell shl = new Shell();
+		//Shell shl = new Shell();
 		System.out.println("judging...");
-		shl.main(shlArgs);
+		//Context cx = new Context();
+		//cx.enter();
+		//shl.main(shlArgs);
+		
+		RulesProcessor processor = new RulesProcessor();
+		processor.process(shlArgs);
 		System.out.println("finished!");
-		*/
-		
-		Test t = new Test();
-		t.process();
-		
-		String[] argz = {"print(\"yo!\")"};
-		//shell.main(argz);
-		
-		RunScript test2 = new RunScript();
-		//test2.main(scc);
-		
 	}
 	
-	public void process()
+	public void process(String[] args)
 	{
-		String[] names = { "print", "quit", "version", "load", "help" };
-        this.defineFunctionProperties(names, Test.class,
+		String[] names = {  "print", "quit", "version", "load", "help" };
+        this.defineFunctionProperties(names, RulesProcessor.class,
                                        ScriptableObject.DONTENUM);
         
 		Context cx = Context.enter();
-		Shell shell = new Shell();
-		Scriptable scope = cx.initStandardObjects(shell);
-		//cx.evaluateString(scope, "print(\"yo!\");", "eh", 1, null);
+		Scriptable scope = cx.initStandardObjects(this);
 		String[] argz = {};
-		processSource(cx,null);
 		
-		Object result = cx.evaluateString(this, "document.write(\"yo!\");", "eh", 1, null);
-		System.out.println(result.toString());
-		
+		try{
+			toWrite = "";
+			processSource(cx,args[0]);
+		}catch(Exception e){System.err.println("RulesProcessor - process: " + e.getMessage());}
 	}
 
 	@Override
@@ -61,21 +55,26 @@ public class Test extends Shell{
 	public static void print(Context cx, Scriptable thisObj,
             Object[] args, Function funObj)
 	{
-		for (int i=0; i < args.length; i++) {
-		if (i > 0)
-		System.out.print(" ");
-		
-		// Convert the arbitrary JavaScript value into a string form.
-		String s = Context.toString(args[i]);
-		
-		System.out.print(s);
-		System.out.print("yes!");
-		}
-		System.out.println();
+		try{
+			for (int i=0; i < args.length; i++) {
+				if (i > 0)
+				System.out.print(" ");
+				
+				// Convert the arbitrary JavaScript value into a string form.
+				String s = Context.toString(args[i]);
+				
+				System.out.print(s);
+				toWrite += s + "\n";
+				
+				System.out.println();
+			}
+		}catch(Exception e){System.err.println("RulesProcessor - print: " + e.getMessage());}
 	}
 	
-	private void processSource(Context cx, String filename)
+	private void processSource(Context cx, String filename) throws IOException
     {
+		BufferedWriter out = new BufferedWriter(new FileWriter(outFile));
+		
         if (filename == null) {
             BufferedReader in = new BufferedReader
                 (new InputStreamReader(System.in));
@@ -110,6 +109,12 @@ public class Test extends Shell{
                     Object result = cx.evaluateString(this, source,
                                                       sourceName, startline,
                                                       null);
+                    
+                    if(toWrite != "")
+                    {
+                    	out.write(toWrite);
+                    	toWrite = "";
+                    }
                     
                     if (result != Context.getUndefinedValue()) {
                         System.err.println(Context.toString(result));
@@ -153,6 +158,12 @@ public class Test extends Shell{
                 // a script. Text is printed only if the print() function
                 // is called.
                 cx.evaluateReader(this, in, filename, 1, null);
+                
+                if(toWrite != null)
+                {
+                	out.write(toWrite);
+                	toWrite = null;
+                }
             }
             catch (WrappedException we) {
                 System.err.println(we.getWrappedException().toString());
@@ -176,6 +187,7 @@ public class Test extends Shell{
                 }
             }
         }
+        out.close();
     }
 
 	private boolean quitting;
@@ -194,14 +206,40 @@ public class Test extends Shell{
 		cx.setLanguageVersion((int) d);
 		}
 		return result;
-		}
-			public static void load(Context cx, Scriptable thisObj,
-		            Object[] args, Function funObj)
-		{
-		Shell shell = (Shell)getTopLevelScope(thisObj);
-		for (int i = 0; i < args.length; i++) {
-		shell.processSource(cx, Context.toString(args[i]));
 	}
-}
+		
+	public static void load(Context cx, Scriptable thisObj,
+		            Object[] args, Function funObj)
+	{
+		RulesProcessor shell = (RulesProcessor)getTopLevelScope(thisObj);
+		for (int i = 0; i < args.length; i++) {
+			try{
+		shell.processSource(cx, Context.toString(args[i]));
+			}catch(Exception e){System.err.println("RulesProcessor - load: " + e.getMessage());}
+		}
+	}
+	
+    public void help() {
+        p("");
+        p("Command                Description");
+        p("=======                ===========");
+        p("help()                 Display usage and help messages. ");
+        p("defineClass(className) Define an extension using the Java class");
+        p("                       named with the string argument. ");
+        p("                       Uses ScriptableObject.defineClass(). ");
+        p("load(['foo.js', ...])  Load JavaScript source files named by ");
+        p("                       string arguments. ");
+        p("loadClass(className)   Load a class named by a string argument.");
+        p("                       The class must be a script compiled to a");
+        p("                       class file. ");
+        p("print([expr ...])      Evaluate and print expressions. ");
+        p("quit()                 Quit the shell. ");
+        p("version([number])      Get or set the JavaScript version number.");
+        p("");
+    }
+    
+    private static void p(String s) {
+        System.out.println(s);
+    }
 	
 }
