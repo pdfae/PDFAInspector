@@ -16,16 +16,16 @@
          </dc:creator>
          <dc:title>
             <rdf:Alt>
-               <rdf:li xml:lang="x-default">Starbucks - Image Only</rdf:li>
+               <rdf:li xml:lang="x-default">Table of Names and Colors</rdf:li>
             </rdf:Alt>
          </dc:title>
       </rdf:Description>
       <rdf:Description rdf:about=""
             xmlns:xmp="http://ns.adobe.com/xap/1.0/">
-         <xmp:CreateDate>2010-10-11T19:27:04Z</xmp:CreateDate>
+         <xmp:CreateDate>2010-10-25T12:44:07Z</xmp:CreateDate>
          <xmp:CreatorTool>Microsoft® Office Word 2007</xmp:CreatorTool>
-         <xmp:ModifyDate>2010-10-25T07:25:53-05:00</xmp:ModifyDate>
-         <xmp:MetadataDate>2010-10-25T07:25:53-05:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2010-10-25T07:45:04-05:00</xmp:ModifyDate>
+         <xmp:MetadataDate>2010-10-25T07:45:04-05:00</xmp:MetadataDate>
       </rdf:Description>
       <rdf:Description rdf:about=""
             xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
@@ -33,8 +33,8 @@
       </rdf:Description>
       <rdf:Description rdf:about=""
             xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">
-         <xmpMM:DocumentID>uuid:9f7b5ffb-6fca-4af0-9d4c-96a73c8a39f1</xmpMM:DocumentID>
-         <xmpMM:InstanceID>uuid:6133d956-0d0d-4e6b-9509-47a7edf0f02f</xmpMM:InstanceID>
+         <xmpMM:DocumentID>uuid:6cd2dd0a-7e5d-43ed-b210-99bcbd4ee73b</xmpMM:DocumentID>
+         <xmpMM:InstanceID>uuid:2d59abe4-e5cb-4e62-9de3-07e2713ae341</xmpMM:InstanceID>
       </rdf:Description>
    </rdf:RDF>
 </x:xmpmeta>
@@ -63,10 +63,78 @@
 <?xpacket end='r'?>
 
 <Sect>
-<P> </P>
-<Figure Alt="Starbucks Interior">
+<Table Alt="Table of Names and Colors">
+<TR>
+<TD>
+<P>Name </P>
+</TD>
 
-<ImageData src="images/acrobatstarbucks_imageonly-msword_img_0.jpg"/>
-</Figure>
+<TD>
+<P>Color </P>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<P>Joe </P>
+</TD>
+
+<TD>
+<P>White </P>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<P>Samantha </P>
+</TD>
+
+<TD>
+<P>Pink </P>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<P>Ryan </P>
+</TD>
+
+<TD>
+<P>Blue </P>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<P>Jennifer </P>
+</TD>
+
+<TD>
+<P>Green </P>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<P>Amanda </P>
+</TD>
+
+<TD>
+<P>Red </P>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<P>Robert </P>
+</TD>
+
+<TD>
+<P>Black </P>
+</TD>
+</TR>
+</Table>
+
+<P> </P>
 </Sect>
 </TaggedPDF-doc>
