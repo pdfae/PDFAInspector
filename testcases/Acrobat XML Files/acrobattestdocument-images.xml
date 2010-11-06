@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Created from PDF via Acrobat SaveAsXML -->
+<!-- Mapping Table version: 28-February-2003 -->
+<TaggedPDF-doc>
+<?xpacket begin='﻿' id='W5M0MpCehiHzreSzNTczkc9d'?>
+<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.1-c041 52.342996, 2008/05/07-20:48:00        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+         <pdf:Producer>Acrobat Distiller 9.0.0 (Windows)</pdf:Producer>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+         <xmp:CreatorTool>Acrobat PDFMaker 9.0 for Word</xmp:CreatorTool>
+         <xmp:ModifyDate>2010-09-24T10:13:08-05:00</xmp:ModifyDate>
+         <xmp:CreateDate>2010-09-24T10:13:04-05:00</xmp:CreateDate>
+         <xmp:MetadataDate>2010-09-24T10:13:08-05:00</xmp:MetadataDate>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <dc:format>xml</dc:format>
+         <dc:creator>
+            <rdf:Seq>
+               <rdf:li>clblew</rdf:li>
+            </rdf:Seq>
+         </dc:creator>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">PDF Test Document - Images</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">
+         <xmpMM:DocumentID>uuid:e051581b-55ea-442f-80e8-d70f90aef76e</xmpMM:DocumentID>
+         <xmpMM:InstanceID>uuid:0b2136cb-1e07-4fc5-81ae-b93d13ab0d44</xmpMM:InstanceID>
+         <xmpMM:subject>
+            <rdf:Seq>
+               <rdf:li>1</rdf:li>
+            </rdf:Seq>
+         </xmpMM:subject>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/">
+         <pdfx:Company> </pdfx:Company>
+         <pdfx:SourceModified>D:20100924151247</pdfx:SourceModified>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?>
+<?xpacket end='r'?>
+<bookmark-tree>
+<bookmark title="PDF Test Document - Images">
+<destination structID="LinkTarget_21"/>
+<bookmark title="Image with a text equivalent">
+<destination structID="LinkTarget_22"/>
+</bookmark>
+<bookmark title="Image without a text equivalent">
+<destination structID="LinkTarget_26"/>
+</bookmark>
+</bookmark>
+</bookmark-tree>
+
+<Sect xml:lang="EN-US">
+<Heading-1 id="LinkTarget_21">PDF Test Document - Images </Heading-1>
+
+<Heading-2 id="LinkTarget_22">Image with a text equivalent </Heading-2>
+
+<Normal>A text equivalent was added to this before PDF was converted </Normal>
+
+<Normal><InlineShape Alt="Great Danes Lexcie and Lucie.">
+
+<ImageData src="images/acrobattestdocument-images_img_0.jpg"/>
+</InlineShape>
+ </Normal>
+
+<Heading-2 id="LinkTarget_26">Image without a text equivalent </Heading-2>
+
+<Normal>This clip contains no text equivalent </Normal>
+
+<Normal><InlineShape>
+
+<ImageData src="images/acrobattestdocument-images_img_1.jpg"/>
+</InlineShape>
+ </Normal>
+</Sect>
+</TaggedPDF-doc>
