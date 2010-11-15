@@ -5,26 +5,47 @@ import java.io.*;
 import com.itextpdf.*;
 public class RulesProcessor extends Shell{
 
-	/**
-	 * @param args
-	 */
+	// File to write all processing output to
 	static String outFile = "files/testOut.txt";
+	// BufferedWriter is an output stream that will write to the file above
 	static BufferedWriter out;
+	// This is the string that will be written to file each time print is called
 	static String toWrite;
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		/*try{
-		BufferedReader in = new BufferedReader(new FileReader("files/ExampleJS.txt"));
+		// create the javascript file containing json object
+		// rules, and the parser
+		XMLToJSON xmlconvert = new XMLToJSON();
+		xmlconvert.convertXMLtoJSON("files/exampleTable.xml", "files/jsonObj.txt");
 		
-		}catch(Exception e){System.err.println("Test main: " + e.getMessage());}*/
+		try{
+			String in1str;
+			String in2str;
+			BufferedReader in1 = new BufferedReader(new FileReader("files/jsonObj.txt"));
+			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("files/JS.txt"));
+			
+			out.write("root = ");
+			while((in1str = in1.readLine()) != null)
+			{
+				out.write(in1str);
+			}
+			out.write("\n\n");
+			while((in2str = in2.readLine()) != null)
+			{
+				out.write(in2str + "\n");
+			}
+			
+			in1.close();
+			in2.close();
+			out.close();
+		}catch(Exception e){System.err.println("combine two js text files: " + e.getMessage());}
 		
-		String shlArgs[] = {"files/ExampleJS.txt"};
-		//Shell shl = new Shell();
+		// Process js file
+		String shlArgs[] = {"files/JS.txt"};
 		System.out.println("judging...");
-		//Context cx = new Context();
-		//cx.enter();
-		//shl.main(shlArgs);
 		
+		// Create an instance of myself to call nonstatic functions
 		RulesProcessor processor = new RulesProcessor();
 		processor.process(shlArgs);
 		System.out.println("finished!");
@@ -32,43 +53,50 @@ public class RulesProcessor extends Shell{
 	
 	public void process(String[] args)
 	{
+		// Setup javascript functions that need to be translated to java
 		String[] names = {  "print", "quit", "version", "load", "help" };
         this.defineFunctionProperties(names, RulesProcessor.class,
                                        ScriptableObject.DONTENUM);
         
+        // Setup context...?
 		Context cx = Context.enter();
+		// Setup standard javascript objects
 		Scriptable scope = cx.initStandardObjects(this);
-		String[] argz = {};
 		
 		try{
+			// Setup string buffer which will hold what to write to file when print is called
 			toWrite = "";
+			// Use rhino's process function to process the javascript file
 			processSource(cx,args[0]);
 		}catch(Exception e){System.err.println("RulesProcessor - process: " + e.getMessage());}
 	}
 
+	// Required to extend Shell class
 	@Override
 	public String getClassName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	// Called whenever javascript print function is called
 	public static void print(Context cx, Scriptable thisObj,
             Object[] args, Function funObj)
 	{
-		try{
-			for (int i=0; i < args.length; i++) {
-				if (i > 0)
-				System.out.print(" ");
-				
-				// Convert the arbitrary JavaScript value into a string form.
-				String s = Context.toString(args[i]);
-				
-				System.out.print(s);
-				toWrite += s + "\n";
-				
-				System.out.println();
-			}
-		}catch(Exception e){System.err.println("RulesProcessor - print: " + e.getMessage());}
+		for (int i=0; i < args.length; i++) {
+			if (i > 0)
+			System.out.print(" ");
+			
+			// Convert the arbitrary JavaScript value into a string form.
+			String s = Context.toString(args[i]);
+			
+			// Print what is going to be written
+			System.out.print(s);
+			
+			// Store what was printed in this variable which will be written to file
+			toWrite += s + "\n";
+			
+			System.out.println();
+		}
 	}
 	
 	private void processSource(Context cx, String filename) throws IOException
@@ -109,12 +137,6 @@ public class RulesProcessor extends Shell{
                     Object result = cx.evaluateString(this, source,
                                                       sourceName, startline,
                                                       null);
-                    
-                    if(toWrite != "")
-                    {
-                    	out.write(toWrite);
-                    	toWrite = "";
-                    }
                     
                     if (result != Context.getUndefinedValue()) {
                         System.err.println(Context.toString(result));
@@ -159,6 +181,7 @@ public class RulesProcessor extends Shell{
                 // is called.
                 cx.evaluateReader(this, in, filename, 1, null);
                 
+                // Write to file what is stored in write variable
                 if(toWrite != null)
                 {
                 	out.write(toWrite);
