@@ -60,6 +60,7 @@ public class RulesProcessor extends Shell{
 	public void runRules(String jsonObjIn, String writeTo)
 	{
 		outFile = writeTo;
+		System.out.println("Writing to " + outFile);
 		try{
 			String instr;
 			BufferedReader in1 = new BufferedReader(new FileReader(jsonObjIn));
