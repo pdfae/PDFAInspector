@@ -45,7 +45,7 @@ public class RulesProcessor extends Shell{
 			in2.close();
 			in3.close();
 			out.close();
-		}catch(Exception e){System.err.println("combine three js text files: " + e.getMessage());}
+		}catch(Exception e){System.err.println("error combining three js text files, file possibly not found: " + e.getMessage());return;}
 		
 		// Process js file
 		String shlArgs[] = {"files/JS.txt"};
@@ -60,7 +60,6 @@ public class RulesProcessor extends Shell{
 	public void runRules(String jsonObjIn, String writeTo)
 	{
 		outFile = writeTo;
-		System.out.println("Writing to " + outFile);
 		try{
 			String instr;
 			BufferedReader in1 = new BufferedReader(new FileReader(jsonObjIn));
@@ -84,7 +83,7 @@ public class RulesProcessor extends Shell{
 			in2.close();
 			in3.close();
 			out.close();
-		}catch(Exception e){System.err.println("combine three js text files: " + e.getMessage());}
+		}catch(Exception e){System.err.println("error combining three js text files, file possibly not found: " + e.getMessage());return;}
 		
 		// Process js file
 		String shlArgs[] = {"files/JS.txt"};
