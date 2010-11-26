@@ -3,6 +3,10 @@ import org.mozilla.javascript.optimizer.*;
 import java.io.*;
 
 import com.itextpdf.*;
+// THIS CLASS IS THE EXECUTABLE
+// READS IN JSON FORMATTED PDF FILE
+// READS IN JSON FORMATTED RULES
+// 
 public class RulesProcessor extends Shell{
 
 	// File to write all processing output to
@@ -19,27 +23,29 @@ public class RulesProcessor extends Shell{
 		xmlconvert.convertXMLtoJSON("files/exampleTable.xml", "files/jsonObj.txt");
 		
 		try{
-			String in1str;
-			String in2str;
+			String instr;
 			BufferedReader in1 = new BufferedReader(new FileReader("files/jsonObj.txt"));
 			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
+			BufferedReader in3 = new BufferedReader(new FileReader("files/Processor.txt"));
 			BufferedWriter out = new BufferedWriter(new FileWriter("files/JS.txt"));
 			
 			out.write("root = ");
-			while((in1str = in1.readLine()) != null)
-			{
-				out.write(in1str);
-			}
+			while((instr = in1.readLine()) != null)
+				out.write(instr);
+			
 			out.write("\n\n");
-			while((in2str = in2.readLine()) != null)
-			{
-				out.write(in2str + "\n");
-			}
+			while((instr = in2.readLine()) != null)
+				out.write(instr + "\n");
+			
+			out.write("\n\n");
+			while((instr = in3.readLine()) != null)
+				out.write(instr + "\n");
 			
 			in1.close();
 			in2.close();
+			in3.close();
 			out.close();
-		}catch(Exception e){System.err.println("combine two js text files: " + e.getMessage());}
+		}catch(Exception e){System.err.println("combine three js text files: " + e.getMessage());}
 		
 		// Process js file
 		String shlArgs[] = {"files/JS.txt"};
@@ -94,8 +100,6 @@ public class RulesProcessor extends Shell{
 			
 			// Store what was printed in this variable which will be written to file
 			toWrite += s + "\n";
-			
-			System.out.println();
 		}
 	}
 	

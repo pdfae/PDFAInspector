@@ -2,10 +2,10 @@
 function tagged(tags)
 {
 	if(tags == null) 
-		print("Tags Exist: FAIL!");
+		print("Tags Exist: FAIL!\n");
 	else
-		print("Tags Exist: PASS!");
-} 
+		print("Tags Exist: PASS!\n");
+}
 function tableformatted(table)
 {
 	for(row in table)
@@ -13,20 +13,20 @@ function tableformatted(table)
 		var numcols = 0;
 		if(row != "tr")
 		{
-			print("table format error?");
+			print("table format error?\n");
 			return;
 		}
 		if(table[row].length >= 2)
-			print("At Least 2 Rows: PASS!");
+			print("At Least 2 Rows: PASS!\n");
 		else
-			print("At Least 2 Rows: FAIL!");
+			print("At Least 2 Rows: FAIL!\n");
 		for(i=0; i<table[row].length; i=i+1)
 		{
 			for(td in table[row][i])
 			{
 				if(td != "td")
 				{
-					print("table format error?");
+					print("table format error?\n");
 					return;
 				}
 				if(table[row][i][td].length > numcols)
@@ -34,42 +34,9 @@ function tableformatted(table)
 			}
 		}
 		if(numcols >= 2)
-			print("At Least 2 Cols: PASS!");
+			print("At Least 2 Cols: PASS!\n");
 		else
-			print("At Least 2 Cols: FAIL!");
+			print("At Least 2 Cols: FAIL!\n");
 		
 	}
 }
-
-// processing
-// extract specific data from the root
-var tags = root.tags;
-
-// use rules on necessary parts of json
-tagged(tags);
-
-// traverse the json of the tags
-function traverse(tags)
-{
-	for(item in tags)
-	{
-		var val = tags[item];
-		// if its a table run the table rule on it
-		if(item == "table")
-		{
-			tableformatted(val);
-		}
-		if(val.length != null)
-		{
-			for(i=0;i<val.length;i++)
-			{
-				traverse(val[i]);
-			}
-		}
-		else{
-			traverse(val);
-		}
-	}
-}
-
-traverse(tags);
