@@ -1,4 +1,5 @@
 // rules
+
 function tagged(tags)
 {
 	if(tags == null) 
@@ -11,7 +12,7 @@ function tableformatted(table)
 	for(row in table)
 	{
 		var numcols = 0;
-		if(row != "tr")
+		if(row.toLowerCase() != "tr")
 		{
 			print("table format error?\n");
 			return;
@@ -24,7 +25,7 @@ function tableformatted(table)
 		{
 			for(td in table[row][i])
 			{
-				if(td != "td")
+				if(td.toLowerCase() != "td")
 				{
 					print("table format error?\n");
 					return;
