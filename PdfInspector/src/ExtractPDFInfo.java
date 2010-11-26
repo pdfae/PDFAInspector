@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ExtractPDFInfo {
 
-    public static void main(String[] args) throws IOException {
+    public void extractPdfInfo() {
     	
         try {
-        	String filename = "testdocument-images";
+        	String filename = "testdocument-forms";
         	String pathname = "C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/" +
         			filename + ".pdf";
         	String xmlFile = "C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/final-" +
@@ -36,7 +36,9 @@ public class ExtractPDFInfo {
             
             XMLToJSON.convertXMLtoJSON(xmlFile, 
             		"C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/json-" +
-    				filename + ".json");
+    				filename + ".txt");
+            
+            
         } catch (Exception e) {
         }
     }

@@ -27,16 +27,16 @@ public class PdfInfo {
 	 * @param filename
 	 * @return File
 	 */
-	public File exportAsXML(String filename){
+	public void exportAsXML(String outFilename){
 		try {
 
-			FileOutputStream output = new FileOutputStream(filename);
+			FileOutputStream output = new FileOutputStream(outFilename);
 			PrintWriter writer = new PrintWriter(output);
 			writer.println("<pdfinfo>");
 			writer.flush();
 			
 			//bookmarks
-			if (bookmarkFile == null || bookmarkFile.length() > 1){
+			if (bookmarkFile != null && bookmarkFile.length() > 1){
 				FileInputStream inputBookmark = new FileInputStream(bookmarkFile);
 				copy(inputBookmark, output);
 			}
@@ -46,11 +46,11 @@ public class PdfInfo {
 			}
 			//tags
 			if (tagFile.length() > 1){
-				writer.println("<tag>");
+				writer.println("<tags>");
 				writer.flush();
 				FileInputStream inputTag = new FileInputStream(tagFile);
 				copy(inputTag, output);
-				writer.println("</tag>");
+				writer.println("</tags>");
 				writer.flush();
 			}
 			else{
@@ -68,13 +68,12 @@ public class PdfInfo {
 			}
 
 			writer.println("</pdfinfo>");
+			writer.flush();
 			writer.close();
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new File(filename);
 	}
 	
 	/**
