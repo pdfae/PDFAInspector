@@ -62,7 +62,7 @@ public class RulesProcessor extends Shell{
 		outFile = writeTo;
 		try{
 			String instr;
-			BufferedReader in1 = new BufferedReader(new FileReader("files/jsonObj.txt"));
+			BufferedReader in1 = new BufferedReader(new FileReader(jsonObjIn));
 			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
 			BufferedReader in3 = new BufferedReader(new FileReader("files/Processor.txt"));
 			BufferedWriter out = new BufferedWriter(new FileWriter("files/JS.txt"));
