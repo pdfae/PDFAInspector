@@ -19,9 +19,47 @@ public class RulesProcessor extends Shell{
 	public static void main(String[] args) {
 		// create the javascript file containing json object
 		// rules, and the parser
-		XMLToJSON xmlconvert = new XMLToJSON();
-		xmlconvert.convertXMLtoJSON("files/exampleTable.xml", "files/jsonObj.txt");
+		//XMLToJSON xmlconvert = new XMLToJSON();
+		//xmlconvert.convertXMLtoJSON("files/exampleTable.xml", "files/jsonObj.txt");
 		
+		try{
+			String instr;
+			BufferedReader in1 = new BufferedReader(new FileReader("files/jsonObj.txt"));
+			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
+			BufferedReader in3 = new BufferedReader(new FileReader("files/Processor.txt"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("files/JS.txt"));
+			
+			out.write("root = ");
+			while((instr = in1.readLine()) != null)
+				out.write(instr);
+			
+			out.write("\n\n");
+			while((instr = in2.readLine()) != null)
+				out.write(instr + "\n");
+			
+			out.write("\n\n");
+			while((instr = in3.readLine()) != null)
+				out.write(instr + "\n");
+			
+			in1.close();
+			in2.close();
+			in3.close();
+			out.close();
+		}catch(Exception e){System.err.println("combine three js text files: " + e.getMessage());}
+		
+		// Process js file
+		String shlArgs[] = {"files/JS.txt"};
+		System.out.println("judging...");
+		
+		// Create an instance of myself to call nonstatic functions
+		RulesProcessor processor = new RulesProcessor();
+		processor.process(shlArgs);
+		System.out.println("finished!");
+	}
+	
+	public void runRules(String jsonObjIn, String writeTo)
+	{
+		outFile = writeTo;
 		try{
 			String instr;
 			BufferedReader in1 = new BufferedReader(new FileReader("files/jsonObj.txt"));
