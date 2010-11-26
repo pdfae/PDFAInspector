@@ -2,20 +2,18 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 
-import com.itextpdf.text.pdf.PdfDictionary;
-import com.itextpdf.text.pdf.PdfName;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.SimpleBookmark;
-import com.itextpdf.text.pdf.parser.TaggedPdfReaderTool;
 
 public class ExtractPDFInfo {
 
     public static void main(String[] args) throws IOException {
     	
         try {
-        	String filename = "tables-example2";
+        	String filename = "testdocument-images";
         	String pathname = "C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/" +
         			filename + ".pdf";
+        	String xmlFile = "C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/final-" +
+			filename + ".xml";
+        	
         	PdfExtractor extractor = new PdfExtractor(pathname);
         	
         	String tagFilename = "C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/itext-" +
@@ -31,8 +29,14 @@ public class ExtractPDFInfo {
             File bookmarks = extractor.extractBookmarks(bookFilename);
             
             PdfInfo info = new PdfInfo(tags, forms, bookmarks);
-            info.exportAsXML("C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/final-" +
-				filename + ".xml");
+            info.exportAsXML(xmlFile);
+            
+            bookmarks.delete();
+            forms.delete();
+            
+            XMLToJSON.convertXMLtoJSON(xmlFile, 
+            		"C:/Users/Karen/Documents/Homework/PDF_Tests/pdfainspector/testcases/json-" +
+    				filename + ".json");
         } catch (Exception e) {
         }
     }

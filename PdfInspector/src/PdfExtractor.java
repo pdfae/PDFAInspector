@@ -101,7 +101,9 @@ public class PdfExtractor {
 			File file = new File(result);
 			writer = new PrintWriter(new FileOutputStream(file));
 	    	AcroFields form = reader.getAcroFields();
-	        // Loop over the fields and get field names
+	        
+	    	writer.println("<form>");
+	    	// Loop over the fields and get field names
 	    	
 	        Set<String> fields = form.getFields().keySet();
 	        String tag;
@@ -147,6 +149,7 @@ public class PdfExtractor {
 	            
 	            writer.println("</" +tag+ ">");
 	        }
+	        writer.println("</form>");
 	        writer.flush();
 	        writer.close();
 	        
