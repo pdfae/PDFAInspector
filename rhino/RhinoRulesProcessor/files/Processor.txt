@@ -12,7 +12,7 @@ function traverse(tags)
 	{
 		var val = tags[item];
 		// if its a table run the table rule on it
-		if(item == "table")
+		if(item.toLowerCase() == "table")
 		{
 			tableformatted(val);
 		}
