@@ -10,6 +10,7 @@ public class PdfAInspector {
 		RulesProcessor rprocessor = new RulesProcessor();
 		rprocessor.runRules(pathname + "json-" + filename + ".txt", pathname + "result_" + filename + ".txt");
 		
+		System.out.println("ENDDDDD");
 	}
 	
     public static void extractPdfInfo() {
@@ -36,9 +37,9 @@ public class PdfAInspector {
             		pathname + "json-" + filename + ".txt");
             
             //delete files
-            bookmarks.delete();
-            forms.delete();
-            tags.delete();
+            if (bookmarks != null) bookmarks.delete();
+            if (forms != null) forms.delete();
+            if (tags != null) tags.delete();
             
         } catch (Exception e) {
         }
