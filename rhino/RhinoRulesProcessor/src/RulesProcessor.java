@@ -10,7 +10,7 @@ import com.itextpdf.*;
 public class RulesProcessor extends Shell{
 
 	// File to write all processing output to
-	static String outFile = "files/testOut.txt";
+	static String outFile = "files/Results.txt";
 	// BufferedWriter is an output stream that will write to the file above
 	static BufferedWriter out;
 	// This is the string that will be written to file each time print is called
@@ -24,7 +24,7 @@ public class RulesProcessor extends Shell{
 		
 		try{
 			String instr;
-			BufferedReader in1 = new BufferedReader(new FileReader("files/jsonObj.txt"));
+			BufferedReader in1 = new BufferedReader(new FileReader("files/json-tables-example2.txt"));
 			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
 			BufferedReader in3 = new BufferedReader(new FileReader("files/Processor.txt"));
 			BufferedWriter out = new BufferedWriter(new FileWriter("files/JS.txt"));
@@ -137,13 +137,15 @@ public class RulesProcessor extends Shell{
 			System.out.print(s);
 			
 			// Store what was printed in this variable which will be written to file
-			toWrite += s + "\n";
+			toWrite += s;
 		}
 	}
 	
 	private void processSource(Context cx, String filename) throws IOException
     {
 		BufferedWriter out = new BufferedWriter(new FileWriter(outFile));
+		// setting up the results data structure
+		out.write("{\n\"results\":[\n");
 		
         if (filename == null) {
             BufferedReader in = new BufferedReader
@@ -252,6 +254,7 @@ public class RulesProcessor extends Shell{
                 }
             }
         }
+        out.write("]}");
         out.close();
     }
 
