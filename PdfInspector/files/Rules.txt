@@ -1,0 +1,43 @@
+// rules
+
+function tagged(tags)
+{
+	if(tags == null) 
+		print("Tags Exist: FAIL!\n");
+	else
+		print("Tags Exist: PASS!\n");
+}
+function tableformatted(table)
+{
+	for(row in table)
+	{
+		var numcols = 0;
+		if(row.toLowerCase() != "tr")
+		{
+			print("table format error?\n");
+			return;
+		}
+		if(table[row].length >= 2)
+			print("At Least 2 Rows: PASS!\n");
+		else
+			print("At Least 2 Rows: FAIL!\n");
+		for(i=0; i<table[row].length; i=i+1)
+		{
+			for(td in table[row][i])
+			{
+				if(td.toLowerCase() != "td")
+				{
+					print("table format error?\n");
+					return;
+				}
+				if(table[row][i][td].length > numcols)
+					numcols = table[row][i][td].length;
+			}
+		}
+		if(numcols >= 2)
+			print("At Least 2 Cols: PASS!\n");
+		else
+			print("At Least 2 Cols: FAIL!\n");
+		
+	}
+}

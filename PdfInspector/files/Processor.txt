@@ -1,0 +1,38 @@
+// processing
+// extract specific data from the root
+var tags = root.tags;
+
+// use rules on necessary parts of json
+tagged(tags);
+
+// traverse the json of the tags
+function traverse(tags)
+{
+	for(item in tags)
+	{
+		var val = tags[item];
+		// if its a table run the table rule on it
+		if(item.toLowerCase() == "table")
+		{
+			tableformatted(val);
+		}
+		if(val.length != null)
+		{
+			for(i=0;i<val.length;i++)
+			{
+				traverse(val[i]);
+			}
+		}
+		else{
+			traverse(val);
+		}
+	}
+}
+
+traverse(tags);
+
+//
+function determineRule(tag)
+{
+	
+}
