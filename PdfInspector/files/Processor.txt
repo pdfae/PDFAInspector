@@ -16,7 +16,7 @@ function traverse(tags)
 		{
 			tableformatted(val);
 		}
-		if(val.length != null)
+		else if(val.constructor == Array)
 		{
 			for(i=0;i<val.length;i++)
 			{
