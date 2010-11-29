@@ -10,7 +10,6 @@ public class PdfAInspector {
 		RulesProcessor rprocessor = new RulesProcessor();
 		rprocessor.runRules(pathname + "json-" + filename + ".txt", pathname + "result_" + filename + ".txt");
 		
-		System.out.println("ENDDDDD");
 	}
 	
     public static void extractPdfInfo() {
