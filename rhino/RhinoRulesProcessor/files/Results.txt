@@ -1,0 +1,31 @@
+{
+"results":[
+{
+	"section":
+	{
+	"title":"",
+	"number":"",
+	"subsection":[]
+	}
+	"rule":
+	{
+	"name":"tagged",
+	"result":"recommendation",
+	"message":"tags exist, make sure that tags represent semantic structure of document"
+	}
+},
+{
+	"section":
+	{
+	"title":"",
+	"number":"",
+	"subsection":[]
+	}
+	"rule":
+	{
+	"name":"tableformatted",
+	"result":"recommendation",
+	"message":"this table is at least 2 x 2, check to see that the table contains useful content"
+	}
+},
+]}
