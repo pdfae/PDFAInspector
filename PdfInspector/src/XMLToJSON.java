@@ -2,6 +2,9 @@ import org.json.*;
 import java.io.*;
 import java.util.*;
 
+/*
+ * reference: http://www.json.org/java/
+ */
 /**
  * Converts XML to JSON
  *
