@@ -3,14 +3,20 @@ import java.io.File;
 /**
  * Executable file of PdfInspector
  * Extracts pdf info, converts it to json, then runs rules on it
+ * @param complete pathname of pdf file to be evaluated
  * @author Karen
  *
  */
 public class PdfAInspector {
-	private static String pathname = "C:/Users/Kenneth/Desktop/Adobe PDF Repository/PdfInspector/files/";
-	private static String filename = "tables-example2";
+	private static String pathname;
+	private static String filename;
+	
 	
 	public static void main(String[] args) {
+		
+		pathname = extractPath(args[0]);
+		filename = extractFilename(args[0]);
+		
 		extractPdfInfo();
 		RulesProcessor rprocessor = new RulesProcessor();
 		rprocessor.runRules(pathname + "json-" + filename + ".json", pathname + "result_" + filename + ".json");
@@ -78,6 +84,35 @@ public class PdfAInspector {
         xml.delete();
             
     }
-
+    
+    /**
+     * Extracts the pathname of a string
+     */
+    public static String extractPath(String str){
+    	for (int x = str.length()-1; x>0; x--){
+    		if (str.charAt(x) == '/'){
+    			return str.substring(0, x+1);
+    		}
+    	}
+    	return null;
+    }
+    
+    /**
+     * Extracts the filename of a string
+     */
+    public static String extractFilename(String str){
+    	int extensionPos = str.length()-1;
+    	
+    	for (int x = str.length()-1; x>0; x--){
+    		if (str.charAt(x) == '.'){
+    			extensionPos = x;
+    		}
+    		if (str.charAt(x) == '/'){
+    			return str.substring(x+1,extensionPos);
+    		}
+    		
+    	}
+    	return null;    	
+    }
    
 }
