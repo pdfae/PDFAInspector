@@ -7,8 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 /**
- * PDF data class
- * @author Karen
+ * PDF data class holding information about tags, forms, and bookmarks
  *
  */
 public class PdfInfo {
@@ -45,7 +44,7 @@ public class PdfInfo {
 				writer.flush();
 			}
 			//tags
-			if (tagFile.length() > 1){
+			if (tagFile != null && tagFile.length() > 1){
 				writer.println("<tags>");
 				writer.flush();
 				FileInputStream inputTag = new FileInputStream(tagFile);
@@ -58,7 +57,7 @@ public class PdfInfo {
 				writer.flush();
 			}
 			//forms
-			if (formFile.length() > 1){
+			if (formFile != null && formFile.length() > 1){
 				FileInputStream inputForm = new FileInputStream(formFile);
 				copy(inputForm, output);
 			}
@@ -95,14 +94,26 @@ public class PdfInfo {
 		}
 	}
 	
+	/**
+	 * Get tag file
+	 * @return tagFile
+	 */
 	public File getTag(){
 		return tagFile;
 	}
 	
+	/**
+	 * Get form file
+	 * @return formFile
+	 */
 	public File getForm(){
 		return formFile;
 	}
 	
+	/**
+	 * Get bookmark file
+	 * @return bookmarkFile
+	 */
 	public File getBookmark(){
 		return bookmarkFile;
 	}
