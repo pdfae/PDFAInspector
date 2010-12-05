@@ -8,7 +8,7 @@ function tagged(tags)
 	print("	\"title\":\"\",\n");
 	print("	\"number\":\"\",\n");
 	print("	\"subsection\":[]\n");
-	print("	}\n");
+	print("	},\n");
 	print("	\"rule\":\n");
 	print("	{\n");
 	print("	\"name\":\"tagged\",\n");
@@ -35,7 +35,7 @@ function tableformatted(table)
 	print("	\"title\":\"\",\n");
 	print("	\"number\":\"\",\n");
 	print("	\"subsection\":[]\n");
-	print("	}\n");
+	print("	},\n");
 	print("	\"rule\":\n");
 	print("	{\n");
 	print("	\"name\":\"tableformatted\",\n");

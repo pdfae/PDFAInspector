@@ -17,47 +17,6 @@ public class RulesProcessor extends Shell{
 	// This is the string that will be written to file each time print is called
 	static String toWrite;
 	
-	/*public static void main(String[] args) {
-		// create the javascript file containing json object
-		// rules, and the parser
-		//XMLToJSON xmlconvert = new XMLToJSON();
-		//xmlconvert.convertXMLtoJSON("files/exampleTable.xml", "files/jsonObj.txt");
-		
-		try{
-			String instr;
-			BufferedReader in1 = new BufferedReader(new FileReader("files/json-tables-example2.txt"));
-			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
-			BufferedReader in3 = new BufferedReader(new FileReader("files/Processor.txt"));
-			BufferedWriter out = new BufferedWriter(new FileWriter("files/JS.txt"));
-			
-			out.write("root = ");
-			while((instr = in1.readLine()) != null)
-				out.write(instr);
-			
-			out.write("\n\n");
-			while((instr = in2.readLine()) != null)
-				out.write(instr + "\n");
-			
-			out.write("\n\n");
-			while((instr = in3.readLine()) != null)
-				out.write(instr + "\n");
-			
-			in1.close();
-			in2.close();
-			in3.close();
-			out.close();
-		}catch(Exception e){System.err.println("error combining three js text files, file possibly not found: " + e.getMessage());return;}
-		
-		// Process js file
-		String shlArgs[] = {"files/JS.txt"};
-		
-		// Create an instance of myself to call nonstatic functions
-		RulesProcessor processor = new RulesProcessor();
-		processor.process(shlArgs);
-		
-	}
-	*/
-	
 	public void runRules(String jsonObjIn, String writeTo)
 	{
 		outFile = writeTo;
@@ -224,10 +183,10 @@ public class RulesProcessor extends Shell{
                 cx.evaluateReader(this, in, filename, 1, null);
                 
                 // Write to file what is stored in write variable
-                if(toWrite != null)
+                //if(toWrite != null)
                 {
-                	out.write(toWrite);
-                	toWrite = null;
+                	//out.write(toWrite);
+                	//toWrite = null;
                 }
             }
             catch (WrappedException we) {
@@ -252,6 +211,10 @@ public class RulesProcessor extends Shell{
                 }
             }
         }
+        
+        int lastCommaInd = toWrite.lastIndexOf("},");
+        toWrite = toWrite.substring(0, lastCommaInd) + "}\n";
+        out.write(toWrite);
         out.write("]}");
         out.close();
     }
