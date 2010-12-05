@@ -59,7 +59,7 @@ public class PdfInfo {
 				writer.flush();
 			}
 			else{
-				writer.println("<tag></tag>");
+				writer.println("<tags></tags>");
 				writer.flush();
 			}
 			//forms
