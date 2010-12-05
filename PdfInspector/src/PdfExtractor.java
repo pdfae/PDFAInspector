@@ -14,7 +14,12 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.SimpleBookmark;
 import com.itextpdf.text.pdf.parser.TaggedPdfReaderTool;
 
-
+/**
+ * PdfExtractor
+ * Extracts information and saves it to a separate xml file, determined by the filename parameter
+ * @author Karen
+ *
+ */
 public class PdfExtractor {
 	private String filename;
 	private PdfReader reader;
@@ -32,6 +37,7 @@ public class PdfExtractor {
 	
     /**
      * Extract tags and save as XML
+     * @return tags as an xml File
      * @throws IOException 
      */
     public File extractTags(String result) throws IOException{
@@ -57,6 +63,7 @@ public class PdfExtractor {
     
     /**
      * Extract bookmarks and save as XML
+     * @return bookmark information as a xml file
      */
     public File extractBookmarks(String result){
 		try {
@@ -67,7 +74,6 @@ public class PdfExtractor {
 	        SimpleBookmark.exportToXML(list, fop, "ISO8859-1", true);
 	        return file;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -76,14 +82,45 @@ public class PdfExtractor {
     
     /**
      * extract metadata
+     * @return metadata information as xml file
      */
-    public void extractMeta(){
-        //extract metadata
-        HashMap meta = reader.getInfo();
-        String title = (String)meta.get("Title");
-        String author = (String)meta.get("Author");
-        String creator = (String)meta.get("Creator");
-        String keywords = (String)meta.get("Keywords");
+    public File extractMeta(String filename){
+    	try{
+    		File file = new File(filename);
+    		PrintWriter writer = new PrintWriter(new FileOutputStream(file));
+    	
+        	//extract metadata
+        	HashMap meta = reader.getInfo();
+        	String title = (String)meta.get("Title");
+        	String author = (String)meta.get("Author");
+        	String creator = (String)meta.get("Creator");
+        	String keywords = (String)meta.get("Keywords");
+        
+        	writer.println("<title>");
+        	writer.println(title);
+        	writer.println("</title>");
+        	
+        	writer.println("<author>");
+        	writer.println(author);
+        	writer.println("</author>");
+        	
+        	writer.println("<creator>");
+        	writer.println(creator);
+        	writer.println("</creator>");
+        	
+        	writer.println("<keywords>");
+        	writer.println(keywords);
+        	writer.println("</keywords>");
+        
+        	writer.flush();
+        	writer.close();
+        	
+        	return file;
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+    		return null;
+    	}
     }
     
     /**
@@ -95,6 +132,7 @@ public class PdfExtractor {
     
     /**
      * Extract Form Information
+     * @return form information as a xml file
      */
     public File extractForm(String result){
         PrintWriter writer;
@@ -156,7 +194,6 @@ public class PdfExtractor {
 	        
 	        return file;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

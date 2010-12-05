@@ -16,7 +16,7 @@ public class RulesProcessor extends Shell{
 	// This is the string that will be written to file each time print is called
 	static String toWrite;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// create the javascript file containing json object
 		// rules, and the parser
 		//XMLToJSON xmlconvert = new XMLToJSON();
@@ -49,13 +49,13 @@ public class RulesProcessor extends Shell{
 		
 		// Process js file
 		String shlArgs[] = {"files/JS.txt"};
-		System.out.println("judging...");
 		
 		// Create an instance of myself to call nonstatic functions
 		RulesProcessor processor = new RulesProcessor();
 		processor.process(shlArgs);
-		System.out.println("finished!");
+		
 	}
+	*/
 	
 	public void runRules(String jsonObjIn, String writeTo)
 	{
@@ -77,8 +77,7 @@ public class RulesProcessor extends Shell{
 			
 			out.write("\n\n");
 			while((instr = in3.readLine()) != null)
-				out.write(instr + "\n");
-			
+				out.write(instr + "\n");			
 			in1.close();
 			in2.close();
 			in3.close();
@@ -87,12 +86,10 @@ public class RulesProcessor extends Shell{
 		
 		// Process js file
 		String shlArgs[] = {"files/JS.txt"};
-		System.out.println("judging...");
 		
 		// Create an instance of myself to call nonstatic functions
 		RulesProcessor processor = new RulesProcessor();
 		processor.process(shlArgs);
-		System.out.println("finished!");
 	}
 	
 	public void process(String[] args)
@@ -127,14 +124,14 @@ public class RulesProcessor extends Shell{
             Object[] args, Function funObj)
 	{
 		for (int i=0; i < args.length; i++) {
-			if (i > 0)
-			System.out.print(" ");
+			//if (i > 0)
+			//System.out.print(" ");
 			
 			// Convert the arbitrary JavaScript value into a string form.
 			String s = Context.toString(args[i]);
 			
 			// Print what is going to be written
-			System.out.print(s);
+			//System.out.print(s);
 			
 			// Store what was printed in this variable which will be written to file
 			toWrite += s;
