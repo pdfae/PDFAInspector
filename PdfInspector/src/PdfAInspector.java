@@ -1,6 +1,11 @@
 import java.io.File;
 
-
+/**
+ * Executable file of PdfInspector
+ * Extracts pdf info, converts it to json, then runs rules on it
+ * @author Karen
+ *
+ */
 public class PdfAInspector {
 	private static String pathname = "C:/Users/Kenneth/Desktop/Adobe PDF Repository/PdfInspector/files/";
 	private static String filename = "tables-example2";
