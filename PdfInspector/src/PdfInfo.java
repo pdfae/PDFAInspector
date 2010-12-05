@@ -8,12 +8,19 @@ import java.io.PrintWriter;
 
 /**
  * PDF data class holding information about tags, forms, and bookmarks
+ * @author Karen
  */
 public class PdfInfo {
 	private File tagFile;
 	private File formFile;
 	private File bookmarkFile;
 	
+	/**
+	 * PdfInfo constructor
+	 * @param tag : tag File
+	 * @param form : forms File
+	 * @param bookmark : bookmarks File
+	 */
 	public PdfInfo(File tag, File form, File bookmark){
 		tagFile = tag;
 		formFile = form;

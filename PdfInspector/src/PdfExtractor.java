@@ -17,7 +17,8 @@ import com.itextpdf.text.pdf.parser.TaggedPdfReaderTool;
 /**
  * PdfExtractor
  * Extracts information and saves it to a separate xml file, determined by the filename parameter
- *
+ * Currently extracts: tags, form information, metadata, and bookmarks
+ * @author Karen
  */
 public class PdfExtractor {
 	private String filename;
@@ -124,13 +125,16 @@ public class PdfExtractor {
     
     /**
      * Extract Permissions
+     * Currently unused; returns a boolean whether it is opened w/ full permissions
+	 * @return isOpenedWithFullPermissions
      */
-    public void extractPermissions(){
-        System.out.println("File is opened with full permissions: " + reader.isOpenedWithFullPermissions());
+    public boolean extractPermissions(){
+        return reader.isOpenedWithFullPermissions();
     }
     
     /**
-     * Extract Form Information
+     * Extract Form Information and writes into an xml file determined by the param result
+     * @param result : output xml file
      * @return form information as a xml file
      */
     public File extractForm(String result){
@@ -145,6 +149,7 @@ public class PdfExtractor {
 	    	
 	        Set<String> fields = form.getFields().keySet();
 	        String tag;
+	        // determines what form field it is
 	        for (String key : fields){
 	            switch (form.getFieldType(key)) {
 	            case AcroFields.FIELD_TYPE_CHECKBOX:
