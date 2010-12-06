@@ -1,5 +1,4 @@
 // rules
-
 function tagged(tags)
 {
 	print("{\n");
@@ -13,7 +12,7 @@ function tagged(tags)
 	print("	{\n");
 	print("	\"name\":\"tagged\",\n");
 
-	if(tags == null)
+	if(tags == "")
 	{
 		print("	\"result\":\"violation\",\n");
 		print("	\"message\":\"no tags exist for this document\"\n");
@@ -26,6 +25,153 @@ function tagged(tags)
 
 	print("	}\n");
 	print("},\n");
+}
+function titleformatted(title)
+{
+	if(title != "")
+	{
+		print("{\n");
+		print("	\"section\":\n");
+		print("	{\n");
+		print("	\"title\":\"\",\n");
+		print("	\"number\":\"\",\n");
+		print("	\"subsection\":[]\n");
+		print("	},\n");
+		print("	\"rule\":\n");
+		print("	{\n");
+		print("	\"name\":\"titleformat\",\n");
+
+		if(title["text"] == "")
+		{
+			print("	\"result\":\"violation\",\n");
+			print("	\"message\":\"title is empty\"\n");
+		}
+		else
+		{
+			print("	\"result\":\"recommendation\",\n");
+			print("	\"message\":\"title exist, make sure that title encorporates what document is about\"\n");
+		}
+
+		print("	}\n");
+		print("},\n");
+	}
+}
+function headingformatted(tags)
+{
+	curheadtag = 0;
+	if(tags != "")
+	{
+		hlist = ["h1","h2","h3","h4","h5","h6"];
+		print("{\n");
+		print("	\"section\":\n");
+		print("	{\n");
+		print("	\"title\":\"\",\n");
+		print("	\"number\":\"\",\n");
+		print("	\"subsection\":[]\n");
+		print("	},\n");
+		print("	\"rule\":\n");
+		print("	{\n");
+		print("	\"name\":\"h1 first\",\n");
+
+		headingformat(tags);
+
+		print("	}\n");
+		print("},\n");
+	}
+}
+function headingformat(tags)
+{
+	for(item in tags)
+	{
+		var val = tags[item];
+		// if its a heading
+		if(contains(hlist,item.toLowerCase()))
+		{
+			if(curheadtag==0)
+			{
+				if(!item.equals(hlist[0]))
+				{
+					print("	\"result\":\"violation\",\n");
+					print("	\"message\":\"first heading tag is not h1\"\n");
+					return;
+				}
+				else
+				{
+					print("	\"result\":\"recommendation\",\n");
+					print("	\"message\":\"first heading tag is h1, \"\n");
+					return;
+				}
+			}
+			curheadtag++;
+		}
+		else if(val.constructor == Array)
+		{
+			for(i=0;i<val.length;i++)
+			{
+				headingformat(val[i]);
+			}
+		}
+		else{
+			headingformat(val);
+		}
+	}
+}
+function headingcontent(tags)
+{
+	failed = false;
+	if(tags != "")
+	{
+		hlist = ["h1","h2","h3","h4","h5","h6"];
+		print("{\n");
+		print("	\"section\":\n");
+		print("	{\n");
+		print("	\"title\":\"\",\n");
+		print("	\"number\":\"\",\n");
+		print("	\"subsection\":[]\n");
+		print("	},\n");
+		print("	\"rule\":\n");
+		print("	{\n");
+		print("	\"name\":\"heading not empty\",\n");
+
+		headingcont(tags);
+
+		if(!failed)
+		{
+			print("	\"result\":\"recommendation\",\n");
+			print("	\"message\":\"all heading tags contain content, make sure content of all heading tags are meaningful\"\n");
+		}
+
+		print("	}\n");
+		print("},\n");
+	}
+}
+function headingcont(tags)
+{
+	for(item in tags)
+	{
+		var val = tags[item];
+		// if its a heading
+		if(contains(hlist,item.toLowerCase()))
+		{
+			if(val == "")
+			{
+				print("	\"result\":\"violation\",\n");
+				print("	\"message\":\"heading tag " + item + " is empty\"\n");
+				failed = true;
+				return;
+			}
+		}
+		else if(val.constructor == Array)
+		{
+			for(i=0;i<val.length;i++)
+			{
+				headingformat(val[i]);
+			}
+		}
+		else{
+			headingformat(val);
+		}
+	}
 }
 function tableformatted(table)
 {

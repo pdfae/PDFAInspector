@@ -1,9 +1,7 @@
 // processing
 // extract specific data from the root
 var tags = root.tags;
-
-// use rules on necessary parts of json
-tagged(tags);
+var title = root.title;
 
 // traverse the json of the tags
 function traverse(tags)
@@ -36,3 +34,19 @@ function determineRule(tag)
 {
 	
 }
+
+function contains(list, str)
+{
+	for(i=0;i<list.length;i++)
+	{
+		if(list[i].equals(str))
+			return true;
+	}
+	return false;
+}
+
+// use rules on necessary parts of json
+tagged(tags);
+titleformatted(title);
+headingformatted(tags);
+headingcontent(tags);
