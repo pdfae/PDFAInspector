@@ -1,7 +1,0 @@
-
-#NOTE: possible to have multiple violations of same rule adjust everything ot reflect this
-# Sets of rules in section -> requirement
-# Section can only have more sections or requirements not both
-# Result -> rule info + results(message about result, result code(violation, potentioal, etc, )
-# Rule title = description of rule
-# Summary of result
