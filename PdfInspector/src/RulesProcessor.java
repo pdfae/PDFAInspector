@@ -16,6 +16,8 @@ public class RulesProcessor extends Shell{
 	static BufferedWriter out;
 	// This is the string that will be written to file each time print is called
 	static String toWrite;
+	// This file is intermediate for processing all javascript at once
+	static String intermediate = "files/JS.txt";
 	
 	public void runRules(String jsonObjIn, String writeTo)
 	{
@@ -25,7 +27,7 @@ public class RulesProcessor extends Shell{
 			BufferedReader in1 = new BufferedReader(new FileReader(jsonObjIn));
 			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
 			BufferedReader in3 = new BufferedReader(new FileReader("files/Processor.txt"));
-			BufferedWriter out = new BufferedWriter(new FileWriter("files/JS.txt"));
+			BufferedWriter out = new BufferedWriter(new FileWriter(intermediate));
 			
 			out.write("root = ");
 			while((instr = in1.readLine()) != null)
@@ -50,6 +52,13 @@ public class RulesProcessor extends Shell{
 		// Create an instance of myself to call nonstatic functions
 		RulesProcessor processor = new RulesProcessor();
 		processor.process(shlArgs);
+		try{
+			File f = new File(intermediate);
+			boolean success = f.delete();
+
+		    if (!success)
+		      throw new IllegalArgumentException("Delete: deletion failed");
+		}catch(Exception e){System.err.println("intermediate processing file does not exist: " + e.getMessage());}
 	}
 	
 	public void process(String[] args)

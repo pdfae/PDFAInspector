@@ -2,15 +2,7 @@
 function tagged(tags)
 {
 	print("{\n");
-	print("	\"section\":\n");
-	print("	{\n");
-	print("	\"title\":\"\",\n");
-	print("	\"number\":\"\",\n");
-	print("	\"subsection\":[]\n");
-	print("	},\n");
-	print("	\"rule\":\n");
-	print("	{\n");
-	print("	\"name\":\"tagged\",\n");
+	print("	\"rule_id\":\"3\",\n");
 
 	if(tags == "")
 	{
@@ -23,25 +15,16 @@ function tagged(tags)
 		print("	\"message\":\"tags exist, make sure that tags represent semantic structure of document\"\n");
 	}
 
-	print("	}\n");
 	print("},\n");
 }
 function titleformatted(title)
 {
-	if(title != "")
+	if(title != null)
 	{
 		print("{\n");
-		print("	\"section\":\n");
-		print("	{\n");
-		print("	\"title\":\"\",\n");
-		print("	\"number\":\"\",\n");
-		print("	\"subsection\":[]\n");
-		print("	},\n");
-		print("	\"rule\":\n");
-		print("	{\n");
-		print("	\"name\":\"titleformat\",\n");
+		print("	\"rule_id\":\"5\",\n");
 
-		if(title["text"] == "")
+		if(title == "")
 		{
 			print("	\"result\":\"violation\",\n");
 			print("	\"message\":\"title is empty\"\n");
@@ -52,7 +35,6 @@ function titleformatted(title)
 			print("	\"message\":\"title exist, make sure that title encorporates what document is about\"\n");
 		}
 
-		print("	}\n");
 		print("},\n");
 	}
 }
@@ -62,21 +44,8 @@ function headingformatted(tags)
 	if(tags != "")
 	{
 		hlist = ["h1","h2","h3","h4","h5","h6"];
-		print("{\n");
-		print("	\"section\":\n");
-		print("	{\n");
-		print("	\"title\":\"\",\n");
-		print("	\"number\":\"\",\n");
-		print("	\"subsection\":[]\n");
-		print("	},\n");
-		print("	\"rule\":\n");
-		print("	{\n");
-		print("	\"name\":\"h1 first\",\n");
 
 		headingformat(tags);
-
-		print("	}\n");
-		print("},\n");
 	}
 }
 function headingformat(tags)
@@ -91,14 +60,20 @@ function headingformat(tags)
 			{
 				if(!item.equals(hlist[0]))
 				{
+					print("{\n");
+					print("	\"rule_id\":\"7\",\n");
 					print("	\"result\":\"violation\",\n");
 					print("	\"message\":\"first heading tag is not h1\"\n");
+					print("},\n");
 					return;
 				}
 				else
 				{
+					print("{\n");
+					print("	\"rule_id\":\"7\",\n");
 					print("	\"result\":\"recommendation\",\n");
 					print("	\"message\":\"first heading tag is h1, \"\n");
+					print("},\n");
 					return;
 				}
 			}
@@ -119,30 +94,22 @@ function headingformat(tags)
 function headingcontent(tags)
 {
 	failed = false;
+	headingtagsexist = false;
 	if(tags != "")
 	{
 		hlist = ["h1","h2","h3","h4","h5","h6"];
-		print("{\n");
-		print("	\"section\":\n");
-		print("	{\n");
-		print("	\"title\":\"\",\n");
-		print("	\"number\":\"\",\n");
-		print("	\"subsection\":[]\n");
-		print("	},\n");
-		print("	\"rule\":\n");
-		print("	{\n");
-		print("	\"name\":\"heading not empty\",\n");
 
 		headingcont(tags);
 
-		if(!failed)
+		if(!failed && headingtagsexist)
 		{
+			print("{\n");
+			print("	\"rule_id\":\"8\",\n");
 			print("	\"result\":\"recommendation\",\n");
 			print("	\"message\":\"all heading tags contain content, make sure content of all heading tags are meaningful\"\n");
+			print("},\n");
 		}
 
-		print("	}\n");
-		print("},\n");
 	}
 }
 function headingcont(tags)
@@ -155,8 +122,11 @@ function headingcont(tags)
 		{
 			if(val == "")
 			{
+				print("{\n");
+				print("	\"rule_id\":\"8\",\n");
 				print("	\"result\":\"violation\",\n");
 				print("	\"message\":\"heading tag " + item + " is empty\"\n");
+				print("},\n");
 				failed = true;
 				return;
 			}
@@ -165,26 +135,19 @@ function headingcont(tags)
 		{
 			for(i=0;i<val.length;i++)
 			{
-				headingformat(val[i]);
+				headingcont(val[i]);
 			}
 		}
 		else{
-			headingformat(val);
+			headingcont(val);
 		}
 	}
 }
 function tableformatted(table)
 {
 	print("{\n");
-	print("	\"section\":\n");
-	print("	{\n");
-	print("	\"title\":\"\",\n");
-	print("	\"number\":\"\",\n");
-	print("	\"subsection\":[]\n");
-	print("	},\n");
-	print("	\"rule\":\n");
-	print("	{\n");
-	print("	\"name\":\"tableformatted\",\n");
+	print("	\"rule_id\":\"10\",\n");
+
 	for(row in table)
 	{
 		var numcols = 0;
@@ -228,6 +191,6 @@ function tableformatted(table)
 		}
 		
 	}
-	print("	}\n");
+
 	print("},\n");
 }
