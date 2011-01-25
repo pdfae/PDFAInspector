@@ -154,11 +154,25 @@ function bookmarksHeader(pageNum, Bookmark, tags){
 	
 	// rule #
 	if (pageNum >= 100){
-
+		print("	\"rule_id\":\"Page Num >= 8\",\n");	
+		hlist = ["h1","h2","h3","h4"];
+		message = "there exists at least one h1, h2, h3, or h4 tag that is not a bookmark\"";
+		
+		bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message);
+		if (pass){
+			print("PASS!!");
+		}		
 	}
 	// rule #
 	else if (pageNum >= 40){
-
+		print("	\"rule_id\":\"Page Num >= 8\",\n");	
+		hlist = ["h1","h2","h3"];
+		message = "there exists at least one h1, h2, or h3 tag that is not a bookmark\"";
+		
+		bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message);
+		if (pass){
+			print("PASS!!");
+		}		
 	}
 	// rule #
 	else if (pageNum >= 1){
