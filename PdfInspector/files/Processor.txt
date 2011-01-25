@@ -2,6 +2,8 @@
 // extract specific data from the root
 var tags = root.tags;
 var title = root.title;
+var pageNum = root.pageNum;
+var Bookmark = root.Bookmark;
 
 // traverse the json of the tags
 function traverse(tags)
@@ -46,6 +48,8 @@ function contains(list, str)
 }
 
 // use rules on necessary parts of json
+
+bookmarksHeader(pageNum, Bookmark, tags);
 tagged(tags);
 titleformatted(title);
 headingformatted(tags);

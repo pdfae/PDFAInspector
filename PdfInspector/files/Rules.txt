@@ -143,6 +143,131 @@ function headingcont(tags)
 		}
 	}
 }
+
+// checks bookmarks & header correspondence rules
+// Rule: ##
+function bookmarksHeader(pageNum, Bookmark, tags){
+	pass = true;
+	var blist = ["content"]; //bookmark values to look for
+	
+	print("{\n");
+	
+	// rule #
+	if (pageNum >= 100){
+
+	}
+	// rule #
+	else if (pageNum >= 40){
+
+	}
+	// rule #
+	else if (pageNum >= 1){
+		print("	\"rule_id\":\"Page Num >= 8\",\n");	
+		hlist = ["h1","h2"];
+		message = "there exists at least one h1 or h2 tag that is not a bookmark\"";
+		
+		bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message);
+		if (pass){
+			print("PASS!!");
+		}		
+
+	}
+	
+	print("},\n");
+}
+
+// helper function of bookmarksHeader; loops through all headers
+// Rule: ##
+function bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message){
+	bookmarkExists = false;
+	
+	for (item in tags){
+		var val = tags[item];
+		print("Tag val: " + val + "\n");
+		print("Tag item: " + item+ "\n");
+
+		// if val is an array
+		if (val.constructor == Array){
+			
+			//if val array contains headers
+			if(contains(hlist,item.toLowerCase())){
+				//traverse through array
+				for (i=0;i<val.length;i++){
+					print("i: " + i + "\n");
+					print("val[i]: " + val[i] +"\n");
+					if(!existsBookmark(Bookmark, val[i], blist)){
+						print("	\"result\":\"violation\",\n");
+						print("	\"message!!\":\"" + message + "  " + val[i] + "\n");
+						pass = false;
+						return;
+					}
+					print("done with round " + i + "\n");
+				}
+			}
+			
+			else{
+				for (i=0; i<val.length;i++){
+					bookmarksHeaderLoop(Bookmark, val[i], hlist, blist, message);
+				}
+			}
+		}
+		// if item is a header in hlist
+		else if(contains(hlist,item.toLowerCase())){
+			if(!existsBookmark(Bookmark, val, blist)){
+				print("	\"result\":\"violation\",\n");
+				print("	\"message\":\"" + message + "  " + val + "\n");
+				pass = false;
+				return;
+			}
+			
+		}
+		// if nested
+		else if (val.constructor == Object){
+			bookmarksHeaderLoop(Bookmark, val, hlist, blist, message);
+		}
+	}
+}
+
+// returns if a bookmark exists with the given label
+// Rule: ##
+function existsBookmark(Bookmark, label, blist){
+	
+	for (item in Bookmark){
+		var val = Bookmark[item];
+		print("Bookmark item: " + item + "\n");
+		print("Bookmark Val: " + val + "\n");
+		
+		// if an array
+		if (val.constructor == Array){
+			for(j=0;j<val.length;j++){
+				print ("j: " + j + " val[j]: " + val[j] + "\n");
+				if(existsBookmark(val[j], label, blist)){
+					return true;
+				}
+			}
+			
+		}			
+		// if looking at "Content" field
+		else if (contains(blist,item.toLowerCase())){
+			print("Content found. Label: " + label + " val: " + val + " \n");
+			if (val == label){
+				bookmarkExists = true;
+				return bookmarkExists;
+			}
+		
+		}
+		// if nested
+		else if (val.constructor == Object) {
+			print("Bookmark nested, label: " + label + " val: " + val  + "\n");
+			return existsBookmark(val, label, blist);
+		}
+		
+		
+	}
+	
+	return bookmarkExists;
+}
+
 function tableformatted(table)
 {
 	print("{\n");
