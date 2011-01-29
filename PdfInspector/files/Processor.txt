@@ -2,6 +2,7 @@
 // extract specific data from the root
 var tags = root.tags;
 var title = root.title;
+var form = root.form;
 var pageNum = root.pageNum;
 var Bookmark = root.Bookmark;
 
@@ -54,3 +55,4 @@ tagged(tags);
 titleformatted(title);
 headingformatted(tags);
 headingcontent(tags);
+needed_tooltips_exist(form);

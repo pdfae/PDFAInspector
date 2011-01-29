@@ -1,4 +1,9 @@
+
+
 // rules
+
+
+// checks to see if tags exist at all
 function tagged(tags)
 {
 	print("{\n");
@@ -17,6 +22,9 @@ function tagged(tags)
 
 	print("},\n");
 }
+
+
+// checks to see if the title of the pdf document is not empty
 function titleformatted(title)
 {
 	if(title != null)
@@ -38,6 +46,10 @@ function titleformatted(title)
 		print("},\n");
 	}
 }
+
+
+// checks to see that the first heading tag is an h1 tag
+// currently assuming tags go from h1 to h6
 function headingformatted(tags)
 {
 	curheadtag = 0;
@@ -91,6 +103,9 @@ function headingformat(tags)
 		}
 	}
 }
+
+
+// checks to see that all heading tags contain non-empty text
 function headingcontent(tags)
 {
 	failed = false;
@@ -282,6 +297,9 @@ function existsBookmark(Bookmark, label, blist){
 	return bookmarkExists;
 }
 
+
+
+// checks to see that tables are at least 2 by 2
 function tableformatted(table)
 {
 	print("{\n");
@@ -332,4 +350,82 @@ function tableformatted(table)
 	}
 
 	print("},\n");
+}
+
+
+// a tooltip exists for every form control
+function needed_tooltips_exist(form)
+{
+	all_tooltips_exist = true;
+	any_tooltip_exists = false;
+	all_tooltips_nonempty = true;
+	if(form != "")
+	{
+		for(item in form)
+		{
+			check_tooltip(form[item]);
+		}
+
+		print("{\n");
+		print("	\"rule_id\":\"16\",\n");
+
+		if(all_tooltips_exist)
+		{
+			
+			print("	\"result\":\"recommendation\",\n");
+			print("	\"message\":\"tooltips exist for all form controls, make sure that these tooltips accurately describe the control\"\n");
+		}
+		else
+		{
+			
+			print("	\"result\":\"violation\",\n");
+			print("	\"message\":\"missing tooltips for certain form controls\"\n");
+		}
+
+		print("},\n");
+
+		if(any_tooltip_exists)
+		{
+			print("{\n");
+			print("	\"rule_id\":\"17\",\n");
+			
+			if(all_tooltips_nonempty)
+			{
+				print("	\"result\":\"recommendation\",\n");
+				print("	\"message\":\"all tooltips are non-empty, make sure that descriptions are useful\"\n");
+			}
+			else
+			{
+				print("	\"result\":\"violation\",\n");
+				print("	\"message\":\"missing descriptions for certain tooltips, please make sure that all tooltips accurately describe their form controls\"\n");
+			}
+
+			print("},\n");
+		}
+
+	}
+}
+function check_tooltip(arr)
+{
+	for(i=0;i<arr.length;i++)
+	{
+		tooltip_exists(arr[i]);
+	}
+}
+function tooltip_exists(obj)
+{
+	local_tooltip_exists = false;
+	for(item in obj)
+	{
+		if(item == "Tooltip")
+		{
+			local_tooltip_exists = true;
+			any_tooltip_exists = true;
+			if(obj[item] == "")
+				all_tooltips_nonempty = false;
+		}
+	}
+	if(!local_tooltip_exists)
+		all_tooltips_exist = false;
+	return;
 }
