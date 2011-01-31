@@ -9,14 +9,28 @@ var Bookmark = root.Bookmark;
 // traverse the json of the tags
 function traverse(tags)
 {
+	// assume that key "tags" in the json is set to
+	// an item list
+	// even if it isn't an item list this loop
+	// will iterate once
+	// if this is an iterative call then the loop
+	// will be called on tags where tags can be
+	// an object: in which case one iteration
+	// or an object list
 	for(item in tags)
 	{
+		// for each item (which is a key)
+		// grab the value associated with the key
 		var val = tags[item];
-		// if its a table run the table rule on it
+
+		// if the key is a table run the table rule on it
 		if(item.toLowerCase() == "table")
 		{
 			tableformatted(val);
 		}
+		// otherwise if the value associated with the key
+		// is an array, recursively call this function
+		// on all items in the array
 		else if(val.constructor == Array)
 		{
 			for(i=0;i<val.length;i++)
@@ -24,20 +38,35 @@ function traverse(tags)
 				traverse(val[i]);
 			}
 		}
+		// otherwise the value is just an object
+		// so recurse on that object
 		else{
 			traverse(val);
 		}
 	}
 }
 
+// call the traversal function on the tags object
+// in this case the tags object is one of the keys
+// in the root object list
+// many rules may traverse the tags and yet this function
+// currently only uses the table rule
+// for now, this function will be used as an example for
+// how to completely explore a json object
 traverse(tags);
 
-//
+// hypothetical function
+// would be able to determine for every item
+// what rule needs to be run on that item
+// would avoid having to explore the entire tagging
+// structure everytime a new rule is created
 function determineRule(tag)
 {
 	
 }
 
+// function that determines if a list of strings
+// contains a specified string
 function contains(list, str)
 {
 	for(i=0;i<list.length;i++)
@@ -49,7 +78,8 @@ function contains(list, str)
 }
 
 // use rules on necessary parts of json
-
+// the rules.txt file (which will be merged with this one)
+// contains all of the following function definitions
 bookmarksHeader(pageNum, Bookmark, tags);
 tagged(tags);
 titleformatted(title);

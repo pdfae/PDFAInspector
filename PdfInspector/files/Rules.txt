@@ -1,6 +1,12 @@
-
-
 // rules
+// all rules (functions) call the javascript function print
+// the print function will be read in rhino and overwritten by
+// a java function called print
+// print will be used in these functions to display their
+// identification number and the results of the function call
+// multiple print calls are used for formatting
+// more detailed rule information is located in
+// ruleInformation.txt
 
 
 // checks to see if tags exist at all
@@ -27,6 +33,7 @@ function tagged(tags)
 // checks to see if the title of the pdf document is not empty
 function titleformatted(title)
 {
+	// check if title exists
 	if(title != null)
 	{
 		print("{\n");
@@ -52,11 +59,16 @@ function titleformatted(title)
 // currently assuming tags go from h1 to h6
 function headingformatted(tags)
 {
+	// variable used to determine how many heading
+	// tags we've seen
 	curheadtag = 0;
+
+	// make sure tags is not empty
 	if(tags != "")
 	{
 		hlist = ["h1","h2","h3","h4","h5","h6"];
 
+		// helper function defined below
 		headingformat(tags);
 	}
 }
@@ -65,11 +77,15 @@ function headingformat(tags)
 	for(item in tags)
 	{
 		var val = tags[item];
+
 		// if its a heading
 		if(contains(hlist,item.toLowerCase()))
 		{
 			if(curheadtag==0)
 			{
+				// all of the rule information is printed
+				// only if there exist headings otherwise
+				// this rule is not applicable
 				if(!item.equals(hlist[0]))
 				{
 					print("{\n");
@@ -108,8 +124,13 @@ function headingformat(tags)
 // checks to see that all heading tags contain non-empty text
 function headingcontent(tags)
 {
+	// variable to determine if there existed a heading tag
+	// that was empty
 	failed = false;
+
+	// variable to determine if heading tags exist at all
 	headingtagsexist = false;
+
 	if(tags != "")
 	{
 		hlist = ["h1","h2","h3","h4","h5","h6"];
@@ -132,9 +153,12 @@ function headingcont(tags)
 	for(item in tags)
 	{
 		var val = tags[item];
+
 		// if its a heading
 		if(contains(hlist,item.toLowerCase()))
 		{
+			// if a heading tag exists without any text
+			// fail automatically and return
 			if(val == "")
 			{
 				print("{\n");
@@ -305,18 +329,25 @@ function tableformatted(table)
 	print("{\n");
 	print("	\"rule_id\":\"10\",\n");
 
+	// this function is given a table
+	// traversal occurs at a higher level
 	for(row in table)
 	{
 		var numcols = 0;
+		// all rows in a table should have key value "tr"
 		if(row.toLowerCase() != "tr")
 		{
 			continue;
 			print("table format error?\n");
 			return;
 		}
+		// if it is properly named, check that there
+		// are enough columns
 		else if(table[row].length >= 2)
 		{
 		}
+		// if there aren't enough columns
+		// this rule fails
 		else
 		{
 			print("	\"result\":\"violation\",\n");
@@ -326,12 +357,15 @@ function tableformatted(table)
 		{
 			for(td in table[row][i])
 			{
+				// check that all columns are properly
+				// tagged
 				if(td.toLowerCase() != "td")
 				{
 					continue;
 					print("table format error?\n");
 					return;
 				}
+				// finds the max length table entry
 				if(table[row][i][td].length > numcols)
 					numcols = table[row][i][td].length;
 			}
@@ -353,7 +387,9 @@ function tableformatted(table)
 }
 
 
+// two rules:
 // a tooltip exists for every form control
+// all tooltips are non empty
 function needed_tooltips_exist(form)
 {
 	all_tooltips_exist = true;
@@ -361,6 +397,7 @@ function needed_tooltips_exist(form)
 	all_tooltips_nonempty = true;
 	if(form != "")
 	{
+		// traverse the form and check both rules
 		for(item in form)
 		{
 			check_tooltip(form[item]);
@@ -405,6 +442,8 @@ function needed_tooltips_exist(form)
 
 	}
 }
+// assuming all of the values at the top level of a
+// form are arrays
 function check_tooltip(arr)
 {
 	for(i=0;i<arr.length;i++)
@@ -412,6 +451,8 @@ function check_tooltip(arr)
 		tooltip_exists(arr[i]);
 	}
 }
+// assuming all of the values at the second level of a
+// form are object lists
 function tooltip_exists(obj)
 {
 	local_tooltip_exists = false;
