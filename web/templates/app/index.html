@@ -3,16 +3,16 @@
   </head>
 
   <body>
-    {% if user.is_authenticated %}
+    {# {% if user.is_authenticated %} #}
     <form enctype="multipart/form-data" method="post" action="upload_file">
       <table>
       {{uploadForm }}
     </table>
       <input type="submit" value="Upload">
     </form>
-    {% else %}
+    {# {% else %} #}
     Please <a href="../../accounts/login/">login</a> or 
     <a href="../../accounts/register/">register</a>
-    {% endif %}
+    {# {% endif %} #}
   </body>
 </html>

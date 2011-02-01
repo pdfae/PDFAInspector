@@ -9,7 +9,12 @@ class UploadFileForm(forms.Form):
     ruleset = forms.ChoiceField(choices=RULESET_CHOICES)
     #addRuleset = forms.
 
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
+class RulesForm(forms.Form):
+    file = forms.FileField()
 
 

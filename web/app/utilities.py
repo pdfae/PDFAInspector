@@ -1,23 +1,12 @@
-from app.models import *
+from django.core.files.storage import default_storage
 
-class SectionDict():
-    def __init__(self, section, reportID, subsections=[]):
-        self.title = section.title
-        self.url = section.url
-        self.subsections = subsections
-        
-        #list of results for this section
-        self.ruleresults = []
-        rules = section.rule_set.filter(section=section)
-        report = Report.objects.get(id=reportID)
-        for rule in rules:
-            result = rule.ruleresult_set.get(report = report)
-            self.ruleresults.append((rule,result))
+import os
 
-    def addSubEntry(self, subdict):
-        self.subsections.append(subdict)
-        return self
+def save(file, directory, filename=""):
 
-    def __unicode__(self):
-        return self.title
+    if filename != "":
+        location = directory+filename
+    else:
+        location = directory+file.name
 
+    return default_storage.save(location,file)

@@ -5,14 +5,33 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from app.forms import UploadFileForm
+from app.forms import RulesForm
 from app.models import *
+from app.rules import saveRuleset
+from app.resultProcessing import saveResults
+from app.resultProcessing import getReportWithNestedResults
+from app.utilities import *
+
+from registration.forms import RegistrationForm
 
 import json
+import os
+import re
+
+#remove the next three lines and the about_pages stuff
+from django.http import Http404
+from django.template import TemplateDoesNotExist
+from django.views.generic.simple import direct_to_template
 
 def index(request):
-    form = UploadFileForm()
-    return render_to_response('app/index.html',{'uploadForm':form},
-            context_instance=RequestContext(request))
+#    form = UploadFileForm()
+#    return render_to_response('app/index.html',{'uploadForm':form},
+#            context_instance=RequestContext(request))
+    loginForm = RegistrationForm()
+    uploadForm = UploadFileForm()
+
+    return render_to_response('app/index.html',{'uploadForm':uploadForm,\
+            'loginForm':loginForm})
 
 @login_required
 def genReport(request):
@@ -62,107 +81,51 @@ def parsePDF(file, ruleset, report):
 Uploads the file and calls the pdf parser function
 returns JSON (dictionary) object that represents the accesibility of the pdf
 '''
+
+    # save file to temp location
     filename = str(report.id)+str(file.name)
-    location = 'tempfiles/pdf/'+filename
-    default_storage.save(location, file)
+    #location = 'tempfiles/pdf/'+filename
+    #filePath = default_storage.save(location, file)
 
-    #TODO: call karen's functions
-    #resultfile = tempfile/results/filename.json 
+    filePath = save(file, 'tempfiles/pdf/', filename)
 
-    resultfile = 'results/Results.txt'
+    # get location of processor
+    startingDir = os.getcwd()
+    fileDir = startingDir + '/' + filePath
+    processDir = startingDir+'/processor'
+    os.chdir(processDir)
+
+    #run processor
+    os.system("java -jar PdfAInspector.jar "+fileDir)
+    os.chdir(startingDir)
+    
+    #resultfile = tempfile/result/result_filename.json 
+    #get filename
+    savedFileName = re.compile("^(.*/)?(?:$|(.+?)(?:(\.[^.]*$)|$))")
+    resultFile = savedFileName.match(filePath)
+    dir = resultFile.group(1)
+    savedfilename = resultFile.group(2)
+    resultfile = dir+"result_"+savedfilename+".json"
     fp = open(resultfile, 'r')
     jresult = json.load(fp)
 
     return jresult
 
-
-def saveResults(jresult, report):
-    '''
-    saves results to database
-    '''
-    #TODO: i dont think we need the ruleset info, just need the id
-    ruleset = report.ruleset
-    results = jresult['results']
-
-    #put results in database
-    for result in results:
-        ruleID = result['rule_id']
-        rule = Rule.objects.get(id=ruleID)
-
-        rresult = result['result']
-        message = result['message']
+def readRulesetFile (request):
+    if request.method == 'POST':
+        form = RulesForm(request.POST, request.FILES)
         
-        Result(rule=rule,result=rresult,message=message, report=report).save()
+        if form.is_valid():
+            file = request.FILES['file']
+            filepath = save(file, 'tempfiles/rules/')
 
-def getReportWithNestedResults(report):
-    '''
-    returns a dictionary object with results nested
-    '''
-    ruleset = report.ruleset
-    sections = ruleset.section_set.filter(parentSection=None)
+            #convert file to json object
+            fp = open(filepath, 'r')
+            rulesetDict = json.load(fp)
 
-    sectionList = []
+            #print rulesetDict
 
-    for section in sections:
-        print section
-        #if it has requirements instead of sections
-        if section.requirement_set.all():
-            sectionList.append({'section':section, \
-                    'requirements':getRequirements(section, report)})
-        else:
-            for subsection in section.section_set.all():
-                sectionList.append({'section':section, \
-                        'subsections':getSubsection(subsection, report)})
+            saveRuleset(rulesetDict)
 
-    return sectionList
-
-
-def getSubsection(section, report):
-    '''
-    returns a list of dictionaries
-    section: given section
-    requirements: list of requirment dictionaries OR subsections: list of section dicts
-    '''
-
-    sectionList = []
-
-    if section.requirement_set.all():
-        sectionList.append({'section':section, \
-            'requirements':getRequirements(section, report)})
-
-
-    else:
-        for subsection in section.section_set.all():
-            sectionList.append({'section':subsection, \
-                 'subsections':getSubsection(subsection, report)})
-
-    return sectionList
-
-
-def getRequirements(section, report):
-    '''
-    Returns a list of dictionaries:
-    requirement: requirement object
-    rules: list of rules that fall under the requirement
-    '''
-
-    requirementList = []
-    for requirement in section.requirement_set.all():
-        ruleList = getRules(requirement,report)
-        requirementList.append({'requirement':requirement,'rules':ruleList})
-    
-    return requirementList
-
-
-def getRules(requirement, report):
-    '''
-    Returns a list of dictionaries:
-    rule: rule object
-    results: list of results that fall under the requirement given the report
-    '''
-    ruleList = []
-    for rule in requirement.rule_set.all():
-       resultList = rule.result_set.filter(report=report) 
-       ruleList.append({'rule':rule,'results':resultList})
-
-    return ruleList
+    #add return
+    return render_to_response('app/rules_upload_complete.html')
