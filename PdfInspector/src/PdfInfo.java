@@ -14,6 +14,7 @@ public class PdfInfo {
 	private File tagFile;
 	private File formFile;
 	private File bookmarkFile;
+	private File metaFile;
 	
 	/**
 	 * PdfInfo constructor
@@ -21,10 +22,11 @@ public class PdfInfo {
 	 * @param form : forms File
 	 * @param bookmark : bookmarks File
 	 */
-	public PdfInfo(File tag, File form, File bookmark){
+	public PdfInfo(File tag, File form, File bookmark, File meta){
 		tagFile = tag;
 		formFile = form;
 		bookmarkFile = bookmark;
+		metaFile = meta;
 	}
 	
 	/**
@@ -39,6 +41,12 @@ public class PdfInfo {
 			PrintWriter writer = new PrintWriter(output);
 			writer.println("<pdfinfo>");
 			writer.flush();
+			
+			//metadata
+			if (metaFile != null && metaFile.length() > 1){
+				FileInputStream inputMeta = new FileInputStream(metaFile);
+				copy(inputMeta, output);
+			}
 			
 			//bookmarks
 			if (bookmarkFile != null && bookmarkFile.length() > 1){

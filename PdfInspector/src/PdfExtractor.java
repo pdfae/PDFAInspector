@@ -18,11 +18,11 @@ import com.itextpdf.text.pdf.parser.TaggedPdfReaderTool;
  * PdfExtractor
  * Extracts information and saves it to a separate xml file, determined by the filename parameter
  * Currently extracts: tags, form information, metadata, and bookmarks
- * @author Karen
  */
 public class PdfExtractor {
 	private String filename;
 	private PdfReader reader;
+	private boolean tagsExist = false;
 	
 	
 	public PdfExtractor(String filename){
@@ -51,6 +51,7 @@ public class PdfExtractor {
 		    fop.flush();
 		    fop.close();
 		    
+		    if (file != null) tagsExist = true;
 		    return file;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -67,12 +68,18 @@ public class PdfExtractor {
      */
     public File extractBookmarks(String result){
 		try {
-			File file = new File(result);
-			FileOutputStream fop = new FileOutputStream(file);
 	        List<HashMap<String,Object>> list = SimpleBookmark.getBookmark(reader);
-	        if (list == null) return null;
-	        SimpleBookmark.exportToXML(list, fop, "ISO8859-1", true);
-	        return file;
+	        if (list == null){
+	        	return null;
+	        }
+	        else{
+	        	File file = new File(result);
+				FileOutputStream fop = new FileOutputStream(file);
+	        	SimpleBookmark.exportToXML(list, fop, "ISO8859-1", true);
+	        	return file;
+	        }
+	        
+	        
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -94,8 +101,10 @@ public class PdfExtractor {
         	String title = (String)meta.get("Title");
         	String author = (String)meta.get("Author");
         	String creator = (String)meta.get("Creator");
-        	String keywords = (String)meta.get("Keywords");
         
+        	//extract total page number
+        	int pages = reader.getNumberOfPages();
+        	
         	writer.println("<title>");
         	writer.println(title);
         	writer.println("</title>");
@@ -108,10 +117,10 @@ public class PdfExtractor {
         	writer.println(creator);
         	writer.println("</creator>");
         	
-        	writer.println("<keywords>");
-        	writer.println(keywords);
-        	writer.println("</keywords>");
-        
+        	writer.println("<pageNum>");
+        	writer.println(pages);
+        	writer.println("</pageNum>");
+        	
         	writer.flush();
         	writer.close();
         	

@@ -4,7 +4,6 @@ import java.io.File;
  * Executable file of PdfInspector
  * Extracts pdf info, converts it to json, then runs rules on it
  * @param complete pathname of pdf file to be evaluated
- * @author Karen
  *
  */
 public class PdfAInspector {
@@ -20,7 +19,6 @@ public class PdfAInspector {
 		extractPdfInfo();
 		RulesProcessor rprocessor = new RulesProcessor();
 		rprocessor.runRules(pathname + "json-" + filename + ".json", pathname + "result_" + filename + ".json");
-		
 	}
 	
 	/**
@@ -30,12 +28,24 @@ public class PdfAInspector {
     	String pdfName = pathname + filename + ".pdf";
     	String xmlFile = pathname + "final-" + filename + ".xml";
     	
-    	File forms, bookmarks, tags;
+    	File forms = null, bookmarks = null, tags = null, meta = null;
     	
     	PdfExtractor extractor = new PdfExtractor(pdfName);
     	
     	//extract information from PdfExtractor
     	//information extracted in separate try/catch blocks in order to ensure that they will all execute
+    	
+    	//extract metadata
+    	try{
+    		String metaFilename = pathname + "meta-" +	filename + ".xml";
+            meta = extractor.extractMeta(metaFilename);
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println("Error in extracting metadata");
+    		meta.delete();
+    		meta = null;
+    	}
     	
     	//extract tags
     	try{
@@ -45,6 +55,7 @@ public class PdfAInspector {
     	catch(Exception e)
     	{
     		System.out.println("Error in extracting tags");
+    		tags.delete();
     		tags = null;
     	}
     	
@@ -56,6 +67,7 @@ public class PdfAInspector {
     	catch(Exception e)
     	{
     		System.out.println("Error in extracting forms");
+    		forms.delete();
     		forms = null;
     	}
     	
@@ -71,17 +83,18 @@ public class PdfAInspector {
     	}
     	
     	
-        PdfInfo info = new PdfInfo(tags, forms, bookmarks);
+        PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);
         info.exportAsXML(xmlFile);
             
         XMLToJSON.convertXMLtoJSON(xmlFile, pathname + "json-" + filename + ".json");
             
         //delete files
+        if (meta != null) meta.delete();
         if (bookmarks != null) bookmarks.delete();
         if (forms != null) forms.delete();
-        if (tags != null) tags.delete();
+        //if (tags != null) tags.delete();
         File xml = new File(xmlFile);
-        xml.delete();
+        //xml.delete();
             
     }
     
