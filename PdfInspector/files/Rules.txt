@@ -187,7 +187,7 @@ function headingcont(tags)
 // Rule: ##
 function bookmarksHeader(pageNum, Bookmark, tags){
 	pass = true;
-	var blist = ["content"]; //bookmark values to look for
+	blist = ["content"]; //bookmark values to look for
 	
 	print("{\n");
 	
@@ -195,7 +195,7 @@ function bookmarksHeader(pageNum, Bookmark, tags){
 	if (pageNum >= 100){
 		print("	\"rule_id\":\"Page Num >= 8\",\n");	
 		hlist = ["h1","h2","h3","h4"];
-		message = "there exists at least one h1, h2, h3, or h4 tag that is not a bookmark\"";
+		message = "there exists at least one h1, h2, h3, or h4 tag that does not a bookmark with the corresponding text\"";
 		
 		bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message);
 		if (pass){
@@ -206,7 +206,7 @@ function bookmarksHeader(pageNum, Bookmark, tags){
 	else if (pageNum >= 40){
 		print("	\"rule_id\":\"Page Num >= 8\",\n");	
 		hlist = ["h1","h2","h3"];
-		message = "there exists at least one h1, h2, or h3 tag that is not a bookmark\"";
+		message = "there exists at least one h1, h2, or h3 tag that does not a bookmark with the corresponding text\"";
 		
 		bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message);
 		if (pass){
@@ -214,14 +214,16 @@ function bookmarksHeader(pageNum, Bookmark, tags){
 		}		
 	}
 	// rule #
-	else if (pageNum >= 1){
+	else if (pageNum >= 8){
 		print("	\"rule_id\":\"Page Num >= 8\",\n");	
 		hlist = ["h1","h2"];
-		message = "there exists at least one h1 or h2 tag that is not a bookmark\"";
+		message = "there exists at least one h1 or h2 tag that does not a bookmark with the corresponding text\"";
 		
 		bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message);
 		if (pass){
-			print("PASS!!");
+			message = "Pass. All h1 and h2 tags have a corresponding bookmark";
+			print("	\"result\":\"pass\",\n");
+			print("	\"message\":\"" + message + "\"\n");
 		}		
 
 	}
@@ -232,47 +234,50 @@ function bookmarksHeader(pageNum, Bookmark, tags){
 // helper function of bookmarksHeader; loops through all headers
 // Rule: ##
 function bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message){
-	bookmarkExists = false;
-	
-	for (item in tags){
+	for (var item in tags){
+		bookmarkExists = false;
 		var val = tags[item];
-		print("Tag val: " + val + "\n");
-		print("Tag item: " + item+ "\n");
 
 		// if val is an array
 		if (val.constructor == Array){
 			
-			//if val array contains headers
+			//if val is array of headers
 			if(contains(hlist,item.toLowerCase())){
 				//traverse through array
-				for (i=0;i<val.length;i++){
-					print("i: " + i + "\n");
-					print("val[i]: " + val[i] +"\n");
+				for (var i=0;i<val.length;i++){
+					bookmarkExists = false;
+					
 					if(!existsBookmark(Bookmark, val[i], blist)){
 						print("	\"result\":\"violation\",\n");
-						print("	\"message!!\":\"" + message + "  " + val[i] + "\n");
+						print("	\"message\":\"" + message + "  " + val[i] + "\n");
 						pass = false;
 						return;
 					}
-					print("done with round " + i + "\n");
+					
 				}
 			}
 			
 			else{
+				/*
 				for (i=0; i<val.length;i++){
+					print("looping. i: " + i + " val[i]: " + val[i] + "\n");
 					bookmarksHeaderLoop(Bookmark, val[i], hlist, blist, message);
 				}
+				*/
 			}
 		}
 		// if item is a header in hlist
-		else if(contains(hlist,item.toLowerCase())){
-			if(!existsBookmark(Bookmark, val, blist)){
-				print("	\"result\":\"violation\",\n");
-				print("	\"message\":\"" + message + "  " + val + "\n");
-				pass = false;
-				return;
+		else if (val.constructor == String){ 
+			if(contains(hlist,item.toLowerCase())){
+				
+				if(!existsBookmark(Bookmark, val, blist)){
+					print("	\"result\":\"violation\",\n");
+					print("	\"message\":\"" + message + "  " + val + "\n");
+					pass = false;
+					return;
+				}
+				
 			}
-			
 		}
 		// if nested
 		else if (val.constructor == Object){
@@ -284,38 +289,38 @@ function bookmarksHeaderLoop(Bookmark, tags, hlist, blist, message){
 // returns if a bookmark exists with the given label
 // Rule: ##
 function existsBookmark(Bookmark, label, blist){
+	//error handling
+	if (label.constructor != String){
+		return false;
+	}
 	
-	for (item in Bookmark){
-		var val = Bookmark[item];
-		print("Bookmark item: " + item + "\n");
-		print("Bookmark Val: " + val + "\n");
-		
+	//loop through all bookmarks
+	for (var bookItem in Bookmark){
+		var bookVal = Bookmark[bookItem];
+
+		// if looking at "Content" field
+		if (bookVal.constructor == String){
+			if (contains(blist,bookItem.toLowerCase())){
+				if (bookVal == label){
+					bookmarkExists = true;
+					return bookmarkExists;
+				}
+			}
+		}
 		// if an array
-		if (val.constructor == Array){
-			for(j=0;j<val.length;j++){
-				print ("j: " + j + " val[j]: " + val[j] + "\n");
-				if(existsBookmark(val[j], label, blist)){
-					return true;
+		else if (bookVal.constructor == Array){
+			for(var j=0;j<bookVal.length;j++){
+				if(existsBookmark(bookVal[j], label, blist)){
+					bookmarkExists = true;
+					return bookmarkExists;
 				}
 			}
 			
-		}			
-		// if looking at "Content" field
-		else if (contains(blist,item.toLowerCase())){
-			print("Content found. Label: " + label + " val: " + val + " \n");
-			if (val == label){
-				bookmarkExists = true;
-				return bookmarkExists;
-			}
-		
-		}
+		}		
 		// if nested
-		else if (val.constructor == Object) {
-			print("Bookmark nested, label: " + label + " val: " + val  + "\n");
-			return existsBookmark(val, label, blist);
-		}
-		
-		
+		else if (bookVal.constructor == Object){
+			return existsBookmark(bookVal, label, blist);
+		}	
 	}
 	
 	return bookmarkExists;
