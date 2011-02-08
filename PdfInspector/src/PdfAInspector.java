@@ -9,6 +9,7 @@ import java.io.File;
 public class PdfAInspector {
 	private static String pathname;
 	private static String filename;
+	private static String jsonFilename;
 	
 	
 	public static void main(String[] args) {
@@ -16,9 +17,15 @@ public class PdfAInspector {
 		pathname = extractPath(args[0]);
 		filename = extractFilename(args[0]);
 		
+		jsonFilename = pathname + "json-" + filename + ".json";
+		
 		extractPdfInfo();
 		RulesProcessor rprocessor = new RulesProcessor();
-		rprocessor.runRules(pathname + "json-" + filename + ".json", pathname + "Tempfiles/results/" + "result_" + filename + ".json");
+		rprocessor.runRules(jsonFilename, pathname + "Tempfiles/results/" + "result_" + filename + ".json");
+
+		//delete json file
+        File jsonFile = new File(jsonFilename);
+        jsonFile.delete();
 	}
 	
 	/**
@@ -85,16 +92,18 @@ public class PdfAInspector {
     	
         PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);
         info.exportAsXML(xmlFile);
-            
-        XMLToJSON.convertXMLtoJSON(xmlFile, pathname + "json-" + filename + ".json");
+        
+        
+        XMLToJSON.convertXMLtoJSON(xmlFile, jsonFilename);
             
         //delete files
         if (meta != null) meta.delete();
         if (bookmarks != null) bookmarks.delete();
         if (forms != null) forms.delete();
-        //if (tags != null) tags.delete();
+        if (tags != null) tags.delete();
         File xml = new File(xmlFile);
-        //xml.delete();
+        xml.delete();
+
             
     }
     
