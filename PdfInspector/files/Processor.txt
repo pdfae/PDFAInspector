@@ -78,7 +78,7 @@ function contains(list, str)
 }
 
 // use rules on necessary parts of json
-// the rules.txt file (which will be merged with this one)
+// the Rules.txt file (which will be merged with this one)
 // contains all of the following function definitions
 bookmarksHeader(pageNum, Bookmark, tags);
 tagged(tags);

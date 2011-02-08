@@ -6,7 +6,7 @@
 // identification number and the results of the function call
 // multiple print calls are used for formatting
 // more detailed rule information is located in
-// ruleInformation.txt
+// RuleInformation.txt
 
 
 // checks to see if tags exist at all

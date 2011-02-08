@@ -18,7 +18,7 @@ public class PdfAInspector {
 		
 		extractPdfInfo();
 		RulesProcessor rprocessor = new RulesProcessor();
-		rprocessor.runRules(pathname + "json-" + filename + ".json", pathname + "result_" + filename + ".json");
+		rprocessor.runRules(pathname + "json-" + filename + ".json", pathname + "Tempfiles/results/" + "result_" + filename + ".json");
 	}
 	
 	/**

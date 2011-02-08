@@ -54,11 +54,13 @@ public class RulesProcessor extends Shell{
 		processor.process(shlArgs);
 		try{
 			File f = new File(intermediate);
+			File f2 = new File(jsonObjIn);
 			boolean success = f.delete();
+			boolean success2 = f2.delete();
 
-		    if (!success)
+		    if (!success || !success2)
 		      throw new IllegalArgumentException("Delete: deletion failed");
-		}catch(Exception e){System.err.println("intermediate processing file does not exist: " + e.getMessage());}
+		}catch(Exception e){System.err.println(intermediate + " or " + jsonObjIn + " processing file does not exist: " + e.getMessage());}
 	}
 	
 	public void process(String[] args)
@@ -109,7 +111,22 @@ public class RulesProcessor extends Shell{
 	
 	private void processSource(Context cx, String filename) throws IOException
     {
+		// create directories if necessary
+		String outFileCopy = "";
+		int index = 0;
+		while(!outFileCopy.equals(outFile))
+		{
+			index = outFile.indexOf("/", index)+1;
+			if(index == 0)
+				break;
+			outFileCopy = outFile.substring(0,index);
+			File creation = new File(outFileCopy);
+			if(!creation.exists())
+				creation.mkdir();
+		}
+		
 		BufferedWriter out = new BufferedWriter(new FileWriter(outFile));
+		
 		// setting up the results data structure
 		out.write("{\n\"results\":[\n");
 		
