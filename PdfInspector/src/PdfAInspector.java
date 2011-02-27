@@ -58,6 +58,7 @@ public class PdfAInspector {
     	try{
     		String tagFilename = pathname + "itext-" +	filename + ".xml";
             tags = extractor.extractTags(tagFilename);
+            //tags = extractor.convertToXmlWithAttr(tagFilename);
     	}
     	catch(Exception e)
     	{
@@ -88,6 +89,7 @@ public class PdfAInspector {
     		System.out.println("Error in extracting bookmarks");
     		bookmarks = null;
     	}
+    	
     	
     	
         PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);

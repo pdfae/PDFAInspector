@@ -2,17 +2,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.PRStream;
+import com.itextpdf.text.pdf.PdfArray;
 import com.itextpdf.text.pdf.PdfDictionary;
 import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.pdf.PdfNumber;
+import com.itextpdf.text.pdf.PdfObject;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.SimpleBookmark;
-import com.itextpdf.text.pdf.parser.TaggedPdfReaderTool;
+import com.itextpdf.text.pdf.parser.*;
+import com.itextpdf.text.xml.simpleparser.SimpleXMLParser;
 
 /**
  * PdfExtractor
@@ -22,6 +30,7 @@ import com.itextpdf.text.pdf.parser.TaggedPdfReaderTool;
 public class PdfExtractor {
 	private String filename;
 	private PdfReader reader;
+	private PrintWriter out;
 	private boolean tagsExist = false;
 	
 	
@@ -46,7 +55,7 @@ public class PdfExtractor {
 			FileOutputStream fop;
 			File file = new File(result);
 			fop = new FileOutputStream(file);
-			tReader.convertToXml(reader, fop);
+			convertToXmlWithAttr(fop);
 		        
 		    fop.flush();
 		    fop.close();
@@ -212,4 +221,222 @@ public class PdfExtractor {
 		}
 
     }
+    
+    /**
+     * Extracts table attributes
+     * @param result
+     * @return
+     */
+    public void convertToXmlWithAttr(OutputStream os) throws IOException{
+    	
+    	OutputStreamWriter outs = new OutputStreamWriter(os, Charset.defaultCharset().name());
+    	out = new PrintWriter(outs);
+    	
+    	// get the StructTreeRoot from the root object
+		PdfDictionary catalog = reader.getCatalog();
+		PdfDictionary struct = catalog.getAsDict(PdfName.STRUCTTREEROOT);
+
+		inspectStructChild(struct.getDirectObject(PdfName.K));
+
+		out.flush();
+		out.close();
+    }
+    
+    /**
+     * Inspect children of structure tree root
+     * @param k\
+     * @param target
+     * @return
+     */
+    private void inspectStructChild(PdfObject k){
+		if (k == null)
+			return;
+		if (k instanceof PdfArray)
+			inspectChildArray((PdfArray) k);
+		else if (k instanceof PdfDictionary)
+			inspectChildDictionary((PdfDictionary) k);
+		else
+			return;
+    }
+    
+    /**
+     * Inspect child array of a structure tree 
+     * @param k
+     * @param target
+     * @return
+     */
+    private void inspectChildArray(PdfArray k){
+    	System.out.println("Array");
+		if (k == null)
+			return;
+		for (int i = 0; i < k.size(); i++) {
+			inspectStructChild(k.getDirectObject(i));
+		}
+		
+		return;
+    }
+    
+    /**
+     * 
+     * @param dict
+     * @param target
+     * @return
+     */
+    private void inspectChildDictionary(PdfDictionary dict){
+    	System.out.println("Dictionary");
+		if (dict == null)
+			return;
+		else{
+			// inspectStructureElementChild(dict.get(PdfName.K), dict.getAsDict(PdfName.PG), target);
+			System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
+			
+    		// if the value of K is a dictionary containing no Type entry it shall
+    		// be assumed to be a structure element dictionary
+			if (dict.get(PdfName.S).equals(PdfName.ALT)){
+				System.out.println("Alt text found: " + dict.get(PdfName.ALT));
+			}
+    		if (dict.get(PdfName.TYPE) == null){
+    			System.out.println("Doesn't contain type");
+    			inspectStructChild(dict.get(PdfName.K));
+    		}
+		}		
+		return;
+    }
+    
+    /**
+     * Taken from TaggedPdfReaderTool in iText
+     * @param tag
+     * @return
+     */
+    private static String fixTagName(String tag) {
+        StringBuilder sb = new StringBuilder();
+        for (int k = 0; k < tag.length(); ++k) {
+            char c = tag.charAt(k);
+            boolean nameStart =
+                c == ':'
+                || (c >= 'A' && c <= 'Z')
+                || c == '_'
+                || (c >= 'a' && c <= 'z')
+                || (c >= '\u00c0' && c <= '\u00d6')
+                || (c >= '\u00d8' && c <= '\u00f6')
+                || (c >= '\u00f8' && c <= '\u02ff')
+                || (c >= '\u0370' && c <= '\u037d')
+                || (c >= '\u037f' && c <= '\u1fff')
+                || (c >= '\u200c' && c <= '\u200d')
+                || (c >= '\u2070' && c <= '\u218f')
+                || (c >= '\u2c00' && c <= '\u2fef')
+                || (c >= '\u3001' && c <= '\ud7ff')
+                || (c >= '\uf900' && c <= '\ufdcf')
+                || (c >= '\ufdf0' && c <= '\ufffd');
+            boolean nameMiddle =
+                c == '-'
+                || c == '.'
+                || (c >= '0' && c <= '9')
+                || c == '\u00b7'
+                || (c >= '\u0300' && c <= '\u036f')
+                || (c >= '\u203f' && c <= '\u2040')
+                || nameStart;
+            if (k == 0) {
+                if (!nameStart)
+                    c = '_';
+            }
+            else {
+                if (!nameMiddle)
+                    c = '-';
+            }
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+	/**
+	 * Taken from TaggedPdfReaderTool in iText: Searches for a tag in a page.
+	 * 
+	 * @param tag
+	 *            the name of the tag
+	 * @param object
+	 *            an identifier to find the marked content
+	 * @param page
+	 *            a page dictionary
+	 * @throws IOException
+	 */
+	public void parseTag(String tag, PdfObject object, PdfDictionary page)
+			throws IOException {
+		PRStream stream = (PRStream) page.getAsStream(PdfName.CONTENTS);
+		// if the identifier is a number, we can extract the content right away
+		if (object instanceof PdfNumber) {
+			PdfNumber mcid = (PdfNumber) object;
+			RenderFilter filter = new MarkedContentRenderFilter(mcid.intValue());
+			TextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+			FilteredTextRenderListener listener = new FilteredTextRenderListener(
+					strategy, filter);
+			PdfContentStreamProcessor processor = new PdfContentStreamProcessor(
+					listener);
+			processor.processContent(PdfReader.getStreamBytes(stream), page
+					.getAsDict(PdfName.RESOURCES));
+			out.print(SimpleXMLParser.escapeXML(listener.getResultantText(), true));
+		}
+		// if the identifier is an array, we call the parseTag method
+		// recursively
+		else if (object instanceof PdfArray) {
+			PdfArray arr = (PdfArray) object;
+			int n = arr.size();
+			for (int i = 0; i < n; i++) {
+				parseTag(tag, arr.getPdfObject(i), page);
+				if (i < n - 1)
+					out.println();
+			}
+		}
+		// if the identifier is a dictionary, we get the resources from the
+		// dictionary
+		else if (object instanceof PdfDictionary) {
+			PdfDictionary mcr = (PdfDictionary) object;
+			parseTag(tag, mcr.getDirectObject(PdfName.MCID), mcr
+					.getAsDict(PdfName.PG));
+		}
+	}
+
+    
+    /**
+     * OLD --- Inspect elements of structure tree (but not root)
+     * @param object
+     * @param target
+     * @return
+     */
+    private void inspectStructureElementChild(PdfObject object, PdfDictionary page, PdfName target){
+    	// if the identifier is a number, we can extract the content right away
+    	if (object instanceof PdfNumber) {
+			PRStream stream = (PRStream) page.getAsStream(PdfName.CONTENTS);
+			PdfNumber mcid = (PdfNumber) object;
+			RenderFilter filter = new MarkedContentRenderFilter(mcid.intValue());
+			TextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+			FilteredTextRenderListener listener = new FilteredTextRenderListener(
+					strategy, filter);
+			PdfContentStreamProcessor processor = new PdfContentStreamProcessor(
+					listener);
+			try {
+				processor.processContent(PdfReader.getStreamBytes(stream), page
+						.getAsDict(PdfName.RESOURCES));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// if the identifier is an array, we call the parseTag method
+		// recursively
+		else if (object instanceof PdfArray) {
+			PdfArray arr = (PdfArray) object;
+			int n = arr.size();
+			for (int i = 0; i < n; i++) {
+				inspectStructureElementChild(arr.getPdfObject(i), page, target);
+			}
+		}
+		// if the identifier is a dictionary, we get the resources from the
+		// dictionary
+		else if (object instanceof PdfDictionary) {
+			PdfDictionary mcr = (PdfDictionary) object;
+			inspectStructureElementChild(mcr.getDirectObject(PdfName.MCID), mcr.getAsDict(PdfName.PG), target);
+		}
+    }
+    
 }
