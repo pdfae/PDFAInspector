@@ -248,15 +248,13 @@ public class PdfExtractor {
      * @param target
      * @return
      */
-    private void inspectStructChild(PdfObject k){
+    private void inspectStructChild(PdfObject k) throws IOException {
 		if (k == null)
 			return;
-		if (k instanceof PdfArray)
+		else if (k instanceof PdfArray)
 			inspectChildArray((PdfArray) k);
 		else if (k instanceof PdfDictionary)
 			inspectChildDictionary((PdfDictionary) k);
-		else
-			return;
     }
     
     /**
@@ -265,15 +263,12 @@ public class PdfExtractor {
      * @param target
      * @return
      */
-    private void inspectChildArray(PdfArray k){
-    	System.out.println("Array");
+    private void inspectChildArray(PdfArray k) throws IOException {
 		if (k == null)
 			return;
 		for (int i = 0; i < k.size(); i++) {
 			inspectStructChild(k.getDirectObject(i));
 		}
-		
-		return;
     }
     
     /**
@@ -282,25 +277,37 @@ public class PdfExtractor {
      * @param target
      * @return
      */
-    private void inspectChildDictionary(PdfDictionary dict){
-    	System.out.println("Dictionary");
-		if (dict == null)
+    private void inspectChildDictionary(PdfDictionary dict) throws IOException {
+    	if (dict == null)
 			return;
 		else{
-			// inspectStructureElementChild(dict.get(PdfName.K), dict.getAsDict(PdfName.PG), target);
-			System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
+			//System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
 			
-    		// if the value of K is a dictionary containing no Type entry it shall
-    		// be assumed to be a structure element dictionary
-			if (dict.get(PdfName.S).equals(PdfName.ALT)){
-				System.out.println("Alt text found: " + dict.get(PdfName.ALT));
+			PdfName s = dict.getAsName(PdfName.S);
+			if (s != null) {
+	            String tagN = PdfName.decodeName(s.toString());
+				String tag = fixTagName(tagN);
+				out.print("<");
+				out.print(tag);
+				
+				// if alt text exists, include in tag brackets
+				if (dict.get(PdfName.ALT) != null){
+					out.print(" Alt = \"" + dict.get(PdfName.ALT) + "\"");
+				}
+				
+				out.print(">");
+
+				PdfDictionary dictPG = dict.getAsDict(PdfName.PG);
+				if (dictPG != null)
+					parseTag(tagN, dict.getDirectObject(PdfName.K), dictPG);
+				inspectStructChild(dict.get(PdfName.K));
+				out.print("</");
+				out.print(tag);
+				out.println(">");
+			} else{
+				inspectStructChild(dict.get(PdfName.K));
 			}
-    		if (dict.get(PdfName.TYPE) == null){
-    			System.out.println("Doesn't contain type");
-    			inspectStructChild(dict.get(PdfName.K));
-    		}
-		}		
-		return;
+		}
     }
     
     /**
