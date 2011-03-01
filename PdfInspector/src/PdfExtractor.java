@@ -31,8 +31,6 @@ public class PdfExtractor {
 	private String filename;
 	private PdfReader reader;
 	private PrintWriter out;
-	private boolean tagsExist = false;
-	
 	
 	public PdfExtractor(String filename){
 		this.filename = filename;
@@ -60,7 +58,6 @@ public class PdfExtractor {
 		    fop.flush();
 		    fop.close();
 		    
-		    if (file != null) tagsExist = true;
 		    return file;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -281,7 +278,7 @@ public class PdfExtractor {
     	if (dict == null)
 			return;
 		else{
-			//System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
+			
 			
 			PdfName s = dict.getAsName(PdfName.S);
 			if (s != null) {
@@ -292,7 +289,11 @@ public class PdfExtractor {
 				
 				// if alt text exists, include in tag brackets
 				if (dict.get(PdfName.ALT) != null){
-					out.print(" Alt = \"" + dict.get(PdfName.ALT) + "\"");
+					String altText = dict.get(PdfName.ALT).toString();
+					
+					// must detach last character because alt text always comes with an invalid character
+					// that later causes problems when converting to json
+					out.print(" Alt=\"" + altText.substring(0,altText.length()-1) + "\"");
 				}
 				
 				out.print(">");

@@ -95,22 +95,18 @@ public class PdfAInspector {
         PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);
         info.exportAsXML(xmlFile);
         
-        
-        //XMLToJSON.convertXMLtoJSON(xmlFile, jsonFilename);
-        
-        XMLToJSON.convertXMLtoJSON(pathname + "starbucks_imageonly-msword" + ".xml", 
-        		pathname + "test_starbucks" + ".json");
-        XMLToJSON.convertXMLtoJSON(pathname + "itext-starbucks_imageonly-msword" + ".xml", 
-        		pathname + "itext-test_starbucks" + ".json");
+        XMLToJSON.convertXMLtoJSON(xmlFile, jsonFilename);
+        //XMLToJSON.convertXMLtoJSON(pathname + "itext-starbucks_imageonly-msword" + ".xml", 
+        //		pathname + "itext-test_starbucks" + ".json");
 
         
         //delete files
         if (meta != null) meta.delete();
         if (bookmarks != null) bookmarks.delete();
         if (forms != null) forms.delete();
-        //if (tags != null) tags.delete();
+        if (tags != null) tags.delete();
         File xml = new File(xmlFile);
-        xml.delete();
+        //xml.delete();
 
             
     }
