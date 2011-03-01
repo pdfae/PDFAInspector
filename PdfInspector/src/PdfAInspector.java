@@ -106,7 +106,7 @@ public class PdfAInspector {
         if (forms != null) forms.delete();
         if (tags != null) tags.delete();
         File xml = new File(xmlFile);
-        //xml.delete();
+        xml.delete();
 
             
     }

@@ -31,6 +31,11 @@ public class PdfExtractor {
 	private String filename;
 	private PdfReader reader;
 	private PrintWriter out;
+	private PdfName summaryName = new PdfName("Summary");
+	private PdfName scopeName = new PdfName("Scope");
+	private PdfName rowName = new PdfName("RowSpan");
+	private PdfName colName = new PdfName("ColSpan");
+	private PdfName headerName = new PdfName("Headers");
 	
 	public PdfExtractor(String filename){
 		this.filename = filename;
@@ -220,7 +225,7 @@ public class PdfExtractor {
     }
     
     /**
-     * Extracts table attributes
+     * Extracts tags with alt text attributes
      * @param result
      * @return
      */
@@ -277,11 +282,15 @@ public class PdfExtractor {
     private void inspectChildDictionary(PdfDictionary dict) throws IOException {
     	if (dict == null)
 			return;
-		else{
-			
-			
+		else{	
+			//System.out.println("-------" + dict);
+			//System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
+
+			// if tag
 			PdfName s = dict.getAsName(PdfName.S);
 			if (s != null) {
+				
+
 	            String tagN = PdfName.decodeName(s.toString());
 				String tag = fixTagName(tagN);
 				out.print("<");
@@ -296,6 +305,12 @@ public class PdfExtractor {
 					out.print(" Alt=\"" + altText.substring(0,altText.length()-1) + "\"");
 				}
 				
+				// if attribute exists, include in tag brackets
+				PdfDictionary a = dict.getAsDict(PdfName.A);
+				if (a != null) {
+					extractAttr(a);
+				}				
+				
 				out.print(">");
 
 				PdfDictionary dictPG = dict.getAsDict(PdfName.PG);
@@ -305,9 +320,17 @@ public class PdfExtractor {
 				out.print("</");
 				out.print(tag);
 				out.println(">");
-			} else{
+			}
+			
+			// if attribute dictionary
+			else if (dict.get(PdfName.A)!= null) {
+				System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
+			}
+			else {
 				inspectStructChild(dict.get(PdfName.K));
 			}
+			
+			
 		}
     }
     
@@ -404,7 +427,39 @@ public class PdfExtractor {
 		}
 	}
 
-    
+	/**
+	 * Extracts attributes and prints them to output stream
+	 * @param a
+	 */
+    public void extractAttr(PdfDictionary a){
+    	if (a == null){
+    		return;
+    	}
+    	else{
+    		System.out.println(PdfContentReaderTool.getDictionaryDetail(a));
+
+    		
+    		//System.out.println(a.get(summaryName));
+    		
+    		if (a.contains(summaryName)){
+    			out.print(" Summary=\"" + a.get(summaryName) + "\"");
+    		}
+    		if (a.contains(scopeName)){
+    			out.print(" Scope=\"" + a.get(scopeName) + "\"");
+    		}
+    		if (a.contains(headerName)){
+    			out.print(" Headers=\"" + a.get(headerName) + "\"");
+    		}
+    		if (a.contains(rowName)){
+    			out.print(" RowSpan=\"" + a.get(rowName) + "\"");
+    		}
+    		if (a.contains(colName)){
+    			out.print(" ColSpan=\"" + a.get(colName) + "\"");
+    		}
+    		
+    	}
+    }
+
     /**
      * OLD --- Inspect elements of structure tree (but not root)
      * @param object
