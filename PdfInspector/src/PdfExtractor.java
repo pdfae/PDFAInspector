@@ -58,8 +58,10 @@ public class PdfExtractor {
 			FileOutputStream fop;
 			File file = new File(result);
 			fop = new FileOutputStream(file);
-			convertToXmlWithAttr(fop);
-		        
+				convertToXmlWithAttr(fop);
+		      
+			//tReader.convertToXml(reader, fop);
+			
 		    fop.flush();
 		    fop.close();
 		    
@@ -316,7 +318,7 @@ public class PdfExtractor {
 				PdfDictionary dictPG = dict.getAsDict(PdfName.PG);
 				if (dictPG != null)
 					parseTag(tagN, dict.getDirectObject(PdfName.K), dictPG);
-				inspectStructChild(dict.get(PdfName.K));
+				inspectStructChild(dict.getDirectObject(PdfName.K));
 				out.print("</");
 				out.print(tag);
 				out.println(">");
@@ -391,9 +393,7 @@ public class PdfExtractor {
 	 *            a page dictionary
 	 * @throws IOException
 	 */
-	public void parseTag(String tag, PdfObject object, PdfDictionary page)
-			throws IOException {
-		PRStream stream = (PRStream) page.getAsStream(PdfName.CONTENTS);
+	public void parseTag(String tag, PdfObject object, PdfDictionary page) throws IOException {
 		// if the identifier is a number, we can extract the content right away
 		if (object instanceof PdfNumber) {
 			PdfNumber mcid = (PdfNumber) object;
@@ -401,10 +401,8 @@ public class PdfExtractor {
 			TextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
 			FilteredTextRenderListener listener = new FilteredTextRenderListener(
 					strategy, filter);
-			PdfContentStreamProcessor processor = new PdfContentStreamProcessor(
-					listener);
-			processor.processContent(PdfReader.getStreamBytes(stream), page
-					.getAsDict(PdfName.RESOURCES));
+			PdfContentStreamProcessor processor = new PdfContentStreamProcessor(listener);
+			processor.processContent(PdfReader.getPageContent(page), page.getAsDict(PdfName.RESOURCES));
 			out.print(SimpleXMLParser.escapeXML(listener.getResultantText(), true));
 		}
 		// if the identifier is an array, we call the parseTag method
@@ -422,8 +420,7 @@ public class PdfExtractor {
 		// dictionary
 		else if (object instanceof PdfDictionary) {
 			PdfDictionary mcr = (PdfDictionary) object;
-			parseTag(tag, mcr.getDirectObject(PdfName.MCID), mcr
-					.getAsDict(PdfName.PG));
+			parseTag(tag, mcr.getDirectObject(PdfName.MCID), mcr.getAsDict(PdfName.PG));
 		}
 	}
 
@@ -460,46 +457,4 @@ public class PdfExtractor {
     	}
     }
 
-    /**
-     * OLD --- Inspect elements of structure tree (but not root)
-     * @param object
-     * @param target
-     * @return
-     */
-    private void inspectStructureElementChild(PdfObject object, PdfDictionary page, PdfName target){
-    	// if the identifier is a number, we can extract the content right away
-    	if (object instanceof PdfNumber) {
-			PRStream stream = (PRStream) page.getAsStream(PdfName.CONTENTS);
-			PdfNumber mcid = (PdfNumber) object;
-			RenderFilter filter = new MarkedContentRenderFilter(mcid.intValue());
-			TextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-			FilteredTextRenderListener listener = new FilteredTextRenderListener(
-					strategy, filter);
-			PdfContentStreamProcessor processor = new PdfContentStreamProcessor(
-					listener);
-			try {
-				processor.processContent(PdfReader.getStreamBytes(stream), page
-						.getAsDict(PdfName.RESOURCES));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		// if the identifier is an array, we call the parseTag method
-		// recursively
-		else if (object instanceof PdfArray) {
-			PdfArray arr = (PdfArray) object;
-			int n = arr.size();
-			for (int i = 0; i < n; i++) {
-				inspectStructureElementChild(arr.getPdfObject(i), page, target);
-			}
-		}
-		// if the identifier is a dictionary, we get the resources from the
-		// dictionary
-		else if (object instanceof PdfDictionary) {
-			PdfDictionary mcr = (PdfDictionary) object;
-			inspectStructureElementChild(mcr.getDirectObject(PdfName.MCID), mcr.getAsDict(PdfName.PG), target);
-		}
-    }
-    
 }

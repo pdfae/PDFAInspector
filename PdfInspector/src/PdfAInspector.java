@@ -50,8 +50,10 @@ public class PdfAInspector {
     	catch(Exception e)
     	{
     		System.out.println("Error in extracting metadata");
-    		meta.delete();
-    		meta = null;
+    		if (meta != null){
+    			meta.delete();
+    			meta = null;
+    		}
     	}
     	
     	//extract tags
@@ -63,8 +65,10 @@ public class PdfAInspector {
     	catch(Exception e)
     	{
     		System.out.println("Error in extracting tags");
-    		tags.delete();
-    		tags = null;
+    		if (tags != null){
+    			tags.delete();
+        		tags = null;
+    		}
     	}
     	
     	//extract forms
@@ -75,8 +79,10 @@ public class PdfAInspector {
     	catch(Exception e)
     	{
     		System.out.println("Error in extracting forms");
-    		forms.delete();
-    		forms = null;
+    		if (forms != null){
+    			forms.delete();
+    			forms = null;
+    		}	
     	}
     	
     	//extract bookmarks
@@ -91,14 +97,10 @@ public class PdfAInspector {
     	}
     	
     	
-    	
         PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);
         info.exportAsXML(xmlFile);
         
         XMLToJSON.convertXMLtoJSON(xmlFile, jsonFilename);
-        //XMLToJSON.convertXMLtoJSON(pathname + "itext-starbucks_imageonly-msword" + ".xml", 
-        //		pathname + "itext-test_starbucks" + ".json");
-
         
         //delete files
         if (meta != null) meta.delete();
@@ -107,8 +109,7 @@ public class PdfAInspector {
         if (tags != null) tags.delete();
         File xml = new File(xmlFile);
         xml.delete();
-
-            
+     
     }
     
     /**
