@@ -1,0 +1,35 @@
+Results:[
+	{
+	rule_id:7,
+	test_results:[
+		{
+		passed:false
+		message:this table does not contain the summary attribute
+		}
+	],
+	wcag_code:1.3.1,
+	sect508_code:22.a
+	},
+	{
+	rule_id:8,
+	test_results:[
+		{
+		passed:false
+		message:this table's first row does not consist of th tags
+		}
+	],
+	wcag_code:1.3.1,
+	sect508_code:22.g
+	},
+	{
+	rule_id:9,
+	test_results:[
+		{
+		passed:false
+		message:a summary attribute is empty
+		}
+	],
+	wcag_code:1.3.1,
+	sect508_code:22.a
+	}
+]
