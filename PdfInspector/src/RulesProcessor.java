@@ -9,6 +9,10 @@ import com.itextpdf.*;
  * Reads in Json formatted rules
  */
 public class RulesProcessor extends Shell{
+	
+	public enum JSFileType{
+		FormalRules, PDFObj
+	}
 
 	// File to write all processing output to
 	static String outFile = "files/Results.txt";
@@ -18,15 +22,18 @@ public class RulesProcessor extends Shell{
 	static String toWrite;
 	// This file is intermediate for processing all javascript at once
 	static String intermediate = "files/JS.txt";
+	// Variable that keeps track of what javascript file is being processed
+	JSFileType jsFileType = JSFileType.FormalRules;
 	
 	public void runRules(String jsonObjIn, String writeTo)
 	{
 		outFile = writeTo;
+		
 		try{
 			String instr;
 			BufferedReader in1 = new BufferedReader(new FileReader(jsonObjIn));
-			BufferedReader in2 = new BufferedReader(new FileReader("files/Rules.txt"));
-			BufferedReader in3 = new BufferedReader(new FileReader("files/Processor.txt"));
+			BufferedReader in2 = new BufferedReader(new FileReader("files/Processor.txt"));
+			BufferedReader in3 = new BufferedReader(new FileReader("files/Rules.txt"));
 			BufferedWriter out = new BufferedWriter(new FileWriter(intermediate));
 			
 			out.write("root = ");
@@ -47,18 +54,18 @@ public class RulesProcessor extends Shell{
 		}catch(Exception e){System.err.println("error combining three js text files, file possibly not found: " + e.getMessage());return;}
 		
 		// Process js file
-		String shlArgs[] = {"files/JS.txt"};
+		String shlArgs[] = {intermediate};
 		
 		// Create an instance of myself to call nonstatic functions
 		RulesProcessor processor = new RulesProcessor();
 		processor.process(shlArgs);
 		try{
 			File f = new File(intermediate);
-			File f2 = new File(jsonObjIn);
+			//File f2 = new File(jsonObjIn);
 			boolean success = f.delete();
-			boolean success2 = f2.delete();
+			//boolean success2 = f2.delete();
 
-		    if (!success || !success2)
+		    if (!success)// || !success2)
 		      throw new IllegalArgumentException("Delete: deletion failed");
 		}catch(Exception e){System.err.println(intermediate + " or " + jsonObjIn + " processing file does not exist: " + e.getMessage());}
 	}
@@ -128,7 +135,8 @@ public class RulesProcessor extends Shell{
 		BufferedWriter out = new BufferedWriter(new FileWriter(outFile));
 		
 		// setting up the results data structure
-		out.write("{\n\"results\":[\n");
+		if(jsFileType == JSFileType.PDFObj)
+			out.write("{\n\"results\":[\n");
 		
         if (filename == null) {
             BufferedReader in = new BufferedReader
@@ -238,10 +246,18 @@ public class RulesProcessor extends Shell{
             }
         }
         
-        int lastCommaInd = toWrite.lastIndexOf("},");
-        toWrite = toWrite.substring(0, lastCommaInd) + "}\n";
-        out.write(toWrite);
-        out.write("]}");
+        // remove the last comma in the results list
+        if(jsFileType == JSFileType.PDFObj)
+        {
+        	int lastCommaInd = toWrite.lastIndexOf("},");
+        	if(lastCommaInd >= 0)
+        		toWrite = toWrite.substring(0, lastCommaInd) + "}\n";
+        }
+        // write what to file what is in the buffer
+    	out.write(toWrite);
+    	// close the results object
+        if(jsFileType == JSFileType.PDFObj)
+        	out.write("]}");
         out.close();
     }
 

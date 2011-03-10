@@ -6,65 +6,6 @@ var form = root.form;
 var pageNum = root.pageNum;
 var Bookmark = root.Bookmark;
 
-// traverse the json of the tags
-function traverse(tags)
-{
-	// assume that key "tags" in the json is set to
-	// an item list
-	// even if it isn't an item list this loop
-	// will iterate once
-	// if this is an iterative call then the loop
-	// will be called on tags where tags can be
-	// an object: in which case one iteration
-	// or an object list
-	for(item in tags)
-	{
-		// for each item (which is a key)
-		// grab the value associated with the key
-		var val = tags[item];
-
-		// if the key is a table run the table rule on it
-		if(item.toLowerCase() == "table")
-		{
-			tableformatted(val);
-		}
-		// otherwise if the value associated with the key
-		// is an array, recursively call this function
-		// on all items in the array
-		else if(val.constructor == Array)
-		{
-			for(i=0;i<val.length;i++)
-			{
-				traverse(val[i]);
-			}
-		}
-		// otherwise the value is just an object
-		// so recurse on that object
-		else{
-			traverse(val);
-		}
-	}
-}
-
-// call the traversal function on the tags object
-// in this case the tags object is one of the keys
-// in the root object list
-// many rules may traverse the tags and yet this function
-// currently only uses the table rule
-// for now, this function will be used as an example for
-// how to completely explore a json object
-traverse(tags);
-
-// hypothetical function
-// would be able to determine for every item
-// what rule needs to be run on that item
-// would avoid having to explore the entire tagging
-// structure everytime a new rule is created
-function determineRule(tag)
-{
-	
-}
-
 // function that determines if a list of strings
 // contains a specified string
 function contains(list, str)
@@ -77,12 +18,69 @@ function contains(list, str)
 	return false;
 }
 
+// function that returns a list of the objects
+// associated with given string
+function getElementsByTagName(object, query)
+{
+	var queryList = [];
+	queryList = getElementsByTagNameHelper(queryList,object,query);
+	return queryList;
+}
+function getElementsByTagNameHelper(list,object,query)
+{
+	// json object traversal
+	if(object.constructor == Array)
+	{
+		for(var i = 0; i < object.length; i++)
+		{
+			var returnList = getElementsByTagNameHelper([],object[i],query);
+			for(var j = 0; j < returnList.length; j++)
+			{
+				list.push(returnList[j]);
+			}
+		}
+		return list;
+	}
+	else if(object.constructor == String)
+	{
+		return list;
+	}
+	else
+	{
+		for(var item in object)
+		{
+			var val = object[item];
+			if(item.toLowerCase() == query)
+			{
+				var x = {};
+				x[item] = val;
+				list.push(x);
+			}
+			var returnList = getElementsByTagNameHelper([],val,query);
+			for(var i = 0; i < returnList.length; i++)
+			{
+				list.push(returnList[i]);
+			}
+		}
+		return list;
+	}
+}
+
+// returns text associated with an element
+function getNodeTextRecursively(element)
+{
+	for(var item in element)
+	{
+		if(element[item].constructor != String)
+			return "";
+		return element[item];
+	}
+}
+
 // use rules on necessary parts of json
 // the Rules.txt file (which will be merged with this one)
 // contains all of the following function definitions
-bookmarksHeader(pageNum, Bookmark, tags);
-tagged(tags);
-titleformatted(title);
-headingformatted(tags);
-headingcontent(tags);
-needed_tooltips_exist(form);
+// tablerule(tags);
+// checkIfNestedTablesExist();
+// titleNotEmpty(title);
+// h1tagsNonEmpty(tags);

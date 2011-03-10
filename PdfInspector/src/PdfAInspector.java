@@ -25,7 +25,7 @@ public class PdfAInspector {
 
 		//delete json file
         File jsonFile = new File(jsonFilename);
-        jsonFile.delete();
+        //jsonFile.delete();
 	}
 	
 	/**
