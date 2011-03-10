@@ -31,5 +31,16 @@ Results:[
 	],
 	wcag_code:1.3.1,
 	sect508_code:22.a
+	},
+	{
+	rule_id:14,
+	test_results:[
+		{
+		passed:true
+		message:tables do not contain nested tables
+		}
+	],
+	wcag_code:1.3.2,
+	sect508_code:22.h
 	}
 ]

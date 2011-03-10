@@ -301,30 +301,29 @@ RuleList = {Rules:[
 		function (tags)
 		{
 			// checks if tables contain nested tables
-			function tablerulecheckForNestedTable(table)
+			function tablerulecheckForNestedTable(tableOrInside)
 			{
 				// traverse the table and look for another table
 				// standard traversal (either an array or object list or string)
-				if(tags.constructor == Array)
+				if(tableOrInside.constructor == Array)
 				{
-					var tableSeen = false;
-					for(var i=0;i<tags.length;i++)
+					for(var i=0;i<tableOrInside.length;i++)
 					{
-						tableSeen = tableSeen || tablerulecheckForNestedTable(tags[i]);
+						tableSeen = tableSeen || tablerulecheckForNestedTable(tableOrInside[i]);
 					}
 					return tableSeen;
 				}
 				// base case
-				else if(tags.constructor == String)
+				else if(tableOrInside.constructor == String)
 				{
 					return false;
 				}
 				else
 				{
 					var tableSeen = false;
-					for(item in tags)
+					for(item in tableOrInside)
 					{
-						var val = tags[item];
+						var val = tableOrInside[item];
 						if(item.toLowerCase() == "table")
 						{
 							return true;
@@ -334,20 +333,8 @@ RuleList = {Rules:[
 							tableSeen = tableSeen || tablerulecheckForNestedTable(val);
 						}
 					}
+					return tableSeen;
 				}
-
-
-				if(!nonEmpty)
-				{
-					pass_fail.passed = "false";
-					pass_fail.message = "a summary attribute is empty";
-				}
-				else
-				{
-					pass_fail.passed = "true";
-					pass_fail.message = "summary attributes are non empty, please check to make sure that the description accurately describes the table";
-				}
-				return pass_fail;
 			}
 	
 			// function definition that traverses the tags
@@ -378,10 +365,44 @@ RuleList = {Rules:[
 							if(val.constructor == Array)
 							{
 								for(var k=0;k<val.length;k++)
-									result.test_results.push(tablerulecheckForNestedTable(val[k]));
+								{
+									var tableSeen = false;
+									tableSeen = tablerulecheckForNestedTable(val[k]);
+
+									var pass_fail = new Object();
+
+									if(tableSeen)
+									{
+										pass_fail.passed = "false";
+										pass_fail.message = "a table does contain nested tables, please do not use nested tables for positioning";
+									}
+									else
+									{
+										pass_fail.passed = "true";
+										pass_fail.message = "tables do not contain nested tables";
+									}
+									result.test_results.push(pass_fail);
+								}
 							}
 							else
-								result.test_results.push(tablerulecheckForNestedTable(val));
+							{
+								var tableSeen = false;
+								tableSeen = tablerulecheckForNestedTable(val);
+
+								var pass_fail = new Object();
+
+								if(tableSeen)
+								{
+									pass_fail.passed = "false";
+									pass_fail.message = "a table does contain nested tables, please do not use nested tables for positioning";
+								}
+								else
+								{
+									pass_fail.passed = "true";
+									pass_fail.message = "tables do not contain nested tables";
+								}
+								result.test_results.push(pass_fail);
+							}
 						}
 						else
 							tableruletraversal(val);
@@ -391,9 +412,9 @@ RuleList = {Rules:[
 
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "9";
-			result.wcag_code = "1.3.1";
-			result.sect508_code = "22.a";
+			result.rule_id = "14";
+			result.wcag_code = "1.3.2";
+			result.sect508_code = "22.h";
 			result.test_results = new Array();
 
 			// function call to begin rule validation
@@ -404,6 +425,7 @@ RuleList = {Rules:[
 	pass_message:"tables do not contain nested tables",
 	fail_message:"a table does contain nested tables, please do not use nested tables for positioning",
 	title:"Do not use nested tables for positioning."
+	}
 ]};
 
 // all the code after this is required to call all validations
