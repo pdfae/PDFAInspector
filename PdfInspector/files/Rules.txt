@@ -425,6 +425,105 @@ RuleList = {Rules:[
 	pass_message:"tables do not contain nested tables",
 	fail_message:"a table does contain nested tables, please do not use nested tables for positioning",
 	title:"Do not use nested tables for positioning."
+	},
+	{
+	rule_id:"29",
+	wcag_code:"2.4.2",
+	sect508_code:"22.a",
+	param:title,
+	validate:
+		function (title)
+		{
+			// checks to see that the title element is not empty
+			function titleRuleCheckNonEmpty(title)
+			{
+				var pass_fail = new Object();
+				if(title == "")
+				{
+					pass_fail.passed = "false";
+					pass_fail.message = "title element is empty";
+				}
+				else
+				{
+					pass_fail.passed = "true";
+					pass_fail.message = "title element is not empty, make sure it accurately describes the document";
+				}
+
+				return pass_fail;
+			}
+
+			// variable local to function to store all the results
+			var result = new Object();
+			result.rule_id = "29";
+			result.wcag_code = "2.4.2";
+			result.sect508_code = "22.a";
+			result.test_results = new Array();
+
+			// function call to begin rule validation
+			result.test_results.push(titleRuleCheckNonEmpty(title));
+
+			return result;
+		},
+	pass_message:"title element is not empty, make sure it accurately describes the document",
+	fail_message:"title element is empty",
+	title:"Title element should not be empty."
+	},
+	{
+	rule_id:"30",
+	wcag_code:"2.4.2",
+	sect508_code:"22.d",
+	param:tags,
+	validate:
+		function (tags)
+		{
+			// checks to see that there are at most 2 h1 tags
+			// and at least 1 h1 tag
+			// all h1 tags must not be empty
+			function h1TagRuleCheckOneOrTwoAndNotEmpty(tags)
+			{
+				var h1Nodes = getElementsByTagName(tags,"h1");
+				var emptyH1Nodes = [];
+				for(var i = 0; i < h1Nodes.length; i++)
+				{
+					var h1Node = h1Nodes[i];
+					if(getNodeTextRecursively(h1Node).length == 0)
+					{
+						emptyH1Nodes.push(h1Node);
+					} // end if
+				} // end for
+
+				var passed = (h1Nodes.length == 1 || h1Nodes.length == 2) && emptyH1Nodes.length == 0;
+
+				var pass_fail = new Object();
+				if(passed)
+				{
+					pass_fail.passed = "true";
+					pass_fail.message = "there are 1 or 2 h1 tags that are not empty, however make sure content of h1 tags are descriptive headings";
+				}
+				else
+				{
+					pass_fail.passed = "false";
+					pass_fail.message = "h1 tags do not exist or there are more than 2 h1 tags or there exist empty h1 tags";
+				}
+
+				return pass_fail;
+			}
+
+			// variable local to function to store all the results
+			var result = new Object();
+			result.rule_id = "30";
+			result.wcag_code = "2.4.2";
+			result.sect508_code = "22.d";
+			result.test_results = new Array();
+
+			// function call to begin rule validation
+			result.test_results.push(h1TagRuleCheckOneOrTwoAndNotEmpty(tags));
+
+			return result;
+		},
+	pass_message:"there are 1 or 2 h1 tags that are not empty, however make sure content of h1 tags are descriptive headings",
+	fail_message:"h1 tags do not exist or there are more than 2 h1 tags or there exist empty h1 tags",
+	title:"Missing or empty H1 element."
 	}
 ]};
 

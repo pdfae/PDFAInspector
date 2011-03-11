@@ -76,11 +76,3 @@ function getNodeTextRecursively(element)
 		return element[item];
 	}
 }
-
-// use rules on necessary parts of json
-// the Rules.txt file (which will be merged with this one)
-// contains all of the following function definitions
-// tablerule(tags);
-// checkIfNestedTablesExist();
-// titleNotEmpty(title);
-// h1tagsNonEmpty(tags);
