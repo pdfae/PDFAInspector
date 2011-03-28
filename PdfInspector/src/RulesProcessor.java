@@ -61,11 +61,11 @@ public class RulesProcessor extends Shell{
 		processor.process(shlArgs);
 		try{
 			File f = new File(intermediate);
-			//File f2 = new File(jsonObjIn);
+			File f2 = new File(jsonObjIn);
 			boolean success = f.delete();
-			//boolean success2 = f2.delete();
+			boolean success2 = f2.delete();
 
-		    if (!success)// || !success2)
+		    if (!success || !success2)
 		      throw new IllegalArgumentException("Delete: deletion failed");
 		}catch(Exception e){System.err.println(intermediate + " or " + jsonObjIn + " processing file does not exist: " + e.getMessage());}
 	}

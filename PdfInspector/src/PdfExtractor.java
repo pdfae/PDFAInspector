@@ -89,6 +89,8 @@ public class PdfExtractor {
 	        	File file = new File(result);
 				FileOutputStream fop = new FileOutputStream(file);
 	        	SimpleBookmark.exportToXML(list, fop, "ISO8859-1", true);
+	        	fop.flush();
+	        	fop.close();
 	        	return file;
 	        }
 	        
