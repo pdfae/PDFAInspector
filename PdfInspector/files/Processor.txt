@@ -5,6 +5,8 @@ var title = root.title;
 var form = root.form;
 var pageNum = root.pageNum;
 var Bookmark = root.Bookmark;
+var author = root.author;
+var creator = root.creator;
 
 // function that determines if a list of strings
 // contains a specified string

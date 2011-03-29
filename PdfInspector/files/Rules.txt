@@ -23,7 +23,7 @@
 
 RuleList = {Rules:[
 	{
-	rule_id:"7",
+	rule_id:"table_1",
 	wcag_code:"1.3.1",
 	sect508_code:"22.a",
 	param:tags,
@@ -97,7 +97,7 @@ RuleList = {Rules:[
 
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "7";
+			result.rule_id = "table_1";
 			result.wcag_code = "1.3.1";
 			result.sect508_code = "22.a";
 			result.test_results = new Array();
@@ -112,7 +112,7 @@ RuleList = {Rules:[
 	title:"Data tables must use summary attribute."
 	},
 	{
-	rule_id:"8",
+	rule_id:"table_2",
 	wcag_code:"1.3.1",
 	sect508_code:"22.g",
 	param:tags,
@@ -185,7 +185,7 @@ RuleList = {Rules:[
 
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "8";
+			result.rule_id = "table_2";
 			result.wcag_code = "1.3.1";
 			result.sect508_code = "22.g";
 			result.test_results = new Array();
@@ -200,7 +200,7 @@ RuleList = {Rules:[
 	title:"Data tables must use th elements"
 	},
 	{
-	rule_id:"9",
+	rule_id:"table_3",
 	wcag_code:"1.3.1",
 	sect508_code:"22.a",
 	param:tags,
@@ -278,7 +278,7 @@ RuleList = {Rules:[
 
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "9";
+			result.rule_id = "table_3";
 			result.wcag_code = "1.3.1";
 			result.sect508_code = "22.a";
 			result.test_results = new Array();
@@ -293,7 +293,7 @@ RuleList = {Rules:[
 	title:"Summary attribute content must be unique."
 	},
 	{
-	rule_id:"14",
+	rule_id:"table_4",
 	wcag_code:"1.3.2",
 	sect508_code:"22.h",
 	param:tags,
@@ -412,7 +412,7 @@ RuleList = {Rules:[
 
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "14";
+			result.rule_id = "table_4";
 			result.wcag_code = "1.3.2";
 			result.sect508_code = "22.h";
 			result.test_results = new Array();
@@ -427,9 +427,9 @@ RuleList = {Rules:[
 	title:"Do not use nested tables for positioning."
 	},
 	{
-	rule_id:"29",
+	rule_id:"title_1",
 	wcag_code:"2.4.2",
-	sect508_code:"22.a",
+	sect508_code:"22.i",
 	param:title,
 	validate:
 		function (title)
@@ -454,9 +454,9 @@ RuleList = {Rules:[
 
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "29";
+			result.rule_id = "title_1";
 			result.wcag_code = "2.4.2";
-			result.sect508_code = "22.a";
+			result.sect508_code = "22.i";
 			result.test_results = new Array();
 
 			// function call to begin rule validation
@@ -469,7 +469,7 @@ RuleList = {Rules:[
 	title:"Title element should not be empty."
 	},
 	{
-	rule_id:"30",
+	rule_id:"header_1",
 	wcag_code:"2.4.2",
 	sect508_code:"22.d",
 	param:tags,
@@ -511,7 +511,7 @@ RuleList = {Rules:[
 
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "30";
+			result.rule_id = "header_1";
 			result.wcag_code = "2.4.2";
 			result.sect508_code = "22.d";
 			result.test_results = new Array();
@@ -524,6 +524,232 @@ RuleList = {Rules:[
 	pass_message:"there are 1 or 2 h1 tags that are not empty, however make sure content of h1 tags are descriptive headings",
 	fail_message:"h1 tags do not exist or there are more than 2 h1 tags or there exist empty h1 tags",
 	title:"Missing or empty H1 element."
+	},
+	{
+	rule_id:"author_1",
+	wcag_code:"2.4.2",
+	sect508_code:"22.i",
+	param:author,
+	validate:
+		function (author)
+		{
+			// checks to see that the author element is not empty
+			function authorRuleCheckNonEmpty(author)
+			{
+				var pass_fail = new Object();
+				if(author == "")
+				{
+					pass_fail.passed = "false";
+					pass_fail.message = "author element is empty";
+				}
+				else
+				{
+					pass_fail.passed = "true";
+					pass_fail.message = "author element is not empty, make sure it accurately describes the author of the document";
+				}
+
+				return pass_fail;
+			}
+
+			// variable local to function to store all the results
+			var result = new Object();
+			result.rule_id = "author_1";
+			result.wcag_code = "2.4.2";
+			result.sect508_code = "22.i";
+			result.test_results = new Array();
+
+			// function call to begin rule validation
+			result.test_results.push(authorRuleCheckNonEmpty(author));
+
+			return result;
+		},
+	pass_message:"author element is not empty, make sure it accurately describes the author of the document",
+	fail_message:"author element is empty",
+	title:"Author element should not be empty."
+	},
+	{
+	rule_id:"creator_1",
+	wcag_code:"2.4.2",
+	sect508_code:"22.i",
+	param:creator,
+	validate:
+		function (creator)
+		{
+			// checks to see that the creator element is not empty
+			function creatorRuleCheckNonEmpty(creator)
+			{
+				var pass_fail = new Object();
+				if(creator == "")
+				{
+					pass_fail.passed = "false";
+					pass_fail.message = "creator element is empty";
+				}
+				else
+				{
+					pass_fail.passed = "true";
+					pass_fail.message = "creator element is not empty, make sure it accurately describes the creator of the document";
+				}
+
+				return pass_fail;
+			}
+
+			// variable local to function to store all the results
+			var result = new Object();
+			result.rule_id = "creator_1";
+			result.wcag_code = "2.4.2";
+			result.sect508_code = "22.i";
+			result.test_results = new Array();
+
+			// function call to begin rule validation
+			result.test_results.push(creatorRuleCheckNonEmpty(creator));
+
+			return result;
+		},
+	pass_message:"creator element is not empty, make sure it accurately describes the creator of the document",
+	fail_message:"creator element is empty",
+	title:"Creator element should not be empty."
+	},
+	{
+	rule_id:"bookmarks_1",
+	wcag_code:"2.4",
+	sect508_code:"22.d",
+	param:root,
+	validate:
+		function (root)
+		{
+			// checks bookmarks & header correspondence rules
+			function bookmarksHeader(pageNum, Bookmark, tags){
+				pass = true;
+				blist = ["content"]; //bookmark values to look for
+
+				var pass_fail = new Object();
+				
+				if (pageNum >= 8){
+					hlist = ["h1","h2"];
+					message = "there exists at least one h1 or h2 tag that does not a bookmark with the corresponding text";
+		
+					bookmarksHeaderLoop(Bookmark, tags, hlist, blist);
+					if (pass){
+						message = "Pass. All h1 and h2 tags have a corresponding bookmark";
+						pass_fail.passed = true;
+						pass_fail.message = message;
+					}
+					else
+					{
+						pass_fail.passed = false;
+						pass_fail.message = message;
+					}
+					
+					return pass_fail;
+				}
+				
+				return null;
+			}
+			
+			// helper function of bookmarksHeader; loops through all headers
+			function bookmarksHeaderLoop(Bookmark, tags, hlist, blist){
+				for (var item in tags){
+					bookmarkExists = false;
+					var val = tags[item];
+					
+					print(item + ":" + val);
+
+					// if val is an array
+					if (val.constructor == Array){
+			
+						//if val is array of headers
+						if(contains(hlist,item.toLowerCase())){
+							//traverse through array
+							for (var i=0;i<val.length;i++){
+								bookmarkExists = false;
+					
+								if(!existsBookmark(Bookmark, val[i], blist)){
+									pass = false;
+									return;
+								}
+							}
+						}
+						else{
+							/*
+							for (var i=0; i<val.length;i++){
+								print("looping. i: " + i + " val[i]: " + val[i] + "\n");
+								bookmarksHeaderLoop(Bookmark, val[i], hlist, blist);
+							}
+							*/
+						}
+					}
+					// if item is a header in hlist
+					else if (val.constructor == String){ 
+						if(contains(hlist,item.toLowerCase())){
+				
+							if(!existsBookmark(Bookmark, val, blist)){
+								pass = false;
+								return;
+							}
+						}
+					}
+					// if nested
+					else if (val.constructor == Object){
+						bookmarksHeaderLoop(Bookmark, val, hlist, blist);
+					}
+				}
+			}
+			
+			// returns if a bookmark exists with the given label
+			function existsBookmark(Bookmark, label, blist){
+				//error handling
+				if (label.constructor != String){
+					return false;
+				}
+	
+				//loop through all bookmarks
+				for (var bookItem in Bookmark){
+					var bookVal = Bookmark[bookItem];
+
+					// if looking at "Content" field
+					if (bookVal.constructor == String){
+						if (contains(blist,bookItem.toLowerCase())){
+							if (bookVal == label){
+								bookmarkExists = true;
+								return bookmarkExists;
+							}
+						}
+					}
+					// if an array
+					else if (bookVal.constructor == Array){
+						for(var j=0;j<bookVal.length;j++){
+							if(existsBookmark(bookVal[j], label, blist)){
+								bookmarkExists = true;
+								return bookmarkExists;
+							}
+						}			
+					}		
+					// if nested
+					else if (bookVal.constructor == Object){
+						return existsBookmark(bookVal, label, blist);
+					}	
+				}
+	
+				return bookmarkExists;
+			}
+
+			// variable local to function to store all the results
+			var result = new Object();
+			result.rule_id = "bookmarks_1";
+			result.wcag_code = "2.4";
+			result.sect508_code = "22.d";
+			result.test_results = new Array();
+
+			// function call to begin rule validation
+			var test_result = bookmarksHeader(root.pageNum, root.Bookmark, root.tags);
+			if(test_result != null)
+				result.test_results.push(test_result);
+
+			return result;
+		},
+	pass_message:"Pass. All h1 and h2 tags have a corresponding bookmark",
+	fail_message:"there exists at least one h1 or h2 tag that does not a bookmark with the corresponding text",
+	title:"Bookmarks & Header Correspondence Rules"
 	}
 ]};
 
@@ -556,9 +782,11 @@ for(var i = 0; i < resultsList.length; i++)
 		print("		{\n");
 		print("		passed:" + rule_results[j].passed + "\n");
 		print("		message:" + rule_results[j].message + "\n");
-		print("		}\n");
+		print("		}");
 		if(j != rule_results.length - 1)
 			print(",\n");
+		else
+			print("\n");
 	}
 	print("	],\n");
 	print("	wcag_code:" + resultsList[i].wcag_code + ",\n");
