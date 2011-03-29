@@ -117,11 +117,25 @@ public class PdfInfo {
 	}
 	
 	/**
+	 * Set bookmark file
+	 */
+	public void setTag(File tg){
+		tagFile = tg;
+	}
+	
+	/**
 	 * Get form file
 	 * @return formFile
 	 */
 	public File getForm(){
 		return formFile;
+	}
+	
+	/**
+	 * Set form file
+	 */
+	public void setForm(File fm){
+		formFile = fm;
 	}
 	
 	/**
@@ -131,5 +145,12 @@ public class PdfInfo {
 	public File getBookmark(){
 		return bookmarkFile;
 	}
-
+	
+	/**
+	 * Set bookmark file
+	 */
+	public void setBookmark(File bk){
+		bookmarkFile = bk;
+	}
+	
 }
