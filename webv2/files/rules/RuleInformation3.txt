@@ -1,0 +1,804 @@
+{
+	"Rules":[{
+		"id":"",
+		"title":"Images must have valid alt text.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1:1",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Image file name is not valid alt text.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1:2",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Certain words cannot be used as a part of valid alt text",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1:3",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Length of alt text.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1:4",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Longdesc must have valid URI.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1:5",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"If an image has an alt or title attribute, it should not have a presentation role.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1:6",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"ALT text must describe content or purpose of image",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1:78",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Prerecorded audio with no video or image tracks needs a text transcript which includes speaker information.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.1:79",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Prerecorded video with no audio track needs text or audio descriptions of the video content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.1:80",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Prerecorded video with audio track needs synchronized captions.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.2:81",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Prerecorded video with audio track needs a audio or text description of the video content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.3:82",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Live audio of speech requires realtime captioning of the speakers.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.4:83",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Synchronized audio descriptons of video.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.5:84",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Synchronized sign language for audio track.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.6:85",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Extended audio description if audio track does not provided enhough time to fully describe video content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.7:86",
+		"sect508_id":"B:1194.22:b",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Text alternative to audio and video content",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.8:87",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Provide text alternatives to live audio",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.2.9:88",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Data tables must use summary attribute.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.1:7",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Data tables must use th elements",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.1:8",
+		"sect508_id":"B:1194.22:g",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Summary attribute content must be unique.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.1:9",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Complex data tables must have ids on th elements.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.1:10",
+		"sect508_id":"B:1194.22:g",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"For complex data tables table ids must be unique.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.1:11",
+		"sect508_id":"B:1194.22:g",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Complex data table td elements must have header attributes.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.1:12",
+		"sect508_id":"B:1194.22:g",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Complex data tables header ids must be on the page.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.1:13",
+		"sect508_id":"B:1194.22:g",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Do not use nested tables for positioning.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.3.2:14",
+		"sect508_id":"B:1194.22:h",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Verify that color is not used as the only visual means of conveying information, indicating an action, prompting a response, or distinguishing a visual element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.4.1:89",
+		"sect508_id":"B:1194.22:c",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Color contrast ratio must be > 3 for large text",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.4.3:15",
+		"sect508_id":"B:1194.22:c",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Color contrast ratio should be > 4.5",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.4.3:16",
+		"sect508_id":"B:1194.22:c",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Do not use the FONT element to style text",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.4.3:17",
+		"sect508_id":"B:1194.22:c",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Focusable elements with MouseOver should also have OnFocus event handlers.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.1:18",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Focusable elements with an OnMouseOut should also have OnBlur event handlers.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.2.1:19",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Every onClick event handler should be on a focusable element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.2.1:20",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"OnChange event handler should not be used with the select element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.2.1:21",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"onmousedown, onmouseup and onmousemove event handlers should have keyboard equivalents.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.2.1:22",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Check that non-form and non-anchor elements with event handlers have valid roles.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.1:73",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Check that elements with mouse event handlers also have key event handlers",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.1:74",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Check that enabled elements with ACTIVE-DESCENDANT have valid tab index",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.1:75",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Check that elements without 'aria-activedescendant' that have roles requiring a container have focusable children",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.1:76",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Check that elements without 'aria-activedescendant' that have roles requiring a container have key event handlers",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.1:77",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Accesskey attribute values should be unique.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.3:23",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Accesskey attribute values should not interfere with IE shortcuts.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.1.3:24",
+		"sect508_id":"B:1194.21:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"The blink and marquee elements must not be used.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.2.2:25",
+		"sect508_id":"B:1194.21:k",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Frame element must have a title attribute.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.1:26",
+		"sect508_id":"B:1194.22:i",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Title attributes for frames must be unique.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.1:27",
+		"sect508_id":"B:1194.22:i",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Frames should not be hidden or empty.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.1:28",
+		"sect508_id":"B:1194.22:i",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Title element should not be empty.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.2:29",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Missing or empty H1 element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.2:30",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"H1 element content should not come only from the alt text of an image.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.2:31",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"H1 should match a subset of the words in the title element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.2:32",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"No more than two h1 elements.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.2:33",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Title content should be concise.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.2:61",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Title text must contain more than one word.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.2:62",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Link text should be as least four 4 characters long.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.4:34",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Links with the same HREF should have the same link text.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.4:35",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Links that point to different HREFs should have different link text.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.4:36",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Images should be at least 16 pixels by 16 pixels when used as links.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.4:37",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Links with images and text content, the alt attribute should be unique to the text content or empty.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.4:38",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Headings must have text content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.6:39",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Text content for a headings must not come just from image alt text.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.6:40",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Heading content should be concise.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.6:41",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Heading elements should be properly nested.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.6:42",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"The content of the headings of the same level within the same section should be unique.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.6:43",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Heading elements (h1..h6) should be used for structuring information on the page.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.6:44",
+		"sect508_id":"B:1194.22:d",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Each page must have a lang attribute on its html element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.1.1:45",
+		"sect508_id":"B:1194.22:l",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"lang attribute on html element must have a valid two-character language code.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.1.1:46",
+		"sect508_id":"B:1194.22:l",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Each fieldset element should contain a legend element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:47",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"The label element should not encapsulate select and textarea elements.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:48",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Each input element with type=text | password | checkbox | radio | file and each select and textarea element should either be referenced by the for attribute of a label element via its id attribute, or have a title attribute.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:49",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Input element of type=[image] must have an alt or a title attribute.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:50",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Input elements where type=[button|submit|reset] must have a value or title attribute.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:51",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Each button element must contain content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:52",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Effective labels should be unique.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:53",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Labels must have text content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:54",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Legends must have text content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:55",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Title attributes used for labeling form controls must have content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:56",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Form controls must have unique ids.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"3.3.2:57",
+		"sect508_id":"B:1194.22:a",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Do not use the B element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.1:58",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Do not use the I element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.1:59",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Do not use the U element.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.1:60",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"ARIA attributes have valid values",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.1:64",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"ARIA ID references must be valid IDRefs",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.1:65",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"ARIA attributes can only be used with certain roles",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.1:66",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Check aria properties and states for valid roles and properties",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.2:63",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Roles must contain their required child roles",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.2:67",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Child roles must be contained by the proper parent role",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.2:68",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Required properties and states should be defined",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.2:69",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Required properties and states must not be empty",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.2:70",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Role value must be valid",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.2:71",
+		"sect508_id":"",
+		"message":""
+		},
+		{
+		"id":"",
+		"title":"Check that 'ARIA-' attributes are valid properties and states",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"4.1.2:72",
+		"sect508_id":"",
+		"message":""
+		}
+	]
+}
