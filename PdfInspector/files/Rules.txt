@@ -678,10 +678,10 @@ countImportantTags(root);
 print("{\n");
 
 // write results of tag counting to file (inside of results object)
-print("	TagCount:{\n");
+print("	\"TagCount\":{\n");
 for(item in importantTagsCount)
 {
-	print("		" + item + ": " + importantTagsCount[item]);
+	print("		\"" + item + "\": " + importantTagsCount[item]);
 	importantTagsCount.length--;
 	if(importantTagsCount != 0)
 		print(",\n");
@@ -691,20 +691,20 @@ for(item in importantTagsCount)
 print("	},\n");
 
 // write results of rules to file (inside of results object)
-print("	Results:[\n");
+print("	\"Results\":[\n");
 for(var i = 0; i < resultsList.length; i++)
 {
 	print("		{\n");
-	print("		rule_id:" + resultsList[i].rule_id + ",\n");
-	print("		test_results:[\n");
+	print("		\"rule_id\":" + resultsList[i].rule_id + ",\n");
+	print("		\"test_results\":[\n");
 
 	var rule_results = resultsList[i].test_results;
 	
 	for(var j = 0; j < rule_results.length; j++)
 	{
 		print("			{\n");
-		print("			passed:" + rule_results[j].passed + "\n");
-		print("			message:" + rule_results[j].message + "\n");
+		print("			\"passed\":" + rule_results[j].passed + "\n");
+		print("			\"message\":" + rule_results[j].message + "\n");
 		print("			}");
 		if(j != rule_results.length - 1)
 			print(",\n");
@@ -712,8 +712,8 @@ for(var i = 0; i < resultsList.length; i++)
 			print("\n");
 	}
 	print("		],\n");
-	print("		wcag_code:" + resultsList[i].wcag_code + ",\n");
-	print("		sect508_code:" + resultsList[i].sect508_code + "\n");
+	print("		\"wcag_code\":" + resultsList[i].wcag_code + ",\n");
+	print("		\"sect508_code\":" + resultsList[i].sect508_code + "\n");
 	print("		}");
 	if(i != resultsList.length - 1)
 		print(",\n");
