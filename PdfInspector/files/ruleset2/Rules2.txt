@@ -1,0 +1,12 @@
+// rules
+// all rules (functions) call the javascript function print
+// the print function will be read in rhino and overwritten by
+// a java function called print
+// print will be used in these functions to display their
+// identification number and the results of the function call
+// multiple print calls are used for formatting
+// more detailed rule information is located in
+// RuleInformation2.txt
+
+// checks to see that tables:
+// use the th elements

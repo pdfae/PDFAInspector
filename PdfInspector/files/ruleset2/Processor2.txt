@@ -1,0 +1,29 @@
+// processing
+// extract specific data from the root
+var tags = root.tags;
+var title = root.title;
+var form = root.form;
+var pageNum = root.pageNum;
+var Bookmark = root.Bookmark;
+
+// function that determines if a list of strings
+// contains a specified string
+function contains(list, str)
+{
+	for(i=0;i<list.length;i++)
+	{
+		if(list[i].equals(str))
+			return true;
+	}
+	return false;
+}
+
+// use rules on necessary parts of json
+// the Rules2.txt file (which will be merged with this one)
+// contains all of the following function definitions
+bookmarksHeader(pageNum, Bookmark, tags);
+tagged(tags);
+titleformatted(title);
+headingformatted(tags);
+headingcontent(tags);
+needed_tooltips_exist(form);
