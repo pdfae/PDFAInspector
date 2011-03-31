@@ -438,7 +438,7 @@ RuleList = {Rules:[
 			function titleRuleCheckNonEmpty(title)
 			{
 				var pass_fail = new Object();
-				if(title == "")
+				if(title == null || title == "")
 				{
 					pass_fail.passed = "false";
 					pass_fail.message = "title element is empty";
@@ -537,7 +537,7 @@ RuleList = {Rules:[
 			function authorRuleCheckNonEmpty(author)
 			{
 				var pass_fail = new Object();
-				if(author == "")
+				if(author == null || author == "")
 				{
 					pass_fail.passed = "false";
 					pass_fail.message = "author element is empty";
@@ -579,7 +579,7 @@ RuleList = {Rules:[
 			function creatorRuleCheckNonEmpty(creator)
 			{
 				var pass_fail = new Object();
-				if(creator == "")
+				if(creator == null || creator == "")
 				{
 					pass_fail.passed = "false";
 					pass_fail.message = "creator element is empty";
@@ -608,148 +608,6 @@ RuleList = {Rules:[
 	pass_message:"creator element is not empty, make sure it accurately describes the creator of the document",
 	fail_message:"creator element is empty",
 	title:"Creator element should not be empty."
-	},
-	{
-	rule_id:"bookmarks_1",
-	wcag_code:"2.4",
-	sect508_code:"22.d",
-	param:root,
-	validate:
-		function (root)
-		{
-			// checks bookmarks & header correspondence rules
-			function bookmarksHeader(pageNum, Bookmark, tags){
-				pass = true;
-				blist = ["content"]; //bookmark values to look for
-
-				var pass_fail = new Object();
-				
-				if (pageNum >= 8){
-					hlist = ["h1","h2"];
-					message = "there exists at least one h1 or h2 tag that does not a bookmark with the corresponding text";
-		
-					bookmarksHeaderLoop(Bookmark, tags, hlist, blist);
-					if (pass){
-						message = "Pass. All h1 and h2 tags have a corresponding bookmark";
-						pass_fail.passed = true;
-						pass_fail.message = message;
-					}
-					else
-					{
-						pass_fail.passed = false;
-						pass_fail.message = message;
-					}
-					
-					return pass_fail;
-				}
-				
-				return null;
-			}
-			
-			// helper function of bookmarksHeader; loops through all headers
-			function bookmarksHeaderLoop(Bookmark, tags, hlist, blist){
-				for (var item in tags){
-					bookmarkExists = false;
-					var val = tags[item];
-					
-					print(item + ":" + val);
-
-					// if val is an array
-					if (val.constructor == Array){
-			
-						//if val is array of headers
-						if(contains(hlist,item.toLowerCase())){
-							//traverse through array
-							for (var i=0;i<val.length;i++){
-								bookmarkExists = false;
-					
-								if(!existsBookmark(Bookmark, val[i], blist)){
-									pass = false;
-									return;
-								}
-							}
-						}
-						else{
-							/*
-							for (var i=0; i<val.length;i++){
-								print("looping. i: " + i + " val[i]: " + val[i] + "\n");
-								bookmarksHeaderLoop(Bookmark, val[i], hlist, blist);
-							}
-							*/
-						}
-					}
-					// if item is a header in hlist
-					else if (val.constructor == String){ 
-						if(contains(hlist,item.toLowerCase())){
-				
-							if(!existsBookmark(Bookmark, val, blist)){
-								pass = false;
-								return;
-							}
-						}
-					}
-					// if nested
-					else if (val.constructor == Object){
-						bookmarksHeaderLoop(Bookmark, val, hlist, blist);
-					}
-				}
-			}
-			
-			// returns if a bookmark exists with the given label
-			function existsBookmark(Bookmark, label, blist){
-				//error handling
-				if (label.constructor != String){
-					return false;
-				}
-	
-				//loop through all bookmarks
-				for (var bookItem in Bookmark){
-					var bookVal = Bookmark[bookItem];
-
-					// if looking at "Content" field
-					if (bookVal.constructor == String){
-						if (contains(blist,bookItem.toLowerCase())){
-							if (bookVal == label){
-								bookmarkExists = true;
-								return bookmarkExists;
-							}
-						}
-					}
-					// if an array
-					else if (bookVal.constructor == Array){
-						for(var j=0;j<bookVal.length;j++){
-							if(existsBookmark(bookVal[j], label, blist)){
-								bookmarkExists = true;
-								return bookmarkExists;
-							}
-						}			
-					}		
-					// if nested
-					else if (bookVal.constructor == Object){
-						return existsBookmark(bookVal, label, blist);
-					}	
-				}
-	
-				return bookmarkExists;
-			}
-
-			// variable local to function to store all the results
-			var result = new Object();
-			result.rule_id = "bookmarks_1";
-			result.wcag_code = "2.4";
-			result.sect508_code = "22.d";
-			result.test_results = new Array();
-
-			// function call to begin rule validation
-			var test_result = bookmarksHeader(root.pageNum, root.Bookmark, root.tags);
-			if(test_result != null)
-				result.test_results.push(test_result);
-
-			return result;
-		},
-	pass_message:"Pass. All h1 and h2 tags have a corresponding bookmark",
-	fail_message:"there exists at least one h1 or h2 tag that does not a bookmark with the corresponding text",
-	title:"Bookmarks & Header Correspondence Rules"
 	}
 ]};
 
@@ -768,33 +626,99 @@ for(var i = 0; i < RuleList.Rules.length; i++)
 	resultsList.push(ruleResult);
 }
 
-print("Results:[\n");
+// important pdf elements
+// 	sections: sect
+// 	headings: h1-h6
+// 	paragraphs: p
+// 	captions: caption
+// 	tables: table
+// 	figures/images: figure
+// 	lists: L
+// 	forms: form
+// 	bookmarks: Bookmark
+
+// initialize search array
+var importantTags = new Array();
+importantTags.push("sect");
+importantTags.push("h1");
+importantTags.push("h2");
+importantTags.push("h3");
+importantTags.push("h4");
+importantTags.push("h5");
+importantTags.push("h6");
+importantTags.push("p");
+importantTags.push("caption");
+importantTags.push("table");
+importantTags.push("figure");
+importantTags.push("l");
+importantTags.push("form");
+importantTags.push("bookmark");
+
+// initialize count array
+var importantTagsCount = new Object();
+importantTagsCount.sect = 0;
+importantTagsCount.h1 = 0;
+importantTagsCount.h2 = 0;
+importantTagsCount.h3 = 0;
+importantTagsCount.h4 = 0;
+importantTagsCount.h5 = 0;
+importantTagsCount.h6 = 0;
+importantTagsCount.p = 0;
+importantTagsCount.caption = 0;
+importantTagsCount.table = 0;
+importantTagsCount.figure = 0;
+importantTagsCount.l = 0;
+importantTagsCount.form = 0;
+importantTagsCount.bookmark = 0;
+importantTagsCount.length = 14;
+
+countImportantTags(root);
+
+// write results object to file
+print("{\n");
+
+// write results of tag counting to file (inside of results object)
+print("	TagCount:{\n");
+for(item in importantTagsCount)
+{
+	print("		" + item + ": " + importantTagsCount[item]);
+	importantTagsCount.length--;
+	if(importantTagsCount != 0)
+		print(",\n");
+	else
+		print("\n");
+}
+print("	},\n");
+
+// write results of rules to file (inside of results object)
+print("	Results:[\n");
 for(var i = 0; i < resultsList.length; i++)
 {
-	print("	{\n");
-	print("	rule_id:" + resultsList[i].rule_id + ",\n");
-	print("	test_results:[\n");
+	print("		{\n");
+	print("		rule_id:" + resultsList[i].rule_id + ",\n");
+	print("		test_results:[\n");
 
 	var rule_results = resultsList[i].test_results;
 	
 	for(var j = 0; j < rule_results.length; j++)
 	{
-		print("		{\n");
-		print("		passed:" + rule_results[j].passed + "\n");
-		print("		message:" + rule_results[j].message + "\n");
-		print("		}");
+		print("			{\n");
+		print("			passed:" + rule_results[j].passed + "\n");
+		print("			message:" + rule_results[j].message + "\n");
+		print("			}");
 		if(j != rule_results.length - 1)
 			print(",\n");
 		else
 			print("\n");
 	}
-	print("	],\n");
-	print("	wcag_code:" + resultsList[i].wcag_code + ",\n");
-	print("	sect508_code:" + resultsList[i].sect508_code + "\n");
-	print("	}");
+	print("		],\n");
+	print("		wcag_code:" + resultsList[i].wcag_code + ",\n");
+	print("		sect508_code:" + resultsList[i].sect508_code + "\n");
+	print("		}");
 	if(i != resultsList.length - 1)
 		print(",\n");
 	else
 		print("\n");
 }
-print("]\n");
+print("	]\n");
+print("}");
