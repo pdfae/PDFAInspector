@@ -670,7 +670,7 @@ importantTagsCount.figure = 0;
 importantTagsCount.l = 0;
 importantTagsCount.form = 0;
 importantTagsCount.bookmark = 0;
-importantTagsCount.length = 14;
+importantTagsCountLength = 14;
 
 countImportantTags(root);
 
@@ -682,8 +682,8 @@ print("	\"TagCount\":{\n");
 for(item in importantTagsCount)
 {
 	print("		\"" + item + "\": \"" + importantTagsCount[item] + "\"");
-	importantTagsCount.length--;
-	if(importantTagsCount != 0)
+	importantTagsCountLength--;
+	if(importantTagsCountLength != 0)
 		print(",\n");
 	else
 		print("\n");
@@ -703,7 +703,7 @@ for(var i = 0; i < resultsList.length; i++)
 	for(var j = 0; j < rule_results.length; j++)
 	{
 		print("			{\n");
-		print("			\"passed\":\"" + rule_results[j].passed + "\"\n");
+		print("			\"passed\":\"" + rule_results[j].passed + "\",\n");
 		print("			\"message\":\"" + rule_results[j].message + "\"\n");
 		print("			}");
 		if(j != rule_results.length - 1)
