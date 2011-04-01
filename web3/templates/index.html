@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block main_content %}
+<h1>PDF Accessibility Inspector</h1>
+
+<div id="pdf_upload" style="float:left">
+<h2>Evaluate Your PDF</h2>
+<form enctype="multipart/form-data" method="POST" action="pdf/evaluate_pdf/">
+	<input type="file" name="file">
+	<input type="submit" value="Upload" />
+</form>
+</div>
+<div id="rule_upload" style="float:left;padding-left:50px;">
+<h2>Add New Rules</h2>
+<form enctype="multipart/form-data" method="POST" action="pdf/save_rule_information/">
+	<input type="file" name="file">
+	<input type="submit" value="Upload" />
+</form>
+</div>
+{% endblock %}

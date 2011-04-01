@@ -1,0 +1,129 @@
+// processing
+// extract specific data from the root
+var tags = root.tags;
+var title = root.title;
+var form = root.form;
+var pageNum = root.pageNum;
+var Bookmark = root.Bookmark;
+var author = root.author;
+var creator = root.creator;
+
+// function that determines if a list of strings
+// contains a specified string
+function contains(list, str)
+{
+	for(i=0;i<list.length;i++)
+	{
+		if(list[i].equals(str))
+			return true;
+	}
+	return false;
+}
+
+// function that returns a list of the objects
+// associated with given string
+function getElementsByTagName(object, query)
+{
+	var queryList = [];
+	queryList = getElementsByTagNameHelper(queryList,object,query);
+	return queryList;
+}
+function getElementsByTagNameHelper(list,object,query)
+{
+	// json object traversal
+	if(object.constructor == Array)
+	{
+		for(var i = 0; i < object.length; i++)
+		{
+			var returnList = getElementsByTagNameHelper([],object[i],query);
+			for(var j = 0; j < returnList.length; j++)
+			{
+				list.push(returnList[j]);
+			}
+		}
+		return list;
+	}
+	else if(object.constructor == String)
+	{
+		return list;
+	}
+	else
+	{
+		for(var item in object)
+		{
+			var val = object[item];
+			if(item.toLowerCase() == query)
+			{
+				var x = {};
+				x[item] = val;
+				list.push(x);
+			}
+			var returnList = getElementsByTagNameHelper([],val,query);
+			for(var i = 0; i < returnList.length; i++)
+			{
+				list.push(returnList[i]);
+			}
+		}
+		return list;
+	}
+}
+
+// returns text associated with an element
+function getNodeTextRecursively(element)
+{
+	for(var item in element)
+	{
+		if(element[item].constructor != String)
+			return "";
+		return element[item];
+	}
+}
+
+// given the root object, searches everything to see if it is an "important" tag
+// if it is, increment the tag in the given count array
+// assumes variables importantTags and importantTagsCount exist
+function countImportantTags(root, importantTags, importantTagsCount)
+{
+	countImportantTagsHelper(root);
+}
+// recursive helper function that allows traversal of root for countImportantTags
+function countImportantTagsHelper(node)
+{
+	// standard traversal (either null, an array, object list, or string)
+	if(node == null)
+	{
+	}
+	else if(node.constructor == Array)
+	{
+		for(var i=0;i<node.length;i++)
+		{
+			countImportantTagsHelper(node[i]);
+		}
+	}
+	// base case
+	else if(node.constructor == String)
+	{
+	}
+	else
+	{
+		for(item in node)
+		{
+			var val = node[item];
+			if(contains(importantTags, item.toLowerCase()))
+			{
+				// Since json compresses xml,
+				// multiple tables in one document,
+				// may be compressed into an array
+				if(val.constructor == Array)
+				{
+					importantTagsCount[item.toLowerCase()] = importantTagsCount[item.toLowerCase()] + val.length;
+				}
+				else
+				{
+					importantTagsCount[item.toLowerCase()]++;
+				}
+			}
+			countImportantTagsHelper(val);
+		}
+	}
+}
