@@ -21,7 +21,7 @@ public class PdfAInspector {
 		
 		extractPdfInfo();
 		RulesProcessor rprocessor = new RulesProcessor();
-		rprocessor.runRules(jsonFilename, pathname + "Tempfiles/results/" + "result_" + filename + ".json");
+		rprocessor.runRules(jsonFilename, pathname + "result_" + filename + ".json");
 
 		//delete json file
         File jsonFile = new File(jsonFilename);
@@ -96,7 +96,6 @@ public class PdfAInspector {
     		bookmarks = null;
     	}
     	
-    	
         PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);
         info.exportAsXML(xmlFile);
         
@@ -107,8 +106,8 @@ public class PdfAInspector {
         if (bookmarks != null) bookmarks.delete();
         if (forms != null) forms.delete();
         if (tags != null) tags.delete();
-        File xml = new File(xmlFile);
-        xml.delete();
+        //File xml = new File(xmlFile);
+        //xml.delete();
      
     }
     
