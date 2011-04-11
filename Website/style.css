@@ -86,7 +86,7 @@ a:hover {
 
 #menu_top {
 	float: right;
-	width: 480px;
+	width: 580px;
 }
 
 #menu_top ul {
@@ -103,7 +103,7 @@ a:hover {
 	display: block;
 	float: left;
 	height: 37px;
-	padding: 13px 30px 0px 30px;
+	padding: 13px 20px 0px 20px;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-family: Arial, Helvetica, sans-serif;
@@ -177,7 +177,7 @@ a:hover {
 
 #sidebar {
 	float: right;
-	width: 340px;
+	width: 250px;
 	margin: 0px;
 	padding: 0px;
 }
@@ -281,3 +281,17 @@ table.tagcount td, table.tagcount th{
 	padding: 5px 10px;
 }
 
+/* List properties */
+li.pass {	list-style-image: url("/images/pass.jpg");
+	margin-left: 20px;    
+}
+
+li.fail{
+	list-style-image: url("/images/fail.jpg");
+	margin-left: 20px;
+}
+
+li.warn{
+	list-style-image: url("/images/warn.jpg");
+	margin-left: 20px;
+}
