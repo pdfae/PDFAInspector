@@ -197,7 +197,7 @@ RuleList = {Rules:[
 		},
 	pass_message:"this table does contain th tags, make sure that the first row accurately describes the columns below",
 	fail_message:"this table's first row does not consist of th tags",
-	title:"Data tables must use th elements"
+	title:"Data tables must use th tags"
 	},
 	{
 	rule_id:"table_3",
@@ -434,19 +434,19 @@ RuleList = {Rules:[
 	validate:
 		function (title)
 		{
-			// checks to see that the title element is not empty
+			// checks to see that the title tag is not empty
 			function titleRuleCheckNonEmpty(title)
 			{
 				var pass_fail = new Object();
 				if(title == null || title == "")
 				{
 					pass_fail.passed = "false";
-					pass_fail.message = "title element is empty";
+					pass_fail.message = "title tag is empty";
 				}
 				else
 				{
 					pass_fail.passed = "true";
-					pass_fail.message = "title element is not empty, make sure it accurately describes the document";
+					pass_fail.message = "title tag is not empty, make sure it accurately describes the document";
 				}
 
 				return pass_fail;
@@ -464,9 +464,9 @@ RuleList = {Rules:[
 
 			return result;
 		},
-	pass_message:"title element is not empty, make sure it accurately describes the document",
-	fail_message:"title element is empty",
-	title:"Title element should not be empty."
+	pass_message:"title tag is not empty, make sure it accurately describes the document",
+	fail_message:"title tag is empty",
+	title:"Title tag should not be empty."
 	},
 	{
 	rule_id:"header_1",
@@ -523,7 +523,7 @@ RuleList = {Rules:[
 		},
 	pass_message:"there are 1 or 2 h1 tags that are not empty, however make sure content of h1 tags are descriptive headings",
 	fail_message:"h1 tags do not exist or there are more than 2 h1 tags or there exist empty h1 tags",
-	title:"Missing or empty H1 element."
+	title:"Missing or empty H1 tag."
 	},
 	{
 	rule_id:"author_1",
@@ -533,19 +533,19 @@ RuleList = {Rules:[
 	validate:
 		function (author)
 		{
-			// checks to see that the author element is not empty
+			// checks to see that the author tag is not empty
 			function authorRuleCheckNonEmpty(author)
 			{
 				var pass_fail = new Object();
 				if(author == null || author == "")
 				{
 					pass_fail.passed = "false";
-					pass_fail.message = "author element is empty";
+					pass_fail.message = "author tag is empty";
 				}
 				else
 				{
 					pass_fail.passed = "true";
-					pass_fail.message = "author element is not empty, make sure it accurately describes the author of the document";
+					pass_fail.message = "author tag is not empty, make sure it accurately describes the author of the document";
 				}
 
 				return pass_fail;
@@ -563,9 +563,9 @@ RuleList = {Rules:[
 
 			return result;
 		},
-	pass_message:"author element is not empty, make sure it accurately describes the author of the document",
-	fail_message:"author element is empty",
-	title:"Author element should not be empty."
+	pass_message:"author tag is not empty, make sure it accurately describes the author of the document",
+	fail_message:"author tag is empty",
+	title:"Author tag should not be empty."
 	},
 	{
 	rule_id:"creator_1",
@@ -575,19 +575,19 @@ RuleList = {Rules:[
 	validate:
 		function (creator)
 		{
-			// checks to see that the creator element is not empty
+			// checks to see that the creator tag is not empty
 			function creatorRuleCheckNonEmpty(creator)
 			{
 				var pass_fail = new Object();
 				if(creator == null || creator == "")
 				{
 					pass_fail.passed = "false";
-					pass_fail.message = "creator element is empty";
+					pass_fail.message = "creator tag is empty";
 				}
 				else
 				{
 					pass_fail.passed = "true";
-					pass_fail.message = "creator element is not empty, make sure it accurately describes the creator of the document";
+					pass_fail.message = "creator tag is not empty, make sure it accurately describes the creator of the document";
 				}
 
 				return pass_fail;
@@ -605,9 +605,9 @@ RuleList = {Rules:[
 
 			return result;
 		},
-	pass_message:"creator element is not empty, make sure it accurately describes the creator of the document",
-	fail_message:"creator element is empty",
-	title:"Creator element should not be empty."
+	pass_message:"creator tag is not empty, make sure it accurately describes the creator of the document",
+	fail_message:"creator tag is empty",
+	title:"Creator tag should not be empty."
 	}
 ]};
 
@@ -626,7 +626,7 @@ for(var i = 0; i < RuleList.Rules.length; i++)
 	resultsList.push(ruleResult);
 }
 
-// important pdf elements
+// important pdf tags
 // 	sections: sect
 // 	headings: h1-h6
 // 	paragraphs: p
