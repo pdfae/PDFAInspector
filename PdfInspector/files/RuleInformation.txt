@@ -10,7 +10,7 @@
 		},
 		{
 		"id":"table_2",
-		"title":"Data tables must use th elements",
+		"title":"Data tables must use th tags",
 		"validate":"",
 		"parameters":"",
 		"wcag_id":"1.3.1",
@@ -37,7 +37,7 @@
 		},
 		{
 		"id":"title_1",
-		"title":"Do not use nested tables for positioning.",
+		"title":"",
 		"validate":"",
 		"parameters":"",
 		"wcag_id":"2.4.2",
@@ -46,7 +46,7 @@
 		},
 		{
 		"id":"header_1",
-		"title":"Missing or empty H1 element.",
+		"title":"Missing or empty H1 tag.",
 		"validate":"",
 		"parameters":"",
 		"wcag_id":"2.4.2",
@@ -55,7 +55,7 @@
 		},
 		{
 		"id":"author_1",
-		"title":"Author element should not be empty.",
+		"title":"Author tag should not be empty.",
 		"validate":"",
 		"parameters":"",
 		"wcag_id":"2.4.2",
@@ -64,7 +64,7 @@
 		},
 		{
 		"id":"creator_1",
-		"title":"Creator element should not be empty.",
+		"title":"Creator tag should not be empty.",
 		"validate":"",
 		"parameters":"",
 		"wcag_id":"2.4.2",
