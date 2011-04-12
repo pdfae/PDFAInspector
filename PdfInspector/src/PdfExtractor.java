@@ -29,7 +29,8 @@ import com.itextpdf.text.xml.simpleparser.SimpleXMLParser;
 public class PdfExtractor {
 	private String filename;
 	private PdfReader reader;
-	private PrintWriter out;
+	private PrintWriter out; //output xml file with all information
+	private PrintWriter outline; //simplified xml file with only outline info
 	private PdfName summaryName = new PdfName("Summary");
 	private PdfName scopeName = new PdfName("Scope");
 	private PdfName rowName = new PdfName("RowSpan");
@@ -51,13 +52,17 @@ public class PdfExtractor {
      * @return tags as an xml File
      * @throws IOException 
      */
-    public File extractTags(String result) throws IOException{
+    public File extractTags(String result, String result_ol) throws IOException{
 		try {
-			TaggedPdfReaderTool tReader = new TaggedPdfReaderTool();
-			FileOutputStream fop;
+			//TaggedPdfReaderTool tReader = new TaggedPdfReaderTool();
+			FileOutputStream fop, fop_ol;
 			File file = new File(result);
+			File file_ol = new File(result_ol);
+			
 			fop = new FileOutputStream(file);
-				convertToXmlWithAttr(fop);
+			fop_ol = new FileOutputStream(file_ol);
+			
+			convertToXmlWithAttr(fop, fop_ol);
 		      
 			//tReader.convertToXml(reader, fop);
 			
@@ -232,10 +237,14 @@ public class PdfExtractor {
      * @param result
      * @return
      */
-    public void convertToXmlWithAttr(OutputStream os) throws IOException{
+    public void convertToXmlWithAttr(OutputStream os, OutputStream ol_os) throws IOException{
     	
     	OutputStreamWriter outs = new OutputStreamWriter(os, Charset.defaultCharset().name());
+    	OutputStreamWriter outl = new OutputStreamWriter(ol_os, Charset.defaultCharset().name());
+    	
     	out = new PrintWriter(outs);
+    	outline = new PrintWriter(outl);
+    	
     	
     	// get the StructTreeRoot from the root object
 		PdfDictionary catalog = reader.getCatalog();
@@ -245,6 +254,9 @@ public class PdfExtractor {
 
 		out.flush();
 		out.close();
+		
+		outline.flush();
+		outline.close();
     }
     
     /**
@@ -286,18 +298,17 @@ public class PdfExtractor {
     	if (dict == null)
 			return;
 		else{	
-			//System.out.println("-------" + dict);
-			//System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
-
 			// if tag
 			PdfName s = dict.getAsName(PdfName.S);
 			if (s != null) {
-				
 
 	            String tagN = PdfName.decodeName(s.toString());
 				String tag = fixTagName(tagN);
 				out.print("<");
 				out.print(tag);
+				
+				outline.print("<");
+				outline.print(tag);
 				
 				// if alt text exists, include in tag brackets
 				if (dict.get(PdfName.ALT) != null){
@@ -315,6 +326,7 @@ public class PdfExtractor {
 				}				
 				
 				out.print(">");
+				outline.println(">");
 
 				PdfDictionary dictPG = dict.getAsDict(PdfName.PG);
 				if (dictPG != null)
@@ -323,11 +335,15 @@ public class PdfExtractor {
 				out.print("</");
 				out.print(tag);
 				out.println(">");
+
+				outline.print("</");
+				outline.print(tag);
+				outline.println(">");
 			}
 			
 			// if attribute dictionary
 			else if (dict.get(PdfName.A)!= null) {
-				System.out.println(PdfContentReaderTool.getDictionaryDetail(dict));
+				//do nothing as of current desired features
 			}
 			else {
 				inspectStructChild(dict.get(PdfName.K));
@@ -434,10 +450,7 @@ public class PdfExtractor {
     		return;
     	}
     	else{
-    		System.out.println(PdfContentReaderTool.getDictionaryDetail(a));
-
-    		
-    		//System.out.println(a.get(summaryName));
+    		//System.out.println(PdfContentReaderTool.getDictionaryDetail(a));
     		
     		if (a.contains(summaryName)){
     			out.print(" Summary=\"" + a.get(summaryName) + "\"");
