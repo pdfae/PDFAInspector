@@ -107,12 +107,7 @@ public class PdfAInspector {
         if (bookmarks != null) bookmarks.delete();
         if (forms != null) forms.delete();
         if (tags != null) tags.delete();
-<<<<<<< .mine
-=======
-        //File xml = new File(xmlFile);
-        //xml.delete();
->>>>>>> .r312
-     
+
     }
     
     /**
