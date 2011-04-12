@@ -24,7 +24,7 @@ public class PdfAInspector {
 		rprocessor.runRules(jsonFilename, pathname + "result_" + filename + ".json");
 
 		//delete json file
-        File jsonFile = new File(jsonFilename);
+        //File jsonFile = new File(jsonFilename);
         //jsonFile.delete();
 	}
 	
@@ -59,7 +59,8 @@ public class PdfAInspector {
     	//extract tags
     	try{
     		String tagFilename = pathname + "itext-" +	filename + ".xml";
-            tags = extractor.extractTags(tagFilename);
+    		String outlineFilename = pathname + filename + "_outline.xml";
+            tags = extractor.extractTags(tagFilename, outlineFilename);
             //tags = extractor.convertToXmlWithAttr(tagFilename);
     	}
     	catch(Exception e)
@@ -106,8 +107,11 @@ public class PdfAInspector {
         if (bookmarks != null) bookmarks.delete();
         if (forms != null) forms.delete();
         if (tags != null) tags.delete();
+<<<<<<< .mine
+=======
         //File xml = new File(xmlFile);
         //xml.delete();
+>>>>>>> .r312
      
     }
     
