@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+   <head>
+      <title>{% block title %}{% endblock %}PDF Accessibility Inspector </title>
+      {% block head %}{% endblock %}
+      <link href="styles.css" rel="stylesheet" type="text/css" media="screen" />
+   </head>
+
+   <body>
+      <div id="wrapper">
+         <div id="header">
+            <h1><a href="index.html"</a></h1>
+         </div> <!-- end header -->
+         <div id="menu_top">
+            <ul>
+               <li {% if currpage_is_home %} class="current_page_item" {% endif %}><a href="#">Home</a></li>
+               <li {% if currpage_is_run_inspector %} class="current_page_item" {% endif %}><a href="#">Run Inspector</a></li>
+               <li {% if currpage_is_about %} class="current_page_item" {% endif %}><a href="#">About</a></li>
+               <li {% if currpage_is_register %} class="current_page_item" {% endif %}><a href="#">Register</a></li>
+               <li {% if currpage_is_login %} class="current_page_item" {% endif %}>{% if is_logged_in %}<a href="#">Account</a>{% else %}<a href="#">Log In</a>{% endif %}</li>               
+            </ul>
+         </div> <!-- end menu_top -->
+         
+         <div id="page">
+            {% block page %}
+            <div id="content">
+               <h2 class="title">{% block page_title %}Home{% endblock %}</h2>
+               {% block content %}{% endblock %}
+            </div> <!-- end content -->
+            {% endblock %}
+         </div> <!-- end page -->
+      </div> <!-- end wrapper -->
+   </body>
+</html>
