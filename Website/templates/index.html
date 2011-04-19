@@ -1,1 +1,30 @@
 {% extends "base.html" %}
+
+{% block content %}
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ornare risus nec neque pellentesque mollis vel a mi. Nulla elit lacus, commodo sit amet rhoncus non, pharetra sit amet turpis. Aliquam pulvinar ultricies leo et placerat.</p>
+<div id="pdf_upload" >
+<h3>Evaluate Your PDF</h3>
+<form enctype="multipart/form-data" method="POST" action="/pdf/evaluate_pdf/">
+	<input type="file" name="file"><br />
+	Make Public to Everyone<input type="checkbox" name="public" value="True" checked />
+	<input type="submit" value="Upload" />
+</form>
+</div>
+<div id="json_upload">
+<h3>Evaluate Json Representation</h3>
+<form enctype="multipart/form-data" method="POST" action="/pdf/evaluate_json/">
+	<input type="file" name="file">
+	<input type="submit" value="Upload" />
+</form>
+</div>
+<div id="rule_upload">
+<h3>Add New Rules</h3>
+<form enctype="multipart/form-data" method="POST" action="/pdf/save_rule_information/">
+	<input type="file" name="file">
+	<input type="submit" value="Upload" />
+</form>
+</div>
+{% endblock %}
+</div>
+

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_title %}Run Inspector{% endblock %}
+
+{% block content %}
+<div id="pdf_upload" >
+<h3>Evaluate Your PDF</h3>
+<form enctype="multipart/form-data" method="POST" action="/pdf/evaluate_pdf/">
+	<input type="file" name="file"><br />
+	Make Public to Everyone<input type="checkbox" name="public" value="True" checked />
+	<input type="submit" value="Upload" />
+</form>
+</div>
+{% endblock %}
