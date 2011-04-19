@@ -9,19 +9,22 @@
 
    <body>
       <div id="wrapper">
-         <div id="header">
-            <h1><a href="index.html">PDF Accessibility Inspector</a></h1>
-         </div> <!-- end header -->
-         <div id="menu_top">
-            <ul>
-               <li {% if currpage_is_home %} class="current_page_item" {% endif %}><a href="#">Home</a></li>
-               <li {% if currpage_is_run_inspector %} class="current_page_item" {% endif %}><a href="#">Run Inspector</a></li>
-               <li {% if currpage_is_about %} class="current_page_item" {% endif %}><a href="#">About</a></li>
-               <li {% if currpage_is_register %} class="current_page_item" {% endif %}><a href="#">Register</a></li>
-               <li {% if currpage_is_login %} class="current_page_item" {% endif %}>{% if is_logged_in %}<a href="#">Account</a>{% else %}<a href="#">Log In</a>{% endif %}</li>               
-            </ul>
-         </div> <!-- end menu_top -->
-         
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="title_logo">
+					<h1><a href="index.html">PDF Accessibility Inspector</a></h1>
+				</div>
+				<div id="menu_top">
+					<ul>
+						<li {% if currpage_is_home %} class="current_page_item" {% endif %}><a href="#">Home</a></li>
+						<li {% if currpage_is_run_inspector %} class="current_page_item" {% endif %}><a href="#">Run Inspector</a></li>
+						<li {% if currpage_is_about %} class="current_page_item" {% endif %}><a href="#">About</a></li>
+						<li {% if currpage_is_register %} class="current_page_item" {% endif %}><a href="#">Register</a></li>
+						<li {% if currpage_is_login %} class="current_page_item" {% endif %}>{% if is_logged_in %}<a href="#">Account</a>{% else %}<a href="#">Log In</a>{% endif %}</li>               
+					</ul>
+				</div> <!-- end menu_top -->
+			</div> <!-- end header -->
+		 </div> <!-- end header-wrapper -->
          <div id="page">
             {% block page %}
             <div id="content">
