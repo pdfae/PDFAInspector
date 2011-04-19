@@ -11,7 +11,6 @@ public class PdfAInspector {
 	private static String filename;
 	private static String jsonFilename;
 	
-	
 	public static void main(String[] args) {
 		
 		pathname = extractPath(args[0]);
@@ -19,9 +18,15 @@ public class PdfAInspector {
 		
 		jsonFilename = pathname + "json-" + filename + ".json";
 		
+		System.out.println("extracting PDF info on \"" + filename + "\"...");
 		extractPdfInfo();
+		System.out.println("finished extracting PDF info!");
 		RulesProcessor rprocessor = new RulesProcessor();
-		rprocessor.runRules(jsonFilename, pathname + "result_" + filename + ".json");
+		System.out.println("running rules on PDF...");
+		rprocessor.runRules(jsonFilename, pathname, "result_" + filename + ".json");
+		System.out.println("finished running rules on PDF!");
+		System.out.println("file written to: " + pathname);
+		System.out.println("file is called: " + "result_" + filename + ".json");
 
 		//delete json file
         //File jsonFile = new File(jsonFilename);
@@ -100,7 +105,8 @@ public class PdfAInspector {
         PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);
         info.exportAsXML(xmlFile);
         
-        XMLToJSON.convertXMLtoJSON(xmlFile, jsonFilename);
+        //XMLToJSON.convertXMLtoJSON(xmlFile, jsonFilename);
+        XMLToJSONConverter.drawJSONFromXML(xmlFile, jsonFilename);
         
         //delete files
         if (meta != null) meta.delete();
@@ -139,5 +145,4 @@ public class PdfAInspector {
     	}
     	return null;    	
     }
-   
 }

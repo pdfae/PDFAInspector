@@ -15,9 +15,11 @@ public class RulesProcessor extends Shell{
 	}
 
 	// File to write all processing output to
-	static String outFile = "files/Results.txt";
+	static String outFile;
 	// BufferedWriter is an output stream that will write to the file above
-	static BufferedWriter out;
+	// static BufferedWriter outResults;
+	PrintWriter outResults;
+	
 	// This is the string that will be written to file each time print is called
 	static String toWrite;
 	// This file is intermediate for processing all javascript at once
@@ -25,53 +27,71 @@ public class RulesProcessor extends Shell{
 	// Variable that keeps track of what javascript file is being processed
 	JSFileType jsFileType = JSFileType.FormalRules;
 	
-	public void runRules(String jsonObjIn, String writeTo)
+	// current directory on webserver where Processor.txt and Rules.txt exist
+	String webServerDirectory = "/var/www/django/pdfainspector/web/files/";
+	
+	public void runRules(String jsonObjIn, String pathname, String filename)
 	{
-		outFile = writeTo;
+		System.out.println("runRules function called");
+		outFile = pathname + filename;
+		intermediate = pathname + "JS.txt";
 		
 		try{
+			System.out.println("entering try statement");
 			String instr;
 			BufferedReader in1 = new BufferedReader(new FileReader(jsonObjIn));
+			System.out.println("read json object file");
 			BufferedReader in2 = new BufferedReader(new FileReader("files/Processor.txt"));
+			System.out.println("read processor file");
 			BufferedReader in3 = new BufferedReader(new FileReader("files/Rules.txt"));
-			BufferedWriter out = new BufferedWriter(new FileWriter(intermediate));
+			System.out.println("read rules file");
+			BufferedWriter outIntermediate = new BufferedWriter(new FileWriter(intermediate));
+			System.out.println("creating json file writer and writing to it");
 			
-			out.write("root = ");
+			outIntermediate.write("root = ");
 			while((instr = in1.readLine()) != null)
-				out.write(instr);
+				outIntermediate.write(instr);
 			
-			out.write("\n\n");
+			outIntermediate.write("\n\n");
 			while((instr = in2.readLine()) != null)
-				out.write(instr + "\n");
+				outIntermediate.write(instr + "\n");
 			
-			out.write("\n\n");
+			outIntermediate.write("\n\n");
 			while((instr = in3.readLine()) != null)
-				out.write(instr + "\n");			
+				outIntermediate.write(instr + "\n");
+			
+			System.out.println("closing 3 file readers and file writer");
 			in1.close();
 			in2.close();
 			in3.close();
-			out.close();
-		}catch(Exception e){System.err.println("error combining three js text files, file possibly not found: " + e.getMessage());return;}
+			outIntermediate.close();
+			System.out.println("exiting try statement");
+		}catch(Exception e){System.out.println("error combining three js text files, file possibly not found: " + e.getMessage());return;}
 		
 		// Process js file
 		String shlArgs[] = {intermediate};
 		
+		System.out.println("about to call process....");
 		// Create an instance of myself to call nonstatic functions
-		RulesProcessor processor = new RulesProcessor();
-		processor.process(shlArgs);
+		process(shlArgs);
 		try{
 			File f = new File(intermediate);
-			File f2 = new File(jsonObjIn);
+			//File f2 = new File(jsonObjIn);
 			boolean success = f.delete();
-			boolean success2 = f2.delete();
+			//boolean success2 = f2.delete();
 
-		    if (!success || !success2)
+		    if (!success)// || !success2)
 		      throw new IllegalArgumentException("Delete: deletion failed");
 		}catch(Exception e){System.err.println(intermediate + " or " + jsonObjIn + " processing file does not exist: " + e.getMessage());}
 	}
 	
+	/**
+	 * processes the json file that contains the rules, processor, and json object
+	 * @param args - an array that contains the name of the json file
+	 */
 	public void process(String[] args)
 	{
+		System.out.println("process function called");
 		// Setup javascript functions that need to be translated to java
 		String[] names = {  "print", "quit", "version", "load", "help" };
         this.defineFunctionProperties(names, RulesProcessor.class,
@@ -116,8 +136,20 @@ public class RulesProcessor extends Shell{
 		}
 	}
 	
+	/**
+	 * Runs the Server-Side javascript contained in the file "filename"; 
+	 * treats the file like javascript in a shell
+	 * 
+	 * Outputs the result file (the final json file)
+	 * note: processor.txt contains helper javascript functions
+	 * @param cx - rhino thing
+	 * @param filename - the final json file that contains rules.txt, processor.txt, and json object
+	 * @throws IOException
+	 */
 	private void processSource(Context cx, String filename) throws IOException
     {
+		System.out.println("Process Source function called");
+		
 		// create directories if necessary
 		String outFileCopy = "";
 		int index = 0;
@@ -131,13 +163,14 @@ public class RulesProcessor extends Shell{
 			if(!creation.exists())
 				creation.mkdir();
 		}
-		
-		BufferedWriter out = new BufferedWriter(new FileWriter(outFile));
+		File resultsFile = new File(outFile);
+		outResults = new PrintWriter(new FileOutputStream(resultsFile));
 		
 		// setting up the results data structure
 		if(jsFileType == JSFileType.PDFObj)
-			out.write("{\n\"results\":[\n");
+			outResults.write("{\n\"results\":[\n");
 		
+		// runs rhino in the shell
         if (filename == null) {
             BufferedReader in = new BufferedReader
                 (new InputStreamReader(System.in));
@@ -200,7 +233,9 @@ public class RulesProcessor extends Shell{
                 }
             } while (!hitEOF);
             System.err.println();
-        } else {
+        }
+        // runs rhino on a file
+        else {
             FileReader in = null;
             try {
                 in = new FileReader(filename);
@@ -253,12 +288,16 @@ public class RulesProcessor extends Shell{
         	if(lastCommaInd >= 0)
         		toWrite = toWrite.substring(0, lastCommaInd) + "}\n";
         }
+        
         // write what to file what is in the buffer
-    	out.write(toWrite);
+    	outResults.println(toWrite);
+    	System.out.print("toWrite:");
+    	System.out.println(toWrite);
     	// close the results object
         if(jsFileType == JSFileType.PDFObj)
-        	out.write("]}");
-        out.close();
+        	outResults.println("]}");
+        outResults.flush();
+        outResults.close();
     }
 
 	private boolean quitting;

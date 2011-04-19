@@ -113,6 +113,7 @@ public class PdfExtractor {
     public File extractMeta(String filename){
     	try{
     		File file = new File(filename);
+    		file.setReadable(true, false);
     		PrintWriter writer = new PrintWriter(new FileOutputStream(file));
     	
         	//extract metadata
