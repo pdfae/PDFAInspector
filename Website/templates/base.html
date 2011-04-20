@@ -182,7 +182,7 @@ a:hover {
 /* Sidebar */
 
 #sidebar {
-	float: right;
+	float: left;
 	width: 250px;
 	margin: 0px;
 	padding: 0px;
@@ -314,13 +314,14 @@ li.warn{
 				</div>
 				<div id="menu_top">
 					<ul>
-						<li {% if currpage_is_home %} class="current_page_item" {% endif %}><a href="/">Home</a></li>
-						<li {% if currpage_is_run_inspector %} class="current_page_item" {% endif %}><a href="/run_inspector/">Run Inspector</a></li>
+						<li {% if currpage_is_home %} class="current_page_item" {% endif %}><a href="/">Inspect PDF</a></li>
 						<li {% if currpage_is_about %} class="current_page_item" {% endif %}><a href="/about/">About</a></li>
 						{% if user.is_authenticated %}
+                  <li {% if currpage_is_report %} class="current_page_item" {% endif %}><a href="/{{user.username}}/reports/">Reports</a></li>
 						<li {% if currpage_is_login %} class="current_page_item" {% endif %}><a href="/{{user.username}}/">Account</a></li>
 						<li ><a href="/accounts/logout/">Log Out</a></li>
 						{% else %}
+						<li {% if currpage_is_report %}class="current_page_item"{% endif %}><a href="/reports/">Reports</a></li>               
 						<li {% if currpage_is_register %}class="current_page_item"{% endif %}><a href="/accounts/register/">Regsiter</a></li>               
 						<li {% if currpage_is_login %}class="current_page_item"{% endif %}><a href="/accounts/login/">Log In</a></li>               
 						{% endif %}

@@ -1,0 +1,14 @@
+{% extends "base_2co.html" %}
+
+{% block sidebar %}
+   <ul>
+      <li><a href="/{{user.username}}/reports/">All Reports</a></li>
+      {% if report %}
+      <li><a href="/{{user.username}}/reports/{{report.id}}/summary/">Summary</ah></li>
+      <li><a href="/{{user.username}}/reports/{{report.id}}/report/">Report</a></li>
+      {% endif %}
+   </ul>
+      
+{% endblock sidebar %}
+
+{% block 
