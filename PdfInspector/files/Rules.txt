@@ -67,7 +67,7 @@ RuleList = {Rules:[
 		}
 	},*/
 	{
-	rule_id:"headers_2",
+	rule_id:"header_2",
 	wcag_code:"2.4.6",
 	sect508_code:"",
 	param:tags,
@@ -114,7 +114,7 @@ RuleList = {Rules:[
 			
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "headers_2";
+			result.rule_id = "header_2";
 			result.wcag_code = "2.4.6";
 			result.sect508_code = "";
 			result.test_results = new Array();

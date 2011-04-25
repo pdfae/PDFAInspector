@@ -1,5 +1,14 @@
 {
 	"Rules":[{
+		"id":"header_2",
+		"title":"Headers must be properly nested",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"2.4.6",
+		"sect508_id":"",
+		"message":""
+		},
+		{
 		"id":"table_1",
 		"title":"Data tables must use summary attribute.",
 		"validate":"",
