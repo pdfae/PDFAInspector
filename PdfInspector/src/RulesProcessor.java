@@ -41,9 +41,9 @@ public class RulesProcessor extends Shell{
 			String instr;
 			BufferedReader in1 = new BufferedReader(new FileReader(jsonObjIn));
 			System.out.println("read json object file");
-			BufferedReader in2 = new BufferedReader(new FileReader("files/Processor.txt"));
+			BufferedReader in2 = new BufferedReader(new FileReader(webServerDirectory + "files/Processor.txt"));
 			System.out.println("read processor file");
-			BufferedReader in3 = new BufferedReader(new FileReader("files/Rules.txt"));
+			BufferedReader in3 = new BufferedReader(new FileReader(webServerDirectory + "files/Rules.txt"));
 			System.out.println("read rules file");
 			BufferedWriter outIntermediate = new BufferedWriter(new FileWriter(intermediate));
 			System.out.println("creating json file writer and writing to it");
