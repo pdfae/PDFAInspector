@@ -2,6 +2,8 @@
 
 
 {% block page_title %}Report {% endblock page_title %}
+{% ifequal report.private "False" %}
+{% if user.is_authenticated %}
 {% block sidebar %}
    <div id="tagcount_sect">
       <table class="tagcount" summary="Summary of tag count in PDF file">
@@ -62,31 +64,54 @@
    </div> <!-- end tagcount_sect -->
       
 {% endblock sidebar %}
+{% endif %}
 
 {% block content %}
    <p class="meta">
       <span class="filename">{{ report.file_name }}</span> |
       <span class="date">{{ report.datestamp }}</span> |
       <span class="ruleset">Default Ruleset</span> |
-      <span class="xml"><a href="#">See XML File</a></span>
+      <span class="xml"><a href="xml/">See XML File</a></span>
    </p>
    
    <div id="results">
       <h3>Evaluation Results </h3>
       
       <h4>Headings and Label </h4>
-      <ul>
-         <li> Descriptive Headings </li>
-            <ul>
-               <li class="fail">[Fail] 3/5 Headings have content </li>
-            </ul>
-         <li> Use unique section headings </li>
-            <ul>
-               <li class="pass">[Pass] 5/5 Headings have content </li>
-            </ul>
-         </li>
+	  <ul>
+	  {% for rule, result in rules_and_results %}
+	  <li>{{ rule.title }}  
+		<ul><li>{{ result }}</li></ul>
+	  </li>
+
+	  {% endfor %}
       </ul>
                
    </div> <!-- end results -->
 {% endblock content %}
 
+{% else %}
+{% block public_content %}
+   <p class="meta">
+      <span class="filename">{{ report.file_name }}</span> |
+      <span class="date">{{ report.datestamp }}</span> |
+      <span class="ruleset">Default Ruleset</span> |
+      <span class="xml"><a href="xml/">See XML File</a></span>
+   </p>
+   
+   <div id="results">
+      <h3>Evaluation Results </h3>
+      
+      <h4>Headings and Label </h4>
+	  <ul>
+	  {% for rule, result in rules_and_results %}
+	  <li>{{ rule.title }}  
+		<ul><li>{{ result }}</li></ul>
+	  </li>
+
+	  {% endfor %}
+      </ul>
+               
+   </div> <!-- end results -->
+{% endblock public_content %}
+{% endifequal %}
