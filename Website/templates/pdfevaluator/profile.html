@@ -39,7 +39,7 @@ table.report_history td, table.report_history th{
 {% for report in reports %}
     <tr>
       <td>
-        <a href='../pdf/report/{{ report.id }}/'>{{ report.file_name }}</a>
+        <a href='/pdf/report/{{ report.id }}/'>{{ report.file_name }}</a>
       </td>
       <td>
         {{ report.datestamp }}
