@@ -1,4 +1,4 @@
-{% extends "base_2col.html" %}
+{% extends "base.html" %}
 
 
 {% block page_title %}Report {% endblock page_title %}
@@ -63,7 +63,7 @@
       
 {% endblock sidebar %}
 
-{% block main_content %}
+{% block content %}
    <p class="meta">
       <span class="filename">{{ report.file_name }}</span> |
       <span class="date">{{ report.datestamp }}</span> |
@@ -88,5 +88,5 @@
       </ul>
                
    </div> <!-- end results -->
-{% endblock main_content %}
+{% endblock content %}
 

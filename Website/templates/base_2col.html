@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
 
-{% block content %}
-   <div id="sidebar">
-		{% block sidebar %}
-		{% endblock %}
-   </div>
-	</div><!-- END #content-related -->
+{% block sidebar %}
+
+  <div id="sidebar">
+		
+  </div>
+ {% endblock %}
+	</div>
+   {% block content %}
 	<div id="content-main">
 		{% block main_content %}
 		{% endblock %}
-	</div><!-- END #content-main -->
-		
-{% endblock content%}
+	</div>		
+   {% endblock content%}

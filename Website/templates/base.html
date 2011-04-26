@@ -333,15 +333,20 @@ li.warn{
             {% block page %}
             <div id="content">
                <h2 class="title">{% block page_title %}{% endblock %}</h2>
-			   {% if user.is_authenticated %}
-               		{% block content %}{% endblock %}
-			   {% else %}
-			   		{% block public_content %}
-					<p>Please <a href="accounts/login/">sign in</a> or <a href="/accounts/register">register</a>.</p>
-			   		{% endblock %}
-			   {% endif %}
+               <div id="post">
+               {% if user.is_authenticated %}
+                        {% block content %}{% endblock %}
+               {% else %}
+                     {% block public_content %}
+                  <p>Please <a href="accounts/login/">sign in</a> or <a href="/accounts/register">register</a>.</p>
+                     {% endblock public_content%}
+               {% endif %}
+               </div> <!-- end post -->
             </div> <!-- end content -->
-            {% endblock %}
+            <div id="sidebar">
+               {% block sidebar %}{% endblock %}
+            </div> <!-- end sidebar -->
+            {% endblock page%}
          </div> <!-- end page -->
       </div> <!-- end wrapper -->
    </body>
