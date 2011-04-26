@@ -1,15 +1,68 @@
 {% extends "base_2col.html" %}
 
 
-{% block page_title %}Summary Report {% endblock page_title %}
+{% block page_title %}Report {% endblock page_title %}
 {% block sidebar %}
-   <ul>
-      <li><a href="/{{user.username}}/reports/">All Reports</a></li>
-      <li><a href="/{{user.username}}/reports/{{report.id}}/summary/">Summary</ah></li>
-      <li><a href="/{{user.username}}/reports/{{report.id}}/report/">Report</a></li>
-   </ul>
+   <div id="tagcount_sect">
+      <table class="tagcount" summary="Summary of tag count in PDF file">
+      <caption>Tag Count</count>
+      <tr>
+         <td>Sect</td>
+         <td>{{ report.sect }}</td>
+      </tr>
+      <tr>
+         <td>h1</td>
+         <td>{{ report.h1 }}</td>
+      </tr>
+      <tr>
+         <td>h2</td>
+         <td>{{ report.h2 }}</td>
+      </tr>
+      <tr>
+         <td>h3</td>
+         <td>{{ report.h3 }}</td>
+      </tr>
+      <tr>
+         <td>h4</td>
+         <td>{{ report.h4 }}</td>
+      </tr>
+      <tr>
+         <td>h5</td>
+         <td>{{ report.h5 }}</td>
+      </tr>
+      <tr>
+         <td>h6</td>
+         <td>{{ report.h6 }}</td>
+      </tr>
+      <tr>
+         <td>p</td>
+         <td>{{ report.p }}</td>
+      </tr>
+      <tr>
+         <td>caption</td>
+         <td>{{ report.caption }}</td>
+      </tr>
+      <tr>
+         <td>table</td>
+         <td>{{ report.table }}</td>
+      </tr>
+      <tr>
+         <td>l</td>
+         <td>{{ report.l }}</td>
+      </tr>
+      <tr>
+         <td>form</td>
+         <td>{{ report.form }}</td>
+      </tr>
+      <tr>
+         <td>bookmark</td>
+         <td>{{ report.bookmark }}</td>
+      </tr>
+      
+   </div> <!-- end tagcount_sect -->
       
 {% endblock sidebar %}
+
 {% block main_content %}
    <p class="meta">
       <span class="filename">{{ report.file_name }}</span> |
