@@ -161,35 +161,35 @@ RuleList = {Rules:[
 			result.test_results = new Array();
 
 			// function call to begin rule validation
-			result.test_results.push(titleRuleCheckNonEmpty(title));
+			result.test_results.push(titleRuleCheckNonEmpty(author));
 
 			return result;
 		}
 	},
 	{
-	rule_id:"creator_1",
-	wcag_code:"2.4.2",
-	sect508_code:"22.i",
-	param:creator,
-	pass_message:"creator tag is not empty, make sure it accurately describes the author of the document",
-	fail_message:"creator tag is empty",
-	title:"creator tag should not be empty.",
+	rule_id:"tags_1",
+	wcag_code:"1.1.1",
+	sect508_code:"22.a",
+	param:author,
+	pass_message:"this document is tagged",
+	fail_message:"this document is not tagged",
+	title:"Document should contain tags.",
 	validate:
-		function(creator)
+		function(tags)
 		{
-			// checks to see that the creator tag is not empty
-			function titleRuleCheckNonEmpty(creator)
+			// checks to see that tags exist
+			function checkTagsExist(tags)
 			{
 				var pass_fail = new Object();
-				if(creator[0].text == null || creator[0].text.equals(""))
+				if(tags != null && tags != "")
 				{
-					pass_fail.passed = false;
-					pass_fail.message = "creator tag is empty";
+					pass_fail.passed = true;
+					pass_fail.message = "this document is tagged";
 				}
 				else
 				{
-					pass_fail.passed = "true";
-					pass_fail.message = "creator tag is not empty, make sure it accurately describes the document";
+					pass_fail.passed = "false";
+					pass_fail.message = "this document is not tagged";
 				}
 				
 				return pass_fail;
@@ -198,13 +198,13 @@ RuleList = {Rules:[
 			
 			// variable local to function to store all the results
 			var result = new Object();
-			result.rule_id = "creator_1";
-			result.wcag_code = "2.4.2";
-			result.sect508_code = "22.i";
+			result.rule_id = "tags_1";
+			result.wcag_code = "1.1.1";
+			result.sect508_code = "22.a";
 			result.test_results = new Array();
 
 			// function call to begin rule validation
-			result.test_results.push(titleRuleCheckNonEmpty(title));
+			result.test_results.push(checkTagsExist(tags));
 
 			return result;
 		}
@@ -251,8 +251,6 @@ importantTags.push("caption");
 importantTags.push("table");
 importantTags.push("figure");
 importantTags.push("l");
-importantTags.push("form");
-importantTags.push("bookmark");
 
 // initialize count array
 var importantTagsCount = new Object();
@@ -268,11 +266,16 @@ importantTagsCount.caption = 0;
 importantTagsCount.table = 0;
 importantTagsCount.figure = 0;
 importantTagsCount.l = 0;
-importantTagsCount.form = 0;
-importantTagsCount.bookmark = 0;
-importantTagsCountLength = 14;
+importantTagsCountLength = 12;
 
 countImportantTags(root);
+
+// add two separate important tags
+importantTags.push("form");
+importantTags.push("bookmark");
+importantTagsCount.form = form.length;
+importantTagsCount.bookmark = countBookmarks(bookmark);
+importantTagsCountLength = 14;
 
 // write results object to file
 print("{\n");

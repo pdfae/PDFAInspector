@@ -134,3 +134,30 @@ function countImportantTagsHelper(node)
 		}
 	}
 }
+
+// counts number of bookmarks
+// bookmark tag can hold multiple bookmarks where each bookmark is an object
+function countBookmarks(bookmark)
+{
+	var numBookmarks = 0;
+	for(var bookInd = 0; bookInd < bookmark.length; bookInd++)
+	{
+		numBookmarks += countBookmarksHelper(bookmark[bookInd]);
+	}
+	print("countBookmarks: " + numBookmarks + "\n");
+	return numBookmarks;
+}
+function countBookmarksHelper(node)
+{
+	// standard traversal all nodes contain a tagName, attributes, and content
+	var numBookmarks = 0;
+	if(node.content != null)
+	{
+		numBookmarks++;
+		for(var i = 0; i < node.content.length; i++)
+		{
+			numBookmarks += countBookmarksHelper(node.content[i]);
+		}
+	}
+	return numBookmarks;
+}
