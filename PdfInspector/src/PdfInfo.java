@@ -1,7 +1,12 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -34,53 +39,69 @@ public class PdfInfo {
 	 * @param filename
 	 * @return File
 	 */
-	public void exportAsXML(String outFilename){
+	public void exportAsXML(String outFilename) throws IOException{
 		try {
 
-			FileOutputStream output = new FileOutputStream(outFilename);
-			PrintWriter writer = new PrintWriter(output);
-			writer.println("<pdfinfo>");
+			//FileOutputStream output = new FileOutputStream(outFilename);
+			//PrintWriter writer = new PrintWriter(output);
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outFilename)));
+
+			writer.write("<pdfinfo>");
 			writer.flush();
 			
 			//metadata
 			if (metaFile != null && metaFile.length() > 1){
-				FileInputStream inputMeta = new FileInputStream(metaFile);
-				copy(inputMeta, output);
+				//FileInputStream inputMeta = new FileInputStream(metaFile);
+				//copy(inputMeta, output);
+				
+				BufferedReader readerMeta = new BufferedReader(new FileReader(metaFile));
+				copy(readerMeta, writer);
 			}
 			
 			//bookmarks
 			if (bookmarkFile != null && bookmarkFile.length() > 1){
-				FileInputStream inputBookmark = new FileInputStream(bookmarkFile);
-				copy(inputBookmark, output);
+				//FileInputStream inputBookmark = new FileInputStream(bookmarkFile);
+				//copy(inputBookmark, output);
+
+				BufferedReader readerBook = new BufferedReader(new FileReader(bookmarkFile));
+				copy(readerBook, writer);
 			}
 			else{
-				writer.println("<bookmark></bookmark>");
+				writer.write("<bookmark></bookmark>");
 				writer.flush();
 			}
 			//tags
 			if (tagFile != null && tagFile.length() > 1){
-				writer.println("<tags>");
+				writer.write("<tags>");
 				writer.flush();
-				FileInputStream inputTag = new FileInputStream(tagFile);
-				copy(inputTag, output);
-				writer.println("</tags>");
+				//FileInputStream inputTag = new FileInputStream(tagFile);
+				//copy(inputTag, output);
+
+				BufferedReader readerTag = new BufferedReader(new FileReader(tagFile));
+				copy(readerTag, writer);
+				
+				writer.write("</tags>");
 				writer.flush();
 			}
 			else{
-				writer.println("<tags></tags>");
+				writer.write("<tags></tags>");
+				//writer.println("<tags></tags>");
 				writer.flush();
 			}
 			//forms
 			if (formFile != null && formFile.length() > 1){
-				FileInputStream inputForm = new FileInputStream(formFile);
-				copy(inputForm, output);
+				//FileInputStream inputForm = new FileInputStream(formFile);
+				//copy(inputForm, output);
+				
+				BufferedReader readerForm = new BufferedReader(new FileReader(formFile));
+				copy(readerForm, writer);
 			}
 			else{
-				writer.println("<form></form>");
+				writer.write("<form></form>");
 				writer.flush();
 			}
 
-			writer.println("</pdfinfo>");
+			writer.write("</pdfinfo>");
 			writer.flush();
 			writer.close();
 			
@@ -90,7 +111,7 @@ public class PdfInfo {
 	}
 	
 	/**
-	 * Copies input file into output file
+	 * Copies input file into output file via bytes
 	 * @param in
 	 * @param out
 	 */
@@ -106,6 +127,25 @@ public class PdfInfo {
 		catch(Exception e){
 			
 		}
+	}
+	
+	/**
+	 * Copies input file into output file via lines
+	 * Ignores all comment lines
+	 * @param reader
+	 * @param writer
+	 * @throws IOException
+	 */
+	private void copy(BufferedReader reader, BufferedWriter writer) throws IOException {
+        String line = null;
+        while ((line=reader.readLine()) != null) {
+        	// if line is not a comment, copy line to writer
+        	if (!(line.startsWith("<?"))){
+        		writer.write(line);
+        		writer.newLine(); 
+        	}
+        }
+
 	}
 	
 	/**
