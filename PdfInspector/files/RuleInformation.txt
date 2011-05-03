@@ -27,12 +27,12 @@
 		"message":""
 		},
 		{
-		"id":"creator_1",
-		"title":"Creator tag should not be empty.",
+		"id":"tags_1",
+		"title":"Document should contain tags.",
 		"validate":"",
 		"parameters":"",
-		"wcag_id":"2.4.2",
-		"sect508_id":"22.i",
+		"wcag_id":"1.1.1",
+		"sect508_id":"22.a",
 		"message":""
 		}
 	]

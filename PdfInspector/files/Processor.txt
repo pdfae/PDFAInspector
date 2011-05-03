@@ -144,7 +144,6 @@ function countBookmarks(bookmark)
 	{
 		numBookmarks += countBookmarksHelper(bookmark[bookInd]);
 	}
-	print("countBookmarks: " + numBookmarks + "\n");
 	return numBookmarks;
 }
 function countBookmarksHelper(node)

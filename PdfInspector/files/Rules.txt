@@ -170,7 +170,7 @@ RuleList = {Rules:[
 	rule_id:"tags_1",
 	wcag_code:"1.1.1",
 	sect508_code:"22.a",
-	param:author,
+	param:tags,
 	pass_message:"this document is tagged",
 	fail_message:"this document is not tagged",
 	title:"Document should contain tags.",
@@ -181,7 +181,9 @@ RuleList = {Rules:[
 			function checkTagsExist(tags)
 			{
 				var pass_fail = new Object();
-				if(tags != null && tags != "")
+				print(tags.length);
+				print(tags[0]);
+				if(tags.length > 0)
 				{
 					pass_fail.passed = true;
 					pass_fail.message = "this document is tagged";
