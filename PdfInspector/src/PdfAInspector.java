@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Executable file of PdfInspector
@@ -103,7 +104,12 @@ public class PdfAInspector {
     	}
     	
         PdfInfo info = new PdfInfo(tags, forms, bookmarks, meta);
-        info.exportAsXML(xmlFile);
+        try {
+			info.exportAsXML(xmlFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         //XMLToJSON.convertXMLtoJSON(xmlFile, jsonFilename);
         XMLToJSONConverter.drawJSONFromXML(xmlFile, jsonFilename);
