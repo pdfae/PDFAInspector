@@ -10,7 +10,7 @@
 		},
 		{
 		"id":"title_1",
-		"title":"",
+		"title":"Documents must be titled",
 		"validate":"",
 		"parameters":"",
 		"wcag_id":"2.4.2",
