@@ -34,6 +34,15 @@
 		"wcag_id":"1.1.1",
 		"sect508_id":"22.a",
 		"message":""
+		},
+		{
+		"id":"paragraph_1",
+		"title":"Paragraphs should contain content.",
+		"validate":"",
+		"parameters":"",
+		"wcag_id":"1.1.1",
+		"sect508_id":"22.a",
+		"message":""
 		}
 	]
 }

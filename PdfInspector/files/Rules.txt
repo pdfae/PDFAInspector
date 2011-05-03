@@ -181,8 +181,6 @@ RuleList = {Rules:[
 			function checkTagsExist(tags)
 			{
 				var pass_fail = new Object();
-				print(tags.length);
-				print(tags[0]);
 				if(tags.length > 0)
 				{
 					pass_fail.passed = true;
@@ -207,6 +205,63 @@ RuleList = {Rules:[
 
 			// function call to begin rule validation
 			result.test_results.push(checkTagsExist(tags));
+
+			return result;
+		}
+	},
+	{
+	rule_id:"paragraph_1",
+	wcag_code:"1.1.1",
+	sect508_code:"22.a",
+	param:tags,
+	pass_message:"paragraph contains content",
+	fail_message:"paragraph does not contain content",
+	title:"Paragraphs should contain content.",
+	validate:
+		function(tags)
+		{
+			// checks to see that tags exist
+			function checkParagraphsContainContent(tags)
+			{
+				for(var tagInd = 0; tagInd < tags.length; tagInd++)
+					checkParagraphsHelper(tags[tagInd]);
+			}
+			function checkParagraphsHelper(tags)
+			{
+				// if paragraph
+				if(tags.tagName != null && tags.tagName.toLowerCase().equals("p"))
+				{
+					var pass_fail = new Object();
+					if(tags.content.length > 0)
+					{
+						pass_fail.passed = "true";
+						pass_fail.message = "paragraph contains content";
+					}
+					else
+					{
+						pass_fail.passed = "false";
+						pass_fail.message = "paragraph does not contain content";
+					}
+					result.test_results.push(pass_fail);
+				}
+				
+				// continue traversal
+				if(tags.content != null)
+				{
+					for(var i = 0; i < tags.content.length; i++)
+						checkParagraphsHelper(tags.content[i]);
+				}
+			}
+			
+			// variable local to function to store all the results
+			var result = new Object();
+			result.rule_id = "paragraph_1";
+			result.wcag_code = "1.1.1";
+			result.sect508_code = "22.a";
+			result.test_results = new Array();
+
+			// function call to begin rule validation
+			checkParagraphsContainContent(tags);
 
 			return result;
 		}
