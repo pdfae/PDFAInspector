@@ -37,6 +37,9 @@ public class PdfExtractor {
 	private PdfName colName = new PdfName("ColSpan");
 	private PdfName headerName = new PdfName("Headers");
 	
+	private PdfDictionary currentPage = null;
+	private int pageCount = 0;
+	
 	public PdfExtractor(String filename){
 		this.filename = filename;
 		try {
@@ -302,7 +305,13 @@ public class PdfExtractor {
 			// if tag
 			PdfName s = dict.getAsName(PdfName.S);
 			if (s != null) {
-
+				// Check to see if we have gone to a new page
+				PdfDictionary temp = dict.getAsDict(PdfName.PG);
+				if (temp != null && temp != currentPage){
+					currentPage = temp;
+					pageCount++;
+				}
+				
 	            String tagN = PdfName.decodeName(s.toString());
 				String tag = fixTagName(tagN);
 				out.print("<");
@@ -310,6 +319,11 @@ public class PdfExtractor {
 				
 				outline.print("<");
 				outline.print(tag);
+				
+				// if we know what page we're on, include it as an attribute
+				if(currentPage != null){
+					out.println(" Page=\"" + pageCount + "\"");
+				}
 				
 				// if alt text exists, include in tag brackets
 				if (dict.get(PdfName.ALT) != null){
@@ -333,6 +347,7 @@ public class PdfExtractor {
 				if (dictPG != null)
 					parseTag(tagN, dict.getDirectObject(PdfName.K), dictPG);
 				inspectStructChild(dict.getDirectObject(PdfName.K));
+
 				out.print("</");
 				out.print(tag);
 				out.println(">");
