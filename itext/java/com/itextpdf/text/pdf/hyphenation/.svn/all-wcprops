@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation
+END
+CharVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/CharVector.java
+END
+Hyphenator.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/Hyphenator.java
+END
+SimplePatternParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/SimplePatternParser.java
+END
+TernaryTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/TernaryTree.java
+END
+HyphenationException.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/HyphenationException.java
+END
+ByteVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/ByteVector.java
+END
+Hyphenation.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/Hyphenation.java
+END
+HyphenationTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/itext/!svn/ver/4749/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/HyphenationTree.java
+END
+PatternConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/PatternConsumer.java
+END
+Hyphen.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/itext/!svn/ver/4713/trunk/itext/src/main/java/com/itextpdf/text/pdf/hyphenation/Hyphen.java
+END

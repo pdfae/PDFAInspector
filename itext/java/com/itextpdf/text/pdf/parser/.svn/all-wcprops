@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/itext/!svn/ver/4972/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser
+END
+TextRenderInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/TextRenderInfo.java
+END
+LocationTextExtractionStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svnroot/itext/!svn/ver/4959/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/LocationTextExtractionStrategy.java
+END
+GraphicsState.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/GraphicsState.java
+END
+InlineImageUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/itext/!svn/ver/4832/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/InlineImageUtils.java
+END
+Vector.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/Vector.java
+END
+PdfImageObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/itext/!svn/ver/4965/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/PdfImageObject.java
+END
+PdfReaderContentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/PdfReaderContentParser.java
+END
+Matrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/Matrix.java
+END
+MarkedContentRenderFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/MarkedContentRenderFilter.java
+END
+FilteredRenderListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/FilteredRenderListener.java
+END
+TaggedPdfReaderTool.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/itext/!svn/ver/4813/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/TaggedPdfReaderTool.java
+END
+TextExtractionStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/TextExtractionStrategy.java
+END
+FilteredTextRenderListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/FilteredTextRenderListener.java
+END
+MarkedContentInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/MarkedContentInfo.java
+END
+LineSegment.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/LineSegment.java
+END
+PdfTextExtractor.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/PdfTextExtractor.java
+END
+TextMarginFinder.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/TextMarginFinder.java
+END
+ContentByteUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/ContentByteUtils.java
+END
+XObjectDoHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/XObjectDoHandler.java
+END
+PdfContentStreamProcessor.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/itext/!svn/ver/4923/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/PdfContentStreamProcessor.java
+END
+SimpleTextExtractionStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svnroot/itext/!svn/ver/4898/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/SimpleTextExtractionStrategy.java
+END
+PdfContentReaderTool.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/PdfContentReaderTool.java
+END
+RenderFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/RenderFilter.java
+END
+RenderListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/RenderListener.java
+END
+ContentOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/ContentOperator.java
+END
+ImageRenderInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/itext/!svn/ver/4972/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/ImageRenderInfo.java
+END
+RegionTextRenderFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/parser/RegionTextRenderFilter.java
+END

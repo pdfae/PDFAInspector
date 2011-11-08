@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/itext/!svn/ver/4809/trunk/itext/src/main/java/com/itextpdf/text/pdf/events
+END
+PdfPTableEventForwarder.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/itext/!svn/ver/4809/trunk/itext/src/main/java/com/itextpdf/text/pdf/events/PdfPTableEventForwarder.java
+END
+PdfPageEventForwarder.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/events/PdfPageEventForwarder.java
+END
+PdfPCellEventForwarder.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/events/PdfPCellEventForwarder.java
+END
+FieldPositioningEvents.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/events/FieldPositioningEvents.java
+END
+IndexEvents.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/events/IndexEvents.java
+END

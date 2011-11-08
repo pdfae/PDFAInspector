@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/crypto
+END
+AESCipher.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/crypto/AESCipher.java
+END
+IVGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/crypto/IVGenerator.java
+END
+ARCFOUREncryption.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/crypto/ARCFOUREncryption.java
+END
+AESCipherCBCnoPad.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/itext/!svn/ver/4784/trunk/itext/src/main/java/com/itextpdf/text/pdf/crypto/AESCipherCBCnoPad.java
+END
