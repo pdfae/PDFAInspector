@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block text %}
+Your file, '{{ fname }}' is being processed.<br />
+When it is done, you can <a href="/view/?f={{ fname}}">click here</a> to see the results.
+{% endblock %}
