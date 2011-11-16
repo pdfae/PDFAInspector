@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block text %}
 {{ fname }} <br />
-<pre>
+{% autoescape off %}
 {{ output }}
-</pre>
+{% endautoescape %}
 {% endblock %}

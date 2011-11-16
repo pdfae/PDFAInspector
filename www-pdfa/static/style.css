@@ -374,3 +374,20 @@ img.aligncenter {
 	float: right;
 	width: 280px;
 }
+
+.node {
+	border: 1px solid #000;
+	width: 96%;
+	margin: 4px;
+	padding: 4px;
+}
+.n_0 { background-color: #eedd77; }
+.n_1 { background-color: #dd77ee; }
+.n_2 { background-color: #77eedd; }
+.n_3 { background-color: #ddee77; }
+.n_4 { background-color: #ee77dd; }
+.n_5 { background-color: #eedd77; }
+.n_6 { background-color: #dd77ee; }
+.n_7 { background-color: #77eedd; }
+.n_8 { background-color: #ddee77; }
+.n_9 { background-color: #ee77dd; }

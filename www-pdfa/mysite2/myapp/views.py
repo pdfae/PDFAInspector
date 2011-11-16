@@ -2,6 +2,7 @@
 from django.shortcuts import *
 from forms import *
 from models import *
+import json
 import os
 
 def signup(request):
@@ -44,6 +45,23 @@ def upload (request):
 		f = uploadfileform()
 	return render_to_response("fileupload.htm", locals(), context_instance=RequestContext(request))
 
+def writeNode (node, depth=0):
+	output = "<div class='node n_" + str(depth) + "'><b>"+node["tagName"]+"</b><br />\n<i>\n"
+	attr = []
+	for i in node["attributes"]:
+		for j,k in i.iteritems():
+			attr.append(j + "=" + k)
+	output += ", ".join(attr)
+	output += "</i><br />\n"
+	for i in node["content"]:
+		if len(i) > 1:
+			output += writeNode(i,depth+1)
+		else:
+			output += str(i["text"])
+	output += "</div>"
+	return output
+
+
 def view (request):
 	currentPage = "upload"
 	fname = request.GET['f']
@@ -51,7 +69,8 @@ def view (request):
 	r_path = '/var/www-pdfa/files/json-' + fname[:fname.find('.')] + ".json"
 	if os.path.isfile(r_path):
 		result = open(r_path)
-		output = result.read()
+		j = json.loads(result.read())
+		output = writeNode(j)
 		result.close()
 	else:
 		output = "File not done processing."
