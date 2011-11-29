@@ -103,6 +103,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'mysite2.urls'
 
+ACCOUNT_ACTIVATION_DAYS = 10
+
+
 TEMPLATE_DIRS = (
 	"/var/www-pdfa/mysite2/templates"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -118,6 +121,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'mysite2.myapp',
+	'registration',
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
