@@ -120,6 +120,16 @@ public class PdfAInspector {
         if (forms != null) forms.delete();
         if (tags != null) tags.delete();
 
+    	//extract text
+    	try{
+    		String textFilename = pathname + "itext-" +	filename + ".txt";
+            extractor.extractText(textFilename);
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println("Error in extracting text");
+    	}
+        
     }
     
     /**

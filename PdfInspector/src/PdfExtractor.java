@@ -37,13 +37,14 @@ public class PdfExtractor {
 	private PdfName colName = new PdfName("ColSpan");
 	private PdfName headerName = new PdfName("Headers");
 	
-	private PdfDictionary currentPage = null;
-	private int pageCount = 0;
+	private PdfArray pages = null;
+	private int pageCount = 1;
 	
 	public PdfExtractor(String filename){
 		this.filename = filename;
 		try {
 			reader = new PdfReader(this.filename);
+			pages = reader.getCatalog().getAsDict(PdfName.PAGES).getAsArray(PdfName.KIDS);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,8 +66,10 @@ public class PdfExtractor {
 			fop = new FileOutputStream(file);
 			fop_ol = new FileOutputStream(file_ol);
 			
-			convertToXmlWithAttr(fop, fop_ol);
-		      
+			try{
+				convertToXmlWithAttr(fop, fop_ol);
+			}catch(NullPointerException e){
+			}
 			//tReader.convertToXml(reader, fop);
 			
 		    fop.flush();
@@ -307,9 +310,21 @@ public class PdfExtractor {
 			if (s != null) {
 				// Check to see if we have gone to a new page
 				PdfDictionary temp = dict.getAsDict(PdfName.PG);
-				if (temp != null && temp != currentPage){
-					currentPage = temp;
-					pageCount++;
+				if(temp != null){
+					PdfArray pages = temp.getAsDict(PdfName.PARENT).getAsArray(PdfName.KIDS);
+					if(temp != pages.getAsDict(pageCount - 1)){
+						if(temp == pages.getAsDict(pageCount)){
+							pageCount++;
+						}
+						else{
+							for(int i = 0; i < pages.length(); i ++){
+								if(temp == pages.getAsDict(i)){
+									pageCount = i + 1;
+									break;
+								}
+							}
+						}
+					}
 				}
 				
 	            String tagN = PdfName.decodeName(s.toString());
@@ -321,7 +336,8 @@ public class PdfExtractor {
 				outline.print(tag);
 				
 				// if we know what page we're on, include it as an attribute
-				if(currentPage != null){
+				//if(currentPage != null){
+				if(temp != null){
 					out.println(" Page=\"" + pageCount + "\"");
 				}
 				
@@ -332,6 +348,12 @@ public class PdfExtractor {
 					// must detach last character because alt text always comes with an invalid character
 					// that later causes problems when converting to json
 					out.print(" Alt=\"" + altText.substring(0,altText.length()-1) + "\"");
+				}
+				
+				// if id exists, include in tag brackets
+				if(dict.get(PdfName.ID) != null){
+					String id = dict.get(PdfName.ID).toString();
+					out.print(" ID=\"" + id + "\"");
 				}
 				
 				// if attribute exists, include in tag brackets
@@ -487,4 +509,28 @@ public class PdfExtractor {
     	}
     }
 
+    public void extractText(String txt) throws IOException{
+    	PdfReaderContentParser parser = new PdfReaderContentParser(reader);
+    	PrintWriter out = new PrintWriter(new FileOutputStream(txt));
+    	TextExtractionStrategy strategy;
+    	for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+    	strategy = parser.processContent(i, new SimpleTextExtractionStrategy());
+    	out.println(strategy.getResultantText());
+    	}
+    	out.flush();
+    	out.close();
+    	/*PdfReaderContentParser parser = new PdfReaderContentParser(reader);
+    	PrintWriter out = new PrintWriter(new FileOutputStream(txt));
+    	TextExtractionStrategy strategy;
+    	for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+    	strategy
+    	= parser.processContent(i, new LocationTextExtractionStrategy());
+    	out.println(strategy.getResultantText());
+    	}
+    	out.flush();
+    	out.close();*/
+
+    	
+    }
+    
 }

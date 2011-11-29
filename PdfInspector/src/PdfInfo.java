@@ -67,7 +67,7 @@ public class PdfInfo {
 				copy(readerBook, writer);
 			}
 			else{
-				writer.write("<bookmark></bookmark>");
+				writer.write("<bookmark>\n</bookmark>\n");
 				writer.flush();
 			}
 			//tags
@@ -84,7 +84,7 @@ public class PdfInfo {
 				writer.flush();
 			}
 			else{
-				writer.write("<tags></tags>");
+				writer.write("<tags>\n</tags>\n");
 				//writer.println("<tags></tags>");
 				writer.flush();
 			}
@@ -97,7 +97,7 @@ public class PdfInfo {
 				copy(readerForm, writer);
 			}
 			else{
-				writer.write("<form></form>");
+				writer.write("<form>\n</form>\n");
 				writer.flush();
 			}
 
