@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
-
-{% block navigation_links %}
-			<li><a href="/index/">Home</a></li>
-			<li><a href="/about/">About</a></li>
-			<li><a href="/register/">Register</a></li>
-			<li><a href="/login/">Log-in</a></li>
-			<li><a href="#">Link 2</a></li>
-			<li class="current_page_item"><span><a href="/contact/">Contact</a></span></li>
+{% block navigation %}
+<li><span><a href="/">Home</a></span></li>
+<li><a href="/about/">About</a></li>
+<li class="current_page_item"><a href="/accounts/login/">Log-In</a></li>
+<li><a href="/upload/">Upload</a></li>
+<li><a href="/contact/">Contact</a></li>
 {% endblock %}
-
 {% block text %}
 Account activated. Go to login to log in.
 {% endblock %}
