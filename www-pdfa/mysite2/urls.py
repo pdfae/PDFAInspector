@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from myapp.views import *
+from django.views.generic.simple import direct_to_template
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -7,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	(r'^$', home),
 	(r'^accounts/profile/$', direct_to_template, { 'template': 'profile.html' }),
-	(r'^accounts/', include('registration.backends.default.urls')),
+	(r'^accounts/', include('registration.urls')),
 	(r'^user/$', signup),
 	(r'^contact/$', contact),
 	(r'^upload/$', upload),
