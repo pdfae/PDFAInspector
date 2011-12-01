@@ -91,7 +91,6 @@ public class XMLToJSONConverter {
 		}
 		
 		JSONString = JSONString.substring(0,JSONString.lastIndexOf(','));
-		
 		try{
 			if(writeto != null && writeto != ""){
 				BufferedWriter out = new BufferedWriter(new FileWriter(writeto));

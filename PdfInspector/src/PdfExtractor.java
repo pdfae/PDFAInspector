@@ -343,11 +343,18 @@ public class PdfExtractor {
 				
 				// if alt text exists, include in tag brackets
 				if (dict.get(PdfName.ALT) != null){
-					String altText = dict.get(PdfName.ALT).toString();
+					String alt = dict.getAsString(PdfName.ALT).toString();
 					
-					// must detach last character because alt text always comes with an invalid character
-					// that later causes problems when converting to json
-					out.print(" Alt=\"" + altText.substring(0,altText.length()-1) + "\"");
+					// alt text will contain null characters. we don't want these. remove them.
+					String altText = "";
+					for(int i = 0; i < alt.length(); i++){
+						char c = alt.charAt(i);
+						if(c != '\0'){
+							altText = altText + c;
+						}
+					}					
+
+					out.print(" Alt=\"" + altText + "\"");
 				}
 				
 				// if id exists, include in tag brackets
