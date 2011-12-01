@@ -30,7 +30,9 @@ public class XMLToJSONConverter {
 			// if first character isn't '<' then must be text content
 			if(XMLString.charAt(0) != '<')
 			{
-				text = XMLString.substring(0,XMLString.indexOf('<'));
+				text = XMLString.substring(0,XMLString.indexOf('<')); 
+				// JSON doesn't like backslashes
+				text = text.replaceAll("\\\\", "\\\\\\\\");
 				JSONString += tabLevel + "{\n";
 				JSONString += tabLevel + "\t\"text\":\"" + text + "\"\n";
 				try{
@@ -91,6 +93,7 @@ public class XMLToJSONConverter {
 		}
 		
 		JSONString = JSONString.substring(0,JSONString.lastIndexOf(','));
+		
 		try{
 			if(writeto != null && writeto != ""){
 				BufferedWriter out = new BufferedWriter(new FileWriter(writeto));
