@@ -1,8 +1,22 @@
-import org.mozilla.javascript.*;
-import org.mozilla.javascript.optimizer.*;
-import java.io.*;
+package pdfainspector;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
-import com.itextpdf.*;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.EvaluatorException;
+import org.mozilla.javascript.Function;
+import org.mozilla.javascript.JavaScriptException;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.WrappedException;
 
 /**
  * Reads in Json Formatted pdf File
@@ -10,6 +24,8 @@ import com.itextpdf.*;
  */
 public class RulesProcessor extends Shell{
 	
+	private static final long serialVersionUID = 1L;
+
 	public enum JSFileType{
 		FormalRules, PDFObj
 	}
