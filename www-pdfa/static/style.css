@@ -7,6 +7,53 @@ body {
 	color: #525252;
 }
 
+/* begin css tabs */
+
+ul#tabnav { /* general settings */
+text-align: center; /* set to left, right or center */
+margin: 0 0 0 0; /* set margins as desired */
+font: 14px Arial, Helvetica, sans-serif; /* set font as desired */
+border-bottom: 1px solid #525252; /* set border COLOR as desired current: #6c6*/
+list-style-type: none;
+padding: 6px 5px 6px 5px; /* THIRD number must change with respect to padding-top (X) below */
+}
+
+ul#tabnav li { /* do not change */
+display: inline;
+}
+
+body#tab1 li.tab1, body#tab2 li.tab2, body#tab3 li.tab3, body#tab4 li.tab4 { /* settings for selected tab */
+border-bottom: 1px solid #fff; /* set border color to page background color */
+background-color: #fff; /* set background color to match above border color */
+
+}
+
+body#tab1 li.tab1 a, body#tab2 li.tab2 a, body#tab3 li.tab3 a, body#tab4 li.tab4 a { /* settings for selected tab link */
+background-color: #FF2929; /* set selected tab background color as desired current: #fff*/
+color: #525252; /* set selected tab link color as desired */
+position: relative;
+top: 1px;
+padding-top: 10px; /* must change with respect to padding (X) above and below */
+}
+
+ul#tabnav li a { /* settings for all tab links */
+padding: 6px 4px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+/*border: 1px solid #525252; /* set border COLOR as desired; usually matches border color specified in #tabnav */
+background-color: #FFFFFF; /* set unselected tab background color as desired */
+color: #000000; /* set unselected tab link color as desired current: #666*/
+margin-right: 8px; /* set additional spacing between tabs as desired */
+text-decoration: none;
+border-bottom: none;
+}
+
+ul#tabnav a:hover { /* settings for hover effect */
+background: #FF2929; /* set desired hover color */
+color: #FFFFFF;
+}
+
+/* end css tabs */
+
+
 h1, h2, h3 {
 	margin: 0;
 	padding: 0;
@@ -61,8 +108,9 @@ img.aligncenter {
 }
 
 #wrapper {
-	background: url(/static/images/img01.jpg) repeat-x left top;
+	background: url(images/img01.jpg) repeat-x left top;
 }
+
 
 /* Header */
 
@@ -149,7 +197,7 @@ img.aligncenter {
 	width: 980px;
 	height: 340px;
 	margin: 0px auto;
-	background: url(/static/images/img06.jpg) no-repeat left top;
+	background: url(images/img06.jpg) no-repeat left top;
 }
 
 /* Page */
@@ -310,14 +358,14 @@ img.aligncenter {
 #footer-wrapper {
 	overflow: hidden;
 	padding: 0px 0px 0px 0px;
-	background: #2D2722 url(/static/images/img02.jpg) repeat-x left top;
+	background: #2D2722 url(images/img02.jpg) repeat-x left top;
 }
 
 #footer {
 	clear: both;
 	width: 980px;
 	height: 100px;
-	margin: 20px auto 0px auto;
+	margin: 20px auto 40px auto;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -374,20 +422,3 @@ img.aligncenter {
 	float: right;
 	width: 280px;
 }
-
-.node {
-	border: 1px solid #000;
-	width: 96%;
-	margin: 4px;
-	padding: 4px;
-}
-.n_0 { background-color: #eedd77; }
-.n_1 { background-color: #dd77ee; }
-.n_2 { background-color: #77eedd; }
-.n_3 { background-color: #ddee77; }
-.n_4 { background-color: #ee77dd; }
-.n_5 { background-color: #eedd77; }
-.n_6 { background-color: #dd77ee; }
-.n_7 { background-color: #77eedd; }
-.n_8 { background-color: #ddee77; }
-.n_9 { background-color: #ee77dd; }
