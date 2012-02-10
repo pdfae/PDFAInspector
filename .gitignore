@@ -2,3 +2,4 @@
 *.class
 *.swp
 */.svn/*
+*.DS_Store
