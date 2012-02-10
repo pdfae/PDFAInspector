@@ -7,8 +7,10 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-PDF_JAR = "/Users/arora6/sp12/cs493/PDFAInspector/PdfInspector/lib/pdfainspector.jar"
-ROOT_DIR = "/Users/arora6/sp12/cs493/PDFAInspector/www-pdfa"
+# @Kevin: Change file system URL here
+DIR = "/Users/arora6/sp12/cs493/PDFAInspector"
+PDF_JAR = DIR + "/PdfInspector/lib/pdfainspector.jar"
+ROOT_DIR = DIR + "/www-pdfa"
 
 
 MANAGERS = ADMINS
