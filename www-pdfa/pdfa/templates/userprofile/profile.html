@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}User - PDF Accessibilty Inspector{% endblock%}
+
+{% block text %}
+<ul id="tabnav">
+	<li class="tab1"><a href="/accounts/profile/accountinfo/">Account Information</a></li>
+	<li class="tab2"><a href="/accounts/profile/managerules/">Manage Rules</a></li>
+	<li class="tab3"><a href="/accounts/profile/managereports/">Manage Reports</a></li>
+	<li class="tab4"><a href="/upload/">Evaluate Document</a></li>
+</ul>
+<br><br>
+<b>Account information:<br><br></b>
+
+	USERNAME: {{ username }} <br>
+	NAME: {{ first_name }} {{ last_name }}<br>
+	EMAIL: {{ email }} <br>
+	LAST LOGIN: {{ last_login }}<br>
+	DATE JOINED: {{ date_joined }}<br>
+<br>
+
+<a href="/accounts/profile/change/">Change Account Settings</a>
+
+{% endblock %}
