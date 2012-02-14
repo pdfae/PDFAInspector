@@ -21,8 +21,10 @@ public class PdfAInspector {
 	 */
 	public static void main(String[] args){
 		// Make sure there's actually a file to inspect.
-		if(args.length == 0){
-			System.err.println("No file specified.");
+		if(args.length == 0 || args[0].equals("-h") || args[0].equals("-help")){
+			System.out.println("Usage: java -jar pdfainspector.jar /path/to/file/document.pdf\n" +
+					"You can simultaneously enter any number of filepaths, separated by spaces," +
+					" and all of them will be analyzed.");
 			return;
 		}
 		
