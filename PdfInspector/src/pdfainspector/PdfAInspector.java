@@ -22,9 +22,10 @@ public class PdfAInspector {
 	public static void main(String[] args){
 		// Make sure there's actually a file to inspect.
 		if(args.length == 0 || args[0].equals("-h") || args[0].equals("-help")){
-			System.out.println("Usage: java -jar pdfainspector.jar /path/to/file/document.pdf\n" +
+			System.out.println("Usage: java -jar pdfainspector.jar \"/path/to/file/document.pdf\"\n" +
 					"You can simultaneously enter any number of filepaths, separated by spaces," +
-					" and all of them will be analyzed.");
+					" all enclosed in quotes (if they have spaces) and all of them will be analyzed.\n" +
+					"You can type java -jar pdfainspector.jar -h or -help to display this help message.");
 			return;
 		}
 		
@@ -53,6 +54,7 @@ public class PdfAInspector {
 				writer.close();
 			}catch(FileNotFoundException e){
 				System.err.println("Error generating XML file for " + pdfName);
+				return;
 			}
 			
 			// Convert our XML file to JSON using PdfExtractor.
@@ -66,6 +68,7 @@ public class PdfAInspector {
 				writer.close();
 			}catch(FileNotFoundException e){
 				System.err.println("Error generating JSON file for " + pdfName);
+				return;
 			}
 			
 			// Run the Rules Engine on our JSON file, output results.

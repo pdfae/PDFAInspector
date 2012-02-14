@@ -40,7 +40,14 @@ public class TextExtractor {
     		if(result != null){
     			Element page = new Element("Plaintext");
     			page.addAttribute(new Attribute("Page", Integer.toString(i)));
-    			page.appendChild(result);
+    			String pageText = "";
+    			for(int it = 0; it < result.length(); it++){
+    				char c = result.charAt(it);
+    				if(c != '\0'){
+    					pageText = pageText + c;
+    				}
+    			}
+    			page.appendChild(pageText);
     			root.appendChild(page);
     		}
     	}
