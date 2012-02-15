@@ -3,3 +3,4 @@
 *.swp
 */.svn/*
 *.DS_Store
+database.db

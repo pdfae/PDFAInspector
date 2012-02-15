@@ -8,7 +8,7 @@ ADMINS = (
 )
 
 # @Kevin: Change file system URL here
-DIR = "/Users/arora6/sp12/cs493/PDFAInspector"
+DIR = "/home/pdfae/PDFAInspector"
 PDF_JAR = DIR + "/PdfInspector/lib/pdfainspector.jar"
 ROOT_DIR = DIR + "/www-pdfa"
 
