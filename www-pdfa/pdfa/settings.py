@@ -1,4 +1,7 @@
 # Django settings for pdfa project.
+import sys
+sys.path.append('/home/pdfae/lib/python2.7')
+sys.path.append('/home/pdfae/webapps/django/lib/python2.7')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
