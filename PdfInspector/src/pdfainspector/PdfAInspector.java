@@ -56,6 +56,7 @@ public class PdfAInspector {
 				System.err.println("Error generating XML file for " + pdfName);
 				return;
 			}
+			System.out.println("XML file " + xmlName + " generated.");
 			
 			// Convert our XML file to JSON using PdfExtractor.
 			System.out.println("Generating JSON for " + pdfName + "...");
@@ -70,13 +71,7 @@ public class PdfAInspector {
 				System.err.println("Error generating JSON file for " + pdfName);
 				return;
 			}
-			
-			// Run the Rules Engine on our JSON file, output results.
-			RulesProcessor rprocessor = new RulesProcessor();
-			System.out.println("Running rules on " + pdfName + "...");
-			rprocessor.runRules(jsonName, pathname, "result_" + filename + ".json");
-			System.out.println("Finished running rules on " + pdfName + "!");
-			System.out.println("File written to: " + pathname + "result_" + filename + ".json");
+			System.out.println("JSON file " + jsonName + " generated.");
 		}
 	}
 	
