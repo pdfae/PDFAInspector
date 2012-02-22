@@ -14,7 +14,7 @@ class ThisImageIsAnImage(Rules.Rule):
 	@staticmethod
 	def applies(tag):
 		""" Only applies to images """
-		return (tag.tagName in Rules.TagTypes.Image)
+		return (tag.tagName in Rules.TagTypes.Image and (tag.parent and tag.parent.tagName != 'Images'))
 
 	@staticmethod
 	def validation(tag):
