@@ -9,7 +9,7 @@ Violation = 2
 
 # Rule tags
 class TagTypes():
-	Image = ["image","Image"]
+	Image = ["image","Image","Figure"]
 	Paragraph = ["p"]
 
 class Rule():
