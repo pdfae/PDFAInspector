@@ -1,0 +1,87 @@
+{
+    "attributes": [],
+    "content": [
+        {
+            "attributes": [],
+            "content": [
+                {
+                    "attributes": [],
+                    "content": ["Starbucks - Image Only"],
+                    "tagName": "Title"
+                },
+                {
+                    "attributes": [],
+                    "content": ["Karen"],
+                    "tagName": "Author"
+                },
+                {
+                    "attributes": [],
+                    "content": ["Microsoft® Office Word 2007"],
+                    "tagName": "Creator"
+                },
+                {
+                    "attributes": [],
+                    "content": [1],
+                    "tagName": "Pages"
+                }
+            ],
+            "tagName": "Metadata"
+        },
+        {
+            "attributes": [],
+            "content": [],
+            "tagName": "Bookmarks"
+        },
+        {
+            "attributes": [],
+            "content": [{
+                "attributes": [{"Page": 0}],
+                "content": [
+                    {
+                        "attributes": [{"Page": 1}],
+                        "content": [],
+                        "tagName": "P"
+                    },
+                    {
+                        "attributes": [
+                            {"Alt": "Starbucks Interior"},
+                            {"Page": 1}
+                        ],
+                        "content": [],
+                        "tagName": "Figure"
+                    }
+                ],
+                "tagName": "Sect"
+            }],
+            "tagName": "tags"
+        },
+        {
+            "attributes": [],
+            "content": [],
+            "tagName": "Form"
+        },
+        {
+            "attributes": [],
+            "content": [{
+                "attributes": [{"Page": 1}],
+                "content": [],
+                "tagName": "Plaintext"
+            }],
+            "tagName": "Text"
+        },
+        {
+            "attributes": [],
+            "content": [{
+                "attributes": [
+                    {"Page": 1},
+                    {"Height": 329},
+                    {"Width": 589}
+                ],
+                "content": [],
+                "tagName": "Image"
+            }],
+            "tagName": "Images"
+        }
+    ],
+    "tagName": "PdfInfo"
+}
