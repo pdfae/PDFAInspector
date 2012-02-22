@@ -18,7 +18,7 @@ def plural(n,pstr="s",sstr=""):
 	if n == 1:
 		return sstr
 	else:
-		return _str
+		return pstr
 
 def readable(docstring):
 	return re.sub(r'\s\s*', ' ', docstring).strip()
