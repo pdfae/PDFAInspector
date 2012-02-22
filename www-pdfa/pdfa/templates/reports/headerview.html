@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Header View - PDF Accessibilty Inspector{% endblock%}
+
+{% block text %}
+<ul id="tabnav">
+	<li class="tab1"><a href="/accounts/profile/reports/summary/">Report Summary</a></li>
+	<li class="tab2"><a href="/accounts/profile/reports/treeview/">Tree View</a></li>
+	<li class="tab3"><a href="/accounts/profile/reports/imageview/">Images</a></li>
+	<li class="tab4"><a href="/accounts/profile/reports/headview/">Headers</a></li>
+	<li class="tab5"><a href="/accounts/profile/reports/formview/">Forms</a></li>
+	<!--<li class="tab6"><a href="/accounts/profile/reports/tableview/">Tables</a></li>-->
+</ul>
+
+<br>
+<br>
+
+{% if content|length > 1 %}
+{% for c in content %}
+	<b><u>{{c.tagName}}</b></u>:
+		{% for t in c.content %}
+			{{t}}
+		{% empty %}
+		{% endfor %}
+	<br>
+{% empty %}
+{% endfor %}
+{% else %}
+No headers found.
+{% endif %}
+{% endblock %}
