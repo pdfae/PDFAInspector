@@ -54,8 +54,9 @@ def load():
 def recName(lst):
 	return " > ".join([x.tagName for x in lst])
 
-def generateTree(tag):
+def generateTree(tag, parent=None):
 	node = Rules.Tag()
+	node.parent = parent
 	node.tagName    = tag['tagName']
 	if tag.has_key('text'):
 		node.text       = tag['text']
@@ -65,7 +66,7 @@ def generateTree(tag):
 	node.content    = []
 	for i in tag['content']:
 		if not isinstance(i, basestring) and not isinstance(i, int):
-			node.content.append(generateTree(i))
+			node.content.append(generateTree(i, node))
 	return node
 
 def runRecursive(outputTreeNode, rule, tag, parents=[]):

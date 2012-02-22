@@ -30,3 +30,4 @@ class Tag():
 		self.content    = []
 		self.text       = ""
 		self.attributes = []
+		self.parent     = None
