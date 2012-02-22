@@ -3,14 +3,13 @@ Standard WCAG rules
 """
 import Rules
 
-class ImagesMustHaveAltTags(Rules.Rule):
+class ThisImageIsAnImage(Rules.Rule):
 	"""
-		All images must have alt tags describing
-		their content in text.
+		If it's an image, it passes!
 	"""
-	title    = "Images Must Have Alt Tags"
+	title    = "Images Must Be Images"
 	severity = Rules.Violation
-	wcag_id  = "1.1.1"
+	wcag_id  = "n/a"
 
 	@staticmethod
 	def applies(tag):
@@ -19,6 +18,6 @@ class ImagesMustHaveAltTags(Rules.Rule):
 
 	@staticmethod
 	def validation(tag):
-		# ...
-		return (Rules.Pass, "Image has an alt tag.", [])
+		# It's an image!
+		return (Rules.Pass, "Is an image.", [])
 
