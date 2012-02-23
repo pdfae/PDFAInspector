@@ -40,15 +40,10 @@
 <br>
 {% for test in tests %}
 	<b><u>Test ID: {{test.id}}</u></b><br>
-	
-	{% for tag in test.tags %}
-	<br>
 	<b>Description:</b> {{tag.description}}<br>
 	<b>Tag-Path:</b> {{tag.id}}<br>
 	<b>Tags:</b> {{tag.tags}}<br>
 	<b>Title:</b> {{tag.title}}<br>
-	{% empty %}
-	{% endfor %}
 	<br>
 	
 {% empty %}
