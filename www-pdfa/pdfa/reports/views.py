@@ -21,6 +21,7 @@ def display(request):
 @login_required
 def displaytreeview(request):
 	currentPage = "userprofile"
+	currentTab = "treeview"
 	auth = 'true'
 	file = request.user.get_profile().filepath + request.session['parsed_pdf']
 	import json
