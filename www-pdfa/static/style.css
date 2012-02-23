@@ -28,10 +28,14 @@ background-color: #fff; /* set background color to match above border color */
 }
 
 ul#tabnav li.current_page_item {
+	border-bottom: 1px solid #fff; /* set border color to page background color */
+	background-color: #fff; /* set background color to match above border color */
 	background: #FF2929;
 }
 
 ul#tabnav .current_page_item a {
+	border-bottom: 1px solid #fff; /* set border color to page background color */
+	background-color: #fff; /* set background color to match above border color */
 	background: #FF2929;
 	
 }
