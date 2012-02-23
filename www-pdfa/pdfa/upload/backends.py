@@ -28,15 +28,18 @@ def handle_uploaded_file(filename, user):
 
 def process_file(file, user):
 	if user.is_authenticated():
+		PYTHON_SCRIPT = /home/pdfae/PDFAInspector/RulesEngine/RulesEngine.py
 		command1 = "java -jar "+ PDF_JAR + " " + user.get_profile().filepath + str(file)
 		command2 = "rm " + user.get_profile().filepath + str(file)
-		# command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
-		
+		#command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
+		command3 = "python2.7 "+ PYTHON_SCRIPT + "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/json-starbucks_textonly-msword.json" + " > " + "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-starbucks_textonly-msword.json"
 	else:
 		command1 = "java -jar "+ PDF_JAR + " " + MEDIA_ROOT + 'public/' + str(file)
 		command2 = "rm " + MEDIA_ROOT + 'public/' + str(file)
 		# command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
 	print command1
 	print command2
+	print command3
 	os.system(command1)
 	os.system(command2)
+	os.system(command3)
