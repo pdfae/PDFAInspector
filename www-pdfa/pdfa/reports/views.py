@@ -100,7 +100,7 @@ def displaysummary(request):
 	#if os.path.isfile(resultfile):
 	json_data = open (file) #insert filepath of json result file
 	data = json.load(json_data)
-	tests = (data["tests"])
+	tests = (data["results"])
 	json_data.close()
 	rpass=0
 	rwarning=0
