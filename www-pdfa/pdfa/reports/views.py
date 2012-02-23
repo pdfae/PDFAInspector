@@ -94,7 +94,8 @@ def displaysummary(request):
 	auth = 'true'
 	import json
 	from pprint import pprint	
-	file = request.user.get_profile().filepath + request.session['parsed_pdf']
+	#file = request.user.get_profile().filepath + request.session['parsed_pdf']
+	file = "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-starbucks_textonly-msword.json"
 	resultfile = file + "results"
 	if os.path.isfile(resultfile):
 		json_data = open (file) #insert filepath of json result file
