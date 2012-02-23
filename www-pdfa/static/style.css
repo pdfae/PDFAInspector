@@ -31,6 +31,10 @@ ul#tabnav li.current_page_item {
 	background: #FF2929;
 }
 
+ul#tabnav .current_page_item a {
+	background: #FF2929;
+	color: #FFFFFF;
+}
 
 body#tab1 li.tab1 a, body#tab2 li.tab2 a, body#tab3 li.tab3 a, body#tab4 li.tab4 a { /* settings for selected tab link */
 background-color: #FF2929; /* set selected tab background color as desired current: #fff*/
