@@ -3,14 +3,14 @@
 from django.shortcuts import *
 from settings import *
 from django.contrib.auth.decorators import login_required
-import os
+import os, re
 from forms import userChangeForm
+import json
 
 # profile homepage
 @login_required
 def profile(request):
 	currentPage = "userprofile"
-	auth = 'true'
 	username = request.user.username
 	first_name = request.user.first_name
 	last_name = request.user.last_name
@@ -23,14 +23,20 @@ def profile(request):
 @login_required
 def managereports(request):
 	currentPage = "userprofile"
-	auth = 'true'
+	user = request.user
+	file_list = os.listdir(user.get_profile().filepath)
+	regex = re.compile('json-.*')
+	print file_list
+	json_file_list = []
+	for file in file_list:
+		if regex.match(file):
+			json_file_list.append(file)
 	return render_to_response("userprofile/reports.html", locals())
 
 # manage rules
 @login_required
 def managerules(request):
 	currentPage = "userprofile"
-	auth = 'true'
 	return render_to_response("userprofile/rules.html", locals())
 	
 @login_required

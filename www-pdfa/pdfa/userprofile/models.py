@@ -10,7 +10,9 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	# Other fields here
 	filepath = models.FilePathField(default = '')
-
+	
+	
+	
 def create_user_profile(sender, instance, created, **kwargs):
 	# when created
 	if created:

@@ -25,8 +25,12 @@ display: inline;
 body#tab1 li.tab1, body#tab2 li.tab2, body#tab3 li.tab3, body#tab4 li.tab4 { /* settings for selected tab */
 border-bottom: 1px solid #fff; /* set border color to page background color */
 background-color: #fff; /* set background color to match above border color */
-
 }
+
+ul#tabnav li.current_page_item {
+	background: #FF2929;
+}
+
 
 body#tab1 li.tab1 a, body#tab2 li.tab2 a, body#tab3 li.tab3 a, body#tab4 li.tab4 a { /* settings for selected tab link */
 background-color: #FF2929; /* set selected tab background color as desired current: #fff*/
@@ -422,3 +426,20 @@ img.aligncenter {
 	float: right;
 	width: 280px;
 }
+
+.node {
+	border: 1px solid #000;
+	width: 96%;
+	margin: 4px;
+	padding: 4px;
+}
+.n_0 { background-color: #eedd77; }
+.n_1 { background-color: #dd77ee; }
+.n_2 { background-color: #77eedd; }
+.n_3 { background-color: #ddee77; }
+.n_4 { background-color: #ee77dd; }
+.n_5 { background-color: #eedd77; }
+.n_6 { background-color: #dd77ee; }
+.n_7 { background-color: #77eedd; }
+.n_8 { background-color: #ddee77; }
+.n_9 { background-color: #ee77dd; }

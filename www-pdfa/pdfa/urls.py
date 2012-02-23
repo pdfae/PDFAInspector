@@ -8,6 +8,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     
+    #Reports
+    (r'^accounts/profile/reports/', include('reports.urls')),
+    
     #User Profiles
 	(r'^accounts/profile/', include('userprofile.urls')),
 	
