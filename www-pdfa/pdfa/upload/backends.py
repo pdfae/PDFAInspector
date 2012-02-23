@@ -30,9 +30,12 @@ def process_file(file, user):
 	if user.is_authenticated():
 		command1 = "java -jar "+ PDF_JAR + " " + user.get_profile().filepath + str(file)
 		command2 = "rm " + user.get_profile().filepath + str(file)
+		# command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
+		
 	else:
 		command1 = "java -jar "+ PDF_JAR + " " + MEDIA_ROOT + 'public/' + str(file)
 		command2 = "rm " + MEDIA_ROOT + 'public/' + str(file)
+		# command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
 	print command1
 	print command2
 	os.system(command1)
