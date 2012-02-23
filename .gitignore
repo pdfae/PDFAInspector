@@ -3,3 +3,6 @@
 *.swp
 */.svn/*
 *.DS_Store
+database.db
+www-pdfa/files
+www-pdfa/pdfa/settings.py

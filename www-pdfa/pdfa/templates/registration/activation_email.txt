@@ -1,5 +1,4 @@
 Visit the following link to activate your account
-http://pdfa.dakko.us/accounts/activate/
-{{activation_key}}
+http://pdfae.webfactional.com/accounts/activate/{{activation_key}}/
 
 The key will expire in {{expiration_days}} days.
