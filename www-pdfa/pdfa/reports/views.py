@@ -96,8 +96,8 @@ def displaysummary(request):
 	from pprint import pprint	
 	#file = request.user.get_profile().filepath + request.session['parsed_pdf']
 	file = "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-testdocument-images.json"
-	resultfile = file + "results"
-	if os.path.isfile(resultfile):
+	#resultfile = file + "results"
+	#if os.path.isfile(resultfile):
 		json_data = open (file) #insert filepath of json result file
 		data = json.load(json_data)
 		tests = (data["tests"])
@@ -119,6 +119,6 @@ def displaysummary(request):
 				elif (tag["result"]=="manual inspection"):
 					rinspect=rinspect+1
 		return render_to_response("reports/summaryview.html", locals())
-	else:
-		return render_to_response("reports/summary_notfound.html", locals())
+	#else:
+	#	return render_to_response("reports/summary_notfound.html", locals())
 
