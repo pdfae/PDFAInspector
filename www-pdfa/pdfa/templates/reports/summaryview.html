@@ -43,10 +43,10 @@
 	
 	{% for tag in test.tags %}
 	<br>
-	<b>Tag-Path:</b> {{tag.tag}}<br>
-	<b>Content:</b> {{tag.content}}<br>
-	<b>Result:</b> {{tag.result}}<br>
-	<b>Message:</b> {{tag.message}}<br>
+	<b>Description:</b> {{tag.description}}<br>
+	<b>Tag-Path:</b> {{tag.id}}<br>
+	<b>Tags:</b> {{tag.tags}}<br>
+	<b>Title:</b> {{tag.title}}<br>
 	{% empty %}
 	{% endfor %}
 	<br>
