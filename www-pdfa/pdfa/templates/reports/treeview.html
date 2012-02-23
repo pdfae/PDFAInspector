@@ -4,7 +4,7 @@
 
 {% block text %}
 <ul id="tabnav">
-	<li class="tab1"><a href="/accounts/profile/reports/summary/">Report Summary</a></li>
+	<li class="tab1" {% if currentPage = "home"    %}class="current_page_item"{% endif %} ><a href="/accounts/profile/reports/summary/">Report Summary</a></li>
 	<li class="tab2"><a href="/accounts/profile/reports/treeview/">Tree View</a></li>
 	<li class="tab3"><a href="/accounts/profile/reports/imageview/">Images</a></li>
 	<li class="tab4"><a href="/accounts/profile/reports/headview/">Headers</a></li>
