@@ -32,7 +32,7 @@ def process_file(file, user):
 		command1 = "java -jar "+ PDF_JAR + " " + user.get_profile().filepath + str(file)
 		command2 = "rm " + user.get_profile().filepath + str(file)
 		#command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
-		command3 = "python2.7 "+ PYTHON_SCRIPT + "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/json-testdocument-images.json" + " > " + "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-testdocument-images.json"
+		command3 = "python2.7 "+ PYTHON_SCRIPT + " /home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/json-testdocument-images.json" + " > " + "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-testdocument-images.json"
 	else:
 		command1 = "java -jar "+ PDF_JAR + " " + MEDIA_ROOT + 'public/' + str(file)
 		command2 = "rm " + MEDIA_ROOT + 'public/' + str(file)
