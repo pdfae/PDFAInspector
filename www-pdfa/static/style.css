@@ -27,14 +27,6 @@ border-bottom: 1px solid #fff; /* set border color to page background color */
 background-color: #fff; /* set background color to match above border color */
 }
 
-
-ul#tabnav .current_page_item a {
-	border-bottom: 1px solid #fff; /* set border color to page background color */
-	
-	background: #FF2929;
-	
-}
-
 body#tab1 li.tab1 a, body#tab2 li.tab2 a, body#tab3 li.tab3 a, body#tab4 li.tab4 a { /* settings for selected tab link */
 background-color: #FF2929; /* set selected tab background color as desired current: #fff*/
 color: #525252; /* set selected tab link color as desired */
@@ -57,6 +49,12 @@ ul#tabnav a:hover { /* settings for hover effect */
 background: #FF2929; /* set desired hover color */
 color: #FFFFFF;
 }
+
+ul#tabnav a:current_page_item {
+	background: #FF2929;
+	color: #FFFFFF;
+}
+
 
 /* end css tabs */
 
