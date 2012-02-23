@@ -98,27 +98,27 @@ def displaysummary(request):
 	file = "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-testdocument-images.json"
 	#resultfile = file + "results"
 	#if os.path.isfile(resultfile):
-		json_data = open (file) #insert filepath of json result file
-		data = json.load(json_data)
-		tests = (data["tests"])
-		json_data.close()
-		rpass=0
-		rwarning=0
-		rfail=0
-		rinspect=0
-		for test in tests:
-			#print test
-			tags = test["tags"]
-			for tag in tags:
-				if (tag["result"]=="pass"):
-					rpass=rpass+1
-				elif (tag["result"]=="warning"):
-					rwarning=rwarning+1
-				elif (tag["result"]=="fail"):
-					rfail=rfail+1
-				elif (tag["result"]=="manual inspection"):
-					rinspect=rinspect+1
-		return render_to_response("reports/summaryview.html", locals())
+	json_data = open (file) #insert filepath of json result file
+	data = json.load(json_data)
+	tests = (data["tests"])
+	json_data.close()
+	rpass=0
+	rwarning=0
+	rfail=0
+	rinspect=0
+	for test in tests:
+		#print test
+		tags = test["tags"]
+		for tag in tags:
+			if (tag["result"]=="pass"):
+				rpass=rpass+1
+			elif (tag["result"]=="warning"):
+				rwarning=rwarning+1
+			elif (tag["result"]=="fail"):
+				rfail=rfail+1
+			elif (tag["result"]=="manual inspection"):
+				rinspect=rinspect+1
+	return render_to_response("reports/summaryview.html", locals())
 	#else:
 	#	return render_to_response("reports/summary_notfound.html", locals())
 
