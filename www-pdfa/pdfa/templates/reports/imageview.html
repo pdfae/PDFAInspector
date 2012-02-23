@@ -15,7 +15,7 @@
 <br>
 <br>
 
-{% if content|length > 1 %}
+{% if content|length > 0 %}
 	{% for c in content %}	
 		{% if c.attributes|length > 1 %}
 		Image # {{forloop.counter}} <br>

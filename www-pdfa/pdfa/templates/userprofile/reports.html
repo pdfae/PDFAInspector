@@ -10,6 +10,16 @@
 	<li class="tab4"><a href="/upload/">Evaluate Document</a></li>
 </ul>
 
-REPORTS WILL BE MANAGED HERE.
-
+<br><br>
+{% for file in json_file_list %}
+	<ul>
+		<li>
+			<a href="/accounts/profile/reports/?f={{file}}">
+			{{ file }}
+			</a>
+		</li>
+	</ul>
+{% empty %}
+{% endfor %}
 {% endblock %}
+
