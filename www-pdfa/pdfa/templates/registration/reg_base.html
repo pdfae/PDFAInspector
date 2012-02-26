@@ -12,19 +12,11 @@
 	<div id="menu">
 		<ul>
 			{% block navigation %}
-			<li {% if currentPage = "home"    %}class="current_page_item"{% endif %}><span><a href="/">Home</a></span></li>
-			<li {% if currentPage = "about"   %}class="current_page_item"{% endif %}><a href="/about/">About</a></li>
-			
-			{% if auth = 'true' %}
-			<li {% if currentPage = "userprofile"   %}class="current_page_item"{% endif %}><a href="/accounts/profile/">Profile</a></li>
-			<li ><a href="/accounts/logout/">Log-Out</a></li>
-			{% else %}
-			<li {% if currentPage = "login"   %}class="current_page_item"{% endif %}><a href="/accounts/login/">Log-In</a></li>
-			{% endif %}
-			
-			
-			<li {% if currentPage = "upload"  %}class="current_page_item"{% endif %}><a href="/upload/">Upload</a></li>
-			<li {% if currentPage = "contact" %}class="current_page_item"{% endif %}><a href="/contact/">Contact</a></li>
+			<li> <a href="/">Home</a></li>
+			<li> <a href="/about/">About</a></li>
+			<li class="current_page_item"><a href="/accounts/login/">Log-In</a></li>
+			<li> <a href="/upload/">Upload</a></li>
+			<li> <a href="/contact/">Contact</a></li>
 			{% endblock %}
 		</ul>
 	</div>
@@ -69,19 +61,6 @@
 							<h2>People</h2>
 							<p>The project is run by the Disabilities Resources and Educational Services group at the University of Illinois, Urbana-Champaign.</p>
 						</li>
-						<!-- 
-						<li>
-							<h2>Categories</h2>
-							<ul>
-								<li><a href="#">Aliquam libero</a></li>
-								<li><a href="#">Consectetuer adipiscing elit</a></li>
-								<li><a href="#">Metus aliquam pellentesque</a></li>
-								<li><a href="#">Suspendisse iaculis mauris</a></li>
-								<li><a href="#">Urnanet non molestie semper</a></li>
-								<li><a href="#">Proin gravida orci porttitor</a></li>
-							</ul>
-						</li>
-						-->
 					</ul>
 				</div>
 				<!-- end #sidebar -->
