@@ -4,6 +4,24 @@ Standard WCAG rules
 import Rules
 import sys
 
+class DocumentMustBeTagged(Rules.Rule):
+	"""
+		Any document should contain tags.
+	"""
+	title    = "Documents Must Be Tagged"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+
+	@staticmethod
+	def applies(tag):
+		"""Applies to any document"""
+		return (tag.tagName == "tags")
+	@staticmethod
+	def validation(tag):
+		if len(tag.content) > 0:
+			return (Rules.Pass, "The document has tags", [])
+		return (Rules.Violation, "The document has no tags", [])
+
 class ThisImageIsAnImage(Rules.Rule):
 	"""
 		If it's an image, it passes!

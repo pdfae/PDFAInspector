@@ -9,8 +9,24 @@ Violation = 2
 
 # Rule tags
 class TagTypes():
-	Image = ["image","Image","Figure"]
-	Paragraph = ["p"]
+	Container = ["Document","Part","Div","Art","Sect"]
+	Heading = ["H1","H2","H3","H4","H5","H6"]
+	Paragraph = ["P"]
+	List = ["L"]
+	ListItem = ["LI"]
+	Label = ["LBL"]
+	ListItemBody = ["LBody"]
+	Caption = ["Caption"]
+	SpecialText = ["BlockQuote","Index","TOC","TOCI"]
+	Table = ["Table"]
+	TableRow = ["TR"]
+	TableData = ["TD"]
+	TableHeader = ["TH"]
+	Inline = ["BibEntry","Quote","Span"]
+	Image = ["Figure"]
+	Form = ["Form"]
+	SpecialInline = ["Code","Formula","Link","Note","Reference"]
+
 
 class Rule():
 	title = ""
