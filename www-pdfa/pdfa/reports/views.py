@@ -71,7 +71,7 @@ def displayimages(request):
 	result = open(parsefile)
 	j = json.loads(result.read())
 	node = searchNode(j, "Images")
-	output = writeNodeContent(node)
+	output = writeNode(node)
 	
 	print content
 	return render_to_response("reports/imageview.html", locals())
