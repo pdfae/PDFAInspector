@@ -36,10 +36,10 @@ def parsespecific(file, tag_type):
 	return None
 			
 def writeNode (node, depth=0):
-	#print depth
-	nodetags = node["tagName"]
-	#print nodetags
-	output = "<div class='node n_" + str(depth) + "'><b>"+node["tagName"]+"</b><br />\n<i>\n"
+	print "depth =" + str(depth)
+	nodetag = node["tagName"]
+	print nodetag
+	output = "<div class='node n_" + str(depth) + "'><b>"+nodetag+"</b><br />\n<i>\n"
 	
 	attr = []
 	for i in node["attributes"]:
@@ -55,3 +55,18 @@ def writeNode (node, depth=0):
 				output += writeNode(i,depth+1)
 	output += "</div>"
 	return output
+	
+	
+def searchNode (node, tag, depth=0):
+	print depth
+	nodetag = node["tagName"]
+	print nodetag
+	if (nodetag == tag):
+		print "found"
+		return node
+	else:
+		for i in node["content"]:
+			if not isinstance(i, basestring) and not isinstance(i, int):
+				a = searchNode(i,tag, depth+1)
+				if (a):
+					return a

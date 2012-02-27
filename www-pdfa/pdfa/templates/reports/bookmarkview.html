@@ -3,6 +3,7 @@
 {% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
-Bookmarks
-
+{% autoescape off %}
+{{output}}
+{% endautoescape %}
 {% endblock %}
