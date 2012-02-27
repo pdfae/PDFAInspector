@@ -22,8 +22,10 @@
 			<li {% if currentPage = "login"   %}class="current_page_item"{% endif %}><a href="/accounts/login/">Log-In</a></li>
 			{% endif %}
 			
-			
+			{% if auth = 'false' %}
 			<li {% if currentPage = "upload"  %}class="current_page_item"{% endif %}><a href="/upload/">Upload</a></li>
+			{% else %}
+			{% endif %}
 			<li {% if currentPage = "contact" %}class="current_page_item"{% endif %}><a href="/contact/">Contact</a></li>
 			{% endblock %}
 		</ul>
@@ -56,10 +58,11 @@
 						
 					</div>
 					<div style="clear: both;">&nbsp;</div>
-					{% endblock %}
+				{% endblock %}
 				</div>
 				<!-- end #content -->
 				<div id="sidebar">
+				{% block sidebar %}
 					<ul>
 						<li>
 							<h2>Purpose</h2>
@@ -70,6 +73,7 @@
 							<p>The project is run by the Disabilities Resources and Educational Services group at the University of Illinois, Urbana-Champaign.</p>
 						</li>
 					</ul>
+				{% endblock %}	
 				</div>
 				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>

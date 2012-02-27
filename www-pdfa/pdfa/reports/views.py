@@ -21,7 +21,7 @@ def display(request):
 @login_required
 def displaytreeview(request):
 	currentPage = "userprofile"
-	currentTab = "treeview"
+	currentTab = "tree"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
@@ -37,6 +37,7 @@ def displaytreeview(request):
 def displaytables(request):
 	currentPage = "userprofile"
 	auth = 'true'
+	currentTab = "tbl"
 	#file = request.user.get_profile().filepath + request.session['parsed_pdf']
 	#cnode = parsespecific(file, "Images")
 	content = []#cnode["content"]
@@ -47,6 +48,7 @@ def displaytables(request):
 @login_required
 def displayforms(request):
 	currentPage = "userprofile"
+	currentTab = "form"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
@@ -60,6 +62,7 @@ def displayforms(request):
 @login_required
 def displayimages(request):
 	currentPage = "userprofile"
+	currentTab = "img"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
@@ -74,6 +77,7 @@ def displayimages(request):
 @login_required
 def displayheaders(request):
 	currentPage = "userprofile"
+	currentTab = "head"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
@@ -98,6 +102,7 @@ def displayheaders(request):
 @login_required
 def displaysummary(request):
 	currentPage = "userprofile"
+	currentTab = "summary"
 	import json
 	from pprint import pprint
 	filepath =  request.user.get_profile().filepath
@@ -129,3 +134,16 @@ def displaysummary(request):
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())
 
+# tab to display information about bookmarks in document
+@login_required
+def displaybookmark(request):
+	currentPage = "userprofile"
+	currentTab = "bm"
+	filepath =  request.user.get_profile().filepath
+	filename =  request.session['parsed_pdf']
+	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	import json
+	result = open(parsefile)
+	j = json.loads(result.read())
+	output = writeNode(j)
+	return render_to_response("reports/bookmarkview.html", locals())

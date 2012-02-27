@@ -36,9 +36,9 @@ def parsespecific(file, tag_type):
 	return None
 			
 def writeNode (node, depth=0):
-	print depth
+	#print depth
 	nodetags = node["tagName"]
-	print nodetags
+	#print nodetags
 	output = "<div class='node n_" + str(depth) + "'><b>"+node["tagName"]+"</b><br />\n<i>\n"
 	
 	attr = []

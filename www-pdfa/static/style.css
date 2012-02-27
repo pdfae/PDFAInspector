@@ -226,8 +226,8 @@ img.aligncenter {
 
 #content {
 	float: left;
-	width: 540px;
-	padding: 0px 0px 0px 20px;
+	width: 640px;
+	padding: 0px 0px 0px 0px;
 }
 
 .post {
@@ -281,8 +281,8 @@ img.aligncenter {
 
 #sidebar {
 	float: right;
-	width: 330px;
-	padding: 20px 0px 0px 0px;
+	width: 230px;
+	padding: 0px 0px 0px 0px;
 }
 
 #sidebar ul {
@@ -370,7 +370,7 @@ img.aligncenter {
 #footer {
 	clear: both;
 	width: 980px;
-	height: 100px;
+	height: 10px;
 	margin: 20px auto 40px auto;
 	font-family: Arial, Helvetica, sans-serif;
 }

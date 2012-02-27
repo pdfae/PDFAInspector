@@ -9,5 +9,6 @@ urlpatterns = patterns('',
 	(r'^formview/', displayforms),
 	(r'^tableview/', displaytables),
     (r'^summary/', displaysummary),
+    (r'^bookmarkview/', displaybookmark),
     (r'', display)
 )

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block text %}
+<ul id="tabnav">
+	<li {% if currentTab = "summary"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/summary/">Report Summary</a></li>
+	<li {% if currentTab = "bm"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/bookmarkview/">Bookmarks</a></li>
+	<li {% if currentTab = "tree"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/treeview/">Tag Tree View</a></li>
+	<li {% if currentTab = "img"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/imageview/">Images</a></li>
+	<li {% if currentTab = "head"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/headview/">Headers</a></li>
+	<li {% if currentTab = "form"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/formview/">Forms</a></li>
+	<li {% if currentTab = "tbl"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/tableview/">Tables</a></li>
+</ul>
+
+<br>
+<br>
+<div id="content">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
+
