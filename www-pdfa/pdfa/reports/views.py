@@ -25,10 +25,10 @@ def displaytreeview(request):
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
-	import json
 	result = open(parsefile)
 	j = json.loads(result.read())
-	output = writeNode(j)
+	node = searchNode(j, "tags")
+	output = writeNode(node)
 	return render_to_response("reports/treeview.html", locals())
 
 # tab to display information about tables in document
@@ -50,9 +50,11 @@ def displayforms(request):
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
-	cnode = parsespecific(parsefile, "Form")
-	content = cnode["content"]
-	print content
+	#cnode = parsespecific(parsefile, "Form")
+	result = open(parsefile)
+	j = json.loads(result.read())
+	node = searchNode(j, "Form")
+	output = writeNode(node)
 	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about images in document
@@ -65,6 +67,11 @@ def displayimages(request):
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	cnode = parsespecific(parsefile, "Images")
 	content = cnode["content"]
+	
+	result = open(parsefile)
+	j = json.loads(result.read())
+	node = searchNode(j, "Images")
+	output = writeNode(node)
 	
 	print content
 	return render_to_response("reports/imageview.html", locals())

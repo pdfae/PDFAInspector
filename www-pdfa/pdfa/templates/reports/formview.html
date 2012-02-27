@@ -2,23 +2,11 @@
 
 {% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
 
+
+
 {% block content %}
-{% if content|length > 1 %}
-	{% for c in content %}	
-		{% if c.attributes|length > 1 %}
-			Form # {{forloop.counter}} <br>
-			{% for obj in c.attributes %}	
-				{% if obj.Page != None %}
-				<b><u>Page Number:</u></b> {{ obj.Page }}<br>
-				{% endif %}
-				{% empty %}
-			{% endfor %}
-		{% endif %}
-		<b><u>Content:</u></b> {{ c.content }}<br>
-		{% empty %}
-	{% endfor %}
-{% else %}
-No forms present in the given file
-{% endif %}
+{% autoescape off %}
+{{output}}
+{% endautoescape %}
 
 {% endblock %}
