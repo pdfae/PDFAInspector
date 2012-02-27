@@ -54,7 +54,7 @@ def displayforms(request):
 	result = open(parsefile)
 	j = json.loads(result.read())
 	node = searchNode(j, "Form")
-	output = writeNode(node)
+	output = writeNodeContent(node)
 	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about images in document

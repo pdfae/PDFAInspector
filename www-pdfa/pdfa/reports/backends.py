@@ -50,19 +50,22 @@ def writeNode (node, depth=0):
 	for i in node["content"]:
 		if not isinstance(i, basestring) and not isinstance(i, int):
 			if i.has_key('text'):
+				print ""
 				output += str(i['text'])
 			else:
 				output += writeNode(i,depth+1)
+		else:
+			print i
 	output += "</div>"
 	return output
 	
 	
 def searchNode (node, tag, depth=0):
-	print depth
+	#print depth
 	nodetag = node["tagName"]
-	print nodetag
+	#print nodetag
 	if (nodetag == tag):
-		print "found"
+		#print "found"
 		return node
 	else:
 		for i in node["content"]:
@@ -70,3 +73,27 @@ def searchNode (node, tag, depth=0):
 				a = searchNode(i,tag, depth+1)
 				if (a):
 					return a
+
+def writeNodeContent (node, depth=0):
+	print "depth =" + str(depth)
+	nodetag = node["tagName"]
+	print nodetag
+	output = "<div class='node n_" + str(depth) + "'><b>"+nodetag+"</b><br />\n<i>\n"
+	
+	attr = []
+	for i in node["attributes"]:
+		for j,k in i.iteritems():
+			attr.append(unicode(j) + "=" + unicode(k))
+	output += ", ".join(attr)
+	output += "</i><br />\n"
+	for i in node["content"]:
+		if not isinstance(i, basestring) and not isinstance(i, int):
+			if i.has_key('text'):
+				print "here"
+				output += str(i['text'])
+			else:
+				output += writeNodeContent(i,depth+1)
+		else:
+			output += str(i)
+	output += "</div>"
+	return output
