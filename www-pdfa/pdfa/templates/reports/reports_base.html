@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
+{% block header %}
+File Report: {{ filename }}
+{% endblock %}
+
 {% block text %}
+
 <ul id="tabnav">
 	<li {% if currentTab = "summary"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/summary/">Report Summary</a></li>
 	<li {% if currentTab = "bm"%}class="current_page_item"{% endif %}><a href="/accounts/profile/reports/bookmarkview/">Bookmarks</a></li>
@@ -13,6 +18,7 @@
 
 <br>
 <br>
+
 <div id="content">
         {% block content %}{% endblock %}
     </div>

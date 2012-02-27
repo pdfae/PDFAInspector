@@ -33,7 +33,11 @@
 	<!-- end #menu -->
 	<div id="header">
 		<div id="logo">
-			<h1><a href="#">pdf accessibility inspector</a></h1>
+			<h1><a href="#">
+				{% block header %}
+				pdf accessibility inspector
+				{% endblock %}
+			</a></h1>
 		</div>
 	</div>
 	<div id="splash">&nbsp;</div>
