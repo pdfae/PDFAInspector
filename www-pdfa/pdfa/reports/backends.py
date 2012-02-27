@@ -78,7 +78,7 @@ def writeNodeContent (node, depth=0):
 	print "depth =" + str(depth)
 	nodetag = node["tagName"]
 	print nodetag
-	output = "<div class='node n_" + str(depth) + "'><b>"+nodetag+"</b>\n<i>\n"
+	output = "<div class='node n_" + str(depth) + "'><b>"+nodetag+":</b>\n<i>\n"
 	
 	attr = []
 	'''
