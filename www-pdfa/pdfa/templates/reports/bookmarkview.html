@@ -3,11 +3,12 @@
 {% block title %}Bookmark View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
-<b>Tree View:</b>
+<b>Graphic View:</b>
 <br><br>
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
+
 
 <br>
 <b>Summary:</b>
@@ -51,7 +52,7 @@
 	{% empty %}
 	{% endfor %}
 {% else %}
-	No Bookmarks in the PDF.
+	Not implemented yet.
 {% endif %} 
 
 {% endblock %}
