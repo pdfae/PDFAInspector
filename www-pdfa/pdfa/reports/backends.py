@@ -86,8 +86,6 @@ def writeNodeContent (node, depth=0):
 		for j,k in i.iteritems():
 			attr.append(unicode(j) + "=" + unicode(k))
 	'''
-	output += ", ".join(attr)
-	output += "</i><br />\n"
 	for i in node["content"]:
 		if not isinstance(i, basestring) and not isinstance(i, int):
 			if i.has_key('text'):
