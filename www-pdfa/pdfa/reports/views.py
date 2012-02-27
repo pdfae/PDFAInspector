@@ -20,7 +20,6 @@ def display(request):
 # tab to display tree view
 @login_required
 def displaytreeview(request):
-	currentPage = "userprofile"
 	currentTab = "tree"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
@@ -35,7 +34,6 @@ def displaytreeview(request):
 # tab to display information about tables in document
 @login_required
 def displaytables(request):
-	currentPage = "userprofile"
 	auth = 'true'
 	currentTab = "tbl"
 	#file = request.user.get_profile().filepath + request.session['parsed_pdf']
@@ -47,7 +45,6 @@ def displaytables(request):
 # tab to display information about forms in document
 @login_required
 def displayforms(request):
-	currentPage = "userprofile"
 	currentTab = "form"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
@@ -61,7 +58,6 @@ def displayforms(request):
 # tab to display information about images in document
 @login_required
 def displayimages(request):
-	currentPage = "userprofile"
 	currentTab = "img"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
@@ -76,7 +72,6 @@ def displayimages(request):
 # tab to display information about headers in document
 @login_required
 def displayheaders(request):
-	currentPage = "userprofile"
 	currentTab = "head"
 	auth = 'true'
 	filepath =  request.user.get_profile().filepath
@@ -101,7 +96,7 @@ def displayheaders(request):
 # tab to display information about headers in document
 @login_required
 def displaysummary(request):
-	currentPage = "userprofile"
+	auth = 'true'
 	currentTab = "summary"
 	import json
 	from pprint import pprint
@@ -137,7 +132,7 @@ def displaysummary(request):
 # tab to display information about bookmarks in document
 @login_required
 def displaybookmark(request):
-	currentPage = "userprofile"
+	auth = 'true'
 	currentTab = "bm"
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
