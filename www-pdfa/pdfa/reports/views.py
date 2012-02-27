@@ -12,17 +12,22 @@ import os
 from backends import *
 import json
 
-@login_required
 def display(request):
 	request.session['parsed_pdf'] = request.GET['f']
 	return HttpResponseRedirect('/accounts/profile/reports/summary/')
 
 # tab to display tree view
-@login_required
+
 def displaytreeview(request):
 	currentTab = "tree"
-	auth = 'true'
-	filepath =  request.user.get_profile().filepath
+	user = request.user
+	if user.is_authenticated():
+		auth = 'true'
+		filepath =  user.get_profile().filepath
+	else:
+		auth = 'false'
+		currentPage = "upload"
+		filepath =  MEDIA_ROOT + 'public/'
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	result = open(parsefile)
@@ -36,11 +41,17 @@ def displaytreeview(request):
 	return render_to_response("reports/treeview.html", locals())
 
 # tab to display information about tables in document
-@login_required
+
 def displaytables(request):
-	auth = 'true'
 	currentTab = "tbl"
-	filepath =  request.user.get_profile().filepath
+	user = request.user
+	if user.is_authenticated():
+		auth = 'true'
+		filepath =  user.get_profile().filepath
+	else:
+		auth = 'false'
+		currentPage = "upload"
+		filepath =  MEDIA_ROOT + 'public/'
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	result = open(parsefile)
@@ -60,11 +71,17 @@ def displaytables(request):
 	return render_to_response("reports/tableview.html", locals())
 	
 # tab to display information about forms in document
-@login_required
+
 def displayforms(request):
 	currentTab = "form"
-	auth = 'true'
-	filepath =  request.user.get_profile().filepath
+	user = request.user
+	if user.is_authenticated():
+		auth = 'true'
+		filepath =  user.get_profile().filepath
+	else:
+		auth = 'false'
+		currentPage = "upload"
+		filepath =  MEDIA_ROOT + 'public/'
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	#cnode = parsespecific(parsefile, "Form")
@@ -78,11 +95,17 @@ def displayforms(request):
 	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about images in document
-@login_required
+
 def displayimages(request):
 	currentTab = "img"
-	auth = 'true'
-	filepath =  request.user.get_profile().filepath
+	user = request.user
+	if user.is_authenticated():
+		auth = 'true'
+		filepath =  user.get_profile().filepath
+	else:
+		auth = 'false'
+		currentPage = "upload"
+		filepath =  MEDIA_ROOT + 'public/'
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	cnode = parsespecific(parsefile, "Images")
@@ -102,7 +125,7 @@ def displayimages(request):
 	return render_to_response("reports/imageview.html", locals())
 
 # tab to display information about headers in document
-@login_required
+
 def displayheaders(request):
 	currentTab = "head"
 	auth = 'true'
@@ -126,13 +149,20 @@ def displayheaders(request):
 	return render_to_response("reports/headerview.html", locals())
 
 # tab to display information about headers in document
-@login_required
+
 def displaysummary(request):
-	auth = 'true'
+	user = request.user
+	if user.is_authenticated():
+		auth = 'true'
+		filepath =  request.user.get_profile().filepath
+	else:
+		auth = 'false'
+		currentPage = "upload"
+		filepath =  MEDIA_ROOT + 'public/'
 	currentTab = "summary"
 	import json
 	from pprint import pprint
-	filepath =  request.user.get_profile().filepath
+	
 	filename =  request.session['parsed_pdf']
 	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
 	#print resultfile
@@ -162,11 +192,17 @@ def displaysummary(request):
 		return render_to_response("reports/summary_notfound.html", locals())
 
 # tab to display information about bookmarks in document
-@login_required
+
 def displaybookmark(request):
-	auth = 'true'
+	user = request.user
+	if user.is_authenticated():
+		auth = 'true'
+		filepath =  user.get_profile().filepath
+	else:
+		auth = 'false'
+		currentPage = "upload"
+		filepath =  MEDIA_ROOT + 'public/'
 	currentTab = "bm"
-	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	result = open(parsefile)

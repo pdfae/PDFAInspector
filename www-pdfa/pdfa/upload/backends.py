@@ -13,7 +13,11 @@ def handle_file_form(request, template_get, template_post, auth):
 			if form.is_valid():
 				handle_uploaded_file(request.FILES['file'], request.user)
 				process_file(request.FILES['file'], request.user)
-				return HttpResponseRedirect('/accounts/profile/managereports/')
+				if request.user.is_authenticated():
+					return HttpResponseRedirect('/accounts/profile/managereports/')
+				else:
+					file = str(request.FILES['file'])
+					return HttpResponseRedirect('/accounts/profile/reports/?f=' + file)
 		else:
 			message = "Not a PDF file"
 			form = uploadfileform()
