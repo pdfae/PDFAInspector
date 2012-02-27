@@ -28,8 +28,11 @@
 			{% if obj.Page != None %}
 				<td>{{obj.Page}}</td>
 			{% endif %}
+			{% if obj.Width != None %}
+				<td>{{obj.Width}} X
+			{% endif %}
 			{% if obj.Height != None %}
-				<td>{{obj.Width}} X {{obj.Height}}</td>
+				{{obj.Height}}</td>
 			{% endif %}
 		{% empty %}
 		{% endfor %}
