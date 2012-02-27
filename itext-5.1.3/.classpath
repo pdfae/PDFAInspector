@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="itext-xtra-5.1.3-sources"/>
+	<classpathentry kind="src" path="itextpdf-5.1.3-sources"/>
+	<classpathentry kind="lib" path="itext-xtra-5.1.3.jar"/>
+	<classpathentry kind="lib" path="itextpdf-5.1.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="bcmail-jdk16-146.jar"/>
+	<classpathentry kind="lib" path="bcprov-jdk16-146.jar"/>
+	<classpathentry kind="lib" path="bctsp-jdk16-146.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
