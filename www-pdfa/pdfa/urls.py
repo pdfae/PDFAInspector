@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 
 from defaults.views import home, about
-from django.contrib.auth import views as auth_views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -16,7 +15,6 @@ urlpatterns = patterns('',
 	(r'^accounts/profile/', include('userprofile.urls')),
 	
     #Registration
-    (r'^accounts/logout/', auth_views.login),
     (r'^accounts/', include('registration.urls')),
 
     #File Upload
