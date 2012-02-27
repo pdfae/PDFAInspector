@@ -81,9 +81,11 @@ def writeNodeContent (node, depth=0):
 	output = "<div class='node n_" + str(depth) + "'><b>"+nodetag+"</b><br />\n<i>\n"
 	
 	attr = []
+	'''
 	for i in node["attributes"]:
 		for j,k in i.iteritems():
 			attr.append(unicode(j) + "=" + unicode(k))
+	'''
 	output += ", ".join(attr)
 	output += "</i><br />\n"
 	for i in node["content"]:
