@@ -78,7 +78,7 @@ def writeNodeContent (node, depth=0):
 	print "depth =" + str(depth)
 	nodetag = node["tagName"]
 	print nodetag
-	output = "<div class='node n_" + str(depth) + "'><b>"+nodetag+"</b><br />\n<i>\n"
+	output = "<div class='node n_" + str(depth) + "'><b>"+nodetag+"</b>\n<i>\n"
 	
 	attr = []
 	'''
@@ -86,15 +86,15 @@ def writeNodeContent (node, depth=0):
 		for j,k in i.iteritems():
 			attr.append(unicode(j) + "=" + unicode(k))
 	'''
-	output += ", ".join(attr)
-	output += "</i>\n"
 	for i in node["content"]:
 		if not isinstance(i, basestring) and not isinstance(i, int):
+			output += "</i>\n"
 			if i.has_key('text'):
 				output += unicode(i['text'])
 			else:
 				output += writeNodeContent(i,depth+1)
 		else:
 			output += unicode(i)
+			output += "</i>\n"
 	output += "</div>"
 	return output
