@@ -148,5 +148,5 @@ def displaybookmark(request):
 	result = open(parsefile)
 	base = json.loads(result.read())
 	node = searchNode(base, "Bookmarks")
-	output = writeNode(node)
+	output = writeNodeContent(node)
 	return render_to_response("reports/bookmarkview.html", locals())
