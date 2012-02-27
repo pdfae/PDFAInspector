@@ -148,8 +148,6 @@ def displaybookmark(request):
 	base = json.loads(result.read())
 	node = searchNode(base, "Bookmarks")
 	output = writeNodeContent(node)
-	
-	cnode = parsespecific(parsefile, "Bookmarks")
-	content = cnode["content"]
-
+	#TODO
+	content = []
 	return render_to_response("reports/bookmarkview.html", locals())
