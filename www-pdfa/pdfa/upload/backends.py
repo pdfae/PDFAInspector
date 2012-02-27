@@ -1,24 +1,30 @@
 from django.shortcuts import *
 from forms import uploadfileform
-from settings import MEDIA_ROOT, PDF_JAR
+from settings import MEDIA_ROOT, PDF_JAR, PYTHON_SCRIPT
 from django.contrib.auth.decorators import login_required
+import string as string
 import os
 
 def handle_file_form(request, template_get, template_post, auth):
 	if (request.method=="POST"):
-		print "in upload section"
-		form = uploadfileform(request.POST, request.FILES)
-		if form.is_valid():
-			handle_uploaded_file(request.FILES['file'], request.user)
-			process_file(request.FILES['file'], request.user)
-			return render_to_response(template_post, locals(), context_instance=RequestContext(request))
+		filename = str(request.FILES['file'])
+		if (filename.endswith('.pdf')):
+			form = uploadfileform(request.POST, request.FILES)
+			if form.is_valid():
+				handle_uploaded_file(request.FILES['file'], request.user)
+				process_file(request.FILES['file'], request.user)
+				return HttpResponseRedirect('/accounts/profile/managereports/')
+		else:
+			message = "Not a PDF file"
+			form = uploadfileform()
+			return render_to_response(template_get, locals(), context_instance=RequestContext(request))
 	else:
 		form = uploadfileform()
 		return render_to_response(template_get, locals(), context_instance=RequestContext(request))
 
 def handle_uploaded_file(filename, user):
 	if user.is_authenticated():
-		print filename
+		#print filename
 		destination = open(user.get_profile().filepath + str(filename), 'wb+')
 	else:
 		destination = open(MEDIA_ROOT + 'public/' + str(filename), 'wb+')
@@ -27,19 +33,16 @@ def handle_uploaded_file(filename, user):
 	destination.close()
 
 def process_file(file, user):
+	filename = str(file)
+	parse_file = "json-" + filename.rpartition('.pdf')[0] + ".json"
+	result_file = "result-" + filename.rpartition('.pdf')[0] + ".json"
 	if user.is_authenticated():
-		PYTHON_SCRIPT = "/home/pdfae/PDFAInspector/RulesEngine/RulesEngine.py"
-		command1 = "java -jar "+ PDF_JAR + " " + user.get_profile().filepath + str(file)
-		command2 = "rm " + user.get_profile().filepath + str(file)
-		#command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
-		command3 = "python2.7 "+ PYTHON_SCRIPT + " /home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/json-testdocument-images.json" + " > " + "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-testdocument-images.json"
+		filepath = user.get_profile().filepath
 	else:
-		command1 = "java -jar "+ PDF_JAR + " " + MEDIA_ROOT + 'public/' + str(file)
-		command2 = "rm " + MEDIA_ROOT + 'public/' + str(file)
-		# command3 = "python2.7 "+ PYTHON_SCRIPT + user.get_profile().filepath + <json file> + " > " + user.get_profile().filepath + <results file>
-	print command1
-	print command2
-	print command3
+		filepath = MEDIA_ROOT + 'public/'	
+	command1 = "java -jar "+ PDF_JAR + " " + filepath + filename
+	command2 = "rm " + filepath + filename
+	command3 = "python2.7 "+ PYTHON_SCRIPT + " " + filepath + parse_file + " > " + filepath + result_file
 	os.system(command1)
 	os.system(command2)
 	os.system(command3)

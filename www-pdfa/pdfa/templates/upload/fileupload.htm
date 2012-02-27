@@ -1,6 +1,8 @@
 {% extends 'upload/upload_base.html' %}
 {% block text %}
 <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
+{{message}}
+<br>
 <b>Upload your file here</b>
 <br>
 <br>
