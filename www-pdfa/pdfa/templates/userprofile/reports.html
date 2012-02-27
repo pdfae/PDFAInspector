@@ -11,6 +11,10 @@
 </ul>
 
 <br><br>
+
+{% if json_file_list|length == 0 %}
+You currently have no reports.
+{% else %}
 {% for file in json_file_list %}
 	<ul>
 		<li>
@@ -21,5 +25,6 @@
 	</ul>
 {% empty %}
 {% endfor %}
+{% endif %}
 {% endblock %}
 

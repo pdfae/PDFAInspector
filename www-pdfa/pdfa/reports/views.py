@@ -61,7 +61,6 @@ def displayimages(request):
 	cnode = parsespecific(file, "Images")
 	content = cnode["content"]
 	
-	
 	print content
 	return render_to_response("reports/imageview.html", locals())
 

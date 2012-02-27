@@ -25,11 +25,12 @@ def managereports(request):
 	currentPage = "userprofile"
 	user = request.user
 	file_list = os.listdir(user.get_profile().filepath)
-	regex = re.compile('json-.*')
-	print file_list
+	regex = re.compile('json-.*.json')
 	json_file_list = []
 	for file in file_list:
 		if regex.match(file):
+			file = file.replace('json-', '')
+			file = file.replace('.json', '') + ".pdf"
 			json_file_list.append(file)
 	return render_to_response("userprofile/reports.html", locals())
 
