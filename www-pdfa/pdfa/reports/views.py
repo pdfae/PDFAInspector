@@ -26,9 +26,13 @@ def displaytreeview(request):
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	result = open(parsefile)
-	j = json.loads(result.read())
-	node = searchNode(j, "tags")
-	output = writeNode(node)
+	base = json.loads(result.read())
+	nodes = []
+	searchNode(base, "tags", 0, nodes)
+	output = ""
+	for node in nodes:
+		output += writeNode(node)
+	
 	return render_to_response("reports/treeview.html", locals())
 
 # tab to display information about tables in document
@@ -36,8 +40,21 @@ def displaytreeview(request):
 def displaytables(request):
 	auth = 'true'
 	currentTab = "tbl"
-	#file = request.user.get_profile().filepath + request.session['parsed_pdf']
-	#cnode = parsespecific(file, "Images")
+	filepath =  request.user.get_profile().filepath
+	filename =  request.session['parsed_pdf']
+	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	result = open(parsefile)
+	base = json.loads(result.read())
+	nodes = []
+	searchNode(base, "Table", 0, nodes)
+	output = ""
+	i = 0
+	for node in nodes:
+		i = i + 1
+		output += "<b>Table " + str(i) + "</b>\n<br>"
+		output += writeNode(node)
+		output += "<br>"
+
 	content = []#cnode["content"]
 	print content
 	return render_to_response("reports/tableview.html", locals())
@@ -52,9 +69,12 @@ def displayforms(request):
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	#cnode = parsespecific(parsefile, "Form")
 	result = open(parsefile)
-	j = json.loads(result.read())
-	node = searchNode(j, "Form")
-	output = writeNodeContent(node)
+	base = json.loads(result.read())
+	nodes = []
+	searchNode(base, "Form", 0, nodes)
+	output = ""
+	for node in nodes:
+		output += writeNode(node)
 	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about images in document
@@ -69,8 +89,13 @@ def displayimages(request):
 	content = cnode["content"]
 	
 	result = open(parsefile)
-	j = json.loads(result.read())
-	node = searchNode(j, "Images")
+	base = json.loads(result.read())
+	
+	nodes = []
+	searchNode(base, "Images", 0, nodes)
+	output = ""
+	for node in nodes:
+		output += writeNode(node)
 	output = writeNode(node)
 	
 	print content
@@ -146,8 +171,11 @@ def displaybookmark(request):
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	result = open(parsefile)
 	base = json.loads(result.read())
-	node = searchNode(base, "Bookmarks")
-	output = writeNodeContent(node)
-	#TODO
+	nodes = []
+	searchNode(base, "Bookmarks", 0, nodes)
+	output = ""
+	for node in nodes:
+		output += writeNode(node)
+	
 	content = []
 	return render_to_response("reports/bookmarkview.html", locals())
