@@ -34,15 +34,6 @@ def parsespecific(file, tag_type):
 		if (c["tagName"] == tag_type):
 			return c
 	return None
-
-def parsehelper(node, tag_type):
-	#print len(node)
-	if len(node) == 1:
-		print node[0]
-		return
-	for c in node:
-		if (c["tagName"]==tag_type):
-			parsehelper(c["content"], tag_type)
 			
 def writeNode (node, depth=0):
 	print depth
