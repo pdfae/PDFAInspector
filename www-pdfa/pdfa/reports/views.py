@@ -149,5 +149,7 @@ def displaybookmark(request):
 	node = searchNode(base, "Bookmarks")
 	output = writeNodeContent(node)
 	
-	
+	cnode = parsespecific(parsefile, "Bookmarks")
+	content = cnode["content"]
+
 	return render_to_response("reports/bookmarkview.html", locals())

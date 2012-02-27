@@ -15,8 +15,8 @@
 {% if content|length > 0 %}
 	<table border="3">
 	<tr>
-	<th>No.</th>
-	<th>Page Number</th>
+	<th>Image No.</th>
+	<th>Page No.</th>
 	<th>Width</th>
 	<th>Height</th>
 	<th>Alt-Text</th>
@@ -28,12 +28,18 @@
 		{% for obj in c.attributes %}
 			{% if obj.Page != None %}
 				<td>{{obj.Page}}</td>
+			{% else %}
+				<td>Page not known</td>
 			{% endif %}
 			{% if obj.Width != None %}
 				<td>{{obj.Width}}</td>
+			{% else %}
+				<td>Width not known</td>
 			{% endif %}
 			{% if obj.Height != None %}
 				<td>{{obj.Height}}</td>
+			{% else %}
+				<td>Height not known</td>
 			{% endif %}
 		{% empty %}
 		{% endfor %}
