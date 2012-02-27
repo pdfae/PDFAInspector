@@ -89,11 +89,10 @@ def writeNodeContent (node, depth=0):
 	for i in node["content"]:
 		if not isinstance(i, basestring) and not isinstance(i, int):
 			if i.has_key('text'):
-				print "here"
-				output += str(i['text'])
+				output += unicode(i['text'])
 			else:
 				output += writeNodeContent(i,depth+1)
 		else:
-			output += str(i)
+			output += unicode(i)
 	output += "</div>"
 	return output
