@@ -17,7 +17,8 @@
 	<tr>
 	<th>No.</th>
 	<th>Page Number</th>
-	<th>Dimension</th>
+	<th>Width</th>
+	<th>Height</th>
 	<th>Alt-Text</th>
 	</tr>
 	{% for c in content %}
@@ -29,10 +30,10 @@
 				<td>{{obj.Page}}</td>
 			{% endif %}
 			{% if obj.Width != None %}
-				<td>{{obj.Width}} X
+				<td>{{obj.Width}}</td>
 			{% endif %}
 			{% if obj.Height != None %}
-				{{obj.Height}}</td>
+				<td>{{obj.Height}}</td>
 			{% endif %}
 		{% empty %}
 		{% endfor %}
