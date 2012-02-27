@@ -3,30 +3,50 @@
 {% block title %}Image View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
-
-
-{% if content|length > 0 %}
-	{% for c in content %}	
-		{% if c.attributes|length > 1 %}
-		Image # {{forloop.counter}} <br>
-			{% for obj in c.attributes %}	
-				{% if obj.Page != None %}
-				<b><u>Page Number:</u></b> {{ obj.Page }}<br>
-				{% endif %}
-				{% empty %}
-			{% endfor %}
-		{% endif %}
-		<b><u>Content:</u></b> {{ c.content }}<br>
-		{% empty %}
-	{% endfor %}
-{% else %}
-No Images in the PDF.
-{% endif %}
-
-<br>
+<b>Graphic View:</b>
+<br><br>
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
 
+<br>
+<b>Summary:</b>
+<br><br>
+{% if content|length > 0 %}
+	<table border="3">
+	<tr>
+	<th>No.</th>
+	<th>Page Number</th>
+	<th>Dimension</th>
+	<th>Alt-Text</th>
+	</tr>
+	{% for c in content %}
+		<tr>
+		<td>{{forloop.counter}}</td>
+		
+		{% for obj in c.attributes %}
+			{% if obj.Page != None %}
+				<td>{{obj.Page}}</td>
+			{% endif %}
+			{% if obj.Height != None %}
+				<td>{{obj.Width}} X {{obj.Height}}</td>
+			{% endif %}
+		{% empty %}
+		{% endfor %}
+		
+		{% if c.content|length == 0 %}
+			<td>No alt-text</td>
+		{% else %}
+			<td>{{c.content}}</td>
+		{% endif %}
+		
+		</tr>
+	{% empty %}
+	{% endfor %}
+{% else %}
+	No Images in the PDF.
+{% endif %}
+
+</table>
 
 {% endblock %}

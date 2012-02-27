@@ -144,9 +144,10 @@ def displaybookmark(request):
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
-	import json
 	result = open(parsefile)
 	base = json.loads(result.read())
 	node = searchNode(base, "Bookmarks")
 	output = writeNodeContent(node)
+	
+	
 	return render_to_response("reports/bookmarkview.html", locals())

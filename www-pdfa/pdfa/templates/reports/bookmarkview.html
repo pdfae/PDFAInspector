@@ -1,9 +1,23 @@
 {% extends 'reports/reports_base.html' %}
 
-{% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
+{% block title %}Bookmark View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
+<b>Tree View:</b>
+<br><br>
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
+
+{% comment %}
+<br>
+<b>Summary:</b>
+<br><br>
+<table border="3">
+<tr>
+<th>Name</th>
+<th>Action</th>
+</tr>
+</table> 
+{% endcomment %}
 {% endblock %}
