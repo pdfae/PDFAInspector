@@ -23,9 +23,11 @@ def displaytreeview(request):
 	currentPage = "userprofile"
 	currentTab = "treeview"
 	auth = 'true'
-	file = request.user.get_profile().filepath + request.session['parsed_pdf']
+	filepath =  request.user.get_profile().filepath
+	filename =  request.session['parsed_pdf']
+	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	import json
-	result = open(file)
+	result = open(parsefile)
 	j = json.loads(result.read())
 	output = writeNode(j)
 	return render_to_response("reports/treeview.html", locals())
@@ -35,9 +37,9 @@ def displaytreeview(request):
 def displaytables(request):
 	currentPage = "userprofile"
 	auth = 'true'
-	file = request.user.get_profile().filepath + request.session['parsed_pdf']
-	cnode = parsespecific(file, "Images")
-	content = cnode["content"]
+	#file = request.user.get_profile().filepath + request.session['parsed_pdf']
+	#cnode = parsespecific(file, "Images")
+	content = []#cnode["content"]
 	print content
 	return render_to_response("reports/tableview.html", locals())
 	
@@ -46,8 +48,10 @@ def displaytables(request):
 def displayforms(request):
 	currentPage = "userprofile"
 	auth = 'true'
-	file = request.user.get_profile().filepath + request.session['parsed_pdf']
-	cnode = parsespecific(file, "Form")
+	filepath =  request.user.get_profile().filepath
+	filename =  request.session['parsed_pdf']
+	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	cnode = parsespecific(parsefile, "Form")
 	content = cnode["content"]
 	print content
 	return render_to_response("reports/formview.html", locals())
@@ -57,8 +61,10 @@ def displayforms(request):
 def displayimages(request):
 	currentPage = "userprofile"
 	auth = 'true'
-	file = request.user.get_profile().filepath + request.session['parsed_pdf']
-	cnode = parsespecific(file, "Images")
+	filepath =  request.user.get_profile().filepath
+	filename =  request.session['parsed_pdf']
+	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	cnode = parsespecific(parsefile, "Images")
 	content = cnode["content"]
 	
 	print content
@@ -69,8 +75,10 @@ def displayimages(request):
 def displayheaders(request):
 	currentPage = "userprofile"
 	auth = 'true'
-	file = request.user.get_profile().filepath + request.session['parsed_pdf']
-	json_data = open (file)
+	filepath =  request.user.get_profile().filepath
+	filename =  request.session['parsed_pdf']
+	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	json_data = open (parsefile)
 	data = json.load(json_data)
 	cnode = data["content"]
 	for c in cnode:
@@ -90,34 +98,34 @@ def displayheaders(request):
 @login_required
 def displaysummary(request):
 	currentPage = "userprofile"
-	auth = 'true'
 	import json
-	from pprint import pprint	
-	#file = request.user.get_profile().filepath + request.session['parsed_pdf']
-	file = "/home/pdfae/PDFAInspector/www-pdfa/files/atulgupte/results-json-testdocument-images.json"
-	#resultfile = file + "results"
-	#if os.path.isfile(resultfile):
-	json_data = open (file) #insert filepath of json result file
-	data = json.load(json_data)
-	tests = (data["results"])
-	json_data.close()
-	rpass=0
-	rwarning=0
-	rfail=0
-	rinspect=0
-	for test in tests:
-		#print test
-		tags = test["tags"]
-		for tag in tags:
-			if (tag["result"]=="pass"):
-				rpass=rpass+1
-			elif (tag["result"]=="warning"):
-				rwarning=rwarning+1
-			elif (tag["result"]=="fail"):
-				rfail=rfail+1
-			elif (tag["result"]=="manual inspection"):
-				rinspect=rinspect+1
-	return render_to_response("reports/summaryview.html", locals())
-	#else:
-	#	return render_to_response("reports/summary_notfound.html", locals())
+	from pprint import pprint
+	filepath =  request.user.get_profile().filepath
+	filename =  request.session['parsed_pdf']
+	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
+	#print resultfile
+	if os.path.isfile(resultfile):
+		json_data = open (resultfile) #insert filepath of json result file
+		data = json.load(json_data)
+		tests = (data["results"])
+		json_data.close()
+		rpass=0
+		rwarning=0
+		rfail=0
+		rinspect=0
+		for test in tests:
+			#print test
+			tags = test["tags"]
+			for tag in tags:
+				if (tag["result"]=="pass"):
+					rpass=rpass+1
+				elif (tag["result"]=="warning"):
+					rwarning=rwarning+1
+				elif (tag["result"]=="fail"):
+					rfail=rfail+1
+				elif (tag["result"]=="manual inspection"):
+					rinspect=rinspect+1
+		return render_to_response("reports/summaryview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
