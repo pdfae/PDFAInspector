@@ -45,16 +45,16 @@ text-decoration: none;
 border-bottom: none;
 }
 
+
 ul#tabnav a:hover { /* settings for hover effect */
 background: #FF2929; /* set desired hover color */
 color: #FFFFFF;
 }
 
-ul#tabnav a:current_page_item {
-	background: #FF9999;
+ul#tabnav .current_page_item a {
+	background: #FF2929;
 	color: #FFFFFF;
 }
-
 
 /* end css tabs */
 
