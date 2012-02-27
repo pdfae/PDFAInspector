@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'userprofile/profile_base.html' %}
 
 {% block title %}User - PDF Accessibilty Inspector{% endblock%}
 
@@ -7,12 +7,18 @@
 	<li class="tab1"><a href="/accounts/profile/accountinfo/">Account Information</a></li>
 	<li class="tab2"><a href="/accounts/profile/managerules/">Manage Rules</a></li>
 	<li class="tab3"><a href="/accounts/profile/managereports/">Manage Reports</a></li>
-	<li class="tab4"><a href="/upload/">Evaluate Document</a></li>
+	<li class="current_page_item"><a href="/upload/">Evaluate Document</a></li>
 </ul>
 <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
+<br>
+<br>
+<b>Upload your file here</b>
+<br>
+<br>
 <table>
 	{{form.as_table}}
 </table>
+<br>
 <input type="submit" value="Submit"><input type="reset" value="Reset"></form>
 
 
