@@ -7,10 +7,12 @@ import os, re
 from forms import userChangeForm
 import json
 
+
 # profile homepage
 @login_required
 def profile(request):
-	currentPage = "userprofile"
+	auth = 'true'
+	currentPTab = "info"
 	username = request.user.username
 	first_name = request.user.first_name
 	last_name = request.user.last_name
@@ -22,7 +24,8 @@ def profile(request):
 # manage reports
 @login_required
 def managereports(request):
-	currentPage = "userprofile"
+	auth = 'true'
+	currentPTab = "reports"
 	user = request.user
 	file_list = os.listdir(user.get_profile().filepath)
 	regex = re.compile('json-.*.json')
@@ -37,11 +40,14 @@ def managereports(request):
 # manage rules
 @login_required
 def managerules(request):
-	currentPage = "userprofile"
+	auth = 'true'
+	currentPTab = "rules"
 	return render_to_response("userprofile/rules.html", locals())
 	
 @login_required
 def change(request):
+	auth = 'true'
+	currentPTab = "info"
 	if (request.method=="POST"):
 		form = userChangeForm(request.POST)
 		if form.is_valid():

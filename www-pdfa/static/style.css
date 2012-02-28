@@ -13,7 +13,7 @@ ul#tabnav { /* general settings */
 text-align: center; /* set to left, right or center */
 margin: 0 0 0 0; /* set margins as desired */
 font: 14px Arial, Helvetica, sans-serif; /* set font as desired */
-border-bottom: 1px solid #525252; /* set border COLOR as desired current: #6c6*/
+border-bottom: 3px solid #525252; /* set border COLOR as desired current: #6c6*/
 list-style-type: none;
 padding: 6px 5px 6px 5px; /* THIRD number must change with respect to padding-top (X) below */
 }
@@ -121,19 +121,19 @@ img.aligncenter {
 
 #header {
 	width: 980px;
-	height: 63px;
+	height: 55px;
 	margin: 0 auto;
 }
 
 #logo {
 	float: left;
 	width: 660px;
-	height: 63px;
+	height: 55px;
 }
 
 #logo h1 {
 	margin: 0;
-	padding: 5px 0px 0px 30px;
+	padding: 0px 0px 0px 30px;
 }
 
 #logo h1 {
@@ -227,6 +227,7 @@ img.aligncenter {
 #content {
 	float: left;
 	width: 640px;
+	min-height: 430px;
 	padding: 0px 0px 0px 0px;
 }
 
@@ -278,7 +279,7 @@ img.aligncenter {
 }
 
 /* Sidebar */
-
+/*
 #sidebar {
 	float: right;
 	width: 230px;
@@ -337,7 +338,7 @@ img.aligncenter {
 #sidebar a:hover {
 	text-decoration: underline;
 }
-
+*/
 /* Calendar */
 
 #calendar {
@@ -363,7 +364,8 @@ img.aligncenter {
 
 #footer-wrapper {
 	overflow: hidden;
-	padding: 0px 0px 0px 0px;
+	height: 80px;
+	margin: 20px auto 0px auto;	
 	background: #2D2722 url(images/img02.jpg) repeat-x left top;
 }
 
@@ -371,7 +373,7 @@ img.aligncenter {
 	clear: both;
 	width: 980px;
 	height: 10px;
-	margin: 20px auto 40px auto;
+	margin: 0px auto 25px auto;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -445,3 +447,48 @@ img.aligncenter {
 .n_7 { background-color: #77eedd; }
 .n_8 { background-color: #ddee77; }
 .n_9 { background-color: #ee77dd; }
+
+
+/* Profile Menu */
+
+#menu2 {
+	
+	width: 980px;
+	height: 26px;
+	margin: 0 auto;
+	padding: 16px 0px 0px 0px;
+}
+
+#menu2 ul {
+	margin: 0;
+	padding: 0px 0px 0px 4px;
+	list-style: none;
+	line-height: normal;
+}
+
+#menu2 li {
+	float: left;
+}
+
+#menu2 a {
+	display: block;
+	/*float: left;*/
+	height: 20px;
+	padding: 0px 30px 0px 30px;
+	text-decoration: none;
+	text-transform: lowercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	color: #181818;
+	border: none;
+}
+
+#menu2 li.current_page_item {
+	background: #FF2929;
+}
+
+#menu2 .current_page_item a {
+	background: #FF2929;
+	color: #FFFFFF;
+}

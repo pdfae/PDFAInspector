@@ -7,10 +7,8 @@ def upload (request):
 	currentPage = "upload"
 	if request.user.is_authenticated():
 		auth = 'true'
-		template_get = "upload/user_fileupload.html"
-		template_post = "userprofile/reports.html"
+		base = 'userprofile/profile_base.html'
 	else:
 		auth = 'false'
-		template_get = "upload/fileupload.htm"
-		template_post = "upload/processing.html"
-	return handle_file_form(request, template_get, template_post, auth)
+		base = 'base.html'
+	return handle_file_form(request, base, auth, currentPage)

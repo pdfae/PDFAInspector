@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 import string as string
 import os
 
-def handle_file_form(request, template_get, template_post, auth):
+def handle_file_form(request, base, auth, currentPage):
 	if (request.method=="POST"):
 		filename = str(request.FILES['file'])
 		if (filename.endswith('.pdf')):
@@ -21,10 +21,10 @@ def handle_file_form(request, template_get, template_post, auth):
 		else:
 			message = "Not a PDF file"
 			form = uploadfileform()
-			return render_to_response(template_get, locals(), context_instance=RequestContext(request))
+			return render_to_response("upload/fileupload.htm", locals(), context_instance=RequestContext(request))
 	else:
 		form = uploadfileform()
-		return render_to_response(template_get, locals(), context_instance=RequestContext(request))
+		return render_to_response("upload/fileupload.htm", locals(), context_instance=RequestContext(request))
 
 def handle_uploaded_file(filename, user):
 	if user.is_authenticated():
