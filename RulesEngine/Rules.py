@@ -3,9 +3,11 @@
 """
 
 # Rule results
-NotSet    = 0
-Pass      = 1
-Violation = 2
+NotSet           = 0
+Pass             = 1
+Violation        = 2
+Warning          = 3
+ManualInspection = 4
 
 # Rule tags
 class TagTypes():
