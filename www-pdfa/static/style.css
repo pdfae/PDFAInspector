@@ -116,6 +116,12 @@ img.aligncenter {
 	background: url(images/img01.jpg) repeat-x left top;
 }
 
+#wrapper hr {
+	height: 1px;
+	border: 1px solid #000;
+	width: 990px;
+}
+
 
 /* Header */
 
@@ -133,17 +139,24 @@ img.aligncenter {
 
 #logo h1 {
 	margin: 0;
-	padding: 0px 0px 0px 30px;
+	padding: 20px 0px 0px 30px;
 }
 
 #logo h1 {
+	width: 90%;
+	display: block;
 	float: left;
 	letter-spacing: -1px;
 	text-transform: lowercase;
 	text-shadow: #FFFFFF -1px 1px 2px;
 	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 42px;
+	font-size: 32px;
 	color: #2D2722;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-overflow-mode: ellipsis;
+	white-space: nowrap;
+	height: 40px;
 }
 
 #logo a {
@@ -433,7 +446,7 @@ img.aligncenter {
 
 .node {
 	border: 1px solid #000;
-	width: 96%;
+	width: 98%;
 	margin: 4px;
 	padding: 4px;
 }
