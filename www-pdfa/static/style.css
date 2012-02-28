@@ -127,7 +127,7 @@ img.aligncenter {
 
 #logo {
 	float: left;
-	width: 660px;
+	width: 980px;
 	height: 55px;
 }
 
@@ -174,8 +174,8 @@ img.aligncenter {
 #menu a {
 	display: block;
 	float: left;
-	height: 24px;
-	padding: 4px 30px 0px 30px;
+	height: 30px;
+	padding: 10px 30px 0px 30px;
 	text-decoration: none;
 	text-transform: lowercase;
 	font-family: Arial, Helvetica, sans-serif;
@@ -452,7 +452,8 @@ img.aligncenter {
 /* Profile Menu */
 
 #menu2 {
-	
+	position:inherit;
+	top: 0px;
 	width: 980px;
 	height: 26px;
 	margin: 0 auto;
@@ -473,8 +474,8 @@ img.aligncenter {
 #menu2 a {
 	display: block;
 	/*float: left;*/
-	height: 20px;
-	padding: 0px 30px 0px 30px;
+	height: 25px;
+	padding: 8px 30px 0px 30px;
 	text-decoration: none;
 	text-transform: lowercase;
 	font-family: Arial, Helvetica, sans-serif;
@@ -491,4 +492,33 @@ img.aligncenter {
 #menu2 .current_page_item a {
 	background: #FF2929;
 	color: #FFFFFF;
+}
+
+/* Tables */
+table.fancy {
+  margin: 1em 1em 1em 0;
+  background: black;
+  width: 660px;
+}
+table.fancy th, table.fancy td {
+  text-align:center;
+  border: 2px;
+  padding: 0.45em;
+}
+table.fancy th {
+  background: black;
+  text-align: center;
+  color: #FFFFFF;
+}
+table.fancy td {
+  background: gainsboro;
+  text-align: center;
+  color: #000000;
+}
+table.fancy tr:hover td {
+   background: mintcream;
+}
+table.fancy caption {
+  margin-left: inherit;
+  margin-right: inherit;
 }

@@ -19,7 +19,6 @@
 	<th>Page No.</th>
 	<th>Width</th>
 	<th>Height</th>
-	<th>Alt-Text</th>
 	</tr>
 	{% for c in content %}
 		<tr>
@@ -42,14 +41,7 @@
 				
 			{% endif %}
 		{% empty %}
-		{% endfor %}
-		
-		{% if c.content|length == 0 %}
-			<td>No alt-text</td>
-		{% else %}
-			<td>{{c.content}}</td>
-		{% endif %}
-		
+		{% endfor %}		
 		</tr>
 	{% empty %}
 	{% endfor %}

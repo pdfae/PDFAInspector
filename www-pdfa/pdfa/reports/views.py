@@ -180,28 +180,33 @@ def displaysummary(request):
 	
 	filename =  request.session['parsed_pdf']
 	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
-	#print resultfile
+	
 	if os.path.isfile(resultfile):
 		json_data = open (resultfile) #insert filepath of json result file
 		data = json.load(json_data)
 		tests = (data["results"])
 		json_data.close()
+		rtest=0
 		rpass=0
 		rwarning=0
 		rfail=0
 		rinspect=0
+		
 		for test in tests:
-			#print test
 			tags = test["tags"]
 			for tag in tags:
-				if (tag["result"]=="pass"):
+				rtest=rtest+1
+				if (tag["result"]==1):
 					rpass=rpass+1
-				elif (tag["result"]=="warning"):
+				elif (tag["result"]==3):
 					rwarning=rwarning+1
-				elif (tag["result"]=="fail"):
+				elif (tag["result"]==2):
 					rfail=rfail+1
-				elif (tag["result"]=="manual inspection"):
+				elif (tag["result"]==4):
 					rinspect=rinspect+1
+		
+		print tests
+		g = [1,2]
 		return render_to_response("reports/summaryview.html", locals())
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())

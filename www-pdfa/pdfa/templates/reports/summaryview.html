@@ -4,27 +4,102 @@
 
 {% block content %}
 
-<b>Report Summary</b>
+<b>Result Summary:</b>
 <br>
 <br>
-<table border="1" cellpadding="2" cellspacing="2" width="400">
+<table class="fancy">
+	<tr>
+		<th>
+			Rule
+		</th>
+		<th>
+			Tag URL
+		</th>
+		<th>
+			Result
+		</th>
+		<th>
+			Message
+		</th>
+	</tr>
+	
+	{% for test in tests %}
+	<tr>
+		{% if test.tags|length > 0 %}
+			<td rowspan = "{{test.tags|length}}">
+				{{ test.title }}
+			</td>
+			
+			{% for tag in test.tags %}
+				{% if forloop.first %}
+				{% else %}
+					<tr>
+				{% endif %}
+					<td>
+						{{tag.tag}}
+					</td>
+					<td>
+						{% if tag.result == 1 %}
+							<FONT COLOR="006400"><b>
+								pass
+							</b></FONT>
+						{% endif %}
+						{% if tag.result == 2 %}
+							<FONT COLOR="FF0000"><b>
+								fail
+							</b></FONT>
+						{% endif %}
+					</td>
+					<td>
+						{{tag.message}}
+					</td>
+				{% if forloop.first %}
+				{% else %}
+					</tr>
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			<td>
+				{{ test.title }}
+			</td>
+			<td>
+				Test was not run on any tags
+			</td>
+			<td>
+				N/A
+			</td>
+			<td>
+				N/A
+			</td>
+		{% endif %}
+	</tr>
+	{% endfor %}
+</table>
+
+<br>
+<br>
+
+<table class = "fancy">
 <tr>
-<td>Pass</td>
-<td>Warning</td>
-<td>Fail</td>
-<td>Manual Inspection</td>
+	<th>Total tests</th>
+	<th>Pass</th>
+	<th>Fail</th>
+	<th>Warning</th>
+	<th>Manual Inspection</th>
 </tr>
 <tr>
-<td>{{ rpass }}</td>
-<td>{{ rwarning }}</td>
-<td>{{ rfail }}</td>
-<td>{{ rinspect }}</td>
+	<td>{{rtest}}</td>
+	<td>{{rpass}}</td>
+	<td>{{rfail}}</td>
+	<td>{{rwarning}}</td>
+	<td>{{rinspect}}</td>
 </tr>
 </table>
 
 
-<br>
-<br>
+
+
+{%comment%}
 <b>Detailed Results</b>
 <br>
 <br>
@@ -40,4 +115,41 @@
 
 {% endfor %}
 
+<br><br>
+<table class="fancy">
+
+<!-- First row -->
+
+<tr>
+<td>1</td>
+<td colspan="2">2 and 3</td>
+<td>4</td>
+</tr>
+
+<!-- Second row -->
+
+<tr>
+<td rowspan="3">5, 9 and 13</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+</tr>
+
+<!-- Third row -->
+
+<tr>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+</tr>
+
+<!-- Fourth row -->
+
+<tr>
+<td colspan="3">14, 15 and 16</td>
+</tr>
+
+</table>
+
+{%endcomment%}
 {% endblock %}
