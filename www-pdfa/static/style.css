@@ -226,7 +226,7 @@ img.aligncenter {
 
 #content {
 	float: left;
-	width: 640px;
+	width: 900px;
 	min-height: 430px;
 	padding: 0px 0px 0px 0px;
 }
@@ -498,7 +498,7 @@ color: #FFFFFF;
 table.fancy {
   margin: 1em 1em 1em 0;
   background: black;
-  width: 660px;
+  width: 900px;
 }
 table.fancy th, table.fancy td {
   text-align:center;
