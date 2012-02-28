@@ -55,7 +55,7 @@ def writeNode (node, depth=0):
 			else:
 				output += writeNode(i,depth+1)
 		else:
-			print ""
+			output += str(i)
 	output += "</div>"
 	return output
 	
