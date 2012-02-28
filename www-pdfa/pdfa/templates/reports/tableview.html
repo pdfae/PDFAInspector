@@ -4,11 +4,18 @@
 
 {% block content %}
 <b>Graphic View:</b>
-<br><br>
+<br>
+
+{% if output == "" %}
+<br>
+No tables found.
+<br>
+{%else%}
+<br>
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
-
+{%endif%}
 <br>
 <b>Summary:</b>
 <br><br>

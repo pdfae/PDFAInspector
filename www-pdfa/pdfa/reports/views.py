@@ -206,7 +206,6 @@ def displaysummary(request):
 					rinspect=rinspect+1
 		
 		print tests
-		g = [1,2]
 		return render_to_response("reports/summaryview.html", locals())
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())
