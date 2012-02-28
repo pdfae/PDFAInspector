@@ -52,7 +52,7 @@ def load():
 	print >> sys.stderr, "Loaded %d rule%s from %d package%s. Ready to process." % (len(rules), plural(len(rules)), len(packages), plural(len(packages)))
 
 def recName(lst):
-	return " > ".join([x.tagName for x in lst])
+	return " > ".join(["%d:%s" % (i, x.tagName) for (i,x) in lst])
 
 def generateTree(tag, parent=None):
 	node = Rules.Tag()
@@ -69,9 +69,9 @@ def generateTree(tag, parent=None):
 			node.content.append(generateTree(i, node))
 	return node
 
-def runRecursive(outputTreeNode, rule, tag, parents=[]):
+def runRecursive(outputTreeNode, rule, tag, parents=[],num=0):
 	path = parents[:]
-	path.append(tag)
+	path.append((num,tag))
 	if rule.applies(tag):
 		print >> sys.stderr, "Running rule %s on %s" % (rule.title, recName(path))
 		resultCode, message, args = rule.validation(tag)
@@ -81,8 +81,10 @@ def runRecursive(outputTreeNode, rule, tag, parents=[]):
 		result['message'] = message
 		result['args']    = args
 		outputTreeNode['tags'].append(result)
+	j = 0
 	for i in tag.content:
-		runRecursive(outputTreeNode, rule, i, path)
+		runRecursive(outputTreeNode, rule, i, path, j)
+		j += 1
 
 def process(json_object):
 	"""
