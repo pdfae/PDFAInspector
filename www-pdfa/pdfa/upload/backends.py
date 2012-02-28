@@ -1,9 +1,10 @@
 from django.shortcuts import *
 from forms import uploadfileform
-from settings import MEDIA_ROOT, PDF_JAR, PYTHON_SCRIPT
+from settings import MEDIA_ROOT, PDF_JAR, PYTHON_SCRIPT, PROCESS_SCRIPT
 from django.contrib.auth.decorators import login_required
 import string as string
 import os
+import subprocess
 
 def handle_file_form(request, base, auth, currentPage):
 	if (request.method=="POST"):
@@ -17,7 +18,7 @@ def handle_file_form(request, base, auth, currentPage):
 					return HttpResponseRedirect('/accounts/profile/managereports/')
 				else:
 					file = str(request.FILES['file'])
-					return HttpResponseRedirect('/accounts/profile/reports/?f=' + file)
+					return render_to_response('upload/processing.html', locals())
 		else:
 			message = "Not a PDF file"
 			form = uploadfileform()
@@ -38,15 +39,8 @@ def handle_uploaded_file(filename, user):
 
 def process_file(file, user):
 	filename = str(file)
-	parse_file = "json-" + filename.rpartition('.pdf')[0] + ".json"
-	result_file = "result-" + filename.rpartition('.pdf')[0] + ".json"
 	if user.is_authenticated():
 		filepath = user.get_profile().filepath
 	else:
-		filepath = MEDIA_ROOT + 'public/'	
-	command1 = "java -jar "+ PDF_JAR + " " + filepath + filename
-	command2 = "rm " + filepath + filename
-	command3 = "python2.7 "+ PYTHON_SCRIPT + " " + filepath + parse_file + " > " + filepath + result_file
-	os.system(command1)
-	os.system(command2)
-	os.system(command3)
+		filepath = MEDIA_ROOT + 'public/'
+	subprocess.Popen(["python", PROCESS_SCRIPT, "\""+PDF_JAR+"\"","\""+PYTHON_SCRIPT+"\"","\""+filepath+"\"","\""+filename+"\""])
