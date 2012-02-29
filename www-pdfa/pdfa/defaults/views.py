@@ -24,3 +24,14 @@ def about(request):
 		auth = 'false'
 		base = 'base.html'
 	return render_to_response("defaults/about.html", locals())
+
+# contact page
+def contact(request):
+	currentPage = "contact"
+	if request.user.is_authenticated():
+		auth = 'true'
+		base = 'userprofile/profile_base.html'
+	else:
+		auth = 'false'
+		base = 'base.html'
+	return render_to_response("defaults/contact.html", locals())
