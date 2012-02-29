@@ -15,6 +15,7 @@ margin: 0 0 0 0; /* set margins as desired */
 font: 14px Arial, Helvetica, sans-serif; /* set font as desired */
 border-bottom: 3px solid #525252; /* set border COLOR as desired current: #6c6*/
 list-style-type: none;
+list-style: none;
 padding: 6px 5px 6px 5px; /* THIRD number must change with respect to padding-top (X) below */
 }
 
@@ -36,7 +37,7 @@ padding-top: 10px; /* must change with respect to padding (X) above and below */
 }
 
 ul#tabnav li a { /* settings for all tab links */
-padding: 6px 4px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+padding: 6px 10px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
 /*border: 1px solid #525252; /* set border COLOR as desired; usually matches border color specified in #tabnav */
 background-color: #FFFFFF; /* set unselected tab background color as desired */
 color: #000000; /* set unselected tab link color as desired current: #666*/
@@ -47,8 +48,7 @@ border-bottom: none;
 
 
 ul#tabnav a:hover { /* settings for hover effect */
-background: #FF2929; /* set desired hover color */
-color: #FFFFFF;
+background: #dddddd; /* set desired hover color */
 }
 
 ul#tabnav .current_page_item a {
@@ -200,6 +200,10 @@ img.aligncenter {
 	font-weight: normal;
 	color: #181818;
 	border: none;
+}
+
+#menu a:hover {
+  background-color: #cccccc;
 }
 
 #menu li.current_page_item {
@@ -503,6 +507,10 @@ float: left;
   font-weight: normal;
   color: #181818;
   border: none;
+}
+
+#menu2 a:hover {
+  background-color: #cccccc;
 }
 
 #menu2 li.current_page_item {
