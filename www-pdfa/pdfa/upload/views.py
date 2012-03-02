@@ -1,6 +1,3 @@
-from django.shortcuts import *
-from forms import uploadfileform
-from settings import MEDIA_ROOT
 from backends import handle_file_form
 
 def upload (request):

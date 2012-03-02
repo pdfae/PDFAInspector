@@ -1,12 +1,10 @@
 # Author: Prateek Arora
 # including required modules
-from django.shortcuts import *
+from django.shortcuts import render_to_response, HttpResponseRedirect, RequestContext
 from settings import *
 from django.contrib.auth.decorators import login_required
 import os, re
 from forms import userChangeForm
-import json
-
 
 # profile homepage
 @login_required
@@ -30,11 +28,11 @@ def managereports(request):
 	file_list = os.listdir(user.get_profile().filepath)
 	regex = re.compile('json-.*.json')
 	json_file_list = []
-	for file in file_list:
-		if regex.match(file):
-			file = file.replace('json-', '')
-			file = file.replace('.json', '') + ".pdf"
-			json_file_list.append(file)
+	for f in file_list:
+		if regex.match(f):
+			f = f.replace('json-', '')
+			f = f.replace('.json', '') + ".pdf"
+			json_file_list.append(f)
 	return render_to_response("userprofile/reports.html", locals())
 
 # manage rules
