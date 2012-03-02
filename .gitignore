@@ -6,3 +6,5 @@
 database.db
 www-pdfa/files
 www-pdfa/pdfa/settings.py
+*.project
+*.pydevproject
