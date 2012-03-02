@@ -68,7 +68,7 @@ def displaytables(request):
 	i = 0
 	for node in nodes:
 		i = i + 1
-		output += "<b>Table " + str(i) + "</b>\n<br>"
+		output += "<b>Table " + unicode(i) + "</b>\n<br>"
 		output += writeNode(node)
 		output += "<br>"
 
