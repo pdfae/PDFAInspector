@@ -21,6 +21,24 @@
 	<th>Redirects to</th>
 	</tr>
 	{% for c in content %}		
+		<tr>
+			<td>{{forloop.counter}}</td>
+			{% if a.content|length == 0 %}
+				<td>Unnamed</td>
+			{% else %}
+				<td>{{a.content}}</td>
+			{% endif %}
+			{% for obj in a.attributes %}
+				{% if obj.Action != None %}
+					<td>{{obj.Action}}</td>
+				{% endif %}
+			
+				{% if obj.Page != None %}
+					<td>Page {{obj.Page}}</td>
+				{% endif %}	
+			{% empty %}
+			{% endfor %}
+		</tr>
 		{% for a in c.content %}
 		<tr>
 		<td>{{forloop.counter}}</td>
