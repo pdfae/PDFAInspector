@@ -11,6 +11,16 @@
 
 
 {{content}}
+{% for c in content %}
+	{{c.content}}
+	{% for obj in c.attributes %}
+		{{obj.Action}}
+		{{obj.Page}}
+	{% empty %}
+	{% endfor %}
+{% empty %}
+{% endfor %}
+
 
 
 <br>
