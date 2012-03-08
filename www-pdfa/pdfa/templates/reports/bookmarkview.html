@@ -31,15 +31,11 @@
 			{% endif %}
 			{% for obj in a.attributes %}
 				{% if obj.Action != None %}
-					<td>{{obj.Action}}</td>
-				{% else %}
-					<td> </td>
+					<td>{{obj["Action"]}}</td>
 				{% endif %}
 			
 				{% if obj.Page != None %}
 					<td>Page {{obj.Page}}</td>
-				{% else %}
-					<td> </td>
 				{% endif %}	
 			{% empty %}
 			{% endfor %}
