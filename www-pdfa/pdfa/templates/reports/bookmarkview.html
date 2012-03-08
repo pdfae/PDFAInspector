@@ -12,6 +12,7 @@
 
 {% for c in content %}
 	{{c.content}}<br><br>
+	{{c.tagName}}<br><br>
 	{% for obj in c.attributes %}
 		{{obj.Action}}<br>
 		{{obj.Page}}<br>
