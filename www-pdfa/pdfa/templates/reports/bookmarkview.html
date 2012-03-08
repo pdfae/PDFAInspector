@@ -10,13 +10,13 @@
 {% endautoescape %}
 
 
-{{content}}
 {% for c in content %}
-	{{c.content}}
+	{{c.content}}<br><br>
 	{% for obj in c.attributes %}
-		{{obj.Action}}
-		{{obj.Page}}
+		{{obj.Action}}<br>
+		{{obj.Page}}<br>
 	{% empty %}
+	<br><br>
 	{% endfor %}
 {% empty %}
 {% endfor %}
