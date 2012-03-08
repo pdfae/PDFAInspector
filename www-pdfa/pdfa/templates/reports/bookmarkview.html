@@ -11,11 +11,11 @@
 
 
 {% for c in content %}
-	{{c.content}}<br><br>
-	{{c.tagName}}<br><br>
-	{% for obj in c.attributes %}
-		{{obj.Action}}<br>
-		{{obj.Page}}<br>
+	d = c.content
+	{% for a in d %}
+	{{a.tagName}}<br><br>
+	{{a.content}}<br><br>
+	{{a.attributes}}<br><br>
 	{% empty %}
 	<br><br>
 	{% endfor %}
