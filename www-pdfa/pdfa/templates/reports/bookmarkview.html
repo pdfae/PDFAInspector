@@ -9,6 +9,45 @@
 {{output}}
 {% endautoescape %}
 
+<br>
+<b>Summary:</b>
+<br><br>
+{% if content|length > 0 %}
+	<table class="fancy">
+	<tr>
+	<th>Bookmark No.</th>
+	<th>Name</th>
+	<th>Action</th>
+	<th>Redirects to</th>
+	</tr>
+	{% for c in content %}
+		<tr>
+		<td>{{forloop.counter}}</td>
+		{% for a in c.content %}
+			{% if a.content|length == 0 %}
+				<td>Unnamed</td>
+			{% else %}
+				<td>{{a.content}}</td>
+			{% endif %}
+			{% for obj in a.attributes %}
+				{% if obj.Action != None %}
+					<td>{{obj.Action}}</td>
+				{% else %}
+					<td>Action not known</td>
+				{% endif %}
+			
+				{% if obj.Page != None %}
+					<td>Page {{obj.Page}}</td>
+				{% else %}
+					<td>Page not known</td>
+				{% endif %}	
+			{% empty %}
+			{% endfor %}
+		</tr>
+		{% empty %}
+		{% endfor %}
+	{% empty %}
+	{% endfor %}
 
 {% for c in content %}
 	{% for a in c.content %}
@@ -20,6 +59,10 @@
 	{% endfor %}
 {% empty %}
 {% endfor %}
+{% else %}
+	Not implemented yet.
+{% endif %} 
+</table>
 
 
 
