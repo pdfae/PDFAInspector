@@ -9,13 +9,6 @@
 {{output}}
 {% endautoescape %}
 
-
-<th>Bookmark No.</th>
-	<th>Name</th>
-	<th>Action</th>
-	<th>Redirects to</th>
-	
-
 <br>
 <b>Summary:</b>
 <br><br>
@@ -35,7 +28,7 @@
 		{% if c.content|length == 0 %}
 			<td>Unnamed</td>
 		{% else %}
-			<td>{{c.content}}</td>
+			<td>{{c.content["content"]}}</td>
 		{% endif %}
 		
 		
