@@ -3,16 +3,15 @@
 {% block title %}User - PDF Accessibilty Inspector{% endblock%}
 
 {% block text %}
-<b>Account information:<br><br></b>
+<b>Account Information<br><br></b>
 
-
-	{% if username != " " %}
 	USERNAME: {{ username }} <br>
-	{% else %}
-	USERNAME: this was a test <br>
-	{% endif %}
 	NAME: {{ first_name }} {{ last_name }}<br>
+	{% if email|length == 0 %}
+	EMAIL: No email! <br>
+	{% else %}
 	EMAIL: {{ email }} <br>
+	{% endif %}
 	LAST LOGIN: {{ last_login }}<br>
 	DATE JOINED: {{ date_joined }}<br>
 <br>
