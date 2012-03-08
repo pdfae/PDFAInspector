@@ -32,14 +32,10 @@
 			{% for obj in a.attributes %}
 				{% if obj.Action != None %}
 					<td>{{obj.Action}}</td>
-				<!--{% else %}
-					<td>Action not known</td>-->
 				{% endif %}
 			
 				{% if obj.Page != None %}
 					<td>Page {{obj.Page}}</td>
-				<!--{% else %}
-					<td>Page not known</td>-->
 				{% endif %}	
 			{% empty %}
 			{% endfor %}
