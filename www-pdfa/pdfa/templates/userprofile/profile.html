@@ -5,7 +5,12 @@
 {% block text %}
 <b>Account information:<br><br></b>
 
+
+	{% if username != " " %}
 	USERNAME: {{ username }} <br>
+	{% else %}
+	USERNAME: this was a test <br>
+	{% endif %}
 	NAME: {{ first_name }} {{ last_name }}<br>
 	EMAIL: {{ email }} <br>
 	LAST LOGIN: {{ last_login }}<br>
