@@ -9,6 +9,10 @@
 {{output}}
 {% endautoescape %}
 
+
+{{content}}
+
+
 <br>
 <b>Summary:</b>
 <br><br>
@@ -28,7 +32,7 @@
 		{% if c.content|length == 0 %}
 			<td>Unnamed</td>
 		{% else %}
-			<td>{{c.content["content"]}}</td>
+			<td>{{c.content}}</td>
 		{% endif %}
 		
 		
