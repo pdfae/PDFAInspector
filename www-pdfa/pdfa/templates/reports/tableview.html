@@ -21,5 +21,13 @@ No tables found.
 <br><br>
 Not implemented yet.
 {{nodes}}
+  {{i = 0}}
+  {% for node in nodes %}
+		{{i = i + 1}}
+		<b>Table " + unicode(i) + "</b>\n<br>
+		{{writeNode(node)}}
+		<br>
+  {% empty %}
+  {% endfor %}
 
 {% endblock %}
