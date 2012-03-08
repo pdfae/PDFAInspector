@@ -11,7 +11,7 @@
 
 
 {% for c in content %}
-	d = c.content
+	{{d = c.content}}
 	{% for a in d %}
 	{{a.tagName}}<br><br>
 	{{a.content}}<br><br>
