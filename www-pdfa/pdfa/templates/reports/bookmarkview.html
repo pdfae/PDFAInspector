@@ -21,7 +21,7 @@
 	<th>Redirects to</th>
 	</tr>
 	{% for c in content %}		
-		{% for a in a.content.content %}
+		{% for a in c.content %}
 		<tr>
 		<td>{{forloop.counter}}</td>
 			{% if a.content|length == 0 %}
