@@ -6,9 +6,13 @@
 <b>Account Information<br><br></b>
 
 	USERNAME: {{ username }} <br>
+	{% if first_name|length == 0 or last_name|length == 0%}
+	NAME: <a href="/accounts/profile/change/">Edit this field</a><br>
+	{% else %}
 	NAME: {{ first_name }} {{ last_name }}<br>
+	{% endif %}
 	{% if email|length == 0 %}
-	EMAIL: No email! <br>
+	EMAIL: <a href="/accounts/profile/change/">Edit this field</a> <br>
 	{% else %}
 	EMAIL: {{ email }} <br>
 	{% endif %}
