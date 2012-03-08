@@ -20,9 +20,8 @@
 	<th>Action</th>
 	<th>Redirects to</th>
 	</tr>
-	{% for c in content %}
-		
-		{% for a in c.content %}
+	{% for c in content %}		
+		{% for a in a.content.content %}
 		<tr>
 		<td>{{forloop.counter}}</td>
 			{% if a.content|length == 0 %}
@@ -33,14 +32,14 @@
 			{% for obj in a.attributes %}
 				{% if obj.Action != None %}
 					<td>{{obj.Action}}</td>
-				{% else %}
-					<td>Action not known</td>
+				<!--{% else %}
+					<td>Action not known</td>-->
 				{% endif %}
 			
 				{% if obj.Page != None %}
 					<td>Page {{obj.Page}}</td>
-				{% else %}
-					<td>Page not known</td>
+				<!--{% else %}
+					<td>Page not known</td>-->
 				{% endif %}	
 			{% empty %}
 			{% endfor %}
