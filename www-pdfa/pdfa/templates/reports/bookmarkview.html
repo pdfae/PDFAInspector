@@ -21,9 +21,10 @@
 	<th>Redirects to</th>
 	</tr>
 	{% for c in content %}
+		
+		{% for a in c.content %}
 		<tr>
 		<td>{{forloop.counter}}</td>
-		{% for a in c.content %}
 			{% if a.content|length == 0 %}
 				<td>Unnamed</td>
 			{% else %}
@@ -49,6 +50,11 @@
 	</tr>
 	{% empty %}
 	{% endfor %}
+{% else %}
+	Not implemented yet.
+{% endif %} 
+</table>	
+
 
 {% for c in content %}
 	{% for a in c.content %}
