@@ -21,25 +21,7 @@
 	<th>Redirects to</th>
 	</tr>
 	{% for c in content %}		
-		<tr>
-			<td>{{forloop.counter}}</td>
-			{% if a.content|length == 0 %}
-				<td>Unnamed</td>
-			{% else %}
-				<td>{{a.content}}</td>
-			{% endif %}
-			{% for obj in a.attributes %}
-				{% if obj.Action != None %}
-					<td>{{obj.Action}}</td>
-				{% endif %}
-			
-				{% if obj.Page != None %}
-					<td>Page {{obj.Page}}</td>
-				{% endif %}	
-			{% empty %}
-			{% endfor %}
-		</tr>
-		{% for a in c.content %}
+		{% for a in content[0] %}
 		<tr>
 		<td>{{forloop.counter}}</td>
 			{% if a.content|length == 0 %}
@@ -67,66 +49,5 @@
 	Not implemented yet.
 {% endif %} 
 </table>	
-
-
-{% for c in content %}
-	{% for a in c.content %}
-	{{a.tagName}}<br><br>
-	{{a.content}}<br><br>
-	{{a.attributes}}<br><br>
-	{% empty %}
-	<br><br>
-	{% endfor %}
-{% empty %}
-{% endfor %}
-</table>
-
-
-
-<br>
-<b>Summary:</b>
-<br><br>
-
-{% if content|length > 0 %}
-	<table class="fancy">
-	<tr>
-	<th>Bookmark No.</th>
-	<th>Name</th>
-	<th>Action</th>
-	<th>Redirects to</th>
-	</tr>
-	{% for c in content %}
-		<tr>
-		<td>{{forloop.counter}}</td>
-		
-		{% if c.content|length == 0 %}
-			<td>Unnamed</td>
-		{% else %}
-			<td>{{c.content}}</td>
-		{% endif %}
-		
-		
-		{% for obj in c.attributes %}
-			{% if obj.Action != None %}
-				<td>{{obj.Action}}</td>
-			{% else %}
-				<td>Action not known</td>
-			{% endif %}
-			
-			{% if obj.Page != None %}
-				<td>Page {{obj.Page}}</td>
-			{% else %}
-				<td>Page not known</td>
-			{% endif %}
-			
-		{% empty %}
-		{% endfor %}
-		</tr>
-	{% empty %}
-	{% endfor %}
-{% else %}
-	Not implemented yet.
-{% endif %} 
-</table>
 
 {% endblock %}
