@@ -237,7 +237,7 @@ def displaybookmark(request):
 	searchNode(base, "Bookmarks", 0, nodes)
 	output = '<a href="javascript:check_all()">Expand All</a>'
 	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
-	output = "<div class=\"css-treeview\">"
+	output += "<div class=\"css-treeview\">"
 	for node in nodes:
 		output += writeNode2(node)
 	output += "</div>"
