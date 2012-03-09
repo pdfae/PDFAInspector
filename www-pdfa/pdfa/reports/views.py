@@ -39,7 +39,7 @@ def displaytreeview(request):
 	searchNode(base, "tags", 0, nodes)
 	output = "<div class=\"css-treeview\">"
 	for node in nodes:
-		output += writeNode(node)
+		output += writeNode2(node)
 	output += "</div>"
 	return render_to_response("reports/treeview.html", locals())
 
@@ -233,7 +233,7 @@ def displaybookmark(request):
 	searchNode(base, "Bookmarks", 0, nodes)
 	output = "<div class=\"css-treeview\">"
 	for node in nodes:
-		output += writeNode(node)
+		output += writeNode2(node)
 	output += "</div>"
 	cnode = parsespecific(parsefile, "Bookmarks")
 	content = cnode["content"]
