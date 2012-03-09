@@ -2,6 +2,7 @@ from django.shortcuts import *
 from settings import *
 from django.contrib.auth.decorators import login_required
 import os
+import uuid
 
 def tablesummary(data, tests):
 	rpass=0
@@ -25,7 +26,7 @@ def tablesummary(data, tests):
 def parsespecific(file, tag_type):
 	import json
 	from pprint import pprint
-
+	
 	json_data = open (file)
 	data = json.load(json_data)
 	contentnode = data["content"]
@@ -58,6 +59,33 @@ def writeNode (node, depth=0):
 			output += unicode(i)
 	output += "</div>"
 	return output
+
+def writeNode2 (node, depth=0):
+	print "depth =" + unicode(depth)
+	nodetag = node["tagName"]
+	print nodetag
+	uid = unicode(uuid.uuid4());
+	output = "<table class = \"fancy\"><tr><td><ul><li><input type=checkbox id=\""+uid+"\"/><label for=\""+uid+"\"><b>"+nodetag+"</b></label><ul><li>\n<i>\n"
+	
+	attr = []
+	for i in node["attributes"]:
+		for j,k in i.iteritems():
+			attr.append(unicode(j) + "=" + unicode(k))
+	output += ", ".join(attr)
+	output += "</i></li>\n"
+	for i in node["content"]:
+		if not isinstance(i, basestring) and not isinstance(i, int):
+			if i.has_key('text'):
+				print ""
+				output += "<li>" + unicode(i['text']) + "</li>"
+			else:
+				output += writeNode2(i,depth+1)
+		else:
+			output += "<li>" + unicode(i) + "</li>"
+			
+	output += "</ul></li></ul></td></tr></table>"
+	return output
+
 	
 	
 def searchNode (node, tag, depth=0, a =[]):

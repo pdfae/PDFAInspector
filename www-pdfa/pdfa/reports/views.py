@@ -37,10 +37,10 @@ def displaytreeview(request):
 	base = json.loads(result.read())
 	nodes = []
 	searchNode(base, "tags", 0, nodes)
-	output = ""
+	output = "<div class=\"css-treeview\">"
 	for node in nodes:
 		output += writeNode(node)
-	
+	output += "</div>"
 	return render_to_response("reports/treeview.html", locals())
 
 # tab to display information about tables in document
@@ -231,10 +231,10 @@ def displaybookmark(request):
 	base = json.loads(result.read())
 	nodes = []
 	searchNode(base, "Bookmarks", 0, nodes)
-	output = ""
+	output = "<div class=\"css-treeview\">"
 	for node in nodes:
 		output += writeNode(node)
-	
+	output += "</div>"
 	cnode = parsespecific(parsefile, "Bookmarks")
 	content = cnode["content"]
 	#content = []
