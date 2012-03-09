@@ -235,7 +235,7 @@ def displaybookmark(request):
 	for node in nodes:
 		output += writeNode2(node)
 	output += "</div>"
-	cnode = parsespecific(parsefile, "Bookmarks")
-	content = cnode["content"]
-	#content = []
+	#cnode = parsespecific(parsefile, "Bookmarks")
+	#content = cnode["content"]
+	content = []
 	return render_to_response("reports/bookmarkview.html", locals())
