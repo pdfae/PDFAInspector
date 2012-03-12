@@ -1,21 +1,11 @@
 {% extends 'defaults/default_base.html' %}
+
 {% block text %}
 <div class="post">
     <h2 class="title"><a href="#">The PDF Accessibility Project</a></h2>
     <div class="entry">
         <p>The PDF Accessibility Project is focused on raising attention about inaccessible PDF documents.</p>
-        <br>
-        <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
-        {{message}}
-        <br>
-        <b>Upload your file here</b>
-        <br>
-        <br>
-        <table>
-            {{form.as_table}}
-        </table>
-        <br>
-        <input type="submit" value="Submit"><input type="reset" value="Reset"></form>
+        
         <p><a href="/upload/">Inspect a PDF now!</a></p>
     </div>
 </div>
