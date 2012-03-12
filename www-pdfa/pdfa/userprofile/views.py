@@ -51,8 +51,7 @@ def change(request):
 		if form.is_valid():
 			request.user.first_name = form.cleaned_data['first_name']
 			request.user.last_name = form.cleaned_data['last_name']
-			#request.user.email = form.cleaned_data['email']
-			request.user.email = form.clean_data.get['email', request.user.email]
+			request.user.email = form.cleaned_data['email']
 			request.user.save()
 			return HttpResponseRedirect('/accounts/profile/')
 	else:
