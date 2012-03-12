@@ -9,6 +9,15 @@ Violation        = 2
 Warning          = 3
 ManualInspection = 4
 
+# Rule Categories
+class Categories():
+	DocumentLevel    = 0
+	Links            = 1
+	Images           = 2
+	Forms            = 3
+	Headers          = 4
+	Tables           = 5
+
 # Rule tags
 class TagTypes():
 	Container = ["Document","Part","Div","Art","Sect"]
