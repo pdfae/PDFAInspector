@@ -10,8 +10,9 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	# Other fields here
 	filepath = models.FilePathField(default = '')
-	
-	
+	filecount = models.IntegerField(null = True)
+	def __unicode__(self):
+		return "User: " + unicode(self.user.username) + " Filecount: " + unicode(self.filecount)
 	
 def create_user_profile(sender, instance, created, **kwargs):
 	# when created
