@@ -55,5 +55,5 @@ def change(request):
 			request.user.save()
 			return HttpResponseRedirect('/accounts/profile/')
 	else:
-		form = userChangeForm()
+		form = userChangeForm(initial={'e-mail': request.user.email})
 		return render_to_response("userprofile/change.html", locals(), context_instance=RequestContext(request))
