@@ -13,14 +13,15 @@
 	<div id="menu">
 		<ul>
 			{% block navigation %}
-			<li {% if currentPage = "home" or currentPage = "upload"   %}class="current_page_item"{% endif %}><span><a href="/upload/">Evaluate a PDF</a></span></li>		
-			{% if auth = 'true' %}
+			<li {% if currentPage = "upload"   %}class="current_page_item"{% endif %}><span><a href="/upload/">Evaluate a PDF</a></span></li>		
+			{% if auth %}
+			<li {% if currentPage = "reports"   %}class="current_page_item"{% endif %}><a href="/accounts/profile/managereports/">Reports</a></li>
+			<li {% if currentPage = "account"   %}class="current_page_item"{% endif %}><a href="/accounts/profile/accountinfo/">Account</a></li>
 			<li><a href="/accounts/logout/">Log-Out</a></li>
 			{% else %}
 			<li><a href="/accounts/login/">Log-In</a></li>
 			{% endif %}			
 			<li {% if currentPage = "about"   %}class="current_page_item"{% endif %}><a href="/about/">About</a></li>
-			<!--<li {% if currentPage = "upload"  %}class="current_page_item"{% endif %}><a href="/upload/">Upload</a></li>-->
 			<li {% if currentPage = "contact" %}class="current_page_item"{% endif %}><a href="/contact/">Contact</a></li>
 			{% endblock %}
 		</ul>
@@ -35,8 +36,6 @@
 			</a></h1>
 		</div>
 	</div>
-	{% block prof_nav %}
-	{% endblock %}
 	<hr width = '78%'>
 	<!-- end #header -->
 	<div id="page">
