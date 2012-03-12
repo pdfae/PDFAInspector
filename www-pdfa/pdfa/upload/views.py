@@ -21,7 +21,11 @@ def upload (request):
 				fileObj.file.save(request.FILES['file'].name, ContentFile(request.FILES['file'].read()))
 				fileObj.save()
 				process_file(fileObj.file.name)
-				return HttpResponseRedirect('/accounts/profile/managereports/')
+				if auth:
+					return HttpResponseRedirect('/accounts/profile/managereports/')
+				else:
+					file = filename
+					return render_to_response("upload/processing.html", locals())
 		else:
 			message = "Not a PDF file"
 	form = uploadfileform()
