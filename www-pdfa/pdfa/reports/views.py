@@ -21,16 +21,13 @@ def display(request):
 def displaytreeview(request):
 	currentTab = "tree"
 	user = request.user
+	auth = user.is_authenticated()
 	if user.is_authenticated():
-		auth = 'true'
 		filepath =  user.get_profile().filepath
-		currentPTab = "reports"
-		baset = "userprofile/profile_base.html"
+		currentPage = "reports"
 	else:
-		auth = 'false'
 		filepath =  MEDIA_ROOT + 'public/'
 		currentPage = "upload"
-		baset = "base.html"
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	result = open(parsefile)
@@ -52,16 +49,13 @@ def displaytreeview(request):
 def displaytables(request):
 	currentTab = "tbl"
 	user = request.user
+	auth = user.is_authenticated()
 	if user.is_authenticated():
-		auth = 'true'
 		filepath =  user.get_profile().filepath
-		currentPTab = "reports"
-		baset = "userprofile/profile_base.html"
+		currentPage = "reports"
 	else:
-		auth = 'false'
 		currentPage = "upload"
 		filepath =  MEDIA_ROOT + 'public/'
-		baset = "base.html"
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	result = open(parsefile)
@@ -85,16 +79,13 @@ def displaytables(request):
 def displayforms(request):
 	currentTab = "form"
 	user = request.user
+	auth = user.is_authenticated()
 	if user.is_authenticated():
-		auth = 'true'
 		filepath =  user.get_profile().filepath
-		currentPTab = "reports"
-		baset = "userprofile/profile_base.html"
+		currentPage = "reports"
 	else:
-		auth = 'false'
 		currentPage = "upload"
 		filepath =  MEDIA_ROOT + 'public/'
-		baset = "base.html"
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	#cnode = parsespecific(parsefile, "Form")
@@ -112,16 +103,14 @@ def displayforms(request):
 def displayimages(request):
 	currentTab = "img"
 	user = request.user
+	auth = user.is_authenticated()
 	if user.is_authenticated():
-		auth = 'true'
 		filepath =  user.get_profile().filepath
-		currentPTab = "reports"
-		baset = "userprofile/profile_base.html"
+		currentPage = "reports"
 	else:
 		auth = 'false'
 		currentPage = "upload"
 		filepath =  MEDIA_ROOT + 'public/'
-		baset = "base.html"
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	cnode = parsespecific(parsefile, "Images")
@@ -144,7 +133,7 @@ def displayimages(request):
 
 def displayheaders(request):
 	currentTab = "head"
-	auth = 'true'
+	auth = user.is_authenticated()
 	filepath =  request.user.get_profile().filepath
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
@@ -168,16 +157,13 @@ def displayheaders(request):
 
 def displaysummary(request):
 	user = request.user
+	auth = user.is_authenticated()
 	if user.is_authenticated():
-		auth = 'true'
 		filepath =  request.user.get_profile().filepath
-		currentPTab = "reports"
-		baset = "userprofile/profile_base.html"
+		currentPage = "reports"
 	else:
-		auth = 'false'
 		currentPage = "upload"
 		filepath =  MEDIA_ROOT + 'public/'
-		baset = "base.html"
 	currentTab = "summary"
 	import json
 	from pprint import pprint
@@ -218,16 +204,13 @@ def displaysummary(request):
 
 def displaybookmark(request):
 	user = request.user
+	auth = user.is_authenticated()
 	if user.is_authenticated():
-		auth = 'true'
 		filepath =  user.get_profile().filepath
-		currentPTab = "reports"
-		baset = "userprofile/profile_base.html"
+		currentPage = "reports"
 	else:
-		auth = 'false'
 		currentPage = "upload"
 		filepath =  MEDIA_ROOT + 'public/'
-		baset = "base.html"
 	currentTab = "bm"
 	filename =  request.session['parsed_pdf']
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
