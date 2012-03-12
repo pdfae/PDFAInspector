@@ -13,7 +13,7 @@
 	<div id="menu">
 		<ul>
 			{% block navigation %}
-			<li {% if currentPage = "home" or currentPage = "upload"   %}class="current_page_item"{% endif %}><span><a href="/upload/">Evaluate a PDF</a></span></li>		
+			<li {% if currentPage = "home" or currentPage = "upload"   %}class="current_page_item"{% endif %}><span><a href="/">Evaluate a PDF</a></span></li>		
 			{% if auth = 'true' %}
 			<li><a href="/accounts/logout/">Log-Out</a></li>
 			{% else %}
