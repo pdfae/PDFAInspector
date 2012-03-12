@@ -12,7 +12,7 @@ def home(request):
 	else:
 		auth = 'false'
 		base = 'base.html'
-	return render_to_response("defaults/fileupload.html", locals())
+	return render_to_response("uploads/fileupload.html", locals())
 	
 # about page
 def about(request):
