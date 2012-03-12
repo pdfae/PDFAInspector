@@ -17,5 +17,6 @@ class UserFile(models.Model):
     owner = models.CharField(max_length = 30, editable = False)
     filename = models.FileField(upload_to = content_file_name)
     title = models.CharField(max_length = 130)
+    notes = models.CharField(max_length = 2000)
     def __unicode__(self):
         return unicode(self.owner)
