@@ -11,33 +11,35 @@ from django.contrib.auth.decorators import login_required
 import os
 from backends import *
 import json
+from upload.models import UserFile
 
-def display(request):
-	request.session['parsed_pdf'] = request.GET['f']
-	return HttpResponseRedirect('/accounts/profile/reports/summary/')
 
-# tab to display tree view
 
-def displaytreeview(request):
-	currentTab = "tree"
-	user = request.user
+def setup(user, uid):
 	auth = user.is_authenticated()
-	if user.is_authenticated():
-		filepath =  user.get_profile().filepath
+	if auth:
 		currentPage = "reports"
 	else:
-		filepath =  MEDIA_ROOT + 'public/'
 		currentPage = "upload"
-	filename =  request.session['parsed_pdf']
+	fileObj = UserFile.objects.get(uid = uid)
+	title = fileObj.title
+	notes = fileObj.notes
+	[filepath, filename] = fileObj.file.name.rsplit('/', 1)
+	filepath = MEDIA_ROOT + filepath + "/"
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	return [auth, currentPage, parsefile, title, notes]
+
+# tab to display tree view
+def displaytreeview(request, uid):
+	currentTab = "tree"
+	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
 	searchNode(base, "tags", 0, nodes)
-	
+
 	output = '<a href="javascript:check_all()">Expand All</a>'
 	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
-	
 	output += "<div class=\"css-treeview\">"
 	for node in nodes:
 		output += writeNode2(node)
@@ -46,18 +48,9 @@ def displaytreeview(request):
 
 # tab to display information about tables in document
 
-def displaytables(request):
+def displaytables(request, uid):
 	currentTab = "tbl"
-	user = request.user
-	auth = user.is_authenticated()
-	if user.is_authenticated():
-		filepath =  user.get_profile().filepath
-		currentPage = "reports"
-	else:
-		currentPage = "upload"
-		filepath =  MEDIA_ROOT + 'public/'
-	filename =  request.session['parsed_pdf']
-	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)	
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
@@ -76,18 +69,9 @@ def displaytables(request):
 	
 # tab to display information about forms in document
 
-def displayforms(request):
+def displayforms(request, uid):
 	currentTab = "form"
-	user = request.user
-	auth = user.is_authenticated()
-	if user.is_authenticated():
-		filepath =  user.get_profile().filepath
-		currentPage = "reports"
-	else:
-		currentPage = "upload"
-		filepath =  MEDIA_ROOT + 'public/'
-	filename =  request.session['parsed_pdf']
-	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
 	#cnode = parsespecific(parsefile, "Form")
 	result = open(parsefile)
 	base = json.loads(result.read())
@@ -100,19 +84,9 @@ def displayforms(request):
 
 # tab to display information about images in document
 
-def displayimages(request):
+def displayimages(request, uid):
 	currentTab = "img"
-	user = request.user
-	auth = user.is_authenticated()
-	if user.is_authenticated():
-		filepath =  user.get_profile().filepath
-		currentPage = "reports"
-	else:
-		auth = 'false'
-		currentPage = "upload"
-		filepath =  MEDIA_ROOT + 'public/'
-	filename =  request.session['parsed_pdf']
-	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
 	cnode = parsespecific(parsefile, "Images")
 	content = cnode["content"]
 	
@@ -131,12 +105,9 @@ def displayimages(request):
 
 # tab to display information about headers in document
 
-def displayheaders(request):
+def displayheaders(request, uid):
 	currentTab = "head"
-	auth = user.is_authenticated()
-	filepath =  request.user.get_profile().filepath
-	filename =  request.session['parsed_pdf']
-	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
 	json_data = open (parsefile)
 	data = json.load(json_data)
 	cnode = data["content"]
@@ -155,20 +126,18 @@ def displayheaders(request):
 
 # tab to display information about headers in document
 
-def displaysummary(request):
-	user = request.user
-	auth = user.is_authenticated()
-	if user.is_authenticated():
-		filepath =  request.user.get_profile().filepath
+def displaysummary(request, uid):
+	currentTab = "summary"
+	auth = request.user.is_authenticated()
+	if auth:
 		currentPage = "reports"
 	else:
 		currentPage = "upload"
-		filepath =  MEDIA_ROOT + 'public/'
-	currentTab = "summary"
-	import json
-	from pprint import pprint
-	
-	filename =  request.session['parsed_pdf']
+	fileObj = UserFile.objects.get(uid = uid)
+	title = fileObj.title
+	notes = fileObj.notes
+	[filepath, filename] = fileObj.file.name.rsplit('/', 1)
+	filepath = MEDIA_ROOT + filepath + "/"
 	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
 	
 	if os.path.isfile(resultfile):
@@ -202,18 +171,9 @@ def displaysummary(request):
 
 # tab to display information about bookmarks in document
 
-def displaybookmark(request):
-	user = request.user
-	auth = user.is_authenticated()
-	if user.is_authenticated():
-		filepath =  user.get_profile().filepath
-		currentPage = "reports"
-	else:
-		currentPage = "upload"
-		filepath =  MEDIA_ROOT + 'public/'
+def displaybookmark(request, uid):
 	currentTab = "bm"
-	filename =  request.session['parsed_pdf']
-	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
+	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []

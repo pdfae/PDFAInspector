@@ -24,8 +24,7 @@ def upload (request):
 				if auth:
 					return HttpResponseRedirect('/accounts/profile/managereports/')
 				else:
-					file = filename
-					return render_to_response("upload/processing.html", locals())
+					return render_to_response("upload/processing.html", {"uid": fileObj.uid})
 		else:
 			message = "Not a PDF file"
 	form = uploadfileform()

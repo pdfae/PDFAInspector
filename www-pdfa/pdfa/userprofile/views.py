@@ -5,6 +5,7 @@ from settings import *
 from django.contrib.auth.decorators import login_required
 import os, re
 from forms import userChangeForm
+from upload.models import UserFile
 
 # profile homepage
 @login_required
@@ -25,14 +26,7 @@ def managereports(request):
 	auth = True
 	currentPage = "reports"
 	user = request.user
-	file_list = os.listdir(user.get_profile().filepath)
-	regex = re.compile('json-.*.json')
-	json_file_list = []
-	for f in file_list:
-		if regex.match(f):
-			f = f.replace('json-', '')
-			f = f.replace('.json', '') + ".pdf"
-			json_file_list.append(f)
+	file_list = UserFile.objects.filter(owner = user.username)
 	return render_to_response("userprofile/reports.html", locals())
 
 # manage rules
