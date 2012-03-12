@@ -53,7 +53,7 @@ def change(request):
 			request.user.last_name = form.cleaned_data['last_name']
 			request.user.email = form.cleaned_data['email']
 			request.user.save()
-			return HttpResponseRedirect('/accounts/profile/')
+			return HttpResponseRedirect('/accounts/profile/accountinfo')
 	else:
 		data = {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'email': request.user.email}
 		form = userChangeForm(data)
