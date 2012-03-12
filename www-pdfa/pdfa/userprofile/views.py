@@ -47,7 +47,7 @@ def change(request):
 	auth = 'true'
 	currentPTab = "info"
 	if (request.method=="POST"):
-		form = userChangeForm(request.POST)
+		form = userChangeForm(request.POST, initial={'e-mail': request.user.email})
 		if form.is_valid():
 			request.user.first_name = form.cleaned_data['first_name']
 			request.user.last_name = form.cleaned_data['last_name']
