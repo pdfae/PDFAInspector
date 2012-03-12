@@ -11,6 +11,7 @@ class DocumentMustBeTagged(Rules.Rule):
 	title    = "Documents Must Be Tagged"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
+	category = Rules.Categories.DocumentLevel
 
 	@staticmethod
 	def applies(tag):
@@ -29,6 +30,7 @@ class ThisImageIsAnImage(Rules.Rule):
 	title    = "Images Must Be Images"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
+	category = Rules.Categories.Images
 
 	@staticmethod
 	def applies(tag):
@@ -47,6 +49,7 @@ class ImagesMustHaveAltText(Rules.Rule):
 	title    = "Images Must Have Alt-Text"
 	severity = Rules.Violation
 	wcag_id  = "7.1"
+	category = Rules.Categories.Images
 
 	@staticmethod
 	def applies(tag):
@@ -67,6 +70,7 @@ class FormElementsMustHaveNames(Rules.Rule):
 	title    = "Form Elements Must Have Names"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
+	category = Rules.Categories.Forms
 	
 	@staticmethod
 	def applies(tag):
@@ -87,6 +91,7 @@ class FormElementsMustHaveTooltips(Rules.Rule):
 	title    = "Form Elements Must Have Tooltips"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
+	category = Rules.Categories.Forms
 
 	@staticmethod
 	def applies(tag):
