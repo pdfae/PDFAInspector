@@ -20,31 +20,54 @@ class DocumentMustBeTagged(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		if len(tag.content) > 0:
-			return (Rules.Pass, "The document has tags", [])
-		return (Rules.Violation, "The document has no tags", [])
+			return (Rules.Pass, "Document contains tags", [])
+		return (Rules.Violation, "Document does not contain tags", [])
 
-class ThisImageIsAnImage(Rules.Rule):
+class DocumentShouldBeTitled(Rules.Rule):
 	"""
-		If it's an image, it passes!
+		A document should have a title.
 	"""
-	title    = "Images Must Be Images"
+	title    = "Documents Should Be Titled"
+	severity = Rules.Warning
+	wcag_id  = "n/a"
+	category = Rules.Categories.DocumentLevel
+
+	@staticmethod
+	def applies(tag):
+		"""Applies to any document"""
+		return (tag.tagName == "Metadata")
+
+	@staticmethod
+	def validation(tag):
+		for child in tag.content:
+			if child.tagName == "Title":
+				return (Rules.Pass, "Document has a title", [])
+		return (Rules.Warning, "Document does not have a title", [])
+
+class LinksMustHaveAltText(Rules.Rule):
+	"""
+		A link must contain alternative text.
+	"""
+	title    = "Links Must Have Alt-Text"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
-	category = Rules.Categories.Images
+	category = Rules.Categories.Links
 
 	@staticmethod
 	def applies(tag):
 		""" Only applies to images """
-		return (tag.tagName in Rules.TagTypes.Image and (tag.parent and tag.parent.tagName != 'Images'))
+		return (tag.tagName in Rules.TagTypes.Link)
 
 	@staticmethod
 	def validation(tag):
-		# It's an image!
-		return (Rules.Pass, "Is an image.", [])
+		for attr in tag.attributes:
+			if attr.has_key("Alt"):
+				return (Rules.Pass, "Has alt-text", [])
+		return (Rules.Violation, "Does not have alt-text", [])
 
 class ImagesMustHaveAltText(Rules.Rule):
 	"""
-		If it's an image, it must have alt-text.
+		Images must contain alternative text.
 	"""
 	title    = "Images Must Have Alt-Text"
 	severity = Rules.Violation

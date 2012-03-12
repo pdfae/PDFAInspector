@@ -36,7 +36,8 @@ class TagTypes():
 	Inline = ["BibEntry","Quote","Span"]
 	Image = ["Figure"]
 	Form = ["Form"]
-	SpecialInline = ["Code","Formula","Link","Note","Reference"]
+	Link = ["Link"]
+	SpecialInline = ["Code","Formula","Note","Reference"]
 
 
 class Rule():
