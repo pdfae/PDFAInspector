@@ -44,6 +44,29 @@ class DocumentShouldBeTitled(Rules.Rule):
 				return (Rules.Pass, "Document has a title", [])
 		return (Rules.Warning, "Document does not have a title", [])
 
+class TagsShouldConformToAdobeStandards(Rules.Rule):
+	"""
+		Tags that do not conform to Adobe's tag standards may not be evaluated properly.
+	"""
+	title    = "Tags Should Conform To Adobe Standards"
+	severity = Rules.Warning
+	wcag_id  = "n/a"
+	category = Rules.Categories.DocumentLevel
+
+	@staticmethod
+	def applies(tag):
+		"""Applies to any tag"""
+		while not tag.parent == None:
+			if tag.tagName == "tags" and tag.parent.tagName == "PdfInfo":
+				return True
+			tag = tag.parent
+		return False
+	@staticmethod
+	def validation(tag):
+		if tag.tagName in Rules.TagTypes.All:
+			return (Rules.Pass, "Tag matches Adobe standards", [])
+		return (Rules.Warning, "Tag does not match Adobe standards. It might not be tested by other rules.", [])
+
 class LinksMustHaveAltText(Rules.Rule):
 	"""
 		A link must contain alternative text.

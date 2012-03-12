@@ -38,6 +38,8 @@ class TagTypes():
 	Form = ["Form"]
 	Link = ["Link"]
 	SpecialInline = ["Code","Formula","Note","Reference"]
+	All = ["Document","Part","Div","Art","Sect","H1","H2","H3","H4","H5","H6","P","L","LI","LBL","LBody","Caption","BlockQuote","Index","TOC","TOCI","Table","TR","TD","TH","BibEntry","Quote","Span","Figure","Form","Link","Code","Formula","Note","Reference"]
+
 
 
 class Rule():
