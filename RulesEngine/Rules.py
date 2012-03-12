@@ -46,6 +46,7 @@ class Rule():
 	title = ""
 	severity = NotSet
 	wcag_id = ""
+	wcag_level = ""
 	@staticmethod
 	def applies(tag):
 		return False
