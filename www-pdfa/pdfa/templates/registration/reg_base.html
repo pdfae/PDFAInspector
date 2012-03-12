@@ -4,9 +4,9 @@
 			{% if auth = 'true' %}
 			<li><a href="/accounts/logout/">Log-Out</a></li>
 			{% else %}
-			<li><a href="/accounts/login/">Log-In</a></li>
+			<li class="current_page_item"><a href="/accounts/login/">Log-In</a></li>
 			{% endif %}			
-			<li {% if currentPage = "about"   %}class="current_page_item"{% endif %}><a href="/about/">About</a></li>
+			<li><a href="/about/">About</a></li>
 			<!--<li {% if currentPage = "upload"  %}class="current_page_item"{% endif %}><a href="/upload/">Upload</a></li>-->
-			<li {% if currentPage = "contact" %}class="current_page_item"{% endif %}><a href="/contact/">Contact</a></li>
+			<li><a href="/contact/">Contact</a></li>
 {% endblock %}
