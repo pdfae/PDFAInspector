@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 
-from defaults.views import home, about, contact
+from defaults.views import about, contact
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin

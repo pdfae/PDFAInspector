@@ -5,13 +5,22 @@ from django.contrib.auth.decorators import login_required
 import string as string
 import os
 import subprocess
+from models import UserFile
+from django.core.files.base import ContentFile
 
-def handle_file_form(request, base, auth, currentPage):
+def handle_file_form(request, auth, currentPage):
 	if (request.method=="POST"):
 		filename = str(request.FILES['file'])
 		if (filename.endswith('.pdf')):
 			form = uploadfileform(request.POST, request.FILES)
 			if form.is_valid():
+				#u = request.user
+				'''
+				u = UserFile(owner = request.user.username)
+				u.filename.save(request.FILES['file'].name, ContentFile(request.FILES['file'].read()))
+				u.save()
+				'''
+				
 				handle_uploaded_file(request.FILES['file'], request.user)
 				process_file(request.FILES['file'], request.user)
 				if request.user.is_authenticated():

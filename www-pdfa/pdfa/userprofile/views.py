@@ -9,8 +9,8 @@ from forms import userChangeForm
 # profile homepage
 @login_required
 def profile(request):
-	auth = 'true'
-	currentPTab = "info"
+	auth = True
+	currentPage = "account"
 	username = request.user.username
 	first_name = request.user.first_name
 	last_name = request.user.last_name
@@ -22,8 +22,8 @@ def profile(request):
 # manage reports
 @login_required
 def managereports(request):
-	auth = 'true'
-	currentPTab = "reports"
+	auth = True
+	currentPage = "reports"
 	user = request.user
 	file_list = os.listdir(user.get_profile().filepath)
 	regex = re.compile('json-.*.json')
@@ -38,14 +38,14 @@ def managereports(request):
 # manage rules
 @login_required
 def managerules(request):
-	auth = 'true'
+	auth = True
 	currentPTab = "rules"
 	return render_to_response("userprofile/rules.html", locals())
 	
 @login_required
 def change(request):
-	auth = 'true'
-	currentPTab = "info"
+	auth = True
+	currentPage = "account"
 	if (request.method=="POST"):
 		form = userChangeForm(request.POST)
 		if form.is_valid():
@@ -55,5 +55,6 @@ def change(request):
 			request.user.save()
 			return HttpResponseRedirect('/accounts/profile/')
 	else:
-		form = userChangeForm()
+		data = {'first_name': request.user.first_name, 'last_name': request.user.last_name, 'email': request.user.email}
+		form = userChangeForm(data)
 		return render_to_response("userprofile/change.html", locals(), context_instance=RequestContext(request))
