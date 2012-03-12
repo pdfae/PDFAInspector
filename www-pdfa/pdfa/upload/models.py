@@ -15,8 +15,8 @@ def content_file_name(instance, filename):
 class UserFile(models.Model):
     uid = models.CharField(max_length = 40, editable = False, unique = True)    
     owner = models.CharField(max_length = 30, editable = False)
-    filename = models.FileField(upload_to = content_file_name)
+    file = models.FileField(upload_to = content_file_name)
     title = models.CharField(max_length = 130)
     notes = models.CharField(max_length = 2000)
     def __unicode__(self):
-        return unicode(self.owner)
+        return "Id: " + self.uid + " Owner: " + self.owner + " Title: " + self.title + " Notes: " + self.notes
