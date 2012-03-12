@@ -26,6 +26,6 @@ urlpatterns = patterns('',
     (r'^about', about),
     (r'^contact', contact),
     #(r'', home),
-    (r'', upload),
+    (r'', include('upload.urls')),
     
 )
