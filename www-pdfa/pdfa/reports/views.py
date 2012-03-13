@@ -126,7 +126,35 @@ def displayheaders(request, uid):
 	return render_to_response("reports/headerview.html", locals())
 
 # tab to display information about headers in document
+def displaysummary(request, uid):
+	 currentTab = "summary"
+    	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+    
+    	if os.path.isfile(parsefile):
+        	filePointer = open(parsefile)
+        	data = json.load(filePointer)
+        	filePointer.close()
+        	tags = []
+        	searchNode(data, "tags", 0, tags)
+        	links = []
+        	searchNode(tags[0], "Link", 0, links)
+        	images = []
+        	searchNode(tags[0], "Figure", 0, images)
+        	forms = []
+        	tables = []
+        	searchNode(tags[0], "Table", 0, links)
+        	searchNode(data, "Form", 0, forms)
+        	numTags = countNode(tags[0])
+        	numForms = countNode(forms[0])
+        	numLinks = len(links)
+        	numImages = len(images)
+        	numTables = len(tables)
+        	
+        	return render_to_response("reports/summaryview.html", locals())
+    	else:
+        	return render_to_response("reports/summary_notfound.html", locals())
 
+'''
 def displaysummary(request, uid):
 	currentTab = "summary"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
@@ -158,7 +186,7 @@ def displaysummary(request, uid):
 		return render_to_response("reports/summaryview.html", locals())
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())
-
+'''
 # tab to display information about bookmarks in document
 
 def displaybookmark(request, uid):
