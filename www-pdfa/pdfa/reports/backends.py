@@ -216,7 +216,7 @@ def getFormOutput(parsefile, resultfile):
 	[lists, rule_list] = generateFormData(parsefile, resultfile)
 	if len(lists[0]) > 0:
 		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
-		for url, page, name, tooltip, rule, result in lists:
+		for url, page, name, tooltip, result in lists:
 			output += "<tr>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
