@@ -12,7 +12,7 @@ import os
 from backends import *
 import json
 from upload.models import UserFile
-from forms import notesupdateform
+from upload.forms import notesupdateform
 
 def setup(user, uid):
 	auth = user.is_authenticated()
