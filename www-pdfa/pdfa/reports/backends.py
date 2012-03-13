@@ -251,7 +251,7 @@ def getFormOutput(parsefile, resultfile):
 		output += "No form elements found"
 	return output
 
-def getImageOutput(parsefile, resultfile):
+def getImageOutput(parsefile, resultfile, uid):
 	output = ""
 	[lists, rule_list] = generateImageData(parsefile, resultfile)
 	
@@ -261,7 +261,7 @@ def getImageOutput(parsefile, resultfile):
 			output += "<tr>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-			output += "<a href = \"/reports/{{uid}}/treeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
+			output += "<a href = \"/reports/" + uid + "/treeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
 			output += "</td>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"

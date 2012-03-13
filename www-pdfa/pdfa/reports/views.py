@@ -81,7 +81,7 @@ def displayforms(request, uid):
 def displayimages(request, uid):
 	currentTab = "img"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-	output = getImageOutput(parsefile, resultfile)
+	output = getImageOutput(parsefile, resultfile, uid)
 	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about headers in document
