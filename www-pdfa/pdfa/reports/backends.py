@@ -195,7 +195,7 @@ def getFormOutput(parsefile, resultfile):
 			for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
 				output += "<tr>\n"
 				
-				output += "<td rowspan = \"" + len(result) + "\">\n"
+				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
 				output += unicode(url)
 				output += "</td>\n"
 				'''
