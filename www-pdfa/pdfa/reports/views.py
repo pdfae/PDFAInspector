@@ -152,7 +152,7 @@ def displaysummary(request, uid):
 					
 		output = []
 		output.append("<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
-		output.append("<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Links</center></td><td><center>" + unicode(numLinks) + "</center></td><td></td><td></td><td></td></tr>")
+		output.append("<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Links</center></td><td colspan="4"><center>" + unicode(numLinks) + "</center></td><td></td><td></td><td></td></tr>")
 		output.append("<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Image Tags</center></td><td><center>" + unicode(numImages) + "</center></td><td></td><td></td><td></td></tr>")
 		output.append("<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Form Elements</center></td><td><center>" + unicode(numForms) + "</center></td><td></td><td></td><td></td></tr>")
 		output.append("<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
