@@ -170,11 +170,12 @@ def getFormOutput(parsefile, resultfile):
 					tag_url = unicode(tag['tag'])
 					parsed_tag = tag_urls[tag_url]
 					attr = parsed_tag['attributes']
-					page = 0
 					if len(attr) > 0:
 						page = attr[0]['Page']
+					else:
+						page = 'not_known'
 					page_list.append(page)
-					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>' + unicode(parsed_tag) + '<br>'
+					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>' + unicode(parsed_tag) + '<br>' + unicode()
 				break
 	output += unicode(forms[0]) + "<br><br>"
 	
