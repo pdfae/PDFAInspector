@@ -129,7 +129,8 @@ def displayheaders(request, uid):
 def displaysummary(request, uid):
 	currentTab = "summary"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-    
+	output = ""
+    	
     	if os.path.isfile(parsefile):
     		
     		json_data = open (resultfile) #insert filepath of json result file
@@ -156,17 +157,23 @@ def displaysummary(request, uid):
 					
 		for test in tests:
 			if (test["category"]==0):
-				display0 = "hooray category 0 found"
+				output += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
+				output += "<td></td><td></td>"
 			if (test["category"]==1):
-				display1 = "hooray category 1 found"
+				output += "<br><br><b>Links:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
+				output += "<td></td><td></td>"
 			if (test["category"]==2):
-				display2 = "hooray category 2 found"
+				output += "<br><br><b>Images:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
+				output += "<td></td><td></td>"
 			if (test["category"]==3):
-				display3 = "hooray category 3 found"
+				output += "<br><br><b>Forms:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
+				output += "<td></td><td></td>"
 			if (test["category"]==4):
-				display4 = "hooray category 4 found"
+				output += "<br><br><b>Headers:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
+				output += "<td></td><td></td>"
 			if (test["category"]==5):
-				display5 = "hooray category 5 found"
+				output += "<br><br><b>Tables:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
+				output += "<td></td><td></td>"
     		
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
