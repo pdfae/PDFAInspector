@@ -192,13 +192,15 @@ def getFormOutput(parsefile, resultfile):
 				count +=1		
 		if len(url_list) > 0:
 			output = startTable(["Form URL","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
-			
+			output += endTable()
+			'''
 			for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
 				output += "<br><br>URL: " + unicode(url)
 				output += "<br>Page: " + unicode(page)
 				output += "<br>Name: " + unicode(name)
 				output += "<br>Tooltip: " + unicode(tooltip)
 				output += "<br>Result: " + unicode(result)
+			'''	
 		else:
 			output += "No form elements found"
 	'''
