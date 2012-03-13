@@ -198,6 +198,29 @@ def getFormOutput(parsefile, resultfile):
 				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
 				output += unicode(url)
 				output += "</td>\n"
+				
+				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+				output += unicode(page)
+				output += "</td>\n"
+				
+				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+				output += unicode(name)
+				output += "</td>\n"
+				
+				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+				output += unicode(tooltip)
+				output += "</td>\n"
+				
+				counter = 0
+				for rule in result:
+					if counter != 0:
+						output += "<tr>\n"
+					output += "<td>" + "Rule Name" + "</td>\n"
+					output += "<td>" + unicode(rule['result']) + "</td>\n"
+					output += "<td>" + unicode(rule['message']) + "</td>\n"
+					if counter != 0:
+						output += "</tr>\n"
+					counter += 1
 				'''
 				output += "<br><br>URL: " + unicode(url)
 				output += "<br>Page: " + unicode(page)
