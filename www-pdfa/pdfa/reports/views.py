@@ -112,11 +112,11 @@ def displaysummary(request, uid):
 	if (request.method=="POST"):
 		form = notesupdateform(request.POST)
 		if form.is_valid():
-			request.file.notes = form.cleaned_data['notes']
+			request.file.notes = notes
 			request.file.save()
 
 	else:
-		data = {'notes': request.file.notes}
+		data = {'notes': notes}
 		form = notesupdateform(data)
 
 
