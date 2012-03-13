@@ -163,9 +163,9 @@ def displaysummary(request, uid):
 					numFail=0
 					for tag in test["tags"]:
 						if (tag["result"]==1):
-							numPass++;
+							numPass+=1;
 						elif (tag["result"])==0:
-							numFail++;
+							numFail+=1;
 					if (numFail==0):
 						output += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "pass" + "</center></td>"
 					elif (numFail>0):
