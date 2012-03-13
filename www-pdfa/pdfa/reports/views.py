@@ -160,7 +160,7 @@ def displaysummary(request, uid):
 				output += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Rule Title</th><th>Result</th></tr>"
 				if (len(test["tags"])) >= 1:
 					for tag in test["tags"]:
-						output += "<td>" + tag.message + "</td>" + "<td>" + tag.result + "</td>"
+						output += "<td>" + tag["message"] + "</td>" + "<td>" + tag["result"] + "</td>"
 				
 				output += "</table>"
 			
