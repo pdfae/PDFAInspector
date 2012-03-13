@@ -106,31 +106,28 @@ def displayheaders(request, uid):
 def displaysummary(request, uid):
 	currentTab = "summary"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	
-	file = fileObj.file
-	
+
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
-    		filePointer = open(parsefile)
-        	data = json.load(filePointer)
-        	filePointer.close()
-        	tags = []
-        	searchNode(data, "tags", 0, tags)
-        	links = []
-        	searchNode(tags[0], "Link", 0, links)
-        	images = []
-        	searchNode(tags[0], "Figure", 0, images)
-        	forms = []
-        	tables = []
-        	searchNode(tags[0], "Table", 0, links)
-        	searchNode(data, "Form", 0, forms)
-        	numTags = countNode(tags[0])
-        	numForms = countNode(forms[0])
-        	numLinks = len(links)
-        	numImages = len(images)
-        	numTables = len(tables)
-        	numHeaders = 0 #ask how this is to be done
-    	
-    		json_data = open (resultfile) #insert filepath of json result file
+		filePointer = open(parsefile)
+		data = json.load(filePointer)
+		filePointer.close()
+		tags = []
+		searchNode(data, "tags", 0, tags)
+		links = []
+		searchNode(tags[0], "Link", 0, links)
+		images = []
+		searchNode(tags[0], "Figure", 0, images)
+		forms = []
+		tables = []
+		searchNode(tags[0], "Table", 0, links)
+		searchNode(data, "Form", 0, forms)
+		numTags = countNode(tags[0])
+		numForms = countNode(forms[0])
+		numLinks = len(links)
+		numImages = len(images)
+		numTables = len(tables)
+		numHeaders = 0 #ask how this is to be done
+		json_data = open (resultfile) #insert filepath of json result file
 		data = json.load(json_data)
 		tests = (data["results"])
 		json_data.close()
@@ -151,13 +148,51 @@ def displaysummary(request, uid):
 					rfail=rfail+1
 				elif (tag["result"]==4):
 					rinspect=rinspect+1
+		
+		rules = {}
+		for test in tests:
+			rules[test["category"]] = True
+		
 		output = []
-		output.append("<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
-		output.append("<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Links</center></td><td colspan=\"4\"><center>" + unicode(numLinks) + "</center></td></tr>")
-		output.append("<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Image Tags</center></td><td colspan=\"4\"><center>" + unicode(numImages) + "</center></td></tr>")
-		output.append("<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Form Elements</center></td><td colspan=\"4\"><center>" + unicode(numForms) + "</center></td></tr>")
-		output.append("<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Header Elements</center></td><td colspan=\"4\"><center>Not Implemented</center></td></tr>")
-		output.append("<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Table Elements</center></td><td colspan=\"4\"><center>" + unicode(numTables) + "</center></td></tr>")
+		output.append("<b>Document Level Rules:</b><br>\n")
+		output.append("<b>Links:</b><br>\n")
+		output.append("<b>Images:</b><br>\n")
+		output.append("<b>Forms:</b><br>\n")
+		output.append("<b>Headers:</b><br>\n")
+		output.append("<b>Tables:</b><br>\n")
+		if numLinks == 0:
+			output[1] += "<b>No link tags found</b><br>\n"
+			rules[1] = False
+		else:
+			output[1] += "<b>Number of links: " + unicode(numLinks) + "</b><br>\n"	
+		if numImages == 0:
+			output[2] += "<b>No image tags found</b><br>\n"
+			rules[2] = False
+		else:
+			output[2] += "<b>Number of images: " + unicode(numImages) + "</b><br>\n"
+		if numForms == 0:
+			output[3] += "<b>No form elements found</b><br>\n"
+			rules[3] = False
+		else:
+			output[3] += "<b>Number of forms: " + unicode(numForms) + "</b><br>\n"
+		output[4] += "<b>Not yet implemented</b><br>\n"
+		rules[4] = False	
+		if numTables == 0:
+			output[5] += "<b>No table tags found</b><br>\n"
+			rules[5] = False
+		else:
+			output[5] += "<b>Number of tables: " + unicode(numTables) + "</b><br>\n"
+		
+		print rules
+		
+		for r in rules:
+			if rules[r]:
+				output[r] += "<table class = \"fancy\">\n<tr>\n"
+				output[r] += "<th>Title</th>\n"
+				output[r] += "<th>Pass</th>\n"
+				output[r] += "<th>Fail</th>\n"
+				output[r] += "<th>Warning</th>\n"
+				output[r] += "<th>Manual Inspection</th>\n</tr>\n"
 		
 		for test in tests:
 			i = test["category"]
@@ -176,31 +211,28 @@ def displaysummary(request, uid):
 					elif (tag["result"])==4:
 						numInsp+=1
 				output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td></tr>"
-			elif (len(test["tags"])) == 0:
-				output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td colspan=\"4\"><center>" + "Not Run On Any Tags" + "</center></td></tr>"
-			
+				
 		output[0] += "</table><br><br>"
 		output[1] += "</table><br><br>"
 		output[2] += "</table><br><br>"
 		output[3] += "</table><br><br>"
 		output[4] += "</table><br><br>"
 		output[5] += "</table><br><br>"
-        
-        	'''
-        	if (request.method=="POST"):
+		
+			
+		if (request.method=="POST"):
 			form = notesupdateform(request.POST)
 			if form.is_valid():
-				request.file.notes = notes
-				request.file.save()
-
+				fileObj = UserFile.objects.get(uid = uid)
+				fileObj.notes = notes
+				fileObj.save()
 		else:
 			data = {'notes': notes}
 			form = notesupdateform(data)
-		'''
-        
-        	return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
-    	else:
-        	return render_to_response("reports/summary_notfound.html", locals())
+
+		return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
 # tab to display information about bookmarks in document
 
