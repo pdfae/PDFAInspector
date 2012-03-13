@@ -178,7 +178,6 @@ def displaysummary(request, uid):
 				elif (len(test["tags"])) == 0:
 					output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
 			
-		
 		output0 += "</table><br><br>"
 		output1 += "</table><br><br>"
 		output2 += "</table><br><br>"
@@ -187,25 +186,8 @@ def displaysummary(request, uid):
 		output5 += "</table><br><br>"
 			
 		output = output0 + output1 + output2 + output3 + output4 + output5	
-			'''
-			if (test["category"]==1):
-				output += "<br><br><b>Links:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
-				output += "<td></td><td></td></table>"
-			if (test["category"]==2):
-				output += "<br><br><b>Images:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
-				output += "<td></td><td></td></table>"
-			if (test["category"]==3):
-				output += "<br><br><b>Forms:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
-				output += "<td></td><td></td></table>"
-			if (test["category"]==4):
-				output += "<br><br><b>Headers:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
-				output += "<td></td><td></td></table>"
-			if (test["category"]==5):
-				output += "<br><br><b>Tables:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
-				output += "<td></td><td></td></table>"
-    			'''
-    		
-    		filePointer = open(parsefile)
+		
+		filePointer = open(parsefile)
         	data = json.load(filePointer)
         	filePointer.close()
         	tags = []
