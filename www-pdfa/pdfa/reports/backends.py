@@ -147,8 +147,7 @@ def writeNodeContent (node, depth=0):
 	output += "</div>"
 	return output
 
-def getFormOutput(parsefile, resultfile):	
-	output = ""
+def generateFormData(parsefile, resultfile):
 	if os.path.isfile(parsefile):
 		filePointer = open(parsefile)
 		parsedata = json.load(filePointer)
@@ -189,42 +188,47 @@ def getFormOutput(parsefile, resultfile):
 					result_list.append([])	
 					result_list[tag_count].append(tag)
 					tag_count += 1	
-				count +=1		
-		if len(url_list) > 0:
-			output += startTable(["Type","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
-			for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
-				output += "<tr>\n"
+				count +=1
+	return zip(url_list, page_list, name_list, tooltip_list, result_list)			
+
+def getFormOutput(parsefile, resultfile):	
+	output = ""
+	lists = generateFormData(parsefile, resultfile)
+	if len(lists[0]) > 0:
+		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
+		for url, page, name, tooltip, result in lists:
+			output += "<tr>\n"
 				
-				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-				output += unicode(url.split(':')[-1]) + "<br>" + unicode(url)
-				output += "</td>\n"
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(url.split(':')[-1]) + "<br>" + unicode(url)
+			output += "</td>\n"
 				
-				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-				output += unicode(page)
-				output += "</td>\n"
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(page)
+			output += "</td>\n"
 				
-				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-				output += unicode(name)
-				output += "</td>\n"
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(name)
+			output += "</td>\n"
 				
-				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-				output += unicode(tooltip)
-				output += "</td>\n"
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(tooltip)
+			output += "</td>\n"
 				
-				counter = 0
-				for rule in result:
-					if counter != 0:
-						output += "<tr>\n"
-					output += "<td>" + "Rule Name" + "</td>\n"
-					output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
-					output += "<td>" + unicode(rule['message']) + "</td>\n"
-					if counter != 0:
-						output += "</tr>\n"
-					counter += 1
-				output += "</tr>\n"
-			output += endTable()	
-		else:
-			output += "No form elements found"
+			counter = 0
+			for rule in result:
+				if counter != 0:
+					output += "<tr>\n"
+				output += "<td>" + "Rule Name" + "</td>\n"
+				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
+				output += "<td>" + unicode(rule['message']) + "</td>\n"
+				if counter != 0:
+					output += "</tr>\n"
+				counter += 1
+			output += "</tr>\n"
+		output += endTable()	
+	else:
+		output += "No form elements found"
 	return output
 
 def startTable(header_list):
