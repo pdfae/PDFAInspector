@@ -214,7 +214,7 @@ def generateImageData(parsefile, resultfile):
 def getFormOutput(parsefile, resultfile):	
 	output = ""
 	[lists, rule_list] = generateFormData(parsefile, resultfile)
-	if len(lists[0]) > 0:
+	if len(lists) > 0 and len(lists[0]) > 0:
 		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
 		for url, page, name, tooltip, result in lists:
 			output += "<tr>\n"
@@ -254,7 +254,8 @@ def getFormOutput(parsefile, resultfile):
 def getImageOutput(parsefile, resultfile):
 	output = ""
 	[lists, rule_list] = generateImageData(parsefile, resultfile)
-	if len(lists[0]) > 0:
+	
+	if len(lists) > 0 and len(lists[0]) > 0:
 		output += startTable(["Image","Page", "Alt text", "Rule", "Result", "Message"])
 		for url, page, alt, result in lists:
 			output += "<tr>\n"
