@@ -162,6 +162,7 @@ def getFormOutput(parsefile, resultfile):
 		resultdata = json.load(filePointer)
 		filePointer.close()
 		page_list = []
+		name_list = []
 		tooltip_list = []
 		for result in resultdata['results']:
 			if result['category'] == 3:
@@ -170,14 +171,26 @@ def getFormOutput(parsefile, resultfile):
 					tag_url = unicode(tag['tag'])
 					parsed_tag = tag_urls[tag_url]
 					attr = parsed_tag['attributes']
+					content = parsed_tag['content']
 					if len(attr) > 0:
 						page = attr[0]['Page']
 					else:
-						page = 'not_known'
+						page = 'Unknown'
+					[name, tooltip] = getNameTooltip(content)
 					page_list.append(page)
-					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>' + unicode(parsed_tag) + '<br>' + unicode()
+					name_list.append(name)
+					tooltip_list.append(tooltip)
+					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
 				break
-	output += unicode(forms[0]) + "<br><br>"
-	
-
+	output += unicode(page_list) + '<br>' + unicode(name_list) + '<br>' + unicode(tooltip_list) + '<br>' + unicode(forms[0]) + "<br><br>"
 	return output
+
+def getNameTooltip(content):
+	name = "Unknown"
+	tooltip = "Unknown"
+	for tag in content:
+		if (tag['tagName'] == 'Name'):
+			name = tag['content']
+		if (tag['tagName'] == 'Tooltip'):
+			tooltip = tag['content']	
+	return [name, tooltip]	
