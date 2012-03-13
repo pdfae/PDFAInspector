@@ -157,8 +157,16 @@ def displaysummary(request, uid):
 		for test in tests:
 			if (test["category"]==0):
 				display0 = "hooray category 0 found"
-			elif (test["category"]==1):
+			if (test["category"]==1):
 				display1 = "hooray category 1 found"
+			if (test["category"]==2):
+				display2 = "hooray category 2 found"
+			if (test["category"]==3):
+				display3 = "hooray category 3 found"
+			if (test["category"]==4):
+				display4 = "hooray category 4 found"
+			if (test["category"]==5):
+				display5 = "hooray category 5 found"
     		
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
