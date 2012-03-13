@@ -13,8 +13,6 @@ from backends import *
 import json
 from upload.models import UserFile
 
-
-
 def setup(user, uid):
 	auth = user.is_authenticated()
 	if auth:
@@ -27,12 +25,15 @@ def setup(user, uid):
 	[filepath, filename] = fileObj.file.name.rsplit('/', 1)
 	filepath = MEDIA_ROOT + filepath + "/"
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
-	return [auth, currentPage, parsefile, title, notes]
+	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
+	return [auth, currentPage, parsefile, resultfile, title, notes]
+
+
 
 # tab to display tree view
 def displaytreeview(request, uid):
 	currentTab = "tree"
-	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
@@ -50,7 +51,7 @@ def displaytreeview(request, uid):
 
 def displaytables(request, uid):
 	currentTab = "tbl"
-	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)	
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)	
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
@@ -71,7 +72,7 @@ def displaytables(request, uid):
 
 def displayforms(request, uid):
 	currentTab = "form"
-	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	#cnode = parsespecific(parsefile, "Form")
 	result = open(parsefile)
 	base = json.loads(result.read())
@@ -86,7 +87,7 @@ def displayforms(request, uid):
 
 def displayimages(request, uid):
 	currentTab = "img"
-	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	cnode = parsespecific(parsefile, "Images")
 	content = cnode["content"]
 	
@@ -107,7 +108,7 @@ def displayimages(request, uid):
 
 def displayheaders(request, uid):
 	currentTab = "head"
-	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	json_data = open (parsefile)
 	data = json.load(json_data)
 	cnode = data["content"]
@@ -128,18 +129,7 @@ def displayheaders(request, uid):
 
 def displaysummary(request, uid):
 	currentTab = "summary"
-	auth = request.user.is_authenticated()
-	if auth:
-		currentPage = "reports"
-	else:
-		currentPage = "upload"
-	fileObj = UserFile.objects.get(uid = uid)
-	title = fileObj.title
-	notes = fileObj.notes
-	[filepath, filename] = fileObj.file.name.rsplit('/', 1)
-	filepath = MEDIA_ROOT + filepath + "/"
-	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
-	
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	if os.path.isfile(resultfile):
 		json_data = open (resultfile) #insert filepath of json result file
 		data = json.load(json_data)
@@ -173,7 +163,7 @@ def displaysummary(request, uid):
 
 def displaybookmark(request, uid):
 	currentTab = "bm"
-	[auth, currentPage, parsefile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
