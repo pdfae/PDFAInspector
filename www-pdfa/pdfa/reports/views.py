@@ -232,15 +232,13 @@ def displaybookmark(request, uid):
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
-	searchNode(base, "Bookmarks", 0, nodes)
+	searchNode(base, "tags", 0, nodes)
+
 	output = '<a href="javascript:check_all()">Expand All</a>'
 	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
 	output += "<div class=\"css-treeview\">"
 	for node in nodes:
-		output += writeNode2(node)
+		output += writeNode2(base, "Bookmarks")
 	output += "</div>"
-	#cnode = parsespecific(parsefile, "Bookmarks")
-	#content = cnode["content"]
-	content = []
-	return render_to_response("reports/bookmarkview.html", locals())
+	return render_to_response("reports/treeview.html", locals())
 
