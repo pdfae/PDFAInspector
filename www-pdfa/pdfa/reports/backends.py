@@ -161,6 +161,8 @@ def getFormOutput(parsefile, resultfile):
 		filePointer = open(resultfile)
 		resultdata = json.load(filePointer)
 		filePointer.close()
+		page_list = []
+		tooltip_list = []
 		for result in resultdata['results']:
 			if result['category'] == 3:
 				#output += unicode(result) + "<br><br>"
@@ -171,7 +173,8 @@ def getFormOutput(parsefile, resultfile):
 					page = 0
 					if len(attr) > 0:
 						page = attr[0]['Page']
-					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>'
+					page_list.append(page)
+					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>' + unicode(parsed_tag) + '<br>'
 				break
 	output += unicode(forms[0]) + "<br><br>"
 	
