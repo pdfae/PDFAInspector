@@ -173,7 +173,7 @@ def getFormOutput(parsefile, resultfile):
 						page = attr[0]['Page']
 					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>'
 		
-	output += unicode(parsedata) + "<br><br>"
+	output += unicode(forms[0]) + "<br><br>"
 	
 
 	return output
