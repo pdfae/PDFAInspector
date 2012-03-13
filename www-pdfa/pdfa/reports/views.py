@@ -73,7 +73,7 @@ def displaytables(request, uid):
 def displayforms(request, uid):
 	currentTab = "form"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-	output = getFormOutput(parsefile, resultfile)
+	output = getFormOutput(parsefile, resultfile, uid)
 	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about images in document
@@ -245,5 +245,5 @@ def displaybookmark(request, uid):
 def displaylinks(request, uid):
 	currentTab = "links"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-	output = getLinkOutput(parsefile, resultfile)
+	output = getLinkOutput(parsefile, resultfile, uid)
 	return render_to_response("reports/formview.html", locals())

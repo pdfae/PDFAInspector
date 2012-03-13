@@ -211,7 +211,7 @@ def generateImageData(parsefile, resultfile):
 				count +=1
 	return [zip(url_list, page_list, alt_list, result_list), rule_list]			
 
-def getFormOutput(parsefile, resultfile):	
+def getFormOutput(parsefile, resultfile, uid):	
 	output = ""
 	[lists, rule_list] = generateFormData(parsefile, resultfile)
 	if len(lists) > 0 and len(lists[0]) > 0:
