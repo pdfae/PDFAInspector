@@ -34,7 +34,10 @@ Number of Tables: {{numTables}}<br>
 
 <br>
 <br>
-{{output}}
+{% autoescape on %}
+    {{output}}
+{% endautoescape %}
+
 
 {%comment%}
 <!--<b>Detailed Results:</b>
