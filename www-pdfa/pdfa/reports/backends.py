@@ -191,7 +191,7 @@ def getFormOutput(parsefile, resultfile):
 					tag_count += 1	
 				count +=1		
 		
-		for url, page, name, tooltip, result in zip(url, page_list, name_list, tooltip_list, result_list):
+		for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
 			output += "<br><br>URL: " + url
 			output += "<br>Page: " + page
 			output += "<br>Name: " + name
