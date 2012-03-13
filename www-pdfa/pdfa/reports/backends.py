@@ -192,11 +192,11 @@ def getFormOutput(parsefile, resultfile):
 				count +=1		
 		
 		for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
-			output += "<br><br>URL: " + url
-			output += "<br>Page: " + page
-			output += "<br>Name: " + name
-			output += "<br>Tooltip: " + tooltip
-			output += "<br>Result: " + result
+			output += "<br><br>URL: " + unicode(url)
+			output += "<br>Page: " + unicode(page)
+			output += "<br>Name: " + unicode(name)
+			output += "<br>Tooltip: " + unicode(tooltip)
+			output += "<br>Result: " + unicode(result)
 		
 	#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'				
 	#output += unicode(url_list) + '<br><br>' + unicode(page_list) + '<br><br>' + unicode(name_list) + '<br><br>' + unicode(tooltip_list) + '<br><br>' + unicode(result_list) + "<br><br>"
@@ -208,7 +208,7 @@ def getNameTooltip(content):
 	tooltip = "Unknown"
 	for tag in content:
 		if (tag['tagName'] == 'Name'):
-			name = tag['content']
+			name = tag['content'][0]
 		if (tag['tagName'] == 'Tooltip'):
-			tooltip = tag['content']	
+			tooltip = tag['content'][0]	
 	return [name, tooltip]	
