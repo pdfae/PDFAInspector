@@ -152,11 +152,34 @@ def displaysummary(request, uid):
 					
 		output = []
 		output.append("<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
-		output.extend("<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Links</center></td><td colspan=\"4\"><center>" + unicode(numLinks) + "</center></td></tr>")
-		output.extend("<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Image Tags</center></td><td colspan=\"4\"><center>" + unicode(numImages) + "</center></td></tr>")
-		output.extend("<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Form Elements</center></td><td colspan=\"4\"><center>" + unicode(numForms) + "</center></td></tr>")
-		output.extend("<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
-		output.extend("<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Table Elements</center></td><td colspan=\"4\"><center>" + unicode(numTables) + "</center></td></tr>")
+		output.append("<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Links</center></td><td colspan=\"4\"><center>" + unicode(numLinks) + "</center></td></tr>")
+		output.append("<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Image Tags</center></td><td colspan=\"4\"><center>" + unicode(numImages) + "</center></td></tr>")
+		output.append("<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Form Elements</center></td><td colspan=\"4\"><center>" + unicode(numForms) + "</center></td></tr>")
+		output.append("<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
+		output.append("<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Table Elements</center></td><td colspan=\"4\"><center>" + unicode(numTables) + "</center></td></tr>")
+		
+		
+		for test in tests:
+			i = test["category"]
+			if (len(test["tags"])) >= 1:
+				numPass=0
+				numFail=0
+				numWarn=0
+				numInsp=0
+				for tag in test["tags"]:
+					if (tag["result"]==1):
+						numPass+=1
+					elif (tag["result"])==2:
+						numFail+=1
+					elif (tag["result"])==3:
+						numWarn+=1
+					elif (tag["result"])==4:
+						numInsp+=1
+				output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td></tr>"
+			elif (len(test["tags"])) == 0:
+				output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td colspan=\"4\"><center>" + "Not Run On Any Tags" + "</center></td></tr>"
+			
+		'''
 		for test in tests:
 			for i in range (0, 5):
 				if (test["category"]==i):
@@ -177,7 +200,8 @@ def displaysummary(request, uid):
 						output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td></tr>"
 					elif (len(test["tags"])) == 0:
 						output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td colspan=\"4\"><center>" + "Not Run On Any Tags" + "</center></td></tr>"
-			
+		'''
+		
 		output[0] += "</table><br><br>"
 		output[1] += "</table><br><br>"
 		output[2] += "</table><br><br>"
