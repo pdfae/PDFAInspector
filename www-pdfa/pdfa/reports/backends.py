@@ -180,9 +180,10 @@ def getFormOutput(parsefile, resultfile):
 					page_list.append(page)
 					name_list.append(name)
 					tooltip_list.append(tooltip)
-					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
+					#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
 				break
-	output += unicode(page_list) + '<br>' + unicode(name_list) + '<br>' + unicode(tooltip_list) + '<br>' + unicode(forms[0]) + "<br><br>"
+	#output += unicode(page_list) + '<br>' + unicode(name_list) + '<br>' + unicode(tooltip_list) + '<br>' + unicode(forms[0]) + "<br><br>"
+	output += unicode(resultdata['results'])
 	return output
 
 def getNameTooltip(content):
