@@ -170,7 +170,7 @@ def getFormOutput(parsefile, resultfile):
 		for result in resultdata['results']:
 			if result['category'] == 3:
 				#output += unicode(result) + "<br><br>"
-				tag_result_list =[]
+				tag_count = 0
 				for tag in result['tags']:
 					if count == 0:
 						tag_url = unicode(tag['tag'])
@@ -186,7 +186,8 @@ def getFormOutput(parsefile, resultfile):
 						page_list.append(page)
 						name_list.append(name)
 						tooltip_list.append(tooltip)
-					result_list[count].append(tag)	
+					result_list[tag_count].append(tag)
+					tag_count += 1	
 				count +=1		
 	
 	#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
