@@ -34,9 +34,11 @@ Number of Tables: {{numTables}}<br>
 
 <br>
 <br>
+{%for i in range(len(output))%}
 {% autoescape off %}
-    {{output}}
+    {{output[i]}}
 {% endautoescape %}
+{% endfor %}
 
 
 {%comment%}
