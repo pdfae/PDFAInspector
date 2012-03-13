@@ -186,8 +186,7 @@ def getFormOutput(parsefile, resultfile):
 						page_list.append(page)
 						name_list.append(name)
 						tooltip_list.append(tooltip)
-					tag_result_list.append(tag)	
-				result_list.append(tag_result_list)
+					result_list[count].append(tag)	
 				count +=1		
 	
 	#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
