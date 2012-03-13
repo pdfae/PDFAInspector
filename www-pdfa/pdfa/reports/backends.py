@@ -125,3 +125,6 @@ def writeNodeContent (node, depth=0):
 			output += "</i>\n"
 	output += "</div>"
 	return output
+
+def getFormOutput(parsefile, resultfile):
+	return ""

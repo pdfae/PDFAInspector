@@ -73,14 +73,7 @@ def displaytables(request, uid):
 def displayforms(request, uid):
 	currentTab = "form"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-	#cnode = parsespecific(parsefile, "Form")
-	result = open(parsefile)
-	base = json.loads(result.read())
-	nodes = []
-	searchNode(base, "Form", 0, nodes)
-	output = ""
-	for node in nodes:
-		output += writeNode(node)
+	output = getFormOutput(parsefile, resultfile)
 	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about images in document
@@ -263,3 +256,4 @@ def displaybookmark(request, uid):
 	#content = cnode["content"]
 	content = []
 	return render_to_response("reports/bookmarkview.html", locals())
+
