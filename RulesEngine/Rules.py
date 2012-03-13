@@ -18,6 +18,13 @@ class Categories():
 	Headers          = 4
 	Tables           = 5
 
+#WCAG Levels
+class WCAG():
+	NotSet = 0
+	A      = 1
+	AA     = 2
+	AAA    = 3
+
 # Rule tags
 class TagTypes():
 	Container = ["Document","Part","Div","Art","Sect"]
@@ -46,7 +53,7 @@ class Rule():
 	title = ""
 	severity = NotSet
 	wcag_id = ""
-	wcag_level = ""
+	wcag_level = WCAG.NotSet
 	@staticmethod
 	def applies(tag):
 		return False
