@@ -100,6 +100,8 @@ def process(json_object):
 		outNode['description'] = readable(rule.__doc__)
 		outNode['category'] = rule.category
 		outNode['tags'] = []
+		outNode['wcag_id'] = rule.wcag_id
+		outNode['wcag_level'] = rule.wcag_level
 		print >> sys.stderr, "Running rule `%s` with description `%s`..." % (rule._name, readable(rule.__doc__))
 		runRecursive(outNode, rule, inputTree)
 		outputTree['results'].append(outNode)
