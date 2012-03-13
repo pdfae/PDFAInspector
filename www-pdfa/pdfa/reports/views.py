@@ -105,10 +105,10 @@ def displayheaders(request, uid):
 def displaysummary(request, uid):
 	currentTab = "summary"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-	output = ""
-    	
-    	if os.path.isfile(parsefile):
-    		
+	
+	displayNotes = notes
+	
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
         	filePointer.close()
@@ -128,7 +128,7 @@ def displaysummary(request, uid):
         	numImages = len(images)
         	numTables = len(tables)
         	numHeaders = 0 #ask how this is to be done
-    		
+    	
     		json_data = open (resultfile) #insert filepath of json result file
 		data = json.load(json_data)
 		tests = (data["results"])
@@ -180,29 +180,6 @@ def displaysummary(request, uid):
 			elif (len(test["tags"])) == 0:
 				output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td colspan=\"4\"><center>" + "Not Run On Any Tags" + "</center></td></tr>"
 			
-		'''
-		for test in tests:
-			for i in range (0, 5):
-				if (test["category"]==i):
-					if (len(test["tags"])) >= 1:
-						numPass=0
-						numFail=0
-						numWarn=0
-						numInsp=0
-						for tag in test["tags"]:
-							if (tag["result"]==1):
-								numPass+=1
-							elif (tag["result"])==2:
-								numFail+=1
-							elif (tag["result"])==3:
-								numWarn+=1
-							elif (tag["result"])==4:
-								numInsp+=1
-						output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td></tr>"
-					elif (len(test["tags"])) == 0:
-						output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td colspan=\"4\"><center>" + "Not Run On Any Tags" + "</center></td></tr>"
-		'''
-		
 		output[0] += "</table><br><br>"
 		output[1] += "</table><br><br>"
 		output[2] += "</table><br><br>"
@@ -214,39 +191,6 @@ def displaysummary(request, uid):
     	else:
         	return render_to_response("reports/summary_notfound.html", locals())
 
-'''
-def displaysummary(request, uid):
-	currentTab = "summary"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-	if os.path.isfile(resultfile):
-		json_data = open (resultfile) #insert filepath of json result file
-		data = json.load(json_data)
-		tests = (data["results"])
-		json_data.close()
-		rtest=0
-		rpass=0
-		rwarning=0
-		rfail=0
-		rinspect=0
-		
-		for test in tests:
-			tags = test["tags"]
-			for tag in tags:
-				rtest=rtest+1
-				if (tag["result"]==1):
-					rpass=rpass+1
-				elif (tag["result"]==3):
-					rwarning=rwarning+1
-				elif (tag["result"]==2):
-					rfail=rfail+1
-				elif (tag["result"]==4):
-					rinspect=rinspect+1
-		
-		print tests
-		return render_to_response("reports/summaryview.html", locals())
-	else:
-		return render_to_response("reports/summary_notfound.html", locals())
-'''
 # tab to display information about bookmarks in document
 
 def displaybookmark(request, uid):
