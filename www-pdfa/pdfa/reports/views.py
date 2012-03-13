@@ -43,7 +43,7 @@ def displaytreeview(request, uid):
 	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
 	output += "<div class=\"css-treeview\">"
 	for node in nodes:
-		output += writeNode2(node)
+		output += writeNode2(base, "tags")
 	output += "</div>"
 	return render_to_response("reports/treeview.html", locals())
 

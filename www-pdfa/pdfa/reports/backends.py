@@ -1,5 +1,6 @@
 from django.shortcuts import *
 from settings import *
+import json
 from django.contrib.auth.decorators import login_required
 import os
 import uuid
@@ -60,30 +61,40 @@ def writeNode (node, depth=0):
 	output += "</div>"
 	return output
 
-def writeNode2 (node, depth=0):
-	print "depth =" + unicode(depth)
+def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = ''):
+	#print "depth =" + unicode(depth)
 	nodetag = node["tagName"]
-	print nodetag
+	url += unicode(count) + ":" + unicode(nodetag) 
+	#print nodetag
+	if (nodetag == tagName):
+		bool = True
 	uid = unicode(uuid.uuid4());
-	output = "<table class = \"fancy\"><tr><td><ul><li><input type=checkbox id=\""+uid+"\"/><label for=\""+uid+"\"><b>"+nodetag+"</b></label><ul><li>\n<i>\n"
-	
+	output = ""
+	if bool:
+		output += "<table class = \"fancy\"><tr><td><ul><li><input type=checkbox id=\""+uid+"\" checked=\"checked\"/><label for=\""+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label><ul><li>\n<i>\n"
+	url += "/"
 	attr = []
 	for i in node["attributes"]:
 		for j,k in i.iteritems():
 			attr.append(unicode(j) + "=" + unicode(k))
-	output += ", ".join(attr)
-	output += "</i></li>\n"
-	for i in node["content"]:
+	if bool:
+		output += ", ".join(attr)
+		output += "</i></li>\n"
+	count = 0
+	for i in node["content"]:	
 		if not isinstance(i, basestring) and not isinstance(i, int):
 			if i.has_key('text'):
 				print ""
-				output += "<li>" + unicode(i['text']) + "</li>"
+				if bool:
+					output += "<li>" + unicode(i['text']) + "</li>"
 			else:
-				output += writeNode2(i,depth+1)
+				output += writeNode2(i, tagName, bool, depth+1, count, url)
 		else:
-			output += "<li>" + unicode(i) + "</li>"
-			
-	output += "</ul></li></ul></td></tr></table>"
+			if bool:
+				output += "<li>" + unicode(i) + "</li>"
+		count += 1	
+	if bool:
+		output += "</ul></li></ul></td></tr></table>"
 	return output
 
 	
@@ -97,6 +108,16 @@ def searchNode (node, tagName, depth=0, a =[]):
 			if not isinstance(i, basestring) and not isinstance(i, int):
 				searchNode(i,tagName, depth+1, a)		
 
+def getNodes(node, count=0, dict = {}, url='#'):
+	nodetag = node["tagName"]
+	url += unicode(count) + ":" + unicode(nodetag)
+	dict[url] = node
+	url += "/"
+	count = 0
+	for i in node["content"]:
+		if not isinstance(i, basestring) and not isinstance(i, int):
+			getNodes(i, count, dict, url)
+		count += 1
 def countNode (node):
 	total = 0
 	for i in node["content"]:
@@ -126,5 +147,33 @@ def writeNodeContent (node, depth=0):
 	output += "</div>"
 	return output
 
-def getFormOutput(parsefile, resultfile):
-	return ""
+def getFormOutput(parsefile, resultfile):	
+	output = ""
+	if os.path.isfile(parsefile):
+		filePointer = open(parsefile)
+		parsedata = json.load(filePointer)
+		filePointer.close()
+		forms = []
+		searchNode(parsedata, "Form", 0, forms)
+		tag_urls = {}
+		getNodes(parsedata, 0, tag_urls)
+	if os.path.isfile(resultfile):
+		filePointer = open(resultfile)
+		resultdata = json.load(filePointer)
+		filePointer.close()
+		for result in resultdata['results']:
+			if result['category'] == 3:
+				output += unicode(result) + "<br><br>"
+				for tag in result['tags']:
+					tag_url = unicode(tag['tag'])
+					parsed_tag = tag_urls[tag_url]
+					attr = parsed_tag['attributes']
+					page = 0
+					if len(attr) > 0:
+						page = attr[0]['Page']
+					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>'
+		
+	output += unicode(parsedata) + "<br><br>"
+	
+
+	return output
