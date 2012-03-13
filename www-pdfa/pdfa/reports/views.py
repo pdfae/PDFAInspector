@@ -186,15 +186,15 @@ def displaysummary(request, uid):
 		output[4] += "</table><br><br>"
 		output[5] += "</table><br><br>"
         
-        if (request.method=="POST"):
-		form = notesupdateform(request.POST)
-		if form.is_valid():
-			request.fileObj.file.notes = notes
-			request.fileObj.file.save()
+        	if (request.method=="POST"):
+			form = notesupdateform(request.POST)
+			if form.is_valid():
+				request.fileObj.file.notes = notes
+				request.fileObj.file.save()
 
-	else:
-		data = {'notes': notes}
-		form = notesupdateform(data)
+		else:
+			data = {'notes': notes}
+			form = notesupdateform(data)
 
         
         
