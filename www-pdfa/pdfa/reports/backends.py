@@ -164,14 +164,14 @@ def getFormOutput(parsefile, resultfile):
 		for result in resultdata['results']:
 			if result['category'] == 3:
 				#output += unicode(result) + "<br><br>"
-				for tag in result['tags']:
-					tag_url = unicode(tag['tag'])
-					parsed_tag = tag_urls[tag_url]
-					attr = parsed_tag['attributes']
-					page = 0
-					if len(attr) > 0:
-						page = attr[0]['Page']
-					output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>'
+				tag = result['tags'][0]
+				tag_url = unicode(tag['tag'])
+				parsed_tag = tag_urls[tag_url]
+				attr = parsed_tag['attributes']
+				page = 0
+				if len(attr) > 0:
+					page = attr[0]['Page']
+				output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>'
 		
 	output += unicode(forms[0]) + "<br><br>"
 	
