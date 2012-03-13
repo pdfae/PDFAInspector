@@ -191,7 +191,8 @@ def getFormOutput(parsefile, resultfile):
 					tag_count += 1	
 				count +=1		
 		if len(url_list) > 0:
-			output += startTable(["Form URL","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
+			output = startTable(["Form URL","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
+			
 			for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
 				output += "<br><br>URL: " + unicode(url)
 				output += "<br>Page: " + unicode(page)
