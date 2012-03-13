@@ -127,11 +127,11 @@ def displayheaders(request, uid):
 
 # tab to display information about headers in document
 def displaysummary(request, uid):
-	 currentTab = "summary"
-    	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	currentTab = "summary"
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
     
     	if os.path.isfile(parsefile):
-        	filePointer = open(parsefile)
+    		filePointer = open(parsefile)
         	data = json.load(filePointer)
         	filePointer.close()
         	tags = []
