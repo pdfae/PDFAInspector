@@ -191,12 +191,12 @@ def getFormOutput(parsefile, resultfile):
 					tag_count += 1	
 				count +=1		
 		if len(url_list) > 0:
-			output += startTable(["Form URL","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
+			output += startTable(["Type","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
 			for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
 				output += "<tr>\n"
 				
 				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-				output += unicode(url)
+				output += unicode(url.split(':')[-1])
 				output += "</td>\n"
 				
 				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
