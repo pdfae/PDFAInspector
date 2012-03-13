@@ -116,7 +116,6 @@
 .css-treeview table.fancy {
   margin: 1em 1em 1em 0;
   background: black;
-  width: 900px;
   max-width: 900px;
 }
 .css-treeview table.fancy th, table.fancy td {
