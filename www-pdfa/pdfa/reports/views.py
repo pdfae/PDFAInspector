@@ -131,38 +131,40 @@ def displaysummary(request, uid):
 				elif (tag["result"]==4):
 					rinspect=rinspect+1
 					
-		output0 = "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output1 = "<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output2 = "<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output3 = "<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output4 = "<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output5 = "<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output = []
+		output[0] = "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>"
+		output[1] = "<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>"
+		output[2] = "<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>"
+		output[3] = "<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>"
+		output[4] = "<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>"
+		output[5] = "<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>"
 		for test in tests:
 			for i in range (0, 5):
 				if (test["category"]==i):
 					if (len(test["tags"])) >= 1:
 						numPass=0
 						numFail=0
+						numWarn=0
+						numInsp=0
 						for tag in test["tags"]:
 							if (tag["result"]==1):
-								numPass+=1;
-							elif (tag["result"])==0:
-								numFail+=1;
-						if (numFail==0):
-							output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "pass" + "</center></td>"
-						elif (numFail>0):
-							output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "manual inspection" + "</center></td>"
+								numPass+=1
+							elif (tag["result"])==2:
+								numFail+=1
+							elif (tag["result"])==3:
+								numWarn+=1
+							elif (tag["result"])==4:
+								numInsp+=1
+						output[i] += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + numPass + "</center></td>"+ "<td><center>" + numFail + "</center></td>"+ "<td><center>" + numWarn + "</center></td>"+ "<td><center>" + numInsp + "</center></td>"
 					elif (len(test["tags"])) == 0:
-						output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
+						output[i] += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
 			
-		output0 += "</table><br><br>"
-		output1 += "</table><br><br>"
-		output2 += "</table><br><br>"
-		output3 += "</table><br><br>"
-		output4 += "</table><br><br>"
-		output5 += "</table><br><br>"
-			
-		output = output0 + output1 + output2 + output3 + output4 + output5	
+		output[0] += "</table><br><br>"
+		output[1] += "</table><br><br>"
+		output[2] += "</table><br><br>"
+		output[3] += "</table><br><br>"
+		output[4] += "</table><br><br>"
+		output[5] += "</table><br><br>"
 		
 		filePointer = open(parsefile)
         	data = json.load(filePointer)
