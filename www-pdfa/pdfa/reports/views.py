@@ -127,6 +127,7 @@ def displaysummary(request, uid):
         	numLinks = len(links)
         	numImages = len(images)
         	numTables = len(tables)
+        	numHeaders = 0 #ask how this is to be done
     		
     		json_data = open (resultfile) #insert filepath of json result file
 		data = json.load(json_data)
@@ -155,7 +156,7 @@ def displaysummary(request, uid):
 		output.append("<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Links</center></td><td colspan=\"4\"><center>" + unicode(numLinks) + "</center></td></tr>")
 		output.append("<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Image Tags</center></td><td colspan=\"4\"><center>" + unicode(numImages) + "</center></td></tr>")
 		output.append("<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Form Elements</center></td><td colspan=\"4\"><center>" + unicode(numForms) + "</center></td></tr>")
-		output.append("<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
+		output.append("<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Header Elements</center></td><td colspan=\"4\"><center>Not Implemented</center></td></tr>")
 		output.append("<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Table Elements</center></td><td colspan=\"4\"><center>" + unicode(numTables) + "</center></td></tr>")
 		
 		
