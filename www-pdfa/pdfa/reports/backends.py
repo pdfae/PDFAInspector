@@ -196,7 +196,7 @@ def getFormOutput(parsefile, resultfile):
 				output += "<tr>\n"
 				
 				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-				output += unicode(url.split(':')[-1])
+				output += unicode(url.split(':')[-1]) + unicode(url)
 				output += "</td>\n"
 				
 				output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
