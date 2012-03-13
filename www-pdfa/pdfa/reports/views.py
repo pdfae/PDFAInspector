@@ -162,21 +162,22 @@ def displaysummary(request, uid):
 		output4 = "<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
 		output5 = "<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
 		for test in tests:
-			if (test["category"]==0):
-				if (len(test["tags"])) >= 1:
-					numPass=0
-					numFail=0
-					for tag in test["tags"]:
-						if (tag["result"]==1):
-							numPass+=1;
-						elif (tag["result"])==0:
-							numFail+=1;
-					if (numFail==0):
-						output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "pass" + "</center></td>"
-					elif (numFail>0):
-						output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "manual inspection" + "</center></td>"
-				elif (len(test["tags"])) == 0:
-					output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
+			for i in range (0, 5):
+				if (test["category"]==i):
+					if (len(test["tags"])) >= 1:
+						numPass=0
+						numFail=0
+						for tag in test["tags"]:
+							if (tag["result"]==1):
+								numPass+=1;
+							elif (tag["result"])==0:
+								numFail+=1;
+						if (numFail==0):
+							output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "pass" + "</center></td>"
+						elif (numFail>0):
+							output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "manual inspection" + "</center></td>"
+					elif (len(test["tags"])) == 0:
+						output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
 			
 		output0 += "</table><br><br>"
 		output1 += "</table><br><br>"
