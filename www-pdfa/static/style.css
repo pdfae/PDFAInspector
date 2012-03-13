@@ -525,6 +525,7 @@ color: #FFFFFF;
 /* Tables */
 table.fancy {
   margin: 1em 1em 1em 0;
+  table-layout: fixed;
   background: black;
   width: 900px;
 }
