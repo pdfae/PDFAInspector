@@ -107,20 +107,6 @@ def displaysummary(request, uid):
 	currentTab = "summary"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	
-	displayNotes = notes
-	
-	if (request.method=="POST"):
-		form = notesupdateform(request.POST)
-		if form.is_valid():
-			request.fileObj.file.notes = notes
-			request.fileObj.file.save()
-
-	else:
-		data = {'notes': notes}
-		form = notesupdateform(data)
-
-
-	
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
@@ -199,7 +185,19 @@ def displaysummary(request, uid):
 		output[3] += "</table><br><br>"
 		output[4] += "</table><br><br>"
 		output[5] += "</table><br><br>"
-        	
+        
+        if (request.method=="POST"):
+		form = notesupdateform(request.POST)
+		if form.is_valid():
+			request.fileObj.file.notes = notes
+			request.fileObj.file.save()
+
+	else:
+		data = {'notes': notes}
+		form = notesupdateform(data)
+
+        
+        
         	return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
     	else:
         	return render_to_response("reports/summary_notfound.html", locals())
