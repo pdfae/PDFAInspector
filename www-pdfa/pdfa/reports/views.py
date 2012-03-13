@@ -27,14 +27,14 @@ def setup(user, uid):
 	filepath = MEDIA_ROOT + filepath + "/"
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
-	return [auth, currentPage, parsefile, resultfile, title, notes]
+	return [auth, currentPage, parsefile, resultfile, title, notes, fileObj]
 
 
 
 # tab to display tree view
 def displaytreeview(request, uid):
 	currentTab = "tree"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	output = '<a href="javascript:check_all()">Expand All</a>'
@@ -48,7 +48,7 @@ def displaytreeview(request, uid):
 
 def displaytables(request, uid):
 	currentTab = "tbl"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)	
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)	
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
@@ -69,7 +69,7 @@ def displaytables(request, uid):
 
 def displayforms(request, uid):
 	currentTab = "form"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	output = getFormOutput(parsefile, resultfile, uid)
 	return render_to_response("reports/formview.html", locals())
 
@@ -77,7 +77,7 @@ def displayforms(request, uid):
 
 def displayimages(request, uid):
 	currentTab = "img"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	output = getImageOutput(parsefile, resultfile, uid)
 	return render_to_response("reports/formview.html", locals())
 
@@ -85,7 +85,7 @@ def displayimages(request, uid):
 
 def displayheaders(request, uid):
 	currentTab = "head"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	json_data = open (parsefile)
 	data = json.load(json_data)
 	cnode = data["content"]
@@ -105,7 +105,7 @@ def displayheaders(request, uid):
 # tab to display information about headers in document
 def displaysummary(request, uid):
 	currentTab = "summary"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	
 	displayNotes = notes
 	
@@ -113,7 +113,7 @@ def displaysummary(request, uid):
 		form = notesupdateform(request.POST)
 		if form.is_valid():
 			request.file.notes = notes
-			request.file.save()
+			request.fileObj.file.save()
 
 	else:
 		data = {'notes': notes}
@@ -208,7 +208,7 @@ def displaysummary(request, uid):
 
 def displaybookmark(request, uid):
 	currentTab = "bm"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	nodes = []
@@ -224,13 +224,13 @@ def displaybookmark(request, uid):
 
 def displaylinks(request, uid):
 	currentTab = "links"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	output = getLinkOutput(parsefile, resultfile, uid)
 	return render_to_response("reports/formview.html", locals())
 
 def displayformtree(request, uid):
 	currentTab = "formtree"
-	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	output = '<a href="javascript:check_all()">Expand All</a>'
