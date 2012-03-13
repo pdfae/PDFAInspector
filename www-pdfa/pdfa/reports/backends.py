@@ -190,18 +190,100 @@ def getFormOutput(parsefile, resultfile):
 					result_list[tag_count].append(tag)
 					tag_count += 1	
 				count +=1		
-		
-		for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
-			output += "<br><br>URL: " + unicode(url)
-			output += "<br>Page: " + unicode(page)
-			output += "<br>Name: " + unicode(name)
-			output += "<br>Tooltip: " + unicode(tooltip)
-			output += "<br>Result: " + unicode(result)
-		
+		if len(url_list) > 0:
+			output += startTable(["Form URL","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
+			for url, page, name, tooltip, result in zip(url_list, page_list, name_list, tooltip_list, result_list):
+				output += "<br><br>URL: " + unicode(url)
+				output += "<br>Page: " + unicode(page)
+				output += "<br>Name: " + unicode(name)
+				output += "<br>Tooltip: " + unicode(tooltip)
+				output += "<br>Result: " + unicode(result)
+		else:
+			output += "No form elements found"
+	'''
+	<table class="fancy">
+	<tr>
+		<th>
+			Rule
+		</th>
+		<th>
+			Tag URL
+		</th>
+		<th>
+			Result
+		</th>
+		<th>
+			Message
+		</th>
+	</tr>
+	
+	{% for test in tests %}
+	<tr>
+		{% if test.tags|length > 0 %}
+			<td rowspan = "{{test.tags|length}}">
+				{{ test.title }}
+			</td>
+			
+			{% for tag in test.tags %}
+				{% if forloop.first %}
+				{% else %}
+					<tr>
+				{% endif %}
+					<td>
+						{{tag.tag}}
+					</td>
+					<td>
+						{% if tag.result == 1 %}
+							<FONT COLOR="006400"><b>
+								pass
+							</b></FONT>
+						{% endif %}
+						{% if tag.result == 2 %}
+							<FONT COLOR="FF0000"><b>
+								fail
+							</b></FONT>
+						{% endif %}
+					</td>
+					<td>
+						{{tag.message}}
+					</td>
+				{% if forloop.first %}
+				{% else %}
+					</tr>
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			<td>
+				{{ test.title }}
+			</td>
+			<td>
+				Test was not run on any tags
+			</td>
+			<td>
+				N/A
+			</td>
+			<td>
+				N/A
+			</td>
+		{% endif %}
+	</tr>
+	{% endfor %}
+</table>-->
+	'''
 	#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'				
 	#output += unicode(url_list) + '<br><br>' + unicode(page_list) + '<br><br>' + unicode(name_list) + '<br><br>' + unicode(tooltip_list) + '<br><br>' + unicode(result_list) + "<br><br>"
 	#output += unicode(resultdata['results'])
 	return output
+
+def startTable(header_list):
+	string = "<table class=\"fancy\">\n<tr>"
+	for header in header_list:
+		string += "<th>" + header + "</th>\n"
+	string += "</tr>\n"
+	return string
+
+def endTable():
+	return "</table>\n"
 
 def getNameTooltip(content):
 	name = "Unknown"
