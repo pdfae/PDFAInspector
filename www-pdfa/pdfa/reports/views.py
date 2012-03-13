@@ -137,7 +137,6 @@ def displaysummary(request, uid):
 		rinspect=0
 		countResults(resultfile, rtest, rpass, rwarning, rfail, rinspect)
     		
-    		'''
     		json_data = open (resultfile) #insert filepath of json result file
 		data = json.load(json_data)
 		tests = (data["results"])
@@ -159,8 +158,6 @@ def displaysummary(request, uid):
 					rfail=rfail+1
 				elif (tag["result"]==4):
 					rinspect=rinspect+1
-		'''
-		
 		output = []
 		output.append("<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr>")
 		output.append("<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Links</center></td><td colspan=\"4\"><center>" + unicode(numLinks) + "</center></td></tr>")
@@ -215,24 +212,6 @@ def displaysummary(request, uid):
         	return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
     	else:
         	return render_to_response("reports/summary_notfound.html", locals())
-
-def countResults (resultfile, rtest, rpass, rwarning, rfail, rinspect):
-	json_data = open (resultfile) #insert filepath of json result file
-	data = json.load(json_data)
-	tests = (data["results"])
-	json_data.close()
-	for test in tests:
-		tags = test["tags"]
-		for tag in tags:
-			rtest=rtest+1
-			if (tag["result"]==1):
-				rpass=rpass+1
-			elif (tag["result"]==3):
-				rwarning=rwarning+1
-			elif (tag["result"]==2):
-				rfail=rfail+1
-			elif (tag["result"]==4):
-				rinspect=rinspect+1
 
 # tab to display information about bookmarks in document
 
