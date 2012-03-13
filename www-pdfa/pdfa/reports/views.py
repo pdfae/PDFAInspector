@@ -107,6 +107,8 @@ def displaysummary(request, uid):
 	currentTab = "summary"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	
+	file = fileObj.file
+	
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
@@ -189,8 +191,8 @@ def displaysummary(request, uid):
         	if (request.method=="POST"):
 			form = notesupdateform(request.POST)
 			if form.is_valid():
-				request.fileObj.file.notes = notes
-				request.fileObj.file.save()
+				request.file.notes = notes
+				request.file.save()
 
 		else:
 			data = {'notes': notes}
