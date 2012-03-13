@@ -11,7 +11,7 @@ class DocumentMustBeTagged(Rules.Rule):
 	title    = "Documents Must Be Tagged"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
-	wcag_level = "n/a"
+	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.DocumentLevel
 
 	@staticmethod
@@ -31,7 +31,7 @@ class DocumentShouldBeTitled(Rules.Rule):
 	title    = "Documents Should Be Titled"
 	severity = Rules.Warning
 	wcag_id  = "n/a"
-	wcag_level = "n/a"
+	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.DocumentLevel
 
 	@staticmethod
@@ -53,7 +53,7 @@ class TagsShouldConformToAdobeStandards(Rules.Rule):
 	title    = "Tags Should Conform To Adobe Standards"
 	severity = Rules.Warning
 	wcag_id  = "n/a"
-	wcag_level = "n/a"
+	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.DocumentLevel
 
 	@staticmethod
@@ -77,7 +77,7 @@ class LinksMustHaveAltText(Rules.Rule):
 	title    = "Links Must Have Alt-Text"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
-	wcag_level = "n/a"
+	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.Links
 
 	@staticmethod
@@ -99,7 +99,7 @@ class ImagesMustHaveAltText(Rules.Rule):
 	title    = "Images Must Have Alt-Text"
 	severity = Rules.Violation
 	wcag_id  = "7.1"
-	wcag_level = "n/a"
+	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.Images
 
 	@staticmethod
@@ -121,7 +121,7 @@ class FormElementsMustHaveNames(Rules.Rule):
 	title    = "Form Elements Must Have Names"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
-	wcag_level = "n/a"
+	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.Forms
 	
 	@staticmethod
@@ -143,7 +143,7 @@ class FormElementsMustHaveTooltips(Rules.Rule):
 	title    = "Form Elements Must Have Tooltips"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
-	wcag_level = "n/a"
+	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.Forms
 
 	@staticmethod
