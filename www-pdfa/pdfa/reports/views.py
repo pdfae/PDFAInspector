@@ -155,12 +155,12 @@ def displaysummary(request, uid):
 				elif (tag["result"]==4):
 					rinspect=rinspect+1
 					
-		output0 += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output1 += "<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output2 += "<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output3 += "<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output4 += "<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
-		output5 += "<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output0 = "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output1 = "<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output2 = "<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output3 = "<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output4 = "<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output5 = "<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
 		for test in tests:
 			if (test["category"]==0):
 				if (len(test["tags"])) >= 1:
