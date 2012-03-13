@@ -192,7 +192,7 @@ def getFormOutput(parsefile, resultfile):
 	
 	#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
 				
-	output += unicode(url_list) + '<br><br>' + unicode(page_list) + '<br><br>' + unicode(name_list) + '<br><br>' + unicode(tooltip_list) + '<br><br>' + unicode(forms[0]) + "<br><br>"
+	output += unicode(url_list) + '<br><br>' + unicode(page_list) + '<br><br>' + unicode(name_list) + '<br><br>' + unicode(tooltip_list) + '<br><br>' + unicode(result_list) + "<br><br>"
 	#output += unicode(resultdata['results'])
 	return output
 
