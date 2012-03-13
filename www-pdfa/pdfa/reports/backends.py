@@ -261,7 +261,7 @@ def getImageOutput(parsefile, resultfile):
 			output += "<tr>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-			output += unicode(url.split(':')[-1]) + "<br>" + unicode(url)
+			output += "<a href = \"/reports/{{uid}}/treeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
 			output += "</td>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
