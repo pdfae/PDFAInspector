@@ -26,6 +26,15 @@
 
 <b>Detailed Results:</b>
 <br>
+Number of Tags: {{numTags}}<br>
+Number of Forms: {{numForms}}<br>
+Number of Links: {{numLinks}}<br>
+Number of Images: {{numImages}}<br>
+Number of Tables: {{numTables}}<br>
+
+{%comment%}
+<!--<b>Detailed Results:</b>
+<br>
 <table class="fancy">
 	<tr>
 		<th>
@@ -93,63 +102,9 @@
 		{% endif %}
 	</tr>
 	{% endfor %}
-</table>
-
-<br>
-<br>
-
-
-{%comment%}
-<b>Detailed Results</b>
-<br>
-<br>
-{% for test in tests %}
-	<b><u>Test ID: {{test.id}}</u></b><br>
-	<b>Description:</b> {{test.description}}<br>
-	<b>Tag-Path:</b> {{test.id}}<br>
-	<b>Tags:</b> {{test.tags}}<br>
-	<b>Title:</b> {{test.title}}<br>
-	<br>
-	
-{% empty %}
-
-{% endfor %}
-
-<br><br>
-<table class="fancy">
-
-<!-- First row -->
-
-<tr>
-<td>1</td>
-<td colspan="2">2 and 3</td>
-<td>4</td>
-</tr>
-
-<!-- Second row -->
-
-<tr>
-<td rowspan="3">5, 9 and 13</td>
-<td>6</td>
-<td>7</td>
-<td>8</td>
-</tr>
-
-<!-- Third row -->
-
-<tr>
-<td>10</td>
-<td>11</td>
-<td>12</td>
-</tr>
-
-<!-- Fourth row -->
-
-<tr>
-<td colspan="3">14, 15 and 16</td>
-</tr>
-
-</table>
-
+</table>-->
 {%endcomment%}
+<br>
+<br>
+
 {% endblock %}
