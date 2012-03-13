@@ -88,17 +88,21 @@ def writeNode2 (node, depth=0):
 
 	
 	
-def searchNode (node, tag, depth=0, a =[]):
-	#print depth
+def searchNode (node, tagName, depth=0, a =[]):
 	nodetag = node["tagName"]
-	#print nodetag
-	if (nodetag == tag):
-		#print "found"
+	if (nodetag == tagName):
 		a.append(node)
 	else:
 		for i in node["content"]:
 			if not isinstance(i, basestring) and not isinstance(i, int):
-				searchNode(i,tag, depth+1, a)		
+				searchNode(i,tagName, depth+1, a)		
+
+def countNode (node):
+	total = 0
+	for i in node["content"]:
+		if not isinstance(i, basestring) and not isinstance(i, int):
+			total += 1 + countNode(i)
+	return total
 
 def writeNodeContent (node, depth=0):
 	print "depth =" + unicode(depth)
