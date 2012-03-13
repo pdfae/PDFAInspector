@@ -36,14 +36,10 @@ def displaytreeview(request, uid):
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
-	nodes = []
-	searchNode(base, "tags", 0, nodes)
-
 	output = '<a href="javascript:check_all()">Expand All</a>'
 	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
 	output += "<div class=\"css-treeview\">"
-	for node in nodes:
-		output += writeNode2(base, "tags")
+	output += writeNode2(base, "tags")
 	output += "</div>"
 	return render_to_response("reports/treeview.html", locals())
 
@@ -247,3 +243,15 @@ def displaylinks(request, uid):
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	output = getLinkOutput(parsefile, resultfile, uid)
 	return render_to_response("reports/formview.html", locals())
+
+def displayformtree(request, uid):
+	currentTab = "formtree"
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	result = open(parsefile)
+	base = json.loads(result.read())
+	output = '<a href="javascript:check_all()">Expand All</a>'
+	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
+	output += "<div class=\"css-treeview\">"
+	output += writeNode2(base, "Form")
+	output += "</div>"
+	return render_to_response("reports/treeview.html", locals())

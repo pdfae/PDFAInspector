@@ -10,5 +10,6 @@ urlpatterns = patterns('',
 	(r'^tableview/', displaytables),
     (r'^linkview/', displaylinks),
     (r'^bookmarkview/', displaybookmark),
+    (r'^formtreeview/', displayformtree),
     (r'', displaysummary),
 )
