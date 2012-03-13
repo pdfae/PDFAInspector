@@ -163,7 +163,7 @@ def getFormOutput(parsefile, resultfile):
 		filePointer.close()
 		for result in resultdata['results']:
 			if result['category'] == 3:
-				output += unicode(result) + "<br><br>"
+				#output += unicode(result) + "<br><br>"
 				for tag in result['tags']:
 					tag_url = unicode(tag['tag'])
 					parsed_tag = tag_urls[tag_url]
