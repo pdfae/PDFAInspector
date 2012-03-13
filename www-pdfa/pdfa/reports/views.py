@@ -131,6 +131,29 @@ def displaysummary(request, uid):
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
     
     	if os.path.isfile(parsefile):
+    		
+    		json_data = open (resultfile) #insert filepath of json result file
+		data = json.load(json_data)
+		tests = (data["results"])
+		json_data.close()
+		rtest=0
+		rpass=0
+		rwarning=0
+		rfail=0
+		rinspect=0
+		for test in tests:
+			tags = test["tags"]
+			for tag in tags:
+				rtest=rtest+1
+				if (tag["result"]==1):
+					rpass=rpass+1
+				elif (tag["result"]==3):
+					rwarning=rwarning+1
+				elif (tag["result"]==2):
+					rfail=rfail+1
+				elif (tag["result"]==4):
+					rinspect=rinspect+1
+    		
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
         	filePointer.close()
