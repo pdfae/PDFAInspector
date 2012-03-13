@@ -285,7 +285,45 @@ def getImageOutput(parsefile, resultfile, uid):
 			output += "</tr>\n"
 		output += endTable()	
 	else:
-		output += "No form elements found"
+		output += "No image tags found"
+	return output
+
+def getLinkOutput(parsefile, resultfile, uid):
+	output = ""
+	#[lists, rule_list] = generateImageData(parsefile, resultfile)
+	lists = []
+	rule_list = []
+	if len(lists) > 0 and len(lists[0]) > 0:
+		output += startTable(["Image","Page", "Alt text", "Rule", "Result", "Message"])
+		for url, page, alt, result in lists:
+			output += "<tr>\n"
+				
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += "<a href = \"/reports/" + uid + "/treeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
+			output += "</td>\n"
+				
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(page)
+			output += "</td>\n"
+				
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(alt)
+			output += "</td>\n"
+				
+			counter = 0
+			for rule in result:
+				if counter != 0:
+					output += "<tr>\n"
+				output += "<td>" + unicode(rule_list[counter]) + "</td>\n"
+				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
+				output += "<td>" + unicode(rule['message']) + "</td>\n"
+				if counter != 0:
+					output += "</tr>\n"
+				counter += 1
+			output += "</tr>\n"
+		output += endTable()	
+	else:
+		output += "No link tags found"
 	return output
 
 

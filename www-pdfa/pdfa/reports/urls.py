@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 	(r'^headview/', displayheaders),
 	(r'^formview/', displayforms),
 	(r'^tableview/', displaytables),
+    (r'^linkview/', displaylinks),
     (r'^bookmarkview/', displaybookmark),
     (r'', displaysummary),
 )

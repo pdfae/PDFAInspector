@@ -242,3 +242,8 @@ def displaybookmark(request, uid):
 	output += "</div>"
 	return render_to_response("reports/treeview.html", locals())
 
+def displaylinks(request, uid):
+	currentTab = "links"
+	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
+	output = getLinkOutput(parsefile, resultfile)
+	return render_to_response("reports/formview.html", locals())
