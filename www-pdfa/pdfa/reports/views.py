@@ -157,8 +157,15 @@ def displaysummary(request, uid):
 					
 		for test in tests:
 			if (test["category"]==0):
-				output += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
-				output += "<td></td><td></td></table>"
+				output += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Rule Title</th><th>Result</th></tr>"
+				if (len(test["tags"])) >= 1:
+					for tag in test["tags"]:
+						output += "<td>" + tag.message + "</td>" + "<td>" + tag.result + "</td>"
+				
+				output += "</table>"
+			
+			
+			'''
 			if (test["category"]==1):
 				output += "<br><br><b>Links:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
 				output += "<td></td><td></td></table>"
@@ -174,6 +181,7 @@ def displaysummary(request, uid):
 			if (test["category"]==5):
 				output += "<br><br><b>Tables:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
 				output += "<td></td><td></td></table>"
+    			'''
     		
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
