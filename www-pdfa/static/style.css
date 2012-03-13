@@ -542,7 +542,7 @@ table.fancy th {
 table.fancy td {
   background: gainsboro;
   overflow: hidden; 
-  text-overflow: clip;
+  text-overflow: ellipsis;
   text-align: center;
   color: #000000;
 }

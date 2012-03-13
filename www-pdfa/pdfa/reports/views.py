@@ -81,21 +81,8 @@ def displayforms(request, uid):
 def displayimages(request, uid):
 	currentTab = "img"
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
-	cnode = parsespecific(parsefile, "Images")
-	content = cnode["content"]
-	
-	result = open(parsefile)
-	base = json.loads(result.read())
-	
-	nodes = []
-	searchNode(base, "Images", 0, nodes)
-	output = ""
-	for node in nodes:
-		output += writeNode(node)
-	output = writeNode(node)
-	
-	print content
-	return render_to_response("reports/imageview.html", locals())
+	output = getImageOutput(parsefile, resultfile)
+	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about headers in document
 

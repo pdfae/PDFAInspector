@@ -125,35 +125,11 @@ def countNode (node):
 			total += 1 + countNode(i)
 	return total
 
-def writeNodeContent (node, depth=0):
-	print "depth =" + unicode(depth)
-	nodetag = node["tagName"]
-	print nodetag
-	output = "<div class='node n_" + unicode(depth) + "'><b>"+nodetag+":</b>\n"
-	
-	attr = []
-
-	for i in node["content"]:
-		if not isinstance(i, basestring) and not isinstance(i, int):
-			output += "</i>\n"
-			if i.has_key('text'):
-				output += unicode(i['text'])
-			else:
-				output += writeNodeContent(i,depth+1)
-		else:
-			output += "<i>\n"
-			output += unicode(i)
-			output += "</i>\n"
-	output += "</div>"
-	return output
-
 def generateFormData(parsefile, resultfile):
 	if os.path.isfile(parsefile):
 		filePointer = open(parsefile)
 		parsedata = json.load(filePointer)
 		filePointer.close()
-		forms = []
-		searchNode(parsedata, "Form", 0, forms)
 		tag_urls = {}
 		getNodes(parsedata, 0, tag_urls)
 	if os.path.isfile(resultfile):
@@ -164,11 +140,13 @@ def generateFormData(parsefile, resultfile):
 		page_list = []
 		name_list = []
 		tooltip_list = []
+		rule_list = []
 		result_list = []
 		count = 0
 		for result in resultdata['results']:
 			if result['category'] == 3:
 				#output += unicode(result) + "<br><br>"
+				rule_list.append(result['title'])
 				tag_count = 0
 				for tag in result['tags']:
 					if count == 0:
@@ -189,14 +167,56 @@ def generateFormData(parsefile, resultfile):
 					result_list[tag_count].append(tag)
 					tag_count += 1	
 				count +=1
-	return zip(url_list, page_list, name_list, tooltip_list, result_list)			
+	return [zip(url_list, page_list, name_list, tooltip_list, result_list), rule_list]			
+
+def generateImageData(parsefile, resultfile):
+	if os.path.isfile(parsefile):
+		filePointer = open(parsefile)
+		parsedata = json.load(filePointer)
+		filePointer.close()
+		tag_urls = {}
+		getNodes(parsedata, 0, tag_urls)
+	if os.path.isfile(resultfile):
+		filePointer = open(resultfile)
+		resultdata = json.load(filePointer)
+		filePointer.close()
+		url_list = []
+		page_list = []
+		alt_list = []
+		rule_list = []
+		result_list = []
+		count = 0
+		for result in resultdata['results']:
+			if result['category'] == 2:
+				rule_list.append(result['title'])
+				tag_count = 0
+				for tag in result['tags']:
+					if count == 0:
+						tag_url = unicode(tag['tag'])
+						parsed_tag = tag_urls[tag_url]
+						attr = parsed_tag['attributes']
+						alt = 'null'
+						page = 'null'
+						for a in attr:
+							if 'Alt' in a:
+								alt = a['Alt']
+							if 'Page' in a:
+								page = a['Page']	
+						url_list.append(tag_url)
+						page_list.append(page)
+						alt_list.append(alt)
+					result_list.append([])	
+					result_list[tag_count].append(tag)
+					tag_count += 1	
+				count +=1
+	return [zip(url_list, page_list, alt_list, result_list), rule_list]			
 
 def getFormOutput(parsefile, resultfile):	
 	output = ""
-	lists = generateFormData(parsefile, resultfile)
+	[lists, rule_list] = generateFormData(parsefile, resultfile)
 	if len(lists[0]) > 0:
 		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
-		for url, page, name, tooltip, result in lists:
+		for url, page, name, tooltip, rule, result in lists:
 			output += "<tr>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
@@ -219,7 +239,7 @@ def getFormOutput(parsefile, resultfile):
 			for rule in result:
 				if counter != 0:
 					output += "<tr>\n"
-				output += "<td>" + "Rule Name" + "</td>\n"
+				output += "<td>" + unicode(rule_list[counter]) + "</td>\n"
 				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
 				output += "<td>" + unicode(rule['message']) + "</td>\n"
 				if counter != 0:
@@ -230,6 +250,43 @@ def getFormOutput(parsefile, resultfile):
 	else:
 		output += "No form elements found"
 	return output
+
+def getImageOutput(parsefile, resultfile):
+	output = ""
+	[lists, rule_list] = generateImageData(parsefile, resultfile)
+	if len(lists[0]) > 0:
+		output += startTable(["Image","Page", "Alt text", "Rule", "Result", "Message"])
+		for url, page, alt, result in lists:
+			output += "<tr>\n"
+				
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(url.split(':')[-1]) + "<br>" + unicode(url)
+			output += "</td>\n"
+				
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(page)
+			output += "</td>\n"
+				
+			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
+			output += unicode(alt)
+			output += "</td>\n"
+				
+			counter = 0
+			for rule in result:
+				if counter != 0:
+					output += "<tr>\n"
+				output += "<td>" + unicode(rule_list[counter]) + "</td>\n"
+				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
+				output += "<td>" + unicode(rule['message']) + "</td>\n"
+				if counter != 0:
+					output += "</tr>\n"
+				counter += 1
+			output += "</tr>\n"
+		output += endTable()	
+	else:
+		output += "No form elements found"
+	return output
+
 
 def startTable(header_list):
 	string = "<table class=\"fancy\">\n<tr>"
