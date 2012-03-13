@@ -117,7 +117,7 @@
   margin: 1em 1em 1em 0;
   background: black;
   table-layout: auto;
-  width: 900px;
+  width: 100%;
 }
 .css-treeview table.fancy th, table.fancy td {
   text-align:left;
