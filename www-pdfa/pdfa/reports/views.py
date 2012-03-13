@@ -200,7 +200,7 @@ def displaysummary(request, uid):
 		output[4] += "</table><br><br>"
 		output[5] += "</table><br><br>"
         	
-        	return render_to_response("reports/summaryview.html", locals())
+        	return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
     	else:
         	return render_to_response("reports/summary_notfound.html", locals())
 
