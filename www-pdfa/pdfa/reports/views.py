@@ -109,6 +109,25 @@ def displaysummary(request, uid):
     	
     	if os.path.isfile(parsefile):
     		
+    		filePointer = open(parsefile)
+        	data = json.load(filePointer)
+        	filePointer.close()
+        	tags = []
+        	searchNode(data, "tags", 0, tags)
+        	links = []
+        	searchNode(tags[0], "Link", 0, links)
+        	images = []
+        	searchNode(tags[0], "Figure", 0, images)
+        	forms = []
+        	tables = []
+        	searchNode(tags[0], "Table", 0, links)
+        	searchNode(data, "Form", 0, forms)
+        	numTags = countNode(tags[0])
+        	numForms = countNode(forms[0])
+        	numLinks = len(links)
+        	numImages = len(images)
+        	numTables = len(tables)
+    		
     		json_data = open (resultfile) #insert filepath of json result file
 		data = json.load(json_data)
 		tests = (data["results"])
@@ -141,6 +160,14 @@ def displaysummary(request, uid):
 		for test in tests:
 			for i in range (0, 5):
 				if (test["category"]==i):
+					if (i==1):
+						output[i] += "<tr><td><center>" + "Number of Links" + "</center></td>" + "<td><center>" + unicode(numLinks) + "</center></td>"+ "<td></td>"+ "<td></td>"+ "<td></td></tr>"
+					elif (i==2):
+						output[i] += "<tr><td><center>" + "Number of Image Tags" + "</center></td>" + "<td><center>" + unicode(numImages) + "</center></td>"+ "<td></td>"+ "<td></td>"+ "<td></td></tr>"
+					elif (i==3):
+						output[i] += "<tr><td><center>" + "Number of Form Elements" + "</center></td>" + "<td><center>" + unicode(numForms) + "</center></td>"+ "<td></td>"+ "<td></td>"+ "<td></td></tr>"
+					elif (i==5):
+						output[i] += "<tr><td><center>" + "Number of Table Elements" + "</center></td>" + "<td><center>" + unicode(numTables) + "</center></td>"+ "<td></td>"+ "<td></td>"+ "<td></td></tr>"
 					if (len(test["tags"])) >= 1:
 						numPass=0
 						numFail=0
@@ -165,25 +192,6 @@ def displaysummary(request, uid):
 		output[3] += "</table><br><br>"
 		output[4] += "</table><br><br>"
 		output[5] += "</table><br><br>"
-		
-		filePointer = open(parsefile)
-        	data = json.load(filePointer)
-        	filePointer.close()
-        	tags = []
-        	searchNode(data, "tags", 0, tags)
-        	links = []
-        	searchNode(tags[0], "Link", 0, links)
-        	images = []
-        	searchNode(tags[0], "Figure", 0, images)
-        	forms = []
-        	tables = []
-        	searchNode(tags[0], "Table", 0, links)
-        	searchNode(data, "Form", 0, forms)
-        	numTags = countNode(tags[0])
-        	numForms = countNode(forms[0])
-        	numLinks = len(links)
-        	numImages = len(images)
-        	numTables = len(tables)
         	
         	return render_to_response("reports/summaryview.html", locals())
     	else:
