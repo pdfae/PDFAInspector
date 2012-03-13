@@ -541,6 +541,8 @@ table.fancy th {
 }
 table.fancy td {
   background: gainsboro;
+  overflow: hidden; 
+  text-overflow: ellipsis;
   text-align: center;
   color: #000000;
 }
