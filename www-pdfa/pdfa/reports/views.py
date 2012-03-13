@@ -159,9 +159,19 @@ def displaysummary(request, uid):
 			if (test["category"]==0):
 				output += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Rule Title</th><th>Result</th></tr>"
 				if (len(test["tags"])) >= 1:
+					numPass=0
+					numFail=0
 					for tag in test["tags"]:
-						output += "<td>" + unicode(tag["message"]) + "</td>" + "<td>" + unicode(tag["result"]) + "</td>"
-				
+						if (tag["result"]==1):
+							numPass++;
+						elif (tag["result"])==0:
+							numFail++;
+					if (numFail==0):
+						output += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "pass" + "</center></td>"
+					elif (numFail>0):
+						output += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "manual inspection" + "</center></td>"
+				elif (len(test["tags"])) == 0:
+					output += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
 				output += "</table>"
 			
 			
