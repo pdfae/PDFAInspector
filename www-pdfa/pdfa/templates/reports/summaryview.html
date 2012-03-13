@@ -24,21 +24,19 @@
 </table>
 <br>
 
-<b>Detailed Results:</b>
-<br>
-Number of Tags: {{numTags}}<br>
-Number of Forms: {{numForms}}<br>
-Number of Links: {{numLinks}}<br>
-Number of Images: {{numImages}}<br>
-Number of Tables: {{numTables}}<br>
-
-<br>
 <br>
 
+{% for out in output %}
+{% autoescape off %}
+    {{out}}
+{% endautoescape %}
+{% endfor %}
+
+{%comment%}
 {% autoescape off %}
     {{output}}
 {% endautoescape %}
-
+{%endcomment%}
 
 
 {%comment%}
