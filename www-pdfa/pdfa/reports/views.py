@@ -155,9 +155,14 @@ def displaysummary(request, uid):
 				elif (tag["result"]==4):
 					rinspect=rinspect+1
 					
+		output0 += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output1 += "<b>Links:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output2 += "<b>Images:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output3 += "<b>Forms:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output4 += "<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
+		output5 += "<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Result</th></tr>"
 		for test in tests:
 			if (test["category"]==0):
-				output += "<b>Document Level Rules:</b><br><table class = \"fancy\"><tr><th>Rule Title</th><th>Result</th></tr>"
 				if (len(test["tags"])) >= 1:
 					numPass=0
 					numFail=0
@@ -167,14 +172,21 @@ def displaysummary(request, uid):
 						elif (tag["result"])==0:
 							numFail+=1;
 					if (numFail==0):
-						output += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "pass" + "</center></td>"
+						output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "pass" + "</center></td>"
 					elif (numFail>0):
-						output += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "manual inspection" + "</center></td>"
+						output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "manual inspection" + "</center></td>"
 				elif (len(test["tags"])) == 0:
-					output += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
-				output += "</table>"
+					output0 += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
 			
+		
+		output0 += "</table><br><br>"
+		output1 += "</table><br><br>"
+		output2 += "</table><br><br>"
+		output3 += "</table><br><br>"
+		output4 += "</table><br><br>"
+		output5 += "</table><br><br>"
 			
+		output = output0 + output1 + output2 + output3 + output4 + output5	
 			'''
 			if (test["category"]==1):
 				output += "<br><br><b>Links:</b><br><table class = \"fancy\"><tr><th>Total tests</th><th>Pass</th></tr>"
