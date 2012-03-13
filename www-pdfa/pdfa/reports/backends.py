@@ -321,13 +321,13 @@ def endTable():
 
 def getResultFromInt(i):
 	if i == 1:
-		return "pass"
+		return "<FONT COLOR=\"006400\"><b>pass</b></FONT>"
 	elif i == 2:
-		return "fail"
+		return "<FONT COLOR=\"FF0000\"><b>fail</b></FONT>"
 	elif i == 3:
-		return "warning"
+		return "<b>warning</b>"
 	elif i == 4:
-		return "manual inspection"
+		return "<b>manual inspection</b>"
 	else:
 		return ""
 
