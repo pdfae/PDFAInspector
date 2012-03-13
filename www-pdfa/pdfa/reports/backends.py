@@ -216,7 +216,7 @@ def getFormOutput(parsefile, resultfile):
 					if counter != 0:
 						output += "<tr>\n"
 					output += "<td>" + "Rule Name" + "</td>\n"
-					output += "<td>" + unicode(rule['result']) + "</td>\n"
+					output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
 					output += "<td>" + unicode(rule['message']) + "</td>\n"
 					if counter != 0:
 						output += "</tr>\n"
@@ -318,6 +318,18 @@ def startTable(header_list):
 
 def endTable():
 	return "</table>\n"
+
+def getResultFromInt(i):
+	if i == 1:
+		return "pass"
+	elif i == 2:
+		return "fail"
+	elif i == 3:
+		return "warning"
+	elif i == 4:
+		return "manual inspection"
+	else:
+		return ""
 
 def getNameTooltip(content):
 	name = "Unknown"
