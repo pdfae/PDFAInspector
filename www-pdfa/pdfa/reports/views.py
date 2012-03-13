@@ -169,7 +169,10 @@ def displaysummary(request, uid):
 		output.append("<b>Headers:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Header Elements</center></td><td colspan=\"4\"><center>Not Implemented</center></td></tr>")
 		output.append("<b>Tables:</b><br><table class = \"fancy\"><tr><th>Title</th><th>Pass</th><th>Fail</th><th>Warning</th><th>Manual Inspection</th></tr><tr><td><center>Number of Table Elements</center></td><td colspan=\"4\"><center>" + unicode(numTables) + "</center></td></tr>")
 		
-		
+		json_data = open (resultfile) #insert filepath of json result file
+		data = json.load(json_data)
+		tests = (data["results"])
+		json_data.close()
 		for test in tests:
 			i = test["category"]
 			if (len(test["tags"])) >= 1:
