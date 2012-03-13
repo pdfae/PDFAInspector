@@ -224,7 +224,7 @@ def displaysummary(request, uid):
 			form = notesupdateform(request.POST)
 			if form.is_valid():
 				fileObj = UserFile.objects.get(uid = uid)
-				fileObj.notes = notes
+				fileObj.notes = form.cleaned_data['notes']
 				fileObj.save()
 		else:
 			data = {'notes': notes}
