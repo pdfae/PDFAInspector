@@ -220,7 +220,7 @@ def getFormOutput(parsefile, resultfile, uid):
 			output += "<tr>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
-			output += unicode(url.split(':')[-1]) + "<br>" + unicode(url)
+			output += "<a href = \"/reports/" + uid + "/formtreeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
 			output += "</td>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
