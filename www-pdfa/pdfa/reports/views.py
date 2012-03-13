@@ -153,6 +153,14 @@ def displaysummary(request, uid):
 					rfail=rfail+1
 				elif (tag["result"]==4):
 					rinspect=rinspect+1
+					
+		for test in tests:
+			cats = test["category"]
+			for cat in cats:
+				if cat==0:
+					display0 = "hooray category 0 found"
+				if cat==1:
+					display1 = "hooray category 1 found"
     		
     		filePointer = open(parsefile)
         	data = json.load(filePointer)
