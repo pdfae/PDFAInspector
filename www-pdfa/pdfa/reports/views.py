@@ -12,6 +12,7 @@ import os
 from backends import *
 import json
 from upload.models import UserFile
+from forms import notesupdateform
 
 def setup(user, uid):
 	auth = user.is_authenticated()
@@ -107,6 +108,18 @@ def displaysummary(request, uid):
 	[auth, currentPage, parsefile, resultfile, title, notes] = setup(request.user, uid)
 	
 	displayNotes = notes
+	
+	if (request.method=="POST"):
+		form = notesupdateform(request.POST)
+		if form.is_valid():
+			request.file.notes = form.cleaned_data['notes']
+			request.file.save()
+
+	else:
+		data = {'notes': request.file.notes}
+		form = notesupdateform(data)
+
+
 	
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
     		filePointer = open(parsefile)
