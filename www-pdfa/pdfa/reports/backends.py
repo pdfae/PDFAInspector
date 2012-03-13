@@ -161,29 +161,39 @@ def getFormOutput(parsefile, resultfile):
 		filePointer = open(resultfile)
 		resultdata = json.load(filePointer)
 		filePointer.close()
+		url_list = []
 		page_list = []
 		name_list = []
 		tooltip_list = []
+		result_list = []
+		count = 0
 		for result in resultdata['results']:
 			if result['category'] == 3:
 				#output += unicode(result) + "<br><br>"
+				tag_result_list =[]
 				for tag in result['tags']:
-					tag_url = unicode(tag['tag'])
-					parsed_tag = tag_urls[tag_url]
-					attr = parsed_tag['attributes']
-					content = parsed_tag['content']
-					if len(attr) > 0:
-						page = attr[0]['Page']
-					else:
-						page = 'Unknown'
-					[name, tooltip] = getNameTooltip(content)
-					page_list.append(page)
-					name_list.append(name)
-					tooltip_list.append(tooltip)
-					#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
-				break
-	#output += unicode(page_list) + '<br>' + unicode(name_list) + '<br>' + unicode(tooltip_list) + '<br>' + unicode(forms[0]) + "<br><br>"
-	output += unicode(resultdata['results'])
+					if count == 0:
+						tag_url = unicode(tag['tag'])
+						parsed_tag = tag_urls[tag_url]
+						attr = parsed_tag['attributes']
+						content = parsed_tag['content']
+						if len(attr) > 0:
+							page = attr[0]['Page']
+						else:
+							page = 'Unknown'
+						[name, tooltip] = getNameTooltip(content)
+						url_list.append(tag_url)
+						page_list.append(page)
+						name_list.append(name)
+						tooltip_list.append(tooltip)
+					tag_result_list.append(tag)	
+				result_list.append(tag_result_list)
+			count +=1		
+	
+	#output += tag_url + ':<br>Page:' + 	unicode(page) + '<br>Name:' + unicode(name) + '<br>Tooltip:' + unicode(tooltip) + '<br>'
+				
+	output += unicode(url_list) + '<br><br>' + unicode(page_list) + '<br><br>' + unicode(name_list) + '<br><br>' + unicode(tooltip_list) + '<br><br>' + unicode(forms[0]) + "<br><br>"
+	#output += unicode(resultdata['results'])
 	return output
 
 def getNameTooltip(content):
