@@ -155,7 +155,7 @@ def displaysummary(request, uid):
 								numWarn+=1
 							elif (tag["result"])==4:
 								numInsp+=1
-						output[i] += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + numPass + "</center></td>"+ "<td><center>" + numFail + "</center></td>"+ "<td><center>" + numWarn + "</center></td>"+ "<td><center>" + numInsp + "</center></td>"
+						output[i] += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td>"
 					elif (len(test["tags"])) == 0:
 						output[i] += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + "Not Run On Any Tags" + "</center></td>"
 			
