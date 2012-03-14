@@ -388,15 +388,14 @@ img.aligncenter {
 /* Footer */
 
 #footer-wrapper {
-	overflow: hidden;
-	height: 120px;
+	position:absolute;
+	bottom:0;
+	height: 60px;
 	margin: 20px auto 0px auto;	
 	background: #2D2722 url(images/img02.jpg) repeat-x left top;
 }
 
-#footer {
-	position:absolute;
-	bottom:0;
+#footer {	
 	clear: both;
 	width: 980px;
 	height: 60px;
