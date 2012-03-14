@@ -1,10 +1,11 @@
-body {
+html, body {
 	margin: 0;
 	padding: 0;
 	background: #FFFFFF;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #525252;
+	height:100%;
 }
 
 /* begin css tabs */
@@ -114,6 +115,8 @@ img.aligncenter {
 
 #wrapper {
 	background: url(images/img01.jpg) repeat-x left top;
+	min-height:100%;
+	position: relative;
 }
 
 #wrapper hr {
@@ -233,6 +236,7 @@ img.aligncenter {
 	width: 1000px;
 	margin: 0 auto;
 	padding: 0;
+	padding-bottom:60px;
 }
 
 #page-bgtop {
@@ -391,6 +395,8 @@ img.aligncenter {
 }
 
 #footer {
+	position:absolute;
+	bottom:0;
 	clear: both;
 	width: 980px;
 	height: 10px;
