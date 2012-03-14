@@ -227,7 +227,7 @@ img.aligncenter {
 	width: 78%;
 	margin: 0 auto;
 	padding: 0;
-	padding-bottom:120px;
+	padding-bottom:5%;
 }
 
 #page-bgtop {
@@ -297,14 +297,14 @@ img.aligncenter {
 
 #footer-wrapper {
 	bottom:0;
-	height: 18%;
+	height: 12%;
 	width: 100%;
 	background: #2D2722;
 }
 
 #footer {	
 	clear: both;
-	height: 18%;
+	height: 12%;
 	margin: 0px auto 0px auto;
 	font-family: Arial, Helvetica, sans-serif;
 }
