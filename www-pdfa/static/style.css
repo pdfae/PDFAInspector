@@ -399,10 +399,9 @@ img.aligncenter {
 	bottom:0;
 	clear: both;
 	width: 980px;
-	height: 10px;
+	height: 60px;
 	margin: 0px auto 25px auto;
 	font-family: Arial, Helvetica, sans-serif;
-	padding-top: 40px;
 }
 
 #footer p {
@@ -410,9 +409,6 @@ img.aligncenter {
 	padding: 3px 0px 0px 0px;
 	line-height: normal;
 	font-size: 10px;
-	/*
-	text-transform: uppercase;
-	*/
 	text-align: center;
 	color: #61544B;
 }
