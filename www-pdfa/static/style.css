@@ -390,15 +390,14 @@ img.aligncenter {
 #footer-wrapper {
 	position:absolute;
 	bottom:0;
-	height: 60px;
-	margin: 20px auto 0px auto;	
+	height: 120px;
+	width: 100%;
 	background: #2D2722 url(images/img02.jpg) repeat-x left top;
 }
 
 #footer {	
 	clear: both;
-	width: 980px;
-	height: 60px;
+	height: 120px;
 	margin: 0px auto 25px auto;
 	font-family: Arial, Helvetica, sans-serif;
 }
