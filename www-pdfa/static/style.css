@@ -114,29 +114,28 @@ img.aligncenter {
 }
 
 #wrapper {
-	background: url(images/img01.jpg) repeat-x left top;
 	min-height:100%;
-	position: relative;
+	
 }
 
 #wrapper hr {
 	height: 1px;
 	border: 1px solid #000;
-	width: 990px;
+	width: 77%;
 }
 
 
 /* Header */
 
 #header {
-	width: 980px;
+	width: 76%;
 	height: 55px;
 	margin: 0 auto;
 }
 
 #logo {
 	float: left;
-	width: 980px;
+	width: 76%;
 	height: 55px;
 }
 
@@ -174,7 +173,7 @@ img.aligncenter {
 /* Menu */
 
 #menu {
-	width: 980px;
+	width: 76%;
 	height: 46px;
 	margin: 0 auto;
 	padding: 15px 0px 0px 0px;
@@ -222,21 +221,13 @@ img.aligncenter {
 	text-decoration: none;
 }
 
-/*
-#splash {
-	width: 980px;
-	height: 340px;
-	margin: 0px auto;
-	background: url(images/img06.jpg) no-repeat left top;
-}
-*/
 /* Page */
 
 #page {
-	width: 1000px;
+	width: 78%;
 	margin: 0 auto;
 	padding: 0;
-	padding-bottom:60px;
+	padding-bottom:120px;
 }
 
 #page-bgtop {
@@ -251,8 +242,7 @@ img.aligncenter {
 
 #content {
 	float: left;
-	width: 900px;
-	min-height: 430px;
+	width: 90%;
 	padding: 0px 0px 0px 0px;
 }
 
@@ -303,156 +293,33 @@ img.aligncenter {
 	color: #FFFFFF;
 }
 
-/* Sidebar */
-/*
-#sidebar {
-	float: right;
-	width: 230px;
-	padding: 0px 0px 0px 0px;
-}
-
-#sidebar ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-#sidebar li {
-	margin: 0;
-	padding: 0;
-}
-
-#sidebar li ul {
-	margin: 0px 15px;
-	padding-bottom: 30px;
-}
-
-#sidebar li li {
-	padding-left: 15px;
-	line-height: 35px;
-	border-bottom: 1px solid #E5E5E5;
-}
-
-#sidebar li li span {
-	display: block;
-	margin-top: -20px;
-	padding: 0;
-	font-size: 11px;
-	font-style: italic;
-}
-
-#sidebar h2 {
-	height: 38px;
-	margin-bottom: 20px;
-	padding: 12px 0px 0px 15px;
-	letter-spacing: -1px;
-	font-size: 28px;
-	color: #2C2723;
-}
-
-#sidebar p {
-	margin: 0 0px;
-	padding: 0px 20px 20px 20px;
-	text-align: justify;
-}
-
-#sidebar a {
-	border: none;
-}
-
-#sidebar a:hover {
-	text-decoration: underline;
-}
-*/
-/* Calendar */
-
-#calendar {
-}
-
-#calendar_wrap {
-	padding: 20px;
-}
-
-#calendar table {
-	width: 100%;
-}
-
-#calendar tbody td {
-	text-align: center;
-}
-
-#calendar #next {
-	text-align: right;
-}
-
 /* Footer */
 
 #footer-wrapper {
-	position:absolute;
 	bottom:0;
-	height: 120px;
+	height: 18%;
 	width: 100%;
-	background: #2D2722 url(images/img02.jpg) repeat-x left top;
+	background: #2D2722;
 }
 
 #footer {	
 	clear: both;
-	height: 120px;
-	margin: 0px auto 25px auto;
+	height: 18%;
+	margin: 0px auto 0px auto;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 #footer p {
 	margin: 0;
-	padding: 3px 0px 0px 0px;
+	padding: 20px 0px 0px 0px;
 	line-height: normal;
 	font-size: 10px;
 	text-align: center;
-	color: #61544B;
+	color: #FFFFFF;
 }
 
 #footer a {
-	color: #61544B;
-}
-
-
-#three-columns {
-	width: 900px;
-	margin: 0px auto 30px auto;
-	padding: 50px 0px 30px 0px;
-}
-
-#three-columns ul {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-}
-
-#three-columns li {
-	padding: 4px 0px 6px 0px;
-	border-bottom: 1px solid #29231F;
-}
-
-#three-columns h2 {
- 	padding: 0px 0px 20px 0px;
-	font-size: 28px;
-	color: #B0A792;
-}
-
-#column1 {
-	float: left;
-	width: 280px;
-	margin-right: 30px;
-}
-
-#column2 {
-	float: left;
-	width: 280px;
-}
-
-#column3 {
-	float: right;
-	width: 280px;
+	color: #FFFFFF;
 }
 
 .node {
@@ -472,62 +339,12 @@ img.aligncenter {
 .n_8 { background-color: #ddee77; }
 .n_9 { background-color: #ee77dd; }
 
-
-/* Profile Menu */
-
-#menu2 {
-position:inherit;
-top: 0px;
-width: 980px;
-height: 26px;
-margin: 0 auto;
-padding: 16px 0px 0px 0px;
-}
-
-#menu2 ul {
-margin: 0;
-padding: 0px 0px 0px 4px;
-list-style: none;
-line-height: normal;
-}
-
-#menu2 li {
-float: left;
-}
-
-#menu2 a {
-  display: block;
-  /*float: left;*/
-  height: 25px;
-  padding: 8px 30px 0px 30px;
-  text-decoration: none;
-  text-transform: lowercase;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight: normal;
-  color: #181818;
-  border: none;
-}
-
-#menu2 a:hover {
-  background-color: #cccccc;
-}
-
-#menu2 li.current_page_item {
-background: #FF2929;
-}
-
-#menu2 .current_page_item a {
-background: #FF2929;
-color: #FFFFFF;
-}
-
 /* Tables */
 table.fancy {
   margin: 1em 1em 1em 0;
   table-layout: fixed;
   background: black;
-  width: 900px;
+  width: 100%;
 }
 table.fancy th, table.fancy td {
   text-align:center;
