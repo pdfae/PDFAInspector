@@ -119,7 +119,7 @@ def displaysummary(request, uid):
 		searchNode(tags[0], "Figure", 0, images)
 		forms = []
 		tables = []
-		searchNode(tags[0], "Table", 0, links)
+		searchNode(tags[0], "Table", 0, tables)
 		searchNode(data, "Form", 0, forms)
 		numTags = countNode(tags[0])
 		numForms = len(forms[0]['content'])
