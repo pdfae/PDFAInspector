@@ -169,7 +169,7 @@ def generateFormData(parsefile, resultfile):
 				count +=1
 	return [zip(url_list, page_list, name_list, tooltip_list, result_list), rule_list]			
 
-def generateImageData(parsefile, resultfile):
+def generateImageData(parsefile, resultfile, c):
 	if os.path.isfile(parsefile):
 		filePointer = open(parsefile)
 		parsedata = json.load(filePointer)
@@ -187,7 +187,7 @@ def generateImageData(parsefile, resultfile):
 		result_list = []
 		count = 0
 		for result in resultdata['results']:
-			if result['category'] == 2:
+			if result['category'] == c:
 				rule_list.append(result['title'])
 				tag_count = 0
 				for tag in result['tags']:
@@ -253,10 +253,10 @@ def getFormOutput(parsefile, resultfile, uid):
 
 def getImageOutput(parsefile, resultfile, uid):
 	output = ""
-	[lists, rule_list] = generateImageData(parsefile, resultfile)
+	[lists, rule_list] = generateImageData(parsefile, resultfile, 2)
 	
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Image","Page", "Alt text", "Rule", "Result", "Message"])
+		output += startTable(["Tag","Page", "Alt text", "Rule", "Result", "Message"])
 		for url, page, alt, result in lists:
 			output += "<tr>\n"
 				
@@ -290,11 +290,9 @@ def getImageOutput(parsefile, resultfile, uid):
 
 def getLinkOutput(parsefile, resultfile, uid):
 	output = ""
-	#[lists, rule_list] = generateImageData(parsefile, resultfile)
-	lists = []
-	rule_list = []
+	[lists, rule_list] = generateImageData(parsefile, resultfile, 1)
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Image","Page", "Alt text", "Rule", "Result", "Message"])
+		output += startTable(["Link","Page", "Alt text", "Rule", "Result", "Message"])
 		for url, page, alt, result in lists:
 			output += "<tr>\n"
 				
