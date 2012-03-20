@@ -43,6 +43,7 @@ class DocumentShouldBeTitled(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Title":
+				print child.content
 				return (Rules.Pass, "Document has a title", [])
 		return (Rules.Warning, "Document does not have a title", [])
 
@@ -134,3 +135,50 @@ class FormElementsMustHaveTooltips(Rules.Rule):
 				return (Rules.Pass, "Form element has a tooltip", [])
 		return (Rules.Violation, "Form element has no tooltip", [])
 
+class TablesMustHaveHeaders(Rules.Rule):
+	"""
+		The first row of any table must be header cells
+	"""
+	title    = "Tables Must Have Headers"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Tables
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to tables """
+		return (tag.tagName in Rules.TagTypes.Table)
+
+	@staticmethod
+	def validation(tag):
+		for child in tag.content:
+			if child.tagName in Rules.TagTypes.TableRow:
+				for grandchild in child.content:
+					if not grandchild.tagName in Rules.TagTypes.TableHeader:
+						return (Rules.Violation, "First row contains non-header element " + grandchild.tagName, [])
+				return (Rules.Pass, "First row of table consists of header cells", [])
+		return (Rules.Warning, "No table row found", [])
+
+class TablesMustContainDataCells(Rules.Rule):
+	"""
+		Any table must contain at least one data cell
+	"""
+	title    = "Tables Must Contain Data Cells"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Tables
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to tables """
+		return (tag.tagName in Rules.TagTypes.Table)
+
+	@staticmethod
+	def validation(tag):
+		if tag.tagName in Rules.TagTypes.TableData:
+			return (Rules.Pass, "Table contains data cells", [])
+		for child in tag.content:
+			return TablesMustContainDataCells.validation(child)
+		return (Rules.Violation, "Table does not contain data cells", [])
