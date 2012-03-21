@@ -71,7 +71,7 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = ''):
 	uid = unicode(uuid.uuid4());
 	output = ""
 	if bool:
-		output += "<table class = \"fancy\"><tr><td><ul><li><input type=checkbox id=\""+uid+"\" checked=\"checked\"/><label for=\""+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label><ul><li>\n<i>\n"
+		output += "<table class = \"treestyle\"><tr><td><ul><li><input type=checkbox id=\""+uid+"\" checked=\"checked\"/><label for=\""+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label><ul><li>\n<i>\n"
 	url += "/"
 	attr = []
 	for i in node["attributes"]:
@@ -215,7 +215,7 @@ def getFormOutput(parsefile, resultfile, uid):
 	output = ""
 	[lists, rule_list] = generateFormData(parsefile, resultfile)
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result", "Message"])
+		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result"])
 		for url, page, name, tooltip, result in lists:
 			output += "<tr>\n"
 				
@@ -241,7 +241,6 @@ def getFormOutput(parsefile, resultfile, uid):
 					output += "<tr>\n"
 				output += "<td>" + unicode(rule_list[counter]) + "</td>\n"
 				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
-				output += "<td>" + unicode(rule['message']) + "</td>\n"
 				if counter != 0:
 					output += "</tr>\n"
 				counter += 1
@@ -256,7 +255,7 @@ def getImageOutput(parsefile, resultfile, uid):
 	[lists, rule_list] = generateImageData(parsefile, resultfile, 2)
 	
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Tag","Page", "Alt text", "Rule", "Result", "Message"])
+		output += startTable(["Tag","Page", "Alt text", "Rule", "Result"])
 		for url, page, alt, result in lists:
 			output += "<tr>\n"
 				
@@ -278,7 +277,6 @@ def getImageOutput(parsefile, resultfile, uid):
 					output += "<tr>\n"
 				output += "<td>" + unicode(rule_list[counter]) + "</td>\n"
 				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
-				output += "<td>" + unicode(rule['message']) + "</td>\n"
 				if counter != 0:
 					output += "</tr>\n"
 				counter += 1
@@ -292,7 +290,7 @@ def getLinkOutput(parsefile, resultfile, uid):
 	output = ""
 	[lists, rule_list] = generateImageData(parsefile, resultfile, 1)
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Link","Page", "Alt text", "Rule", "Result", "Message"])
+		output += startTable(["Link","Page", "Alt text", "Rule", "Result"])
 		for url, page, alt, result in lists:
 			output += "<tr>\n"
 				
@@ -314,7 +312,6 @@ def getLinkOutput(parsefile, resultfile, uid):
 					output += "<tr>\n"
 				output += "<td>" + unicode(rule_list[counter]) + "</td>\n"
 				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
-				output += "<td>" + unicode(rule['message']) + "</td>\n"
 				if counter != 0:
 					output += "</tr>\n"
 				counter += 1
@@ -337,9 +334,9 @@ def endTable():
 
 def getResultFromInt(i):
 	if i == 1:
-		return "<FONT COLOR=\"006400\"><b>pass</b></FONT>"
+		return "<FONT COLOR=\"#006400\"><b>pass</b></FONT>"
 	elif i == 2:
-		return "<FONT COLOR=\"FF0000\"><b>fail</b></FONT>"
+		return "<FONT COLOR=\"#FF0000\"><b>fail</b></FONT>"
 	elif i == 3:
 		return "<b>warning</b>"
 	elif i == 4:

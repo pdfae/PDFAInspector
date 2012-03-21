@@ -113,27 +113,27 @@
 		}
 				
 /* Tables */
-.css-treeview table.fancy {
+.css-treeview table.treestyle {
   margin: 1em 1em 1em 0;
   background: black;
   table-layout: auto;
   width: 100%;
 }
-.css-treeview table.fancy th, table.fancy td {
+.css-treeview table.treestyle th, table.treestyle td {
   text-align:left;
   border: 2px;
   padding: 0.45em;
 }
 
-.css-treeview table.fancy td {
+.css-treeview table.treestyle td {
   background: gainsboro;
   text-align: left;
   color: #000000;
 }
-.css-treeview table.fancy tr:hover td {
+.css-treeview table.treestyle tr:hover td {
    background: mintcream;
 }
-.css-treeview table.fancy caption {
+.css-treeview table.treestyle caption {
   margin-left: inherit;
   margin-right: inherit;
 }
