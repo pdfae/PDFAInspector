@@ -250,6 +250,7 @@ def getFormOutput(parsefile, resultfile, uid):
 					output += "</tr>\n"
 				counter += 1
 			output += "</tr>\n"
+			count += 1
 		output += endTable()	
 	else:
 		output += "No form elements found"
