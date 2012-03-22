@@ -285,6 +285,7 @@ def getImageOutput(parsefile, resultfile, uid):
 			counter = 0
 			for rule in result:
 				if counter != 0:
+					output += count
 					if count % 2 == 0:
 						output += "<tr class = \"even\">\n"
 					else:
