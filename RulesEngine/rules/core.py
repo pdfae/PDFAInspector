@@ -43,7 +43,7 @@ class DocumentShouldBeTitled(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Title":
-				print child.content
+				#print child.content
 				return (Rules.Pass, "Document has a title", [])
 		return (Rules.Warning, "Document does not have a title", [])
 
