@@ -216,8 +216,13 @@ def getFormOutput(parsefile, resultfile, uid):
 	[lists, rule_list] = generateFormData(parsefile, resultfile)
 	if len(lists) > 0 and len(lists[0]) > 0:
 		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result"])
+		count = 1
 		for url, page, name, tooltip, result in lists:
-			output += "<tr>\n"
+			
+			if count % 2 == 0:
+				output += "<tr class = \"even\">\n"
+			else:
+				output += "<tr>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
 			output += "<a href = \"/reports/" + uid + "/formtreeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
