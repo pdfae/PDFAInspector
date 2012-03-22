@@ -369,7 +369,7 @@ table.fancy td {
   text-overflow: ellipsis;
   text-align: center;
 }
-table.fancy tr:hover td {
+table.fancy tr:hover {
    opacity: 0.9;
 }
 table.fancy caption {
