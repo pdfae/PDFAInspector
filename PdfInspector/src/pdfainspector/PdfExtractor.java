@@ -44,16 +44,16 @@ public class PdfExtractor {
 		Element bookmarks = BookmarkExtractor.extractToXML(reader);
 		Element tags = TagExtractor.extractToXML(reader);
 		Element form = FormExtractor.extractToXML(reader);
-		Element text = TextExtractor.extractToXML(reader);
-		Element images = ImageExtractor.extractToXML(reader);
+		//Element text = TextExtractor.extractToXML(reader);
+		//Element images = ImageExtractor.extractToXML(reader);
 		
 		// Add each component to the root of our XML tree.
 		root.appendChild(meta);
 		root.appendChild(bookmarks);
 		root.appendChild(tags);
 		root.appendChild(form);
-		root.appendChild(text);
-		root.appendChild(images);
+		//root.appendChild(text);
+		//root.appendChild(images);
 		
 		// Format and return the now-complete tree.
 		Document doc = new Document(root);
