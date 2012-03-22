@@ -183,8 +183,7 @@ def displaysummary(request, uid):
 		else:
 			output[5] += "<b>Number of tables: " + unicode(numTables) + "</b><br>\n"
 		
-		print rules
-		
+		count = [1] * len(rules)
 		for r in rules:
 			if rules[r]:
 				output[r] += "<table class = \"fancy\">\n<tr>\n"
@@ -197,6 +196,7 @@ def displaysummary(request, uid):
 		for test in tests:
 			i = test["category"]
 			if (len(test["tags"])) >= 1:
+				
 				numPass=0
 				numFail=0
 				numWarn=0
@@ -210,7 +210,12 @@ def displaysummary(request, uid):
 						numWarn+=1
 					elif (tag["result"])==4:
 						numInsp+=1
-				output[i] += "<tr><td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td></tr>"
+				if count[i] %2 == 0:
+					output[i] += "<tr class = \"even\">"
+				else:
+					output[i] += "<tr>"
+				output[i] += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td></tr>"
+				count[i] += 1
 				
 		output[0] += "</table><br><br>"
 		output[1] += "</table><br><br>"

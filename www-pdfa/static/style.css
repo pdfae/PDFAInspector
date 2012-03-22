@@ -30,7 +30,7 @@ background-color: #fff; /* set background color to match above border color */
 }
 
 body#tab1 li.tab1 a, body#tab2 li.tab2 a, body#tab3 li.tab3 a, body#tab4 li.tab4 a { /* settings for selected tab link */
-background-color: #FF2929; /* set selected tab background color as desired current: #fff*/
+background-color: #000000; /* set selected tab background color as desired current: #fff*/
 color: #525252; /* set selected tab link color as desired */
 position: relative;
 top: 1px;
@@ -49,11 +49,12 @@ border-bottom: none;
 
 
 ul#tabnav a:hover { /* settings for hover effect */
-background: #dddddd; /* set desired hover color */
+background: #00598D;
+	color: #FFFFFF;
 }
 
 ul#tabnav .current_page_item a {
-	background: #FF2929;
+	background: #00598D;
 	color: #FFFFFF;
 }
 
@@ -89,7 +90,7 @@ ul, ol {
 
 a {
 	text-decoration: none;
-	color: #FF2929;
+	color: #00598D;
 }
 
 a:hover {
@@ -209,16 +210,17 @@ img.aligncenter {
 }
 
 #menu li.current_page_item {
-	background: #FF2929;
+	background: #00598D;
 }
 
 #menu .current_page_item a {
-	background: #FF2929;
+	background: #00598D;
 	color: #FFFFFF;
 }
 
 #menu a:hover {
-	text-decoration: none;
+	background: #00598D;
+	color: #FFFFFF;
 }
 
 /* Page */
@@ -344,6 +346,7 @@ table.fancy {
   margin: 1em 1em 1em 0;
   table-layout: fixed;
   background: black;
+  color: black;
   width: 100%;
 }
 table.fancy th, table.fancy td {
@@ -352,19 +355,22 @@ table.fancy th, table.fancy td {
   padding: 0.45em;
 }
 table.fancy th {
-  background: black;
+  background: #777;
   text-align: center;
-  color: #FFFFFF;
 }
+
+table.fancy tr.even td {
+	background: #abc;
+}
+
 table.fancy td {
-  background: gainsboro;
+  background: #eee;
   overflow: hidden; 
   text-overflow: ellipsis;
   text-align: center;
-  color: #000000;
 }
 table.fancy tr:hover td {
-   background: mintcream;
+   opacity: 0.9;
 }
 table.fancy caption {
   margin-left: inherit;

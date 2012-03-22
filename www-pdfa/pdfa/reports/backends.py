@@ -157,7 +157,7 @@ def generateFormData(parsefile, resultfile):
 						if len(attr) > 0:
 							page = attr[0]['Page']
 						else:
-							page = 'null'
+							page = 'None'
 						[name, tooltip] = getNameTooltip(content)
 						url_list.append(tag_url)
 						page_list.append(page)
@@ -195,8 +195,8 @@ def generateImageData(parsefile, resultfile, c):
 						tag_url = unicode(tag['tag'])
 						parsed_tag = tag_urls[tag_url]
 						attr = parsed_tag['attributes']
-						alt = 'null'
-						page = 'null'
+						alt = 'None'
+						page = 'None'
 						for a in attr:
 							if 'Alt' in a:
 								alt = a['Alt']
@@ -256,9 +256,14 @@ def getImageOutput(parsefile, resultfile, uid):
 	
 	if len(lists) > 0 and len(lists[0]) > 0:
 		output += startTable(["Tag","Page", "Alt text", "Rule", "Result"])
+		count = 1
 		for url, page, alt, result in lists:
-			output += "<tr>\n"
-				
+			
+			if count % 2 == 0:
+				output += "<tr class = \"even\">\n"
+			else:
+				output += "<tr>\n"
+			
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
 			output += "<a href = \"/reports/" + uid + "/treeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
 			output += "</td>\n"
@@ -281,6 +286,7 @@ def getImageOutput(parsefile, resultfile, uid):
 					output += "</tr>\n"
 				counter += 1
 			output += "</tr>\n"
+			count += 1
 		output += endTable()	
 	else:
 		output += "No image tags found"
@@ -291,8 +297,13 @@ def getLinkOutput(parsefile, resultfile, uid):
 	[lists, rule_list] = generateImageData(parsefile, resultfile, 1)
 	if len(lists) > 0 and len(lists[0]) > 0:
 		output += startTable(["Link","Page", "Alt text", "Rule", "Result"])
+		count = 1
 		for url, page, alt, result in lists:
-			output += "<tr>\n"
+			
+			if count % 2 == 0:
+				output += "<tr class = \"even\">\n"
+			else:
+				output += "<tr>\n"
 				
 			output += "<td rowspan = \"" + unicode(len(result)) + "\">\n"
 			output += "<a href = \"/reports/" + uid + "/treeview/" + unicode(url) + "\">" + unicode(url.split(':')[-1]) + "</a>"
@@ -316,6 +327,7 @@ def getLinkOutput(parsefile, resultfile, uid):
 					output += "</tr>\n"
 				counter += 1
 			output += "</tr>\n"
+			count += 1
 		output += endTable()	
 	else:
 		output += "No link tags found"
@@ -345,8 +357,8 @@ def getResultFromInt(i):
 		return ""
 
 def getNameTooltip(content):
-	name = "null"
-	tooltip = "null"
+	name = "None"
+	tooltip = "None"
 	for tag in content:
 		if (tag['tagName'] == 'Name'):
 			name = tag['content'][0]
