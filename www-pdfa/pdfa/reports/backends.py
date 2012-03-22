@@ -285,7 +285,10 @@ def getImageOutput(parsefile, resultfile, uid):
 			counter = 0
 			for rule in result:
 				if counter != 0:
-					output += "<tr>\n"
+					if count % 2 == 0:
+						output += "<tr class = \"even\">\n"
+					else:
+						output += "<tr>\n"
 				output += "<td>" + unicode(rule_list[counter]) + "</td>\n"
 				output += "<td>" + getResultFromInt(rule['result']) + "</td>\n"
 				if counter != 0:
