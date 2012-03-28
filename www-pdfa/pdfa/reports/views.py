@@ -218,7 +218,7 @@ def displaysummary(request, uid):
 				count[i] += 1
 				
 		for r in rules:
-			if rules[r]:
+			if r:
 				output[r] += "</table>"
 		if (request.method=="POST"):
 			form = notesupdateform(request.POST)
