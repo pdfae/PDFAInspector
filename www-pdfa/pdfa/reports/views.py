@@ -214,15 +214,15 @@ def displaysummary(request, uid):
 					output[i] += "<tr class = \"even\">"
 				else:
 					output[i] += "<tr>"
-				output[i] += "<td><center>" + unicode(test["title"]) + "</center></td>" + "<td><center>" + unicode(numPass) + "</center></td>"+ "<td><center>" + unicode(numFail) + "</center></td>"+ "<td><center>" + unicode(numWarn) + "</center></td>"+ "<td><center>" + unicode(numInsp) + "</center></td></tr>"
+				output[i] += "<td>" + unicode(test["title"]) + "</td><td>" + unicode(numPass) + "</td><td>" + unicode(numFail) + "</td><td>" + unicode(numWarn) + "</td><td>" + unicode(numInsp) + "</td></tr>"
 				count[i] += 1
 				
-		output[0] += "</table><br><br>"
-		output[1] += "</table><br><br>"
-		output[2] += "</table><br><br>"
-		output[3] += "</table><br><br>"
-		output[4] += "</table><br><br>"
-		output[5] += "</table><br><br>"
+		output[0] += "</table>"
+		output[1] += "</table>"
+		output[2] += "</table>"
+		output[3] += "</table>"
+		output[4] += "</table>"
+		output[5] += "</table>"
 		
 			
 		if (request.method=="POST"):
