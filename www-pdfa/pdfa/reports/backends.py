@@ -108,9 +108,9 @@ def searchNode (node, tagName, depth=0, a =[]):
 			if not isinstance(i, basestring) and not isinstance(i, int):
 				searchNode(i,tagName, depth+1, a)		
 
-def getNodes(node, count=0, dict = {}, url='#'):
+def getNodes(node, count=0, dict = {}, url='#elem'):
 	nodetag = node["tagName"]
-	url += unicode(count) + ":" + unicode(nodetag)
+	url += unicode(count) + "-" + unicode(nodetag)
 	dict[url] = node
 	url += "/"
 	count = 0
