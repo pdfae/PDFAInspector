@@ -7,7 +7,7 @@
 <p style="font-weight: bold;">
 	Change Account settings:
 </p>
-<form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
+<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
 <table>
 	{{form.as_table}}
 </table>
