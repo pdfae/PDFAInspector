@@ -184,14 +184,14 @@ def displaysummary(request, uid):
 			output[5] += "<p><b>Number of tables: " + unicode(numTables) + "</b></p>\n"
 		
 		count = [1] * len(rules)
-		for k,v in rules:
+		for k,v in rules.items():
 			if v:
-				output[r] += "<table class = \"fancy\">\n<tr>\n"
-				output[r] += "<th>Title</th>\n"
-				output[r] += "<th>Pass</th>\n"
-				output[r] += "<th>Fail</th>\n"
-				output[r] += "<th>Warning</th>\n"
-				output[r] += "<th>Manual Inspection</th>\n</tr>\n"
+				output[k] += "<table class = \"fancy\">\n<tr>\n"
+				output[k] += "<th>Title</th>\n"
+				output[k] += "<th>Pass</th>\n"
+				output[k] += "<th>Fail</th>\n"
+				output[k] += "<th>Warning</th>\n"
+				output[k] += "<th>Manual Inspection</th>\n</tr>\n"
 		
 		for test in tests:
 			i = test["category"]
@@ -217,7 +217,7 @@ def displaysummary(request, uid):
 				output[i] += "<td>" + unicode(test["title"]) + "</td><td>" + unicode(numPass) + "</td><td>" + unicode(numFail) + "</td><td>" + unicode(numWarn) + "</td><td>" + unicode(numInsp) + "</td></tr>"
 				count[i] += 1
 				
-		for k,v in rules:
+		for k,v in rules.items()
 			if v:
 				output[k] += "</table>"
 		if (request.method=="POST"):
