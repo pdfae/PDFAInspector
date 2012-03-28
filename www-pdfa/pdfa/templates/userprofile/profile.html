@@ -3,23 +3,36 @@
 {% block title %}User - PDF Accessibilty Inspector{% endblock%}
 
 {% block text %}
-<b>Account Information<br><br></b>
+<p style="font-weight: bold;">
+Account Information
+</p>
 
-	USERNAME: {{ username }} <br>
+<p>
+USERNAME: {{ username }}
+</p>
+<p>
 	{% if first_name|length == 0 or last_name|length == 0%}
-	NAME: <a href="/accounts/profile/change/">Edit this field</a><br>
+	Name: <a href="/accounts/profile/change/">Edit this field</a>
 	{% else %}
-	NAME: {{ first_name }} {{ last_name }}<br>
+	Name: {{ first_name }} {{ last_name }}
 	{% endif %}
+</p>
+<p>
 	{% if email|length == 0 %}
-	EMAIL: <a href="/accounts/profile/change/">Edit this field</a> <br>
+	Email Address: <a href="/accounts/profile/change/">Edit this field</a>
 	{% else %}
-	EMAIL: {{ email }} <br>
+	Email Address: {{ email }}
+</p>
 	{% endif %}
-	LAST LOGIN: {{ last_login }}<br>
-	DATE JOINED: {{ date_joined }}<br>
-<br>
+<p>
+	Last logged in on {{ last_login }}
+</p>
+<p>
+	Joined on {{ date_joined }}
+</p>
 
-<a href="/accounts/profile/change/">Change Account Settings</a>
+<p>
+	<a href="/accounts/profile/change/">Change Account Settings</a>
+</p>
 
 {% endblock %}
