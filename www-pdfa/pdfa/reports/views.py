@@ -57,9 +57,9 @@ def displaytables(request, uid):
 	i = 0
 	for node in nodes:
 		i = i + 1
-		output += "<b>Table " + unicode(i) + "</b>\n<br>"
+		output += "<div><p><b>Table " + unicode(i) + "</b></p>\n"
 		output += writeNode(node)
-		output += "<br>"
+		output += "</div>"
 
 	content = []#cnode["content"]
 	print content
@@ -154,34 +154,34 @@ def displaysummary(request, uid):
 			rules[test["category"]] = True
 		
 		output = []
-		output.append("<b>Document Level Rules:</b><br>\n")
-		output.append("<b>Links:</b><br>\n")
-		output.append("<b>Images:</b><br>\n")
-		output.append("<b>Forms:</b><br>\n")
-		output.append("<b>Headers:</b><br>\n")
-		output.append("<b>Tables:</b><br>\n")
+		output.append("<p><b>Document Level Rules:</b></p>\n")
+		output.append("<p><b>Links:</b></p>\n")
+		output.append("<p><b>Images:</b></p>\n")
+		output.append("<p><b>Forms:</b></p>\n")
+		output.append("<p><b>Headers:</b></p>\n")
+		output.append("<p><b>Tables:</b></p>\n")
 		if numLinks == 0:
-			output[1] += "<b>No link tags found</b><br>\n"
+			output[1] += "<p><b>No link tags found</b></p>\n"
 			rules[1] = False
 		else:
-			output[1] += "<b>Number of links: " + unicode(numLinks) + "</b><br>\n"	
+			output[1] += "<p><b>Number of links: " + unicode(numLinks) + "</b></p>\n"	
 		if numImages == 0:
-			output[2] += "<b>No image tags found</b><br>\n"
+			output[2] += "<p><b>No image tags found</b></p>\n"
 			rules[2] = False
 		else:
-			output[2] += "<b>Number of images: " + unicode(numImages) + "</b><br>\n"
+			output[2] += "<p><b>Number of images: " + unicode(numImages) + "</b></p>\n"
 		if numForms == 0:
-			output[3] += "<b>No form elements found</b><br>\n"
+			output[3] += "<p><b>No form elements found</b></p>\n"
 			rules[3] = False
 		else:
-			output[3] += "<b>Number of forms: " + unicode(numForms) + "</b><br>\n"
-		output[4] += "<b>Not yet implemented</b><br>\n"
+			output[3] += "<p><b>Number of forms: " + unicode(numForms) + "</b></p>\n"
+		output[4] += "<p><b>Not yet implemented</b></p>\n"
 		rules[4] = False	
 		if numTables == 0:
-			output[5] += "<b>No table tags found</b><br>\n"
+			output[5] += "<p><b>No table tags found</b></p>\n"
 			rules[5] = False
 		else:
-			output[5] += "<b>Number of tables: " + unicode(numTables) + "</b><br>\n"
+			output[5] += "<p><b>Number of tables: " + unicode(numTables) + "</b></p>\n"
 		
 		count = [1] * len(rules)
 		for r in rules:
