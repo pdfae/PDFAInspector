@@ -24,13 +24,11 @@
 </tr>
 </table>
 
-<p>
 {% for out in output %}
 {% autoescape off %}
     {{out}}
 {% endautoescape %}
 {% endfor %}
-</p>
 
 <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
 <table>
