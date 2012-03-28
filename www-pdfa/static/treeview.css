@@ -113,6 +113,12 @@
 		}
 				
 /* Tables */
+.css-treeview div.treestyle {
+  margin: 1em 1em 1em 0;
+  background: gainsboro;
+  text-align: left;
+  color: #000000;
+}
 .css-treeview table.treestyle {
   margin: 1em 1em 1em 0;
   background: black;
