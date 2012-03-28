@@ -9,6 +9,10 @@
 {% endblock %}
 
 {% block text %}
-Account activated
+{% if account %}
+Account activated.
+{% else %}
+Activation key is expired or invalid.
+{% endif %}
 {% endblock %}
 
