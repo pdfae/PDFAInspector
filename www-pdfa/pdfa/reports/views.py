@@ -185,7 +185,7 @@ def displaysummary(request, uid):
 		
 		count = [1] * len(rules)
 		for r in rules:
-			if rules[r]:
+			if r:
 				output[r] += "<table class = \"fancy\">\n<tr>\n"
 				output[r] += "<th>Title</th>\n"
 				output[r] += "<th>Pass</th>\n"
