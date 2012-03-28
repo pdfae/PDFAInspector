@@ -217,14 +217,9 @@ def displaysummary(request, uid):
 				output[i] += "<td>" + unicode(test["title"]) + "</td><td>" + unicode(numPass) + "</td><td>" + unicode(numFail) + "</td><td>" + unicode(numWarn) + "</td><td>" + unicode(numInsp) + "</td></tr>"
 				count[i] += 1
 				
-		output[0] += "</table>"
-		output[1] += "</table>"
-		output[2] += "</table>"
-		output[3] += "</table>"
-		output[4] += "</table>"
-		output[5] += "</table>"
-		
-			
+		for r in rules:
+			if rules[r]:
+				output[r] += "</table>"
 		if (request.method=="POST"):
 			form = notesupdateform(request.POST)
 			if form.is_valid():
