@@ -152,10 +152,10 @@ public class TagExtractor {
     }
     
     /**
-     * Taken from iText's TaggedPdfReaderTool, this renders tag name codes into
-     * a human readable format.
+     * Taken from iText's TaggedPdfReaderTool, this renders tag names into an
+     * XML-compatible format.
      * @param tag The tag to format.
-     * @return A human-readable string representing the tag name.
+     * @return A string representing the tag name.
      */
     private static String fixTagName(String tag) {
         StringBuilder sb = new StringBuilder();

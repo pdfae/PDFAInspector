@@ -40,6 +40,7 @@ public class PdfExtractor {
 		
 		// Use our reader to scan the PDF for each of the necessary components.
 		Element root = new Element("PdfInfo");
+		Element rolemap = RoleMapExtractor.extractToXML(reader);
 		Element meta = MetaExtractor.extractToXML(reader);
 		Element bookmarks = BookmarkExtractor.extractToXML(reader);
 		Element tags = TagExtractor.extractToXML(reader);
@@ -48,6 +49,7 @@ public class PdfExtractor {
 		//Element images = ImageExtractor.extractToXML(reader);
 		
 		// Add each component to the root of our XML tree.
+		root.appendChild(rolemap);
 		root.appendChild(meta);
 		root.appendChild(bookmarks);
 		root.appendChild(tags);
