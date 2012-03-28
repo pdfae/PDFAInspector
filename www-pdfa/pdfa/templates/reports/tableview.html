@@ -3,22 +3,24 @@
 {% block title %}Table View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
+<p>
 <b>Graphic View:</b>
-<br>
+</p>
 
 {% if output == "" %}
-<br>
+<p>
 No tables found.
-<br>
+</p>
 {%else%}
-<br>
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
 {%endif%}
-<br>
+<p>
 <b>Summary:</b>
-<br><br>
+</p>
+<p>
 Not implemented yet.
+</p>
 
 {% endblock %}

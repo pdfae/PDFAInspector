@@ -3,15 +3,16 @@
 {% block title %}Image View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
+<p>
 <b>Graphic View:</b>
-<br><br>
+</p>
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
 
-<br>
+<p>
 <b>Summary:</b>
-<br><br>
+</p>
 {% if content|length > 0 %}
 	<table class="fancy">
 	<tr>

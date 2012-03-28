@@ -4,8 +4,9 @@
 
 {% block content %}
 
+<p>
 <b>Result Summary:</b>
-<br>
+</p>
 <table class = "fancy">
 <tr>
 	<th>Total tests</th>
@@ -22,28 +23,28 @@
 	<td><center>{{rinspect}}</center></td>
 </tr>
 </table>
-<br>
 
-<br>
-
+<p>
 {% for out in output %}
 {% autoescape off %}
     {{out}}
 {% endautoescape %}
 {% endfor %}
-<br>
-<br>
+</p>
+
 <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
 <table>
 	{{form.as_table}}
 </table>
-<br>
-<input type="submit" value="Submit"><input type="reset" value="Reset"></form>
+<p>
+<input type="submit" value="Submit" />
+<input type="reset" value="Reset"/>
+</p>
 
+</form>
 
 {%comment%}
 <!--<b>Detailed Results:</b>
-<br>
 <table class="fancy">
 	<tr>
 		<th>
@@ -113,7 +114,5 @@
 	{% endfor %}
 </table>-->
 {%endcomment%}
-<br>
-<br>
 
 {% endblock %}

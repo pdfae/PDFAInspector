@@ -17,8 +17,6 @@ Report: {{ title }}
 	<li {% if currentTab = "bm"%}class="current_page_item"{% endif %}><a href="/reports/{{uid}}/bookmarkview/">Bookmark Tree</a></li>
 </ul>
 
-<br>
-<br>
 <script type="text/javascript" src="/static/treeview.js"></script>
 <div id="content">
         {% block content %}{% endblock %}

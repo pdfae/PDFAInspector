@@ -6,12 +6,13 @@
 
 {% if content|length > 1 %}
 {% for c in content %}
+	<p>
 	<b><u>{{c.tagName}}</b></u>:
 		{% for t in c.content %}
 			{{t}}
 		{% empty %}
 		{% endfor %}
-	<br>
+	</p>
 {% empty %}
 {% endfor %}
 {% else %}
