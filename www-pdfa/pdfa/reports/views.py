@@ -217,7 +217,7 @@ def displaysummary(request, uid):
 				output[i] += "<td>" + unicode(test["title"]) + "</td><td>" + unicode(numPass) + "</td><td>" + unicode(numFail) + "</td><td>" + unicode(numWarn) + "</td><td>" + unicode(numInsp) + "</td></tr>"
 				count[i] += 1
 				
-		for k,v in rules.items()
+		for k,v in rules.items():
 			if v:
 				output[k] += "</table>"
 		if (request.method=="POST"):
