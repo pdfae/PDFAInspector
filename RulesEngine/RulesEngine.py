@@ -67,6 +67,8 @@ def generateTree(tag, parent=None):
 	for i in tag['content']:
 		if not isinstance(i, basestring) and not isinstance(i, int):
 			node.content.append(generateTree(i, node))
+		else:
+			node.text = i
 	return node
 
 def runRecursive(outputTreeNode, rule, tag, parents=[],num=0):
