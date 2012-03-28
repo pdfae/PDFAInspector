@@ -118,6 +118,8 @@
   background: gainsboro;
   text-align: left;
   color: #000000;
+  border: 2px;
+  padding: 0.45em;
 }
 .css-treeview table.treestyle {
   margin: 1em 1em 1em 0;
