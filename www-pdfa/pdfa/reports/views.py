@@ -37,8 +37,8 @@ def displaytreeview(request, uid):
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
-	output = '<a href="javascript:check_all()">Expand All</a>'
-	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
+	output = '<a href="javascript:check_all()" style="padding-right: 30px;">Expand All</a>'
+	output += '<a href="javascript:uncheck_all()">Collapse All</a>'
 	output += "<div class=\"css-treeview\">"
 	output += writeNode2(base, "tags")
 	output += "</div>"
