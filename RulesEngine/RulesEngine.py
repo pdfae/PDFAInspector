@@ -97,7 +97,6 @@ def process(json_object):
 		for tagTypeList in Rules.TagTypes.__dict__.values():
 			if isinstance(tagTypeList,list) and role["content"][0] in tagTypeList:
 				tagTypeList.append(role["tagName"])
-	del o["content"][0]
 #The above is a terrible hack and should be fixed.
 	inputTree  = generateTree(o)
 	outputTree = {}
