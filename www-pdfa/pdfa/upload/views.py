@@ -22,6 +22,9 @@ def upload (request):
 				fileObj.save()
 				process_file(fileObj.file.name)
 				if auth:
+					user = request.user.get_profile()
+					user.filecount = user.filecount + 1
+					user.save()
 					return HttpResponseRedirect('/accounts/profile/managereports/')
 				else:
 					return render_to_response("upload/processing.html", {"uid": fileObj.uid})

@@ -10,7 +10,7 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	# Other fields here
 	filepath = models.FilePathField(default = '')
-	filecount = models.IntegerField(null = True)
+	filecount = models.IntegerField(default = 0)
 	def __unicode__(self):
 		return "User: " + unicode(self.user.username) + " Filecount: " + unicode(self.filecount)
 	
