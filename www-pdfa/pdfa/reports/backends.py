@@ -71,7 +71,7 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
 	uid = unicode(uuid.uuid4());
 	output = ""
 	if bool:
-		output += "<table class = \"treestyle\"><tr><td><ul><li><input type=\"checkbox\" id=\"elem-"+uid+"\" checked=\"checked\"/><label for=\"elem-"+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label><ul><li>\n<i>\n"
+		output += "<div class=\"treestyle\"><ul><li><input type=\"checkbox\" id=\"elem-"+uid+"\" checked=\"checked\"/><label for=\"elem-"+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label><ul><li>\n<i>\n"
 	url += "-"
 	attr = []
 	for i in node["attributes"]:
@@ -94,7 +94,7 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
 				output += "<li>" + unicode(i) + "</li>"
 		count += 1	
 	if bool:
-		output += "</ul></li></ul></td></tr></table>"
+		output += "</ul></li></ul></div>"
 	return output
 
 	
