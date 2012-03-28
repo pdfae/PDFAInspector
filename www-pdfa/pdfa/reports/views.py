@@ -184,8 +184,8 @@ def displaysummary(request, uid):
 			output[5] += "<p><b>Number of tables: " + unicode(numTables) + "</b></p>\n"
 		
 		count = [1] * len(rules)
-		for r in rules:
-			if r:
+		for k,v in rules:
+			if v:
 				output[r] += "<table class = \"fancy\">\n<tr>\n"
 				output[r] += "<th>Title</th>\n"
 				output[r] += "<th>Pass</th>\n"
@@ -217,9 +217,9 @@ def displaysummary(request, uid):
 				output[i] += "<td>" + unicode(test["title"]) + "</td><td>" + unicode(numPass) + "</td><td>" + unicode(numFail) + "</td><td>" + unicode(numWarn) + "</td><td>" + unicode(numInsp) + "</td></tr>"
 				count[i] += 1
 				
-		for r in rules:
-			if r:
-				output[r] += "</table>"
+		for k,v in rules:
+			if v:
+				output[k] += "</table>"
 		if (request.method=="POST"):
 			form = notesupdateform(request.POST)
 			if form.is_valid():
