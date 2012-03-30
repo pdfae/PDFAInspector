@@ -2,6 +2,7 @@ package pdfainspector;
 
 import java.util.Set;
 
+import nu.xom.Attribute;
 import nu.xom.Element;
 
 import com.itextpdf.text.pdf.PdfDictionary;
@@ -29,8 +30,10 @@ public class RoleMapExtractor {
 		PdfDictionary roleMap = structTree.getAsDict(PdfName.ROLEMAP);
 		Set<PdfName> keys = roleMap.getKeys();
 		for(PdfName key : keys){
-			Element mapElement = new Element(fixTagName(PdfName.decodeName(key.toString())));
-			mapElement.appendChild(fixTagName(PdfName.decodeName(roleMap.getAsName(key).toString())));
+			Element mapElement = new Element("RoleMapEntry");
+			Attribute attribute = new Attribute(fixTagName(PdfName.decodeName(roleMap.getAsName(key).toString())),
+					fixTagName(PdfName.decodeName(key.toString())));
+			mapElement.addAttribute(attribute);
 			root.appendChild(mapElement);
 		}
 		return root;

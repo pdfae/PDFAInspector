@@ -88,16 +88,24 @@ def runRecursive(outputTreeNode, rule, tag, parents=[],num=0):
 		runRecursive(outputTreeNode, rule, i, path, j)
 		j += 1
 
+#This function is pretty hacky.
+def processRoleMap(tag, parent=None):
+	if tag['tagName'] == 'RoleMapEntry':
+		for attribute in tag['attributes']:
+			for key in attribute.keys():
+				for tagTypeList in Rules.TagTypes.__dict__.values():
+					if isinstance(tagTypeList,list) and key in tagTypeList:
+						tagTypeList.append(attribute[key])
+	for i in tag['content']:
+		if isinstance(i, dict):
+			processRoleMap(i)
+		
+
 def process(json_object):
 	"""
 	Process a JSON object.
 	"""
-#The below is a terrible hack and should be fixed.
-	for role in o["content"][0]["content"]:
-		for tagTypeList in Rules.TagTypes.__dict__.values():
-			if isinstance(tagTypeList,list) and role["content"][0] in tagTypeList:
-				tagTypeList.append(role["tagName"])
-#The above is a terrible hack and should be fixed.
+	processRoleMap(o)
 	inputTree  = generateTree(o)
 	outputTree = {}
 	outputTree['results'] = []
