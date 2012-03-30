@@ -29,7 +29,7 @@ class DocumentShouldBeTitled(Rules.Rule):
 		A document should have a title.
 	"""
 	title    = "Documents Should Be Titled"
-	severity = Rules.Warning
+	severity = Rules.Violation
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.DocumentLevel
@@ -45,7 +45,7 @@ class DocumentShouldBeTitled(Rules.Rule):
 			if child.tagName == "Title":
 				#print child.content
 				return (Rules.Pass, "Document has a title", [])
-		return (Rules.Warning, "Document does not have a title", [])
+		return (Rules.Violation, "Document does not have a title", [])
 
 class LinksMustHaveAltText(Rules.Rule):
 	"""
@@ -158,7 +158,7 @@ class TablesMustHaveHeaders(Rules.Rule):
 					if not grandchild.tagName in Rules.TagTypes.TableHeader:
 						return (Rules.Violation, "First row contains non-header element " + grandchild.tagName, [])
 				return (Rules.Pass, "First row of table consists of header cells", [])
-		return (Rules.Warning, "No table row found", [])
+		return (Rules.Violation, "No table row found", [])
 
 class TablesMustContainDataCells(Rules.Rule):
 	"""
