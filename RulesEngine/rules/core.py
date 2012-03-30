@@ -43,9 +43,35 @@ class DocumentShouldBeTitled(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Title":
-				#print child.content
 				return (Rules.Pass, "Document has a title", [])
 		return (Rules.Violation, "Document does not have a title", [])
+
+class MultiPageDocumentsMustHaveHeaders(Rules.Rule):
+	"""
+		A document longer than one page must have at least one header.
+	"""
+	title    = "Multi Page Documents Must Have Headers"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.DocumentLevel
+
+	@staticmethod
+	def applies(tag):
+		"""Applies to any multi-page document"""
+		if not tag.parent == None and tag.parent.parent == None and tag.tagName == "tags":
+			for metadata in tag.parent.content[1].content:
+				if metadata.tagName == "Pages":
+					return (int(metadata.text) > 1)
+		return False
+
+	@staticmethod
+	def validation(tag):
+		if tag.tagName in Rules.TagTypes.Heading:
+			return (Rules.Pass, "Document contains headers", [])
+		for child in tag.content:
+			return MultiPageDocumentsMustHaveHeaders.validation(child)
+		return (Rules.Violation, "Document does not contain headers", [])
 
 class LinksMustHaveAltText(Rules.Rule):
 	"""
@@ -182,3 +208,45 @@ class TablesMustContainDataCells(Rules.Rule):
 		for child in tag.content:
 			return TablesMustContainDataCells.validation(child)
 		return (Rules.Violation, "Table does not contain data cells", [])
+
+class TablesCellsMustContainContent(Rules.Rule):
+	"""
+		Any data or header cell in a table must contain some content
+	"""
+	title    = "Tables Cells Must Contain Content"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Tables
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to tables """
+		return (tag.tagName in Rules.TagTypes.TableData or tag.tagName in Rules.TagTypes.TableHeader)
+
+	@staticmethod
+	def validation(tag):
+		if len(tag.content) > 0:
+			return (Rules.Pass, "Cell contains content", [])
+		return (Rules.Violation, "Cell does not contain content", [])
+
+class HeadersMustContainTextContent(Rules.Rule):
+	"""
+		Any header must contain some non-null text content
+	"""
+	title    = "Headers Must Contain Text Content"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Headers
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to headers """
+		return (tag.tagName in Rules.TagTypes.Heading)
+
+	@staticmethod
+	def validation(tag):
+		if tag.text == "":
+			return (Rules.Violation, "Header does not contain text content", [])
+		return (Rules.Pass, "Header contains text content", [])
