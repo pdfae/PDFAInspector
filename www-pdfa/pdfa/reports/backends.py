@@ -18,7 +18,6 @@ def getData(parsefile, resultfile, uid, category):
 		tag_urls = {}
 		getNodes(parse_data, 0, tag_urls)
 		parseFP.close()
-		
 		tests = result_data["results"]
 		for test in tests:
 			if test['category'] == category and len(test['tags']) > 0:
@@ -30,12 +29,12 @@ def getData(parsefile, resultfile, uid, category):
 					tag['tagName'] = tag_urls[tag['tag']]['tagName']
 			if test['category'] == category and len(test['tags']) > 0:
 				test2 = {}
-				test2['title'] = test['title']
 				test2['tags'] = []
 				for tag in test['tags']:		
 					if tag['result'] != 1:
 						test2['tags'].append(tag)
-				data.append(test2)
+				if test2['tags']:
+					data.append(test2)
 	return data
 
 def writeTag(parsefile, tagName):
