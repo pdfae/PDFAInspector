@@ -147,7 +147,15 @@ def displaytreeview(request, uid):
 def displaylinks(request, uid):
 	currentTab = "links"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	tableRows = getLink(parsefile, resultfile, uid)
+	tableRows = getData(parsefile, resultfile, uid, 1)
+	name = "Link"
+	return render_to_response("reports/rowView.html", locals())
+
+def displayfigures(request, uid):
+	currentTab = "img"
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	tableRows = getData(parsefile, resultfile, uid, 2)
+	name = "Figure"
 	return render_to_response("reports/rowView.html", locals())
 
 def displaytables(request, uid):
@@ -179,11 +187,7 @@ def displayforms(request, uid):
 
 # tab to display information about images in document
 
-def displayimages(request, uid):
-	currentTab = "img"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	output = getImageOutput(parsefile, resultfile, uid)
-	return render_to_response("reports/formview.html", locals())
+
 
 # tab to display information about headers in document
 
