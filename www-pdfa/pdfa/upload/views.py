@@ -3,7 +3,7 @@ from django.shortcuts import HttpResponseRedirect, render_to_response, RequestCo
 import uuid
 import subprocess
 from settings import MEDIA_ROOT, PDF_JAR, PYTHON_SCRIPT, PROCESS_SCRIPT
-from forms import uploadfileform
+from forms import uploadfileform, ContactForm
 from models import UserFile
 
 def upload (request):
