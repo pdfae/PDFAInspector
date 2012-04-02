@@ -3,114 +3,64 @@
 {% block title %}Summary View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
-
 <p>
-<b>Result Summary:</b>
+	<b>Result Summary:</b>
 </p>
 <table class = "fancy">
-<tr>
-	<th>Total tests</th>
-	<th>Pass</th>
-	<th>Fail</th>
-	<th>Warning</th>
-	<th>Manual Inspection</th>
-</tr>
-<tr>
-	<td>{{rtest}}</td>
-	<td>{{rpass}}</td>
-	<td>{{rfail}}</td>
-	<td>{{rwarning}}</td>
-	<td>{{rinspect}}</td>
-</tr>
-</table>
-
-{% for out in output %}
-{% autoescape off %}
-    {{out}}
-{% endautoescape %}
-{% endfor %}
-
-<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
-<table>
-	{{form.as_table}}
-</table>
-<p>
-<input type="submit" value="Submit" />
-<input type="reset" value="Reset"/>
-</p>
-
-</form>
-
-{%comment%}
-<!--<b>Detailed Results:</b>
-<table class="fancy">
 	<tr>
-		<th>
-			Rule
-		</th>
-		<th>
-			Tag URL
-		</th>
-		<th>
-			Result
-		</th>
-		<th>
-			Message
-		</th>
+		<th>Total tests</th>
+		<th>Pass</th>
+		<th>Violation</th>
+		<th>Manual Inspection</th>
+	</tr>
+	<tr>
+		<td>{{tot_test}}</td>
+		<td>{{tot_pass}}</td>
+		<td>{{tot_fail}}</td>
+		<td>{{tot_ins}}</td>
+	</tr>
+</table>
+{%for tuple in content%}
+<p>
+	<b>{{tuple.0}}</b>
+</p>
+<p>
+	{%if tuple.1 == ""%}
+	No applicable tags found
+	{% else %}
+	{% if forloop.counter != 1%}
+<p>
+	Number of applicable tags: {{ tuple.1}}
+</p>
+{%endif%}
+<table class = "fancy">
+	<tr>
+		<th>Title</th>
+		<th>Pass</th>
+		<th>Violation</th>
+		<th>Manual Inspection</th>
 	</tr>
 	
-	{% for test in tests %}
+	{% for row in tuple.2 %}
 	<tr>
-		{% if test.tags|length > 0 %}
-			<td rowspan = "{{test.tags|length}}">
-				{{ test.title }}
-			</td>
-			
-			{% for tag in test.tags %}
-				{% if forloop.first %}
-				{% else %}
-					<tr>
-				{% endif %}
-					<td>
-						{{tag.tag}}
-					</td>
-					<td>
-						{% if tag.result == 1 %}
-							<FONT COLOR="006400"><b>
-								pass
-							</b></FONT>
-						{% endif %}
-						{% if tag.result == 2 %}
-							<FONT COLOR="FF0000"><b>
-								fail
-							</b></FONT>
-						{% endif %}
-					</td>
-					<td>
-						{{tag.message}}
-					</td>
-				{% if forloop.first %}
-				{% else %}
-					</tr>
-				{% endif %}
-			{% endfor %}
-		{% else %}
-			<td>
-				{{ test.title }}
-			</td>
-			<td>
-				Test was not run on any tags
-			</td>
-			<td>
-				N/A
-			</td>
-			<td>
-				N/A
-			</td>
-		{% endif %}
+		<td>{{row.0}}</td>
+		<td>{{row.1}}</td>
+		<td>{{row.2}}</td>
+		<td>{{row.3}}</td>
 	</tr>
 	{% endfor %}
-</table>-->
-{%endcomment%}
-
-{% endblock %}
+</table>
+{% endif %}
+</p>
+{%endfor%}
+<form action="." method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<table>
+		{{form.as_table}}
+	</table>
+	<p>
+		<input type="submit" value="Submit" />
+		<input type="reset" value="Reset"/>
+	</p>
+</form>
+{% endblock %} 
