@@ -18,6 +18,8 @@ def about(request):
 #	return render_to_response("defaults/contact.html", locals())
 	
 def contact (request):
+    currentPage = "contact"
+    auth = request.user.is_authenticated()
     if request.method == 'POST': # If the form has been submitted...
         form = ContactForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
