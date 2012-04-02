@@ -1,0 +1,40 @@
+{% extends 'reports/reports_base.html' %}
+
+{% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
+
+{% block content %}
+
+{% if tableRows|length > 0 %}
+<table class = "fancy">
+	<tr>
+		<th> Rule </th>
+		<th> Tag </th>
+		<th> Page </th>
+		<th> Result </th>
+	</tr>
+	{% for row in tableRows %}
+	<tr>
+		<td rowspan="{{row.tags|length}}"> {{row.title}} </td>
+		{% for tag in row.tags %}
+		{% if forloop.counter == 1 %}
+		{% else %}
+	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
+		{% endif %} <td> Link {{forloop.counter}} {{ tag.tag }} </td>
+		<td> {{tag.page}} </td>
+		<td> {%if tag.result == 2 %} <font color = "red">Fail</font> {% else %}
+		{% if tag.result == 3 %} <font color = "#FFA500">Manual inspection</font> {% else %} <font color = "green">Pass</font> {% endif %}
+		{% endif %} </td>
+		{% if forloop.counter == 1 %}
+		{% else %}
+	</tr>
+	{% endif %}
+	{% endfor %}
+	</tr>
+	{%endfor%}
+</table>
+{% else %}
+<p>
+	No link tags found
+</p>
+{% endif %}
+{% endblock %}
