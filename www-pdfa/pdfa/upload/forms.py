@@ -11,5 +11,5 @@ class notesupdateform (forms.Form):
 class ContactForm (forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField(widget=forms.Textarea, required = True)
-    sender = forms.EmailField()
+    e-mail = forms.EmailField()
     cc_myself = forms.BooleanField(required=False)
