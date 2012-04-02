@@ -2,14 +2,9 @@
 
 {% block title %}Summary View - PDF Accessibilty Inspector{% endblock%}
 
-{% block content %}
-
-<h3>
-	{% autoescape off %}
-		{{message}}
-	{% endautoescape%}
-</h3>
-
+{% block content %} <h3> {% autoescape off %}
+{{message}}
+{% endautoescape%} </h3>
 <p>
 	<b>Result Summary:</b>
 </p>
@@ -31,11 +26,12 @@
 <p>
 	<b>{{tuple.0}}</b>
 </p>
+{%if tuple.1 == ""%}
 <p>
-	{%if tuple.1 == ""%}
 	No applicable tags found
-	{% else %}
-	{% if forloop.counter != 1%}
+</p>
+{% else %}
+{% if forloop.counter != 1%}
 <p>
 	Number of applicable tags: {{ tuple.1}}
 </p>
@@ -47,7 +43,6 @@
 		<th>Violation</th>
 		<th>Manual Inspection</th>
 	</tr>
-	
 	{% for row in tuple.2 %}
 	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 		<td>{{row.0}}</td>
@@ -58,7 +53,6 @@
 	{% endfor %}
 </table>
 {% endif %}
-</p>
 {%endfor%}
 <form action="." method="post" enctype="multipart/form-data">
 	{% csrf_token %}
