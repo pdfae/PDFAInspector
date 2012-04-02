@@ -36,6 +36,4 @@ def contact (request):
     else:
         form = ContactForm() # An unbound form
 
-    return render_to_response('defaults/contact.html', {
-        'form': form,
-    })
+    return render_to_response('defaults/contact.html', locals(), context_instance=RequestContext(request))
