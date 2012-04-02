@@ -29,11 +29,12 @@ def getData(parsefile, resultfile, uid, category):
 					tag['tagName'] = tag_urls[tag['tag']]['tagName']
 			if test['category'] == category and len(test['tags']) > 0:
 				test2 = {}
+				test2['title'] = test['title']
 				test2['tags'] = []
 				for tag in test['tags']:		
 					if tag['result'] != 1:
 						test2['tags'].append(tag)
-				if test2['tags']:
+				if test2['tags']:		
 					data.append(test2)
 	return data
 
