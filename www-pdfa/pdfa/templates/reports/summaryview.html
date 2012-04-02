@@ -49,7 +49,7 @@
 	</tr>
 	
 	{% for row in tuple.2 %}
-	<tr>
+	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 		<td>{{row.0}}</td>
 		<td>{{row.1}}</td>
 		<td>{{row.2}}</td>
