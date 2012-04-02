@@ -129,7 +129,6 @@ def displaysummary(request, uid):
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())
 
-
 def displaytreeview(request, uid):
 	currentTab = "tree"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
