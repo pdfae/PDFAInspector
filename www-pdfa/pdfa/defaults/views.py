@@ -1,6 +1,6 @@
 # Author: Prateek Arora
 # including required modules
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, HttpResponseRedirect, RequestContext
 from settings import *
 from upload.forms import ContactForm
 	
