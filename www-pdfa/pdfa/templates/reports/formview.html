@@ -2,8 +2,6 @@
 
 {% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
 
-
-
 {% block content %}
 {% if tableRows|length > 0 %}
 <table class = "fancy">
@@ -20,10 +18,11 @@
 		{% else %}
 	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 		{% endif %}
-		<td> {{tag.tagName}}</td>
-		<td> {%if tag.result == 2 %} <span style="color: red">Violation</span> {% else %}
-		{% if tag.result == 3 %} <span style ="color: #FFA500">Manual inspection</span> {% else %} <span style = "color:green">Pass</span> {% endif %}
-		{% endif %} </td>
+		{% if tag.result == 1 %}
+		{% else %} <td> {{tag.tagName}}</td>
+		<td> {%if tag.result == 2 %} <span style="color: red">Violation</span> {% else %} <span style ="color: #FFA500">Manual inspection</span> {% endif %} </td>
+		{% endif}
+
 		{% if forloop.counter == 1 %}
 		{% else %}
 	</tr>
