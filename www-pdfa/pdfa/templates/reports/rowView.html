@@ -19,10 +19,10 @@
 		{% if forloop.counter == 1 %}
 		{% else %}
 	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-		{% endif %} <td> Link {{forloop.counter}} {{ tag.tag }} </td>
+		{% endif %} <td><a href="../treeview{{ tag.tag }}"> Link {{forloop.counter}} </a></td>
 		<td> {{tag.page}} </td>
-		<td> {%if tag.result == 2 %} <font color = "red">Fail</font> {% else %}
-		{% if tag.result == 3 %} <font color = "#FFA500">Manual inspection</font> {% else %} <font color = "green">Pass</font> {% endif %}
+		<td> {%if tag.result == 2 %} <span style="color: red">Fail</span> {% else %}
+		{% if tag.result == 3 %} <span style ="color: #FFA500">Manual inspection</span> {% else %} <span style = "color:green">Pass</span> {% endif %}
 		{% endif %} </td>
 		{% if forloop.counter == 1 %}
 		{% else %}

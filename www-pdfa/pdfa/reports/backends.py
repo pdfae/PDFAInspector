@@ -31,6 +31,7 @@ def getLink(parsefile, resultfile, uid):
 	return data
 
 
+
 def tablesummary(data, tests):
 	rpass=0
 	rwarning=0
