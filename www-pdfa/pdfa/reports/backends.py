@@ -28,14 +28,13 @@ def getData(parsefile, resultfile, uid, category):
 						if 'Page' in a:
 							tag['page'] = a['Page']
 					tag['tagName'] = tag_urls[tag['tag']]['tagName']
-			import copy
-			test2 = copy.deepcopy(test)	
 			if test['category'] == category and len(test['tags']) > 0:
-				i = 0
+				test2 = {}
+				test2['title'] = test['title']
+				test2['tags'] = []
 				for tag in test['tags']:		
-					if tag['result'] == 1:
-						test2['tags'].pop(i)
-					i += 1		
+					if tag['result'] != 1:
+						test2['tags'].append(tag)
 				data.append(test2)
 	return data
 
