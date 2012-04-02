@@ -94,17 +94,17 @@ img.aligncenter {
 	margin: 0px auto;
 }
 
-table {
+.tableview table {
 	margin: 1em;
 	width: 100%;
 	background: #000;
 }
-td, th {
+.tableview td, .tableview th {
 	background: #fff;
 	text-align: center;
 	vertical-align: inherit
 }
-th, caption {
+.tableview th, .tableview caption {
 	text-align: center;
 	font-weight: bolder;
 }
