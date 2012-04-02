@@ -154,15 +154,13 @@ def getNodesByName(base, tagType, curr):
 
 def drawTable(tag):
 	output = ""
-	if unicode(tag["tagName"]).lower() != 'p':
-		output += "<" + unicode(tag["tagName"]) + ">"
+	output += "<" + unicode(tag["tagName"]) + ">"
 	for node in tag['content']:
 		if not isinstance(node, basestring) and not isinstance(node, int):
 			output += drawTable(node)
 		else:
 			output += unicode(node)
-	if unicode(tag["tagName"]).lower() != 'p':			
-		output += "</" + unicode(tag["tagName"]) + ">"
+	output += "</" + unicode(tag["tagName"]) + ">"
 	return output
 		
 def parsespecific(file, tag_type):
