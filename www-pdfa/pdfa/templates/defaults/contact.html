@@ -21,7 +21,9 @@ Alternatively, leave us a message below and we will get back faster.
 </p>
 
 <form action="/contact/" method="post">{% csrf_token %}
-{{ form.as_table }}
+<table>
+  		{{form.as_table}}
+</table>
 <input type="submit" value="Submit" />
 </form>
 
