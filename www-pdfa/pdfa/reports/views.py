@@ -134,11 +134,9 @@ def displaytreeview(request, uid):
 	currentTab = "tree"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
 	tags = "<div class=\"css-treeview\">"
-	tags += writeTagTree(parsefile)
+	tags += writeTag(parsefile, "tags")
 	tags += "</div>"
 	return render_to_response("reports/treeview.html", locals())
-
-# tab to display information about tables in document
 
 def displaylinks(request, uid):
 	currentTab = "links"
@@ -153,6 +151,14 @@ def displayfigures(request, uid):
 	tableRows = getData(parsefile, resultfile, uid, 2)
 	name = "Figure"
 	return render_to_response("reports/rowView.html", locals())
+
+def displaybookmark(request, uid):
+	currentTab = "bm"
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	tags = "<div class=\"css-treeview\">"
+	tags += writeTag(parsefile, "Bookmarks")
+	tags += "</div>"
+	return render_to_response("reports/treeview.html", locals())
 
 def displaytables(request, uid):
 	currentTab = "tbl"
@@ -211,21 +217,6 @@ def displayheaders(request, uid):
 
 # tab to display information about bookmarks in document
 
-def displaybookmark(request, uid):
-	currentTab = "bm"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	result = open(parsefile)
-	base = json.loads(result.read())
-	nodes = []
-	searchNode(base, "tags", 0, nodes)
-
-	output = '<a href="javascript:check_all()">Expand All</a>'
-	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
-	output += "<div class=\"css-treeview\">"
-	for node in nodes:
-		output += writeNode2(base, "Bookmarks")
-	output += "</div>"
-	return render_to_response("reports/treeview.html", locals())
 
 
 def displayformtree(request, uid):

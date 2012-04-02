@@ -30,14 +30,14 @@ def getData(parsefile, resultfile, uid, category):
 				data.append(test)		
 	return data
 
-def writeTagTree(parsefile):
+def writeTag(parsefile, tagName):
 	parseFP = open(parsefile)
 	parse_data = json.load(parseFP)
 	parseFP.close()
 	
 	content = parse_data["content"]
 	for sect in content:
-		if sect["tagName"] == "tags":
+		if sect["tagName"] == tagName:
 			tags = sect
 	
 	if len(tags["content"]) > 0:
@@ -45,7 +45,7 @@ def writeTagTree(parsefile):
 		return js + writeTree(tags, 0, 0)
 	else:
 		return "<p>No tags found</p>"
-
+	
 def writeTree(node, depth, count, url = 'node_'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag) 
