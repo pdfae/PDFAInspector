@@ -4,8 +4,42 @@
 
 {% block content %}
 
-
+{% if ruleRows|length > 0%} 
+<p>
+	<b>
+		Summary:
+	</b>
+</p>
+<table class = "fancy">
+	<tr>
+		<th>Rule</th>
+		<th>Pass</th>
+		<th>Violation</th>
+		<th>Manual Inspection</th>
+	</tr>
+	{% for row in ruleRows %}
+	<tr>
+		<td>
+			{{row.title}}
+		</td>
+		<td>
+			{{row.npass}}
+		</td>
+		<td>
+			{{row.nfail}}
+		</td>
+		<td>
+			{{row.nins}}
+		</td>
+	</tr>
+	{% endfor %}
+</table>
 {% if tableRows|length > 0%}
+<p>
+	<b>
+		Detailed report:
+	</b>
+</p>
 <table class = "fancy">
 	<tr>
 		<th> Rule </th>
@@ -17,32 +51,31 @@
 	<tr>
 		<td rowspan="{{row.tags|length}}"> {{row.title}} </td>
 		{% for tag in row.tags %}
-		
-			{% if forloop.counter == 1 %}
-			{% else %}
-				<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-			{% endif %} 
-			<td><a href="../treeview/{{ tag.tag }}"> {{name}} {{forloop.counter}} </a></td>
-			<td> {{tag.page}} </td>
-			<td> 
-				{%if tag.result == 2 %} 
-					<span style="color: red">Violation</span> 
-				{% else %}
-					<span style ="color: #FFA500">Manual inspection</span> 
-				{% endif %} 
-			</td>
-		
-			{% if forloop.counter == 1 %}
-			{% else %}
-				</tr>
-			{% endif %}
+
+		{% if forloop.counter == 1 %}
+		{% else %}
+	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
+		{% endif %} <td><a href="../treeview/{{ tag.tag }}"> {{name}} {{forloop.counter}} </a></td>
+		<td> {{tag.page}} </td>
+		<td> {%if tag.result == 2 %} <span style="color: red">Violation</span> {% else %} <span style ="color: #FFA500">Manual inspection</span> {% endif %} </td>
+		{% if forloop.counter == 1 %}
+		{% else %}
+	</tr>
+	{% endif %}
 	{% endfor %}
 	</tr>
 	{%endfor%}
 </table>
 {% else %}
+<h3>
+	<span style = "color:green;text-align: center;">All tests passed</span>
+</h3>
+{% endif %}
+{%else%}
 <p>
 	No applicable tags found
 </p>
 {% endif %}
+
+
 {% endblock %}

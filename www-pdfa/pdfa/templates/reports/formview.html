@@ -3,6 +3,37 @@
 {% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
+
+{% if ruleRows|length > 0%} 
+<p>
+	<b>
+		Summary:
+	</b>
+</p>
+<table class = "fancy">
+	<tr>
+		<th>Rule</th>
+		<th>Pass</th>
+		<th>Violation</th>
+		<th>Manual Inspection</th>
+	</tr>
+	{% for row in ruleRows %}
+	<tr>
+		<td>
+			{{row.title}}
+		</td>
+		<td>
+			{{row.npass}}
+		</td>
+		<td>
+			{{row.nfail}}
+		</td>
+		<td>
+			{{row.nins}}
+		</td>
+	</tr>
+	{% endfor %}
+</table>
 {% if tableRows|length > 0%}
 <table class = "fancy">
 	<tr>
@@ -38,8 +69,15 @@
 	{%endfor%}
 </table>
 {% else %}
+<h3>
+	<span style = "color:green;text-align: center;">All tests passed</span>
+</h3>
+{% endif %}
+{%else%}
 <p>
 	No form elements found
 </p>
 {% endif %}
+
+
 {% endblock %}

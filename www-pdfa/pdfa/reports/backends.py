@@ -7,6 +7,7 @@ import uuid
 
 def getData(parsefile, resultfile, uid, category):
 	data = []
+	data2 = []
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
 		
 		resultFP = open(resultfile)
@@ -21,22 +22,42 @@ def getData(parsefile, resultfile, uid, category):
 		tests = result_data["results"]
 		for test in tests:
 			if test['category'] == category and len(test['tags']) > 0:
+				
 				for tag in test['tags']:
+						
 					attr = tag_urls[tag['tag']]['attributes']
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
 					tag['tagName'] = tag_urls[tag['tag']]['tagName']
+				
+				
 			if test['category'] == category and len(test['tags']) > 0:
 				test2 = {}
 				test2['title'] = test['title']
 				test2['tags'] = []
-				for tag in test['tags']:		
+				ntest = 0
+				npass = 0
+				nfail = 0
+				nins = 0
+				for tag in test['tags']:
+					ntest += 1
+					if tag['result'] == 1:
+						npass += 1
+					elif tag['result'] == 2:
+						nfail += 1
+					else:
+						nins += 1			
 					if tag['result'] != 1:
 						test2['tags'].append(tag)
+				test['ntest'] = ntest
+				test['npass'] = npass
+				test['nfail'] = nfail
+				test['nins'] = nins		
 				if test2['tags']:		
-					data.append(test2)
-	return data
+					data2.append(test2)
+				data.append(test)	
+	return [data, data2]
 
 def writeTag(parsefile, tagName):
 	parseFP = open(parsefile)
@@ -54,18 +75,18 @@ def writeTag(parsefile, tagName):
 	else:
 		return "<p>No tags found</p>"
 	
-def writeTree(node, depth, count, url = 'node_'):
+def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag) 
 	output = ""
 	if depth > 0:
-		output += "<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-"+url+"\" checked=\"checked\"/><label for=\"elem-"+url+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label>\n"
+		output += "<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
 	url += "-"
 	
 	if depth > 0:
 		attr = []
 		for i in node["attributes"]:
-			for j,k in i.iteritems():
+			for j, k in i.iteritems():
 				attr.append(unicode(j) + "=" + unicode(k))
 		if attr:
 			output += "("
@@ -76,7 +97,7 @@ def writeTree(node, depth, count, url = 'node_'):
 	count = 0
 	for i in node["content"]:	
 		if not isinstance(i, basestring) and not isinstance(i, int):
-			output += writeTree(i, depth+1, count, url)
+			output += writeTree(i, depth + 1, count, url)
 		else:
 			output += "<li>" + unicode(i) + "</li>"
 		count += 1	
@@ -102,11 +123,11 @@ def writeNode (node, depth=0):
 	print "depth =" + unicode(depth)
 	nodetag = node["tagName"]
 	print nodetag
-	output = "<div class='node n_" + unicode(depth) + "'><b>"+nodetag+"</b><br />\n<i>\n"
+	output = "<div class='node n_" + unicode(depth) + "'><b>" + nodetag + "</b><br />\n<i>\n"
 	
 	attr = []
 	for i in node["attributes"]:
-		for j,k in i.iteritems():
+		for j, k in i.iteritems():
 			attr.append(unicode(j) + "=" + unicode(k))
 	output += ", ".join(attr)
 	output += "</i><br />\n"
@@ -116,13 +137,13 @@ def writeNode (node, depth=0):
 				print ""
 				output += unicode(i['text'])
 			else:
-				output += writeNode(i,depth+1)
+				output += writeNode(i, depth + 1)
 		else:
 			output += unicode(i)
 	output += "</div>"
 	return output
 
-def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
+def writeNode2 (node, tagName, bool=False, depth=0, count=0, url='node_'):
 	#print "depth =" + unicode(depth)
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag) 
@@ -132,11 +153,11 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
 	uid = unicode(uuid.uuid4());
 	output = ""
 	if bool:
-		output += "<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-"+uid+"\" checked=\"checked\"/><label for=\"elem-"+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label>\n"
+		output += "<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + uid + "\" checked=\"checked\"/><label for=\"elem-" + uid + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
 	url += "-"
 	attr = []
 	for i in node["attributes"]:
-		for j,k in i.iteritems():
+		for j, k in i.iteritems():
 			attr.append(unicode(j) + "=" + unicode(k))
 	if bool:
 		output += ", ".join(attr)
@@ -149,7 +170,7 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
 				if bool:
 					output += "<li>" + unicode(i['text']) + "</li>"
 			else:
-				output += writeNode2(i, tagName, bool, depth+1, count, url)
+				output += writeNode2(i, tagName, bool, depth + 1, count, url)
 		else:
 			if bool:
 				output += "<li>" + unicode(i) + "</li>"
@@ -160,16 +181,16 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
 
 	
 	
-def searchNode (node, tagName, depth=0, a =[]):
+def searchNode (node, tagName, depth=0, a=[]):
 	nodetag = node["tagName"]
 	if (nodetag == tagName):
 		a.append(node)
 	else:
 		for i in node["content"]:
 			if not isinstance(i, basestring) and not isinstance(i, int):
-				searchNode(i,tagName, depth+1, a)		
+				searchNode(i, tagName, depth + 1, a)		
 
-def getNodes(node, count=0, dict = {}, url='#'):
+def getNodes(node, count=0, dict={}, url='#'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag)
 	dict[url] = node
@@ -227,7 +248,7 @@ def generateFormData(parsefile, resultfile):
 					result_list.append([])	
 					result_list[tag_count].append(tag)
 					tag_count += 1	
-				count +=1
+				count += 1
 	return [zip(url_list, page_list, name_list, tooltip_list, result_list), rule_list]			
 
 def generateImageData(parsefile, resultfile, c):
@@ -269,14 +290,14 @@ def generateImageData(parsefile, resultfile, c):
 					result_list.append([])	
 					result_list[tag_count].append(tag)
 					tag_count += 1	
-				count +=1
+				count += 1
 	return [zip(url_list, page_list, alt_list, result_list), rule_list]			
 
 def getFormOutput(parsefile, resultfile, uid):	
 	output = ""
 	[lists, rule_list] = generateFormData(parsefile, resultfile)
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Form","Page", "Name", "Tooltip", "Rule", "Result"])
+		output += startTable(["Form", "Page", "Name", "Tooltip", "Rule", "Result"])
 		count = 1
 		for url, page, name, tooltip, result in lists:
 			
@@ -325,7 +346,7 @@ def getImageOutput(parsefile, resultfile, uid):
 	[lists, rule_list] = generateImageData(parsefile, resultfile, 2)
 	
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Tag","Page", "Alt text", "Rule", "Result"])
+		output += startTable(["Tag", "Page", "Alt text", "Rule", "Result"])
 		count = 1
 		for url, page, alt, result in lists:
 			
@@ -369,7 +390,7 @@ def getLinkOutput(parsefile, resultfile, uid):
 	output = ""
 	[lists, rule_list] = generateImageData(parsefile, resultfile, 1)
 	if len(lists) > 0 and len(lists[0]) > 0:
-		output += startTable(["Link","Page", "Alt text", "Rule", "Result"])
+		output += startTable(["Link", "Page", "Alt text", "Rule", "Result"])
 		count = 1
 		for url, page, alt, result in lists:
 			
