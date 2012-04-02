@@ -30,76 +30,52 @@ def getData(parsefile, resultfile, uid, category):
 				data.append(test)		
 	return data
 
-def getLink(parsefile, resultfile, uid):
-	data = []
-	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
-		
-		resultFP = open(resultfile)
-		result_data = json.load(resultFP)
-		resultFP.close()
-		
-		parseFP = open(parsefile)
-		parse_data = json.load(parseFP)
-		tag_urls = {}
-		getNodes(parse_data, 0, tag_urls)
-		parseFP.close()
-		
-		tests = result_data["results"]
-		for test in tests:
-			if test['category'] == 1 and len(test['tags']) > 0:
-				for tag in test['tags']:
-					attr = tag_urls[tag['tag']]['attributes']
-					for a in attr:
-						if 'Page' in a:
-							tag['page'] = a['Page']
-				data.append(test)		
-	return data
+def writeTagTree(parsefile):
+	parseFP = open(parsefile)
+	parse_data = json.load(parseFP)
+	parseFP.close()
+	
+	content = parse_data["content"]
+	for sect in content:
+		if sect["tagName"] == "tags":
+			tags = sect
+	
+	if len(tags["content"]) > 0:
+		js = "<p><a href=\"javascript:check_all()\" style=\"padding-right: 30px;\">Expand All</a><a href=\"javascript:uncheck_all()\">Collapse All</a></p>"	
+		return js + writeTree(tags, 0, 0)
+	else:
+		return "<p>No tags found</p>"
 
-def getFigure(parsefile, resultfile, uid):
-	data = []
-	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
-		
-		resultFP = open(resultfile)
-		result_data = json.load(resultFP)
-		resultFP.close()
-		
-		parseFP = open(parsefile)
-		parse_data = json.load(parseFP)
-		tag_urls = {}
-		getNodes(parse_data, 0, tag_urls)
-		parseFP.close()
-		
-		tests = result_data["results"]
-		for test in tests:
-			if test['category'] == 1 and len(test['tags']) > 0:
-				for tag in test['tags']:
-					attr = tag_urls[tag['tag']]['attributes']
-					for a in attr:
-						if 'Page' in a:
-							tag['page'] = a['Page']
-				data.append(test)		
-	return data
-
-
-def tablesummary(data, tests):
-	rpass=0
-	rwarning=0
-	rfail=0
-	rinspect=0
-	for test in tests:
-		print test
-		tags = test["tags"]
-		for tag in tags:
-			if (tag["result"]=="pass"):
-				rpass=rpass+1
-			elif (tag["result"]=="warning"):
-				rwarning=rwarning+1
-			elif (tag["result"]=="fail"):
-				rfail=rfail+1
-			elif (tag["result"]=="manual inspection"):
-				rinspect=rinspect+1
-	return render_to_response("reports/summaryview.html", locals())
-
+def writeTree(node, depth, count, url = 'node_'):
+	nodetag = node["tagName"]
+	url += unicode(count) + ":" + unicode(nodetag) 
+	output = ""
+	if depth > 0:
+		output += "<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-"+url+"\" checked=\"checked\"/><label for=\"elem-"+url+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label>\n"
+	url += "-"
+	
+	if depth > 0:
+		attr = []
+		for i in node["attributes"]:
+			for j,k in i.iteritems():
+				attr.append(unicode(j) + "=" + unicode(k))
+		output += "("
+		output += ", ".join(attr)
+		output += ")"
+	
+	output += "\n<ul>"
+	count = 0
+	for i in node["content"]:	
+		if not isinstance(i, basestring) and not isinstance(i, int):
+			output += writeTree(i, depth+1, count, url)
+		else:
+			output += "<li>" + unicode(i) + "</li>"
+		count += 1	
+	if depth > 0:
+		output += "</ul></ul></div>"
+	return output
+	
+	
 def parsespecific(file, tag_type):
 	import json
 	from pprint import pprint
@@ -147,7 +123,7 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
 	uid = unicode(uuid.uuid4());
 	output = ""
 	if bool:
-		output += "<div class=\"treestyle\"><ul><li><input type=\"checkbox\" id=\"elem-"+uid+"\" checked=\"checked\"/><label for=\"elem-"+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label><ul><li>\n<i>\n"
+		output += "<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-"+uid+"\" checked=\"checked\"/><label for=\"elem-"+uid+"\"><b><a name = \"" + url + "\" id = \"" + url + "\">"+nodetag+ "</a></b></label>\n"
 	url += "-"
 	attr = []
 	for i in node["attributes"]:
@@ -155,7 +131,7 @@ def writeNode2 (node, tagName, bool = False, depth=0, count = 0, url = 'node_'):
 			attr.append(unicode(j) + "=" + unicode(k))
 	if bool:
 		output += ", ".join(attr)
-		output += "</i></li>\n"
+		output += "\n<ul>"
 	count = 0
 	for i in node["content"]:	
 		if not isinstance(i, basestring) and not isinstance(i, int):

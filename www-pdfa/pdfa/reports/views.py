@@ -133,13 +133,9 @@ def displaysummary(request, uid):
 def displaytreeview(request, uid):
 	currentTab = "tree"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	result = open(parsefile)
-	base = json.loads(result.read())
-	output = '<a href="javascript:check_all()" style="padding-right: 30px;">Expand All</a>'
-	output += '<a href="javascript:uncheck_all()">Collapse All</a>'
-	output += "<div class=\"css-treeview\">"
-	output += writeNode2(base, "tags")
-	output += "</div>"
+	tags = "<div class=\"css-treeview\">"
+	tags += writeTagTree(parsefile)
+	tags += "</div>"
 	return render_to_response("reports/treeview.html", locals())
 
 # tab to display information about tables in document
