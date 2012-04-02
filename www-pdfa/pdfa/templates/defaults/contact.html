@@ -12,6 +12,10 @@ Presently, feature requests and bug-fix information can be posted and tracked on
 <a href = "https://github.com/klange/PDFAInspector/issues">https://github.com/klange/PDFAInspector/issues</a>
 </p>
 
+<form action="/contact/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
 
 <p>
 Please leave us a note on the above page, and one of the developers will get back to you shortly.
