@@ -7,3 +7,9 @@ class uploadfileform (forms.Form):
 
 class notesupdateform (forms.Form):
 	notes = forms.CharField(max_length = 2000, widget=forms.Textarea, required = False)
+	
+class ContactForm (forms.Form):
+    subject = forms.CharField(max_length=100)
+    message = forms.CharField(max_length = 2000, widget=forms.Textarea, required = True)
+    sender = forms.EmailField()
+    cc_myself = forms.BooleanField(required=False)
