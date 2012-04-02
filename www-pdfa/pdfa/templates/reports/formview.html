@@ -21,7 +21,13 @@
 			{% endif %}
 			
 			<td> {{tag.tagName}}</td>
-			<td> {{tag.result}}</td>
+			<td> 
+				{%if tag.result == 2 %} 
+					<span style="color: red">Violation</span> 
+				{% else %}
+					<span style ="color: #FFA500">Manual inspection</span> 
+				{% endif %} 
+			</td>
 			
 			{% if forloop.counter == 1 %}
 			{% else %}
