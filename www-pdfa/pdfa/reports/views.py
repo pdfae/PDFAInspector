@@ -29,8 +29,18 @@ def setup(user, uid):
 	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
 	return [auth, currentPage, parsefile, resultfile, title, notes, fileObj]
 
-
-
+def setup_notes_form(request, uid, notes, fileObj):
+	if (request.method=="POST"):
+			form = notesupdateform(request.POST)
+			if form.is_valid():
+				fileObj = UserFile.objects.get(uid = uid)
+				fileObj.notes = form.cleaned_data['notes']
+				fileObj.save()
+	else:
+		data = {'notes': notes}
+		form = notesupdateform(data)
+	return form
+	
 # tab to display tree view
 def displaytreeview(request, uid):
 	currentTab = "tree"
@@ -106,130 +116,85 @@ def displayheaders(request, uid):
 def displaysummary(request, uid):
 	currentTab = "summary"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-
+	
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
-		filePointer = open(parsefile)
-		data = json.load(filePointer)
-		filePointer.close()
-		tags = []
-		searchNode(data, "tags", 0, tags)
-		links = []
-		searchNode(tags[0], "Link", 0, links)
-		images = []
-		searchNode(tags[0], "Figure", 0, images)
-		forms = []
-		tables = []
-		searchNode(tags[0], "Table", 0, tables)
-		searchNode(data, "Form", 0, forms)
-		numTags = countNode(tags[0])
-		numForms = len(forms[0]['content'])
-		numLinks = len(links)
-		numImages = len(images)
-		numTables = len(tables)
-		numHeaders = 0 #ask how this is to be done
-		json_data = open (resultfile) #insert filepath of json result file
-		data = json.load(json_data)
-		tests = (data["results"])
-		json_data.close()
-		rtest=0
-		rpass=0
-		rwarning=0
-		rfail=0
-		rinspect=0
+		
+		resultFP = open(resultfile)
+		result_data = json.load(resultFP)
+		resultFP.close()
+		
+		parseFP = open(parsefile)
+		parse_data = json.load(parseFP)
+		parseFP.close()
+		
+		message = "<font color=\"red\">The document is untagged and not accessible</font>"
+		
+		rnum = {}
+		rtitle = {}
+		rtest={}
+		rpass={}
+		rfail={}
+		rinspect={}
+		for i in range(0,6):
+			rnum[i] = 0
+			rtitle[i] = []
+			rtest[i] = []
+			rpass[i] = []
+			rfail[i] = []
+			rinspect[i] = []
+		
+		tests = result_data["results"]	
 		for test in tests:
 			tags = test["tags"]
-			for tag in tags:
-				rtest=rtest+1
+			category = test["category"]
+			ntest = 0
+			npass = 0
+			nfail = 0
+			nins = 0
+			for tag in tags:		
+				ntest += 1
 				if (tag["result"]==1):
-					rpass=rpass+1
-				elif (tag["result"]==3):
-					rwarning=rwarning+1
+					npass += 1
+					if test["id"] == "core.DocumentMustBeTagged":
+						message = "<font color = \"#FFA500\">The document is partially accessible</font>"
 				elif (tag["result"]==2):
-					rfail=rfail+1
-				elif (tag["result"]==4):
-					rinspect=rinspect+1
-		
-		rules = {}
-		for test in tests:
-			rules[test["category"]] = True
-		
-		output = []
-		output.append("<p><b>Document Level Rules:</b></p>\n")
-		output.append("<p><b>Links:</b></p>\n")
-		output.append("<p><b>Images:</b></p>\n")
-		output.append("<p><b>Forms:</b></p>\n")
-		output.append("<p><b>Headers:</b></p>\n")
-		output.append("<p><b>Tables:</b></p>\n")
-		if numLinks == 0:
-			output[1] += "<p><b>No link tags found</b></p>\n"
-			rules[1] = False
-		else:
-			output[1] += "<p><b>Number of links: " + unicode(numLinks) + "</b></p>\n"	
-		if numImages == 0:
-			output[2] += "<p><b>No image tags found</b></p>\n"
-			rules[2] = False
-		else:
-			output[2] += "<p><b>Number of images: " + unicode(numImages) + "</b></p>\n"
-		if numForms == 0:
-			output[3] += "<p><b>No form elements found</b></p>\n"
-			rules[3] = False
-		else:
-			output[3] += "<p><b>Number of forms: " + unicode(numForms) + "</b></p>\n"
-		output[4] += "<p><b>Not yet implemented</b></p>\n"
-		rules[4] = False	
-		if numTables == 0:
-			output[5] += "<p><b>No table tags found</b></p>\n"
-			rules[5] = False
-		else:
-			output[5] += "<p><b>Number of tables: " + unicode(numTables) + "</b></p>\n"
-		
-		count = [1] * len(rules)
-		for k,v in rules.items():
-			if v:
-				output[k] += "<table class = \"fancy\">\n<tr>\n"
-				output[k] += "<th>Title</th>\n"
-				output[k] += "<th>Pass</th>\n"
-				output[k] += "<th>Fail</th>\n"
-				output[k] += "<th>Warning</th>\n"
-				output[k] += "<th>Manual Inspection</th>\n</tr>\n"
-		
-		for test in tests:
-			i = test["category"]
-			if (len(test["tags"])) >= 1:
+					nfail += 1
+				elif (tag["result"]==3):
+					nins += 1	
+			rnum[category] += 1
+			rtitle[category].append([test["title"], npass, nfail, nins])
+			rtest[category].append(ntest)
+			rpass[category].append(npass)
+			rfail[category].append(nfail)
+			rinspect[category].append(nins)
 				
-				numPass=0
-				numFail=0
-				numWarn=0
-				numInsp=0
-				for tag in test["tags"]:
-					if (tag["result"]==1):
-						numPass+=1
-					elif (tag["result"])==2:
-						numFail+=1
-					elif (tag["result"])==3:
-						numWarn+=1
-					elif (tag["result"])==4:
-						numInsp+=1
-				if count[i] %2 == 0:
-					output[i] += "<tr class = \"even\">"
-				else:
-					output[i] += "<tr>"
-				output[i] += "<td>" + unicode(test["title"]) + "</td><td>" + unicode(numPass) + "</td><td>" + unicode(numFail) + "</td><td>" + unicode(numWarn) + "</td><td>" + unicode(numInsp) + "</td></tr>"
-				count[i] += 1
-				
-		for k,v in rules.items():
-			if v:
-				output[k] += "</table>"
-		if (request.method=="POST"):
-			form = notesupdateform(request.POST)
-			if form.is_valid():
-				fileObj = UserFile.objects.get(uid = uid)
-				fileObj.notes = form.cleaned_data['notes']
-				fileObj.save()
-		else:
-			data = {'notes': notes}
-			form = notesupdateform(data)
-
+		content = []
+		content.append(["Document Level Rules:"])
+		content.append(["Links:"])
+		content.append(["Figures:"])
+		content.append(["Forms:"])
+		content.append(["Headers:"])
+		content.append(["Tables:"])
+		
+		tot_test = 0
+		tot_pass = 0
+		tot_fail = 0
+		tot_ins = 0
+		for i in range(0,6):
+			if sum(rtest[i]) > 0:
+				content[i].append(sum(rtest[i])/rnum[i])
+				content[i].append(rtitle[i])
+			else:
+				content[i].append("")
+			
+			tot_test += sum(rtest[i])
+			tot_pass += sum(rpass[i])
+			tot_fail += sum(rfail[i])
+			tot_ins += sum(rinspect[i])
+		
+		if tot_fail == 0:
+			message = "<font color = \"green\">The document is accessible</font>"	
+		form = setup_notes_form(request, uid, notes, fileObj)
 		return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())

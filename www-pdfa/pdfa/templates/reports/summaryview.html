@@ -3,6 +3,13 @@
 {% block title %}Summary View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
+
+<h3>
+	{% autoescape off %}
+		{{message}}
+	{% endautoescape%}
+</h3>
+
 <p>
 	<b>Result Summary:</b>
 </p>
