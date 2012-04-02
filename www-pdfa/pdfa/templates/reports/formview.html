@@ -13,7 +13,8 @@
 	{% for row in tableRows %}
 	<tr>
 		<td rowspan="{{row.tags|length}}"> {{row.title}} </td>
-		{% for tag in row.tags %}	
+		{% for tag in row.tags %}
+				
 			{% if forloop.counter == 1 %}
 			{% else %}
 				<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
