@@ -31,7 +31,8 @@ urlpatterns = patterns('',
     
     # Defaults:
     (r'^about', about),
-    (r'^contact', contact),
+    (r'^contact/', 'upload.views.contact'),
+    #(r'^contact', contact),
     #(r'', home),
     (r'', include('upload.urls')),
     
