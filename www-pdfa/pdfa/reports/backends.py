@@ -27,12 +27,15 @@ def getData(parsefile, resultfile, uid, category):
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
+					'''
 					content = tag_urls[tag['tag']]['content']
 					for c in content:
 						if c['tagName'] == 'Name':
 							tag['name'] = c['content']
 						if c['tagName'] == 'Tooltip':	
-							tag['tooltip'] = c['content']	
+							tag['tooltip'] = c['content']
+					'''
+					tag['tagName'] = tag_urls[tag['tag']]['tagName']					
 				data.append(test)		
 	return data
 

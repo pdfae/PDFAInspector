@@ -20,6 +20,7 @@
 		{% else %}
 	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 		{% endif %}
+		<td> {{tag.tagName}}</td>
 		<td> {%if tag.result == 2 %} <span style="color: red">Violation</span> {% else %}
 		{% if tag.result == 3 %} <span style ="color: #FFA500">Manual inspection</span> {% else %} <span style = "color:green">Pass</span> {% endif %}
 		{% endif %} </td>
