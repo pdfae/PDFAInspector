@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block text %}
 The PDF Accessibility Inspector is a project of the Disability Resources &amp; Educational Services at the University of Illinois, Urbana-Champaign.
-<br>
+<br\>
+<br\>
 Below is a list of all the rules that are presently being run by the evaluation tool.
-<br>
+<br\>
 
+<p>
 <table class = "fancy">
 <tr>
   <th colspan="2" class="even"><b>Rule 1: Documents must be tagged</b></th>
@@ -26,7 +28,9 @@ Below is a list of all the rules that are presently being run by the evaluation 
   <td>Applies to every document</td>
 </tr>
 </table>
+</p>
 
+<p>
 <table class = "fancy">
 <tr>
   <th colspan="2" class="even"><b>Rule 2: Documents must be titled</b></th>
@@ -48,7 +52,9 @@ Below is a list of all the rules that are presently being run by the evaluation 
   <td>Applies to every document</td>
 </tr>
 </table>
+</p>
 
+<p>
 <table class = "fancy">
 <tr>
   <th colspan="2" class="even"><b>Rule 3: Multi-page documents must have headers</b></th>
@@ -70,7 +76,9 @@ Below is a list of all the rules that are presently being run by the evaluation 
   <td>Applies to any multi-page document</td>
 </tr>
 </table>
+</p>
 
+<p>
 <table class = "fancy">
 <tr>
   <th colspan="2" class="even"><b>Rule 4: Links must have alt-text</b></th>
@@ -92,7 +100,9 @@ Below is a list of all the rules that are presently being run by the evaluation 
   <td>Only applies to images</td>
 </tr>
 </table>
+</p>
 
+<p>
 <table class = "fancy">
 <tr>
   <th colspan="2" class="even"><b>Rule 5: Images must have alt-text</b></th>
@@ -114,7 +124,9 @@ Below is a list of all the rules that are presently being run by the evaluation 
   <td>Only applies to images</td>
 </tr>
 </table>
+</p>
 
+<p>
 <table class = "fancy">
 <tr>
   <th colspan="2" class="even"><b>Rule 6: Form elements must have names</b></th>
@@ -136,7 +148,9 @@ Below is a list of all the rules that are presently being run by the evaluation 
   <td>Only applies to form elements</td>
 </tr>
 </table>
+</p>
 
+<p>
 <table class = "fancy">
 <tr>
   <th colspan="2" class="even"><b>Rule 7: Form elements must have tooltips</b></th>
@@ -158,6 +172,102 @@ Below is a list of all the rules that are presently being run by the evaluation 
   <td>Only applies to form elements</td>
 </tr>
 </table>
+</p>
 
+<p>
+<table class = "fancy">
+<tr>
+  <th colspan="2" class="even"><b>Rule 8: Tables must have headers</b></th>
+</tr>
+<tr>
+  <td>Description</td>
+  <td>The first row of any table must be header cells</td>
+</tr>
+<tr class="even">
+  <td>Severity</td>
+  <td>Violation</td>
+</tr>
+<tr>
+  <td>WCAG ID</td>
+  <td>not defined</td>
+</tr>
+<tr class="even">
+  <td>Condition</td>
+  <td>Only applies to tables</td>
+</tr>
+</table>
+</p>
+
+<p>
+<table class = "fancy">
+<tr>
+  <th colspan="2" class="even"><b>Rule 9: Tables must contain data cells</b></th>
+</tr>
+<tr>
+  <td>Description</td>
+  <td>Any table must contain at least one data cell</td>
+</tr>
+<tr class="even">
+  <td>Severity</td>
+  <td>Violation</td>
+</tr>
+<tr>
+  <td>WCAG ID</td>
+  <td>not defined</td>
+</tr>
+<tr class="even">
+  <td>Condition</td>
+  <td>Only applies to tables</td>
+</tr>
+</table>
+</p>
+
+<p>
+<table class = "fancy">
+<tr>
+  <th colspan="2" class="even"><b>Rule 10: Table cells must contain content</b></th>
+</tr>
+<tr>
+  <td>Description</td>
+  <td>Any data or header cell in a table must contain some content</td>
+</tr>
+<tr class="even">
+  <td>Severity</td>
+  <td>Violation</td>
+</tr>
+<tr>
+  <td>WCAG ID</td>
+  <td>not defined</td>
+</tr>
+<tr class="even">
+  <td>Condition</td>
+  <td>Only applies to tables</td>
+</tr>
+</table>
+</p>
+
+<p>
+<table class = "fancy">
+<tr>
+  <th colspan="2" class="even"><b>Rule 11: Headers must contain text content</b></th>
+</tr>
+<tr>
+  <td>Description</td>
+  <td>Any header must contain some non-null text content</td>
+</tr>
+<tr class="even">
+  <td>Severity</td>
+  <td>Violation</td>
+</tr>
+<tr>
+  <td>WCAG ID</td>
+  <td>not defined</td>
+</tr>
+<tr class="even">
+  <td>Condition</td>
+  <td>Only applies to headers</td>
+</tr>
+</table>
+</p>
 
 {% endblock %}
