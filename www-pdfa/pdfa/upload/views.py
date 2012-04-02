@@ -33,6 +33,29 @@ def upload (request):
 	form = uploadfileform()
 	return render_to_response("upload/fileupload.htm", locals(), context_instance=RequestContext(request))
 
+def contact (request):
+    if request.method == 'POST': # If the form has been submitted...
+        form = ContactForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            if form.is_valid():
+    		subject = form.cleaned_data['subject']
+    		message = form.cleaned_data['message']
+    		sender = form.cleaned_data['sender']
+    		cc_myself = form.cleaned_data['cc_myself']
+    		recipients = ['atul.guptey@gmail.com']
+    		if cc_myself:
+        		recipients.append(sender)
+    	from django.core.mail import send_mail
+    	send_mail(subject, message, sender, recipients)
+    	return HttpResponseRedirect('/thanks/') # Redirect after POST
+    
+    else:
+        form = ContactForm() # An unbound form
+
+    return render_to_response('contact.html', {
+        'form': form,
+    })
+
 def process_file(filename):
 	[filepath, filename] = filename.rsplit('/', 1)
 	subprocess.Popen(["python", PROCESS_SCRIPT, "\""+PDF_JAR+"\"","\""+PYTHON_SCRIPT+"\"","\""+MEDIA_ROOT+filepath+"/\"","\""+filename+"\""])
