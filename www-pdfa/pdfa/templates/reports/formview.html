@@ -3,7 +3,7 @@
 {% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
-{% if tableRows|length > 0 %}
+{% if tableRows|length > 0 and fail%}
 <table class = "fancy">
 	<tr>
 		<th> Rule </th>
@@ -19,8 +19,8 @@
 				<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 			{% endif %}
 			
-			<td> hello</td>
-			<td> hi</td>
+			<td> {{tag.tagName}}</td>
+			<td> {{tag.result}}</td>
 			
 			{% if forloop.counter == 1 %}
 			{% else %}

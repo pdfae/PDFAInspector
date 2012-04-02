@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% if tableRows|length > 0 %}
+{% if tableRows|length > 0 and fail%}
 <table class = "fancy">
 	<tr>
 		<th> Rule </th>
