@@ -5,61 +5,51 @@ html, body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #525252;
-	height:100%;
+	height: 100%;
 }
-
 /* begin css tabs */
 
 ul#tabnav { /* general settings */
-text-align: center; /* set to left, right or center */
-margin: 0 0 0 0; /* set margins as desired */
-font: 14px Arial, Helvetica, sans-serif; /* set font as desired */
-border-bottom: 3px solid #525252; /* set border COLOR as desired current: #6c6*/
-list-style-type: none;
-list-style: none;
-padding: 6px 5px 6px 5px; /* THIRD number must change with respect to padding-top (X) below */
+	text-align: center; /* set to left, right or center */
+	margin: 0 0 0 0; /* set margins as desired */
+	font: 14px Arial, Helvetica, sans-serif; /* set font as desired */
+	border-bottom: 3px solid #525252; /* set border COLOR as desired current: #6c6*/
+	list-style-type: none;
+	list-style: none;
+	padding: 6px 5px 6px 5px; /* THIRD number must change with respect to padding-top (X) below */
 }
-
 ul#tabnav li { /* do not change */
-display: inline;
+	display: inline;
 }
-
 body#tab1 li.tab1, body#tab2 li.tab2, body#tab3 li.tab3, body#tab4 li.tab4 { /* settings for selected tab */
-border-bottom: 1px solid #fff; /* set border color to page background color */
-background-color: #fff; /* set background color to match above border color */
+	border-bottom: 1px solid #fff; /* set border color to page background color */
+	background-color: #fff; /* set background color to match above border color */
 }
-
 body#tab1 li.tab1 a, body#tab2 li.tab2 a, body#tab3 li.tab3 a, body#tab4 li.tab4 a { /* settings for selected tab link */
-background-color: #000000; /* set selected tab background color as desired current: #fff*/
-color: #525252; /* set selected tab link color as desired */
-position: relative;
-top: 1px;
-padding-top: 10px; /* must change with respect to padding (X) above and below */
+	background-color: #000000; /* set selected tab background color as desired current: #fff*/
+	color: #525252; /* set selected tab link color as desired */
+	position: relative;
+	top: 1px;
+	padding-top: 10px; /* must change with respect to padding (X) above and below */
 }
-
 ul#tabnav li a { /* settings for all tab links */
-padding: 6px 10px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
-/*border: 1px solid #525252; /* set border COLOR as desired; usually matches border color specified in #tabnav */
-background-color: #FFFFFF; /* set unselected tab background color as desired */
-color: #000000; /* set unselected tab link color as desired current: #666*/
-margin-right: 8px; /* set additional spacing between tabs as desired */
-text-decoration: none;
-border-bottom: none;
+	padding: 6px 10px; /* set padding (tab size) as desired; FIRST number must change with respect to padding-top (X) above */
+	/*border: 1px solid #525252; /* set border COLOR as desired; usually matches border color specified in #tabnav */
+	background-color: #FFFFFF; /* set unselected tab background color as desired */
+	color: #000000; /* set unselected tab link color as desired current: #666*/
+	margin-right: 8px; /* set additional spacing between tabs as desired */
+	text-decoration: none;
+	border-bottom: none;
 }
-
-
 ul#tabnav a:hover { /* settings for hover effect */
-background: #00598D;
+	background: #00598D;
 	color: #FFFFFF;
 }
-
 ul#tabnav .current_page_item a {
 	background: #00598D;
 	color: #FFFFFF;
 }
-
 /* end css tabs */
-
 
 h1, h2, h3 {
 	margin: 0;
@@ -67,66 +57,66 @@ h1, h2, h3 {
 	font-weight: normal;
 	color: #2C2723;
 }
-
 h1 {
 	font-size: 2em;
 }
-
 h2 {
 	font-size: 2.4em;
 }
-
 h3 {
 	margin-top: 1em;
 	font-size: 1.6em;
 	text-align: center;
 }
-
 p, ul, ol {
 	line-height: 100%;
 }
-
 ul, ol {
 }
-
 a {
 	text-decoration: none;
 	color: #00598D;
 }
-
 a:hover {
 	text-decoration: underline;
 }
-
 img.border {
 	border: 6px solid #E1F1F6;
 }
-
 img.alignleft {
 	float: left;
 	margin-right: 25px;
 }
-
 img.alignright {
 	float: right;
 }
-
 img.aligncenter {
 	margin: 0px auto;
 }
 
-#wrapper {
-	min-height:100%;
-	
+table {
+	margin: 1em;
+	width: 100%;
+	background: #000;
+}
+td, th {
+	background: #fff;
+	text-align: center;
+	vertical-align: inherit
+}
+th, caption {
+	text-align: center;
+	font-weight: bolder;
 }
 
+#wrapper {
+	min-height: 100%;
+}
 #wrapper hr {
 	height: 1px;
 	border: 1px solid #000;
 	width: 77%;
 }
-
-
 /* Header */
 
 #header {
@@ -134,18 +124,15 @@ img.aligncenter {
 	height: 55px;
 	margin: 0 auto;
 }
-
 #logo {
 	float: left;
 	width: 76%;
 	height: 55px;
 }
-
 #logo h1 {
 	margin: 0;
 	padding: 10px 0px 0px 30px;
 }
-
 #logo h1 {
 	width: 90%;
 	display: block;
@@ -162,16 +149,13 @@ img.aligncenter {
 	white-space: nowrap;
 	height: 50px;
 }
-
 #logo img {
 	vertical-align: text-bottom;
 }
-
 #logo a {
 	text-decoration: none;
 	color: #2D2722;
 }
-
 /* Menu */
 
 #menu {
@@ -180,18 +164,15 @@ img.aligncenter {
 	margin: 0 auto;
 	padding: 15px 0px 0px 0px;
 }
-
 #menu ul {
 	margin: 0;
 	padding: 0px 0px 0px 4px;
 	list-style: none;
 	line-height: normal;
 }
-
 #menu li {
 	float: left;
 }
-
 #menu a {
 	display: block;
 	float: left;
@@ -205,42 +186,34 @@ img.aligncenter {
 	color: #181818;
 	border: none;
 }
-
 #menu a:hover {
-  background-color: #cccccc;
+	background-color: #cccccc;
 }
-
 #menu li.current_page_item {
 	background: #00598D;
 }
-
 #menu .current_page_item a {
 	background: #00598D;
 	color: #FFFFFF;
 }
-
 #menu a:hover {
 	background: #00598D;
 	color: #FFFFFF;
 }
-
 /* Page */
 
 #page {
 	width: 78%;
 	margin: 0 auto;
 	padding: 0;
-	padding-bottom:5%;
+	padding-bottom: 5%;
 }
-
 #page-bgtop {
 }
-
 #page-bgbtm {
 	margin: 0px;
 	padding: 20px 30px 0px 30px;
 }
-
 /* Content */
 
 #content {
@@ -248,24 +221,20 @@ img.aligncenter {
 	width: 90%;
 	padding: 0px 0px 0px 0px;
 }
-
 .post {
 	padding-top: 20px;
 	padding-bottom: 10px;
 }
-
 .post .title {
 	margin: 0px;
 	padding-bottom: 10px;
 	letter-spacing: -1px;
 }
-
 .post .title a {
 	color: #242424;
 	text-decoration: none;
 	border: none;
 }
-
 .post .meta {
 	border-top: 1px solid #E5E5E5;
 	border-bottom: 1px solid #E5E5E5;
@@ -275,16 +244,13 @@ img.aligncenter {
 	font-size: 11px;
 	font-style: italic;
 }
-
 .post .meta a {
 }
-
 .post .entry {
 	text-align: justify;
 	margin-bottom: 25px;
 	padding: 10px 0px 10px 0px;
 }
-
 .links {
 	display: block;
 	width: 96px;
@@ -295,23 +261,20 @@ img.aligncenter {
 	font-size: 10px;
 	color: #FFFFFF;
 }
-
 /* Footer */
 
 #footer-wrapper {
-	bottom:0;
+	bottom: 0;
 	height: 12%;
 	width: 100%;
 	background: #2D2722;
 }
-
-#footer {	
+#footer {
 	clear: both;
 	height: 12%;
 	margin: 0px auto 0px auto;
 	font-family: Arial, Helvetica, sans-serif;
 }
-
 #footer p {
 	margin: 0;
 	padding: 20px 0px 0px 0px;
@@ -320,60 +283,75 @@ img.aligncenter {
 	text-align: center;
 	color: #FFFFFF;
 }
-
 #footer a {
 	color: #FFFFFF;
 }
-
 .node {
 	border: 1px solid #000;
 	width: 98%;
 	margin: 4px;
 	padding: 4px;
 }
-.n_0 { background-color: #eedd77; }
-.n_1 { background-color: #dd77ee; }
-.n_2 { background-color: #77eedd; }
-.n_3 { background-color: #ddee77; }
-.n_4 { background-color: #ee77dd; }
-.n_5 { background-color: #eedd77; }
-.n_6 { background-color: #dd77ee; }
-.n_7 { background-color: #77eedd; }
-.n_8 { background-color: #ddee77; }
-.n_9 { background-color: #ee77dd; }
-
+.n_0 {
+	background-color: #eedd77;
+}
+.n_1 {
+	background-color: #dd77ee;
+}
+.n_2 {
+	background-color: #77eedd;
+}
+.n_3 {
+	background-color: #ddee77;
+}
+.n_4 {
+	background-color: #ee77dd;
+}
+.n_5 {
+	background-color: #eedd77;
+}
+.n_6 {
+	background-color: #dd77ee;
+}
+.n_7 {
+	background-color: #77eedd;
+}
+.n_8 {
+	background-color: #ddee77;
+}
+.n_9 {
+	background-color: #ee77dd;
+}
 /* Tables */
 table.fancy {
-  margin: 1em 1em 1em 0;
-  table-layout: fixed;
-  /*background: black;*/
-  color: black;
-  width: 100%;
+	margin: 1em 1em 1em 0;
+	table-layout: fixed;
+	/*background: black;*/
+	color: black;
+	width: 100%;
 }
 table.fancy th, table.fancy td {
-  text-align:center;
-  border: 2px;
-  padding: 0.45em;
+	text-align: center;
+	border: 2px;
+	padding: 0.45em;
 }
 table.fancy th {
-  background: #ccc;
-  text-align: center;
+	background: #ccc;
+	text-align: center;
 }
-
 table.fancy tr.even td {
 	background: #abc;
 }
-
 table.fancy td {
-  background: #eee;
-  overflow: hidden; 
-  text-overflow: ellipsis;
-  text-align: center;
+	background: #eee;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
 }
 table.fancy tr:hover {
-   opacity: 0.9;
+	opacity: 0.9;
 }
 table.fancy caption {
-  margin-left: inherit;
-  margin-right: inherit;
+	margin-left: inherit;
+	margin-right: inherit;
 }

@@ -158,7 +158,6 @@ def displayforms(request, uid):
 	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 3)
 	return render_to_response("reports/formview.html", locals())
 
-
 def displaybookmark(request, uid):
 	currentTab = "bm"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
@@ -170,57 +169,9 @@ def displaybookmark(request, uid):
 def displaytables(request, uid):
 	currentTab = "tbl"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)	
-	result = open(parsefile)
-	base = json.loads(result.read())
-	nodes = []
-	searchNode(base, "Table", 0, nodes)
-	output = ""
-	i = 0
-	for node in nodes:
-		i = i + 1
-		output += "<div><p><b>Table " + unicode(i) + "</b></p>\n"
-		output += writeNode(node)
-		output += "</div>"
-
-	content = []#cnode["content"]
-	print content
+	[ruleRows, output] = getTable(parsefile, resultfile)
 	return render_to_response("reports/tableview.html", locals())
 	
-# tab to display information about forms in document
-
-
-# tab to display information about images in document
-
-
-
-# tab to display information about headers in document
-
-def displayheaders(request, uid):
-	currentTab = "head"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	json_data = open (parsefile)
-	data = json.load(json_data)
-	cnode = data["content"]
-	for c in cnode:
-		if (c["tagName"] == "tags"):
-			cnode2 = c["content"]
-	
-	for c2 in cnode2:
-		if (c2["tagName"] == "Sect"):
-			content = c2["content"]
-		else:
-			content = []
-	#print cnode		
-	#print content
-	return render_to_response("reports/headerview.html", locals())
-
-# tab to display information about headers in document
-
-
-# tab to display information about bookmarks in document
-
-
-
 def displayformtree(request, uid):
 	currentTab = "formtree"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)

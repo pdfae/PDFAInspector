@@ -3,24 +3,48 @@
 {% block title %}Table View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
+{% if ruleRows|length > 0%} 
 <p>
-<b>Graphic View:</b>
+	<b>
+		Summary:
+	</b>
 </p>
-
-{% if output == "" %}
+<table class = "fancy">
+	<tr>
+		<th>Rule</th>
+		<th>Pass</th>
+		<th>Violation</th>
+		<th>Manual Inspection</th>
+	</tr>
+	{% for row in ruleRows %}
+	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
+		<td>
+			{{row.title}}
+		</td>
+		<td>
+			{{row.npass}}
+		</td>
+		<td>
+			{{row.nfail}}
+		</td>
+		<td>
+			{{row.nins}}
+		</td>
+	</tr>
+	{% endfor %}
+</table>
 <p>
-No tables found.
+	<b>
+		Tables found:
+	</b>
 </p>
-{%else%}
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
-{%endif%}
-<p>
-<b>Summary:</b>
-</p>
-<p>
-Not implemented yet.
-</p>
 
+{% else %}
+<p>
+	No applicable tags found
+</p>
+{% endif %}
 {% endblock %}

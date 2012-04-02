@@ -31,7 +31,6 @@ def getData(parsefile, resultfile, uid, category):
 							tag['page'] = a['Page']
 					tag['tagName'] = tag_urls[tag['tag']]['tagName']
 				
-				
 			if test['category'] == category and len(test['tags']) > 0:
 				test2 = {}
 				test2['title'] = test['title']
@@ -104,8 +103,68 @@ def writeTree(node, depth, count, url='node_'):
 	if depth > 0:
 		output += "</ul></ul></div>"
 	return output
+
+def getTable(parsefile, resultfile):
+	parseFP = open(parsefile)
+	parse_data = json.load(parseFP)
+	parseFP.close()
+	content = parse_data["content"]
+	for sect in content:
+		if sect["tagName"] == "tags":
+			tags = sect
+	list = []
+	getNodesByName(tags, "Table", list)		
+	output = ""
+	for i in range(len(list)):
+		output += "<p>Table" + unicode(i+1) + "</p>"
+		output += drawTable(list[i])
+		
+	resultFP = open(resultfile)
+	result_data = json.load(resultFP)
+	resultFP.close()	
+	tests = result_data["results"]
+	data = []
+	for test in tests:
+		if test['category'] == 5 and len(test['tags']) > 0:
+			ntest = 0
+			npass = 0
+			nfail = 0
+			nins = 0
+			for tag in test['tags']:
+				ntest += 1
+				if tag['result'] == 1:
+					npass += 1
+				elif tag['result'] == 2:
+					nfail += 1
+				else:
+					nins += 1			
+			test['ntest'] = ntest
+			test['npass'] = npass
+			test['nfail'] = nfail
+			test['nins'] = nins
+			data.append(test)	
+	return [data, output]
 	
-	
+def getNodesByName(base, tagType, curr):	
+	if base["tagName"] == tagType:
+		curr.append(base)
+	for node in base["content"]:
+		if not isinstance(node, basestring) and not isinstance(node, int):
+			getNodesByName(node, tagType, curr)
+
+def drawTable(tag):
+	output = ""
+	if unicode(tag["tagName"]).lower() != 'p':
+		output += "<" + unicode(tag["tagName"]) + ">"
+	for node in tag['content']:
+		if not isinstance(node, basestring) and not isinstance(node, int):
+			output += drawTable(node)
+		else:
+			output += unicode(node)
+	if unicode(tag["tagName"]).lower() != 'p':			
+		output += "</" + unicode(tag["tagName"]) + ">"
+	return output
+		
 def parsespecific(file, tag_type):
 	import json
 	from pprint import pprint

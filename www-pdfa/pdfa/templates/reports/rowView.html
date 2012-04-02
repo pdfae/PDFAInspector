@@ -18,7 +18,7 @@
 		<th>Manual Inspection</th>
 	</tr>
 	{% for row in ruleRows %}
-	<tr>
+	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 		<td>
 			{{row.title}}
 		</td>
