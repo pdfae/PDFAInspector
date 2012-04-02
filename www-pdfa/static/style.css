@@ -346,7 +346,7 @@ img.aligncenter {
 table.fancy {
   margin: 1em 1em 1em 0;
   table-layout: fixed;
-  background: black;
+  /*background: black;*/
   color: black;
   width: 100%;
 }

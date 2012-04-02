@@ -5,6 +5,32 @@ from django.contrib.auth.decorators import login_required
 import os
 import uuid
 
+def getLink(parsefile, resultfile, uid):
+	data = []
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		
+		resultFP = open(resultfile)
+		result_data = json.load(resultFP)
+		resultFP.close()
+		
+		parseFP = open(parsefile)
+		parse_data = json.load(parseFP)
+		tag_urls = {}
+		getNodes(parse_data, 0, tag_urls)
+		parseFP.close()
+		
+		tests = result_data["results"]
+		for test in tests:
+			if test['category'] == 1 and len(test['tags']) > 0:
+				for tag in test['tags']:
+					attr = tag_urls[tag['tag']]['attributes']
+					for a in attr:
+						if 'Page' in a:
+							tag['page'] = a['Page']
+				data.append(test)		
+	return data
+
+
 def tablesummary(data, tests):
 	rpass=0
 	rwarning=0
