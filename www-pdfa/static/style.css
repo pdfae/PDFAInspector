@@ -83,8 +83,7 @@ h3 {
 }
 
 p, ul, ol {
-	margin-top: 1em;
-	line-height: 180%;
+	line-height: 100%;
 }
 
 ul, ol {
