@@ -19,7 +19,9 @@
 	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 		{% endif %}
 		{% if tag.result == 1 %}
-		{% else %} <td> {{tag.tagName}}</td>
+		<td> hello</td>
+		{% else %} 
+		<td> {{tag.tagName}}</td>
 		<td> {%if tag.result == 2 %} <span style="color: red">Violation</span> {% else %} <span style ="color: #FFA500">Manual inspection</span> {% endif %} </td>
 		{% endif}
 
