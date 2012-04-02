@@ -57,7 +57,7 @@ def displaysummary(request, uid):
 		parse_data = json.load(parseFP)
 		parseFP.close()
 		
-		message = "<span color=\"red\">The document is untagged and not accessible</span>"
+		message = "<span style=\"color:red\">The document is untagged and not accessible</span>"
 		
 		rnum = {}
 		rtitle = {}
@@ -86,7 +86,7 @@ def displaysummary(request, uid):
 				if (tag["result"]==1):
 					npass += 1
 					if test["id"] == "core.DocumentMustBeTagged":
-						message = "<span color = \"#FFA500\">The document is partially accessible</span>"
+						message = "<span style=\"color:#FFA500\">The document is partially accessible</span>"
 				elif (tag["result"]==2):
 					nfail += 1
 				elif (tag["result"]==3):
@@ -123,7 +123,7 @@ def displaysummary(request, uid):
 			tot_ins += sum(rinspect[i])
 		
 		if tot_fail == 0:
-			message = "<span color = \"green\">The document is accessible</span>"	
+			message = "<span style = \"color:green\">The document is accessible</span>"	
 		form = setup_notes_form(request, uid, notes, fileObj)
 		return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
 	else:
