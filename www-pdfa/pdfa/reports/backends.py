@@ -27,8 +27,15 @@ def getData(parsefile, resultfile, uid, category):
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
+					content = tag_urls[tag['tag']]['content']
+					for c in content:
+						if c['tagName'] == 'Name':
+							tag['name'] = c['content']
+						if c['tagName'] == 'Tooltip':	
+							tag['tooltip'] = c['content']	
 				data.append(test)		
 	return data
+
 
 def writeTag(parsefile, tagName):
 	parseFP = open(parsefile)
@@ -59,9 +66,10 @@ def writeTree(node, depth, count, url = 'node_'):
 		for i in node["attributes"]:
 			for j,k in i.iteritems():
 				attr.append(unicode(j) + "=" + unicode(k))
-		output += "("
-		output += ", ".join(attr)
-		output += ")"
+		if attr:
+			output += "("
+			output += ", ".join(attr)
+			output += ")"
 	
 	output += "\n<ul>"
 	count = 0

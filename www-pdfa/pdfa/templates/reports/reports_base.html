@@ -12,7 +12,6 @@ Report: {{ title }}
 	<li {% if currentTab = "links"%}class="current_page_item"{% endif %}><a href="/reports/{{uid}}/linkview/">Links</a></li>
 	<li {% if currentTab = "img"%}class="current_page_item"{% endif %}><a href="/reports/{{uid}}/figureview/">Figures</a></li>
 	<li {% if currentTab = "form"%}class="current_page_item"{% endif %}><a href="/reports/{{uid}}/formview/">Forms</a></li>
-	<li {% if currentTab = "formtree"%}class="current_page_item"{% endif %}><a href="/reports/{{uid}}/formtreeview/">Form Tree</a></li>
 	<li {% if currentTab = "tbl"%}class="current_page_item"{% endif %}><a href="/reports/{{uid}}/tableview/">Tables</a></li>
 	<li {% if currentTab = "bm"%}class="current_page_item"{% endif %}><a href="/reports/{{uid}}/bookmarkview/">Bookmarks</a></li>
 </ul>

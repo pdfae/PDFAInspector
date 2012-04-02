@@ -152,6 +152,13 @@ def displayfigures(request, uid):
 	name = "Figure"
 	return render_to_response("reports/rowView.html", locals())
 
+def displayforms(request, uid):
+	currentTab = "form"
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	tableRows = getData(parsefile, resultfile, uid, 3)
+	return render_to_response("reports/formview.html", locals())
+
+
 def displaybookmark(request, uid):
 	currentTab = "bm"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
@@ -181,11 +188,6 @@ def displaytables(request, uid):
 	
 # tab to display information about forms in document
 
-def displayforms(request, uid):
-	currentTab = "form"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	output = getFormOutput(parsefile, resultfile, uid)
-	return render_to_response("reports/formview.html", locals())
 
 # tab to display information about images in document
 
