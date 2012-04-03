@@ -59,7 +59,7 @@ def getData(parsefile, resultfile, uid, category):
 				if test2['tags']:		
 					data2.append(test2)
 				data.append(test)	
-	return [data, data2]
+	return [data, data2, tag_urls]
 
 def writeTag(parsefile, tagName):
 	parseFP = open(parsefile)
