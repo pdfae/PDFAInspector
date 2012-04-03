@@ -25,7 +25,10 @@ def getData(parsefile, resultfile, uid, category):
 				
 				for tag in test['tags']:
 						
-					attr = tag_urls[tag['tag']]['attributes']
+					actual_tag = tag_urls[tag['tag']]
+					attr = []
+					if 'attributes' in actual_tag:
+						attr = actual_tag['attributes']
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
