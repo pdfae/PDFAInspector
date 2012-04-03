@@ -65,7 +65,7 @@ def generateTree(tag, parent=None):
 	node.attributes = tag['attributes']
 	node.content    = []
 	for i in tag['content']:
-		if type(i)==type(dict()):
+		if isinstance(i,dict):
 			node.content.append(generateTree(i, node))
 		else:
 			node.text = unicode(i)

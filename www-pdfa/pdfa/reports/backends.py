@@ -98,7 +98,7 @@ def writeTree(node, depth, count, url='node_'):
 	output += "\n<ul>"
 	count = 0
 	for i in node["content"]:	
-		if not isinstance(i, basestring) and not isinstance(i, int):
+		if isinstance(i, dict):
 			output += writeTree(i, depth + 1, count, url)
 		else:
 			output += "<li>" + unicode(i) + "</li>"
@@ -152,14 +152,14 @@ def getNodesByName(base, tagType, curr):
 	if base["tagName"] == tagType:
 		curr.append(base)
 	for node in base["content"]:
-		if not isinstance(node, basestring) and not isinstance(node, int):
+		if isinstance(node, dict):
 			getNodesByName(node, tagType, curr)
 
 def drawTable(tag):
 	output = ""
 	output += "<" + unicode(tag["tagName"]) + ">"
 	for node in tag['content']:
-		if not isinstance(node, basestring) and not isinstance(node, int):
+		if isinstance(node, dict):
 			output += drawTable(node)
 		else:
 			output += unicode(node)
@@ -192,7 +192,7 @@ def writeNode (node, depth=0):
 	output += ", ".join(attr)
 	output += "</i><br />\n"
 	for i in node["content"]:
-		if not isinstance(i, basestring) and not isinstance(i, int):
+		if isinstance(i, dict):
 			if i.has_key('text'):
 				print ""
 				output += unicode(i['text'])
@@ -224,7 +224,7 @@ def writeNode2 (node, tagName, bool=False, depth=0, count=0, url='node_'):
 		output += "\n<ul>"
 	count = 0
 	for i in node["content"]:	
-		if type(i) == type(dict()):
+		if isinstance(i,dict):
 			if i.has_key('text'):
 				print ""
 				if bool:
@@ -247,23 +247,23 @@ def searchNode (node, tagName, depth=0, a=[]):
 		a.append(node)
 	else:
 		for i in node["content"]:
-			if not isinstance(i, basestring) and not isinstance(i, int):
+			if isinstance(i, dict):
 				searchNode(i, tagName, depth + 1, a)		
 
-def getNodes(node, count=0, dict={}, url='#'):
+def getNodes(node, count=0, dic={}, url='#'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag)
-	dict[url] = node
+	dic[url] = node
 	url += "/"
 	count = 0
 	for i in node["content"]:
-		if not isinstance(i, basestring) and not isinstance(i, int):
-			getNodes(i, count, dict, url)
+		if isinstance(i, dict):
+			getNodes(i, count, dic, url)
 			count += 1
 def countNode (node):
 	total = 0
 	for i in node["content"]:
-		if not isinstance(i, basestring) and not isinstance(i, int):
+		if isinstance(i, dict):
 			total += 1 + countNode(i)
 	return total
 
