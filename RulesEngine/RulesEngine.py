@@ -65,10 +65,10 @@ def generateTree(tag, parent=None):
 	node.attributes = tag['attributes']
 	node.content    = []
 	for i in tag['content']:
-		if not isinstance(i, basestring) and not isinstance(i, int):
+		if type(i)==type(dict()):
 			node.content.append(generateTree(i, node))
 		else:
-			node.text = i
+			node.text = unicode(i)
 	return node
 
 def runRecursive(outputTreeNode, rule, tag, parents=[],num=0):
