@@ -224,7 +224,7 @@ def writeNode2 (node, tagName, bool=False, depth=0, count=0, url='node_'):
 		output += "\n<ul>"
 	count = 0
 	for i in node["content"]:	
-		if not isinstance(i, basestring) and not isinstance(i, int):
+		if type(i) == type(dict()):
 			if i.has_key('text'):
 				print ""
 				if bool:
