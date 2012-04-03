@@ -32,7 +32,7 @@ def getData(parsefile, resultfile, uid, category):
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
-					tag['tagName'] = tag_urls[tag['tag']]['tagName']
+					#tag['tagName'] = tag_urls[tag['tag']]['tagName']
 				
 			if test['category'] == category and len(test['tags']) > 0:
 				test2 = {}
