@@ -25,10 +25,10 @@ def getData(parsefile, resultfile, uid, category):
 				
 				for tag in test['tags']:
 						
-					#actual_tag = tag_urls[tag['tag']]
+					actual_tag = tag_urls[tag['tag']]
 					attr = []
-					#if 'attributes' in actual_tag:
-						#attr = actual_tag['attributes']
+					if 'attributes' in actual_tag:
+						attr = actual_tag['attributes']
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
@@ -59,7 +59,7 @@ def getData(parsefile, resultfile, uid, category):
 				if test2['tags']:		
 					data2.append(test2)
 				data.append(test)	
-	return [data, data2, tag_urls]
+	return [data, data2]
 
 def writeTag(parsefile, tagName):
 	parseFP = open(parsefile)
@@ -259,7 +259,7 @@ def getNodes(node, count=0, dict={}, url='#'):
 	for i in node["content"]:
 		if not isinstance(i, basestring) and not isinstance(i, int):
 			getNodes(i, count, dict, url)
-		count += 1
+			count += 1
 def countNode (node):
 	total = 0
 	for i in node["content"]:

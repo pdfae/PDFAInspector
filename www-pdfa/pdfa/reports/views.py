@@ -140,7 +140,7 @@ def displaytreeview(request, uid):
 def displaylinks(request, uid):
 	currentTab = "links"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
-	[ruleRows, tableRows, tags] = getData(parsefile, resultfile, uid, 1)
+	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 1)
 	name = "Link"
 	return render_to_response("reports/rowView.html", locals())
 
