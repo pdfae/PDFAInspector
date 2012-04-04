@@ -127,7 +127,7 @@ public class TagExtractor {
 					contents = parseTag(tagDecode, dict.getDirectObject(PdfName.K), page);
 				}
 				if(contents != null){
-					tag.appendChild(contents);
+					tag.appendChild(sanitize(contents));
 				}
 				
 				// If the tag has children, we need to parse them, too.
@@ -278,17 +278,7 @@ public class TagExtractor {
 		// If there's an alt-text, get it.
 		if (dict.get(PdfName.ALT) != null){
 			String alt = dict.get(PdfName.ALT).toString();
-			
-			// All alt-texts contain null characters. We can't have those.
-			String altText = "";
-			for(int i = 0; i < alt.length(); i++){
-				char c = alt.charAt(i);
-				if(c != '\0'){
-					altText = altText + c;
-				}
-			}
-
-			attributes.add(new Attribute("Alt", altText));
+			attributes.add(new Attribute("Alt", sanitize(alt)));
 		}
     	
 		// Some tags, such as table elements, may have IDs.
@@ -325,5 +315,21 @@ public class TagExtractor {
     		}    		
     	}
     	return attributes;
+    }
+
+	/**
+	 * Remove all null characters from a string so we can put it into XML.
+	 * @param dict The string to sanitize.
+	 * @return The sanitized string (i.e. with all null chars removed).
+	 */
+    private static String sanitize(String input){
+		String sanitized = "";
+		for(int i = 0; i < input.length(); i++){
+			char c = input.charAt(i);
+			if(c != '\0'){
+				sanitized = sanitized + c;
+			}
+		}
+		return sanitized;
     }
 }
