@@ -72,7 +72,7 @@ class MultiPageDocumentsMustHaveHeaders(Rules.Rule):
 		for child in tag.content:
 			result = MultiPageDocumentsMustHaveHeaders.validation(child)
 			if result[0] == Rules.Pass:
-				return reuslt
+				return result
 		return (Rules.Violation, "Document does not contain headers", [])
 
 class LinksMustHaveAltText(Rules.Rule):
