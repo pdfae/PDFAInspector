@@ -70,7 +70,9 @@ class MultiPageDocumentsMustHaveHeaders(Rules.Rule):
 		if tag.tagName in Rules.TagTypes.Heading:
 			return (Rules.Pass, "Document contains headers", [])
 		for child in tag.content:
-			return MultiPageDocumentsMustHaveHeaders.validation(child)
+			result = MultiPageDocumentsMustHaveHeaders.validation(child)
+			if result[0] == Rules.Pass:
+				return reuslt
 		return (Rules.Violation, "Document does not contain headers", [])
 
 class LinksMustHaveAltText(Rules.Rule):
@@ -206,7 +208,9 @@ class TablesMustContainDataCells(Rules.Rule):
 		if tag.tagName in Rules.TagTypes.TableData:
 			return (Rules.Pass, "Table contains data cells", [])
 		for child in tag.content:
-			return TablesMustContainDataCells.validation(child)
+			result = TablesMustContainDataCells.validation(child)
+			if result[0] == Rules.Pass:
+				return result
 		return (Rules.Violation, "Table does not contain data cells", [])
 
 class TablesCellsMustContainContent(Rules.Rule):
