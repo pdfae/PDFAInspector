@@ -213,11 +213,11 @@ class TablesMustContainDataCells(Rules.Rule):
 				return result
 		return (Rules.Violation, "Table does not contain data cells", [])
 
-class TablesCellsMustContainContent(Rules.Rule):
+class TableCellsMustContainContent(Rules.Rule):
 	"""
 		Any data or header cell in a table must contain some content
 	"""
-	title    = "Tables Cells Must Contain Content"
+	title    = "Table Cells Must Contain Content"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
