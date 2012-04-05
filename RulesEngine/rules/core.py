@@ -75,11 +75,11 @@ class MultiPageDocumentsMustHaveHeaders(Rules.Rule):
 				return result
 		return (Rules.Violation, "Document does not contain headers", [])
 
-class LinksMustHaveAltText(Rules.Rule):
+class LinksMustContainTextContent(Rules.Rule):
 	"""
-		A link must contain alternative text.
+		A link must contain some text content.
 	"""
-	title    = "Links Must Have Alt-Text"
+	title    = "Links Must Contain Text Content"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
@@ -87,15 +87,14 @@ class LinksMustHaveAltText(Rules.Rule):
 
 	@staticmethod
 	def applies(tag):
-		""" Only applies to images """
+		""" Only applies to links """
 		return (tag.tagName in Rules.TagTypes.Link)
 
 	@staticmethod
 	def validation(tag):
-		for attr in tag.attributes:
-			if attr.has_key("Alt"):
-				return (Rules.Pass, "Has alt-text", [])
-		return (Rules.Violation, "Does not have alt-text", [])
+		if tag.text == ""
+			return (Rules.Violation, "Link does not contain text content", [])
+		return (Rules.Pass, "Link contains text content", [])
 
 class ImagesMustHaveAltText(Rules.Rule):
 	"""
