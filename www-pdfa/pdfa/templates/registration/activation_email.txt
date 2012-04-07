@@ -1,4 +1,13 @@
-Visit the following link to activate your account
+Hi,
+
+Thanks for signing up for our PDF Accessiblity Inpsector service.
+
+Visit the following link to activate your account:
+
 http://pdfae.webfactional.com/accounts/activate/{{activation_key}}/
 
-The key will expire in {{expiration_days}} days.
+This activation link will expire in {{expiration_days}} days.
+
+Thank you,
+
+The PDF Accessibility Inspector Team
