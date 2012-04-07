@@ -2,9 +2,13 @@
 
 {% block text %}
 {% if account %}
-Account activated.
+<h1> Account Activation Successful!</h1>
+<p>Your account has been successfully activated. Click <a href="/accounts/login/">here</a> to log in.
+</p>
 {% else %}
-Activation key is expired or invalid.
+<h1>Account Activation Failed!</h1>
+<p>Your activation key is invalid or has expired. Click <a href="/accounts/register/">here</a> to register.
+<p>
 {% endif %}
 {% endblock %}
 
