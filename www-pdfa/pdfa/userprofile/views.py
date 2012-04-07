@@ -27,6 +27,8 @@ def managereports(request):
 	currentPage = "reports"
 	user = request.user
 	file_list = UserFile.objects.filter(owner = user.username)
+	if (request.method=="POST"):
+		x=request.POST
 	return render_to_response("userprofile/reports.html", locals())
 
 # manage rules
