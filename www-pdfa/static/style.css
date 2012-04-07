@@ -5,9 +5,14 @@ html, body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #525252;
-	height: 100%;
 }
 /* begin css tabs */
+
+.offscreen {
+  position: absolute;
+  left: -300em;
+  top: -30em;
+}
 
 ul#tabnav { /* general settings */
 	text-align: center; /* set to left, right or center */
@@ -51,23 +56,32 @@ ul#tabnav .current_page_item a {
 }
 /* end css tabs */
 
-h1, h2, h3 {
+h1 {
 	margin: 0;
 	padding: 0;
-	font-weight: normal;
-	color: #2C2723;
-}
-h1 {
 	font-size: 2em;
 }
 h2 {
-	font-size: 2.4em;
-}
-h3 {
+	margin: 0;
+	padding: 0;
 	margin-top: 1em;
-	font-size: 1.6em;
-	text-align: center;
+	margin-bottom: 0.5em;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: black;
 }
+
+h3 {
+	margin: 0;
+	padding: 0;
+	margin-top: 1em;
+	margin-left: 1em;
+	margin-bottom: 0.5em;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: black;
+}
+
 p, ul, ol {
 	line-height: 100%;
 }
@@ -112,33 +126,33 @@ img.aligncenter {
 #wrapper {
 	min-height: 100%;
 }
-#wrapper hr {
-	height: 1px;
-	border: 1px solid #000;
-	width: 77%;
-}
+
 /* Header */
 
 #header {
-	width: 76%;
-	height: 55px;
-	margin: 0 auto;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	background-color: #eeeeee;
 }
 #logo {
 	float: left;
-	width: 76%;
-	height: 55px;
+	width: 100%;
+	height: 3em;
+	background-color: #eeeeee;
+	border-bottom: #dddddd solid thin;
+	padding-bottom: 1em;
+	margin-bottom: 0.5em;
 }
 #logo h1 {
 	margin: 0;
 	padding: 10px 0px 0px 30px;
 }
 #logo h1 {
-	width: 90%;
+	width: 100%;
 	display: block;
 	float: left;
 	letter-spacing: -1px;
-	text-transform: lowercase;
 	text-shadow: #FFFFFF -1px 1px 2px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 32px;
@@ -147,7 +161,6 @@ img.aligncenter {
 	text-overflow: ellipsis;
 	text-overflow-mode: ellipsis;
 	white-space: nowrap;
-	height: 50px;
 }
 #logo img {
 	vertical-align: text-bottom;
@@ -159,19 +172,21 @@ img.aligncenter {
 /* Menu */
 
 #menu {
-	width: 76%;
-	height: 46px;
-	margin: 0 auto;
-	padding: 15px 0px 0px 0px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #eeeeee;
 }
 #menu ul {
 	margin: 0;
-	padding: 0px 0px 0px 4px;
+	padding: 0;
 	list-style: none;
 	line-height: normal;
+	background-color: #eeeeee;
 }
 #menu li {
 	float: left;
+	background-color: #eeeeee;
 }
 #menu a {
 	display: block;
@@ -185,6 +200,7 @@ img.aligncenter {
 	font-weight: normal;
 	color: #181818;
 	border: none;
+	background-color: #eeeeee;
 }
 #menu a:hover {
 	background-color: #cccccc;
@@ -203,7 +219,7 @@ img.aligncenter {
 /* Page */
 
 #page {
-	width: 78%;
+	width: 95%;
 	margin: 0 auto;
 	padding: 0;
 	padding-bottom: 5%;
@@ -218,7 +234,7 @@ img.aligncenter {
 
 #content {
 	float: left;
-	width: 90%;
+	width: 95%;
 	padding: 0px 0px 0px 0px;
 }
 .post {
@@ -322,36 +338,116 @@ img.aligncenter {
 .n_9 {
 	background-color: #ee77dd;
 }
+
+div.tag_summary {
+  margin-bottom: 3em;
+  margin-left: 2em;
+}
+
+div.tag_summary h3 {
+  margin-left: 0;
+}
+
 /* Tables */
-table.fancy {
+table.rules {
 	margin: 1em 1em 1em 0;
 	table-layout: fixed;
-	/*background: black;*/
 	color: black;
 	width: 100%;
+	border-collapse: collapse;
 }
-table.fancy th, table.fancy td {
+
+table.rules thead th {
 	text-align: center;
-	border: 2px;
+	border-bottom: solid black thin;
+}
+
+table.rules tr  {
+	background: white;
+}
+
+table.rules tr.even  {
+	background: #dfefff;
+}
+
+table.rules tbody th {
+	text-align: left;
+	font-weight: normal;
 	padding: 0.45em;
 }
-table.fancy th {
-	background: #ccc;
+table.rules tbody td {	
+  overflow: hidden;
 	text-align: center;
+	padding: 0.45em;
 }
-table.fancy tr.even td {
-	background: #abc;
-}
-table.fancy td {
-	background: #eee;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	text-align: center;
-}
-table.fancy tr:hover {
+table.rule tr:hover {
 	opacity: 0.9;
 }
-table.fancy caption {
+table.rule caption {
 	margin-left: inherit;
 	margin-right: inherit;
+}
+
+table.summary tbody th {
+  text-align: right;  
+  width: 10em;
+  padding-right: .25em;
+  font-weight: normal;
+}
+
+table.summary tbody td {
+  text-align: right;
+}
+
+table.document {
+   font-size: 120%; 
+   margin-left: 1em;
+}
+
+table.document tbody th {
+  text-align: left;
+  font-weight: normal;
+}
+
+table.document tbody td {
+  text-align: left;
+}
+
+.mc {
+  color: #E8A317;
+  font-weight: bold;  
+  letter-spacing: .03em;
+}
+
+.p {
+  color: black; 
+}
+
+.v {
+  color: #7E2217; 
+  font-weight: bold;  
+  letter-spacing: .03em;
+}
+
+.none {
+  color: #222222; 
+  font-style: italic;  
+}
+
+form {
+  margin-top: 1.5em;
+  margin-left: 1em;
+  font-size: 120%;
+}
+
+form label {
+  display: block;
+  font-weight: bold;
+  margin-right: 1em;
+  font-size: 90%;
+}
+
+form input[type='submit'],
+form textarea {
+  display: block;
 }
