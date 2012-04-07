@@ -5,7 +5,8 @@
 		<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
 			{{message}}
 			<p>
-				<span style="font-weight: bold;">Upload your file here</span>
+				<h2> Upload your file here </h2>
+				<!--<span style="font-weight: bold;">Upload your file here</span>-->
 			</p>
 			<table>
 			{{form.as_table}}
