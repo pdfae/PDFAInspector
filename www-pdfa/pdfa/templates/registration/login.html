@@ -4,6 +4,8 @@
 
 {% block text %}
 
+<h1>Login</h1>
+
 <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
 <table>
 	{{form.as_table}}
@@ -13,8 +15,13 @@
 <input type="hidden" name="next" value = "{{next}}">
 </form>
 <br />
+
+<p>
 Don't have an account? <a href="/accounts/register/">Register here</a>!
-<br />
+</p>
+
+<p>
 Forgot your password? <a href="/accounts/password/reset/">Click here</a>!
+</p>
 
 {% endblock %}
