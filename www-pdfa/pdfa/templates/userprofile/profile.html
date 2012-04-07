@@ -3,9 +3,36 @@
 {% block title %}User - PDF Accessibilty Inspector{% endblock%}
 
 {% block text %}
-<p style="font-weight: bold;">
-Account Information
-</p>
+<h1>Account Information</h1>
+
+<table class="fancy">
+<th type="hidden"></th>
+<th type="hidden"></th>
+<tr>
+	<td>Username</td><td>{{ username }}</td>
+</tr>
+<tr>
+	{% if first_name|length == 0 or last_name|length == 0%}
+	<td>Name</td><td><a href="/accounts/profile/change/">Edit this field</a></td>
+	{% else %}
+	<td>Name</td><td>{{ first_name }} {{ last_name }}</td>
+	{% endif %}
+</tr>
+<tr>
+	{% if email|length == 0 %}
+	<td>Email Address</td><td><a href="/accounts/profile/change/">Edit this field</a></td>
+	{% else %}
+	<td>Email Address</td><td>{{ email }}</td>
+	{% endif %}
+</tr>
+<tr>
+	<td>Last logged in on</td><td>{{ last_login }}</td>
+</tr>
+<tr>
+	<td>Joined on</td><td>{{ date_joined }}</td>
+</tr>
+</table>
+
 
 <p>
 	Username: {{ username }}
