@@ -14,7 +14,7 @@ Contact - PDF Accessibility Inspector
 This project is run and administered by the division for Disability Resources &amp; Education Services at the University of Illinois, Urbana-Champaign.
 </p>
 <p>
-Presently, feature requests and bug-fix information can be posted and tracked on:
+<h2>Feature Requests &amp; Bug-Tracking</h2>
 </p>
 
 <p>
@@ -22,21 +22,15 @@ Presently, feature requests and bug-fix information can be posted and tracked on
 </p>
 
 <p>
-Please leave us a note on the above page, and one of the developers will get back to you shortly.
-</p>
-
-<p>
-Alternatively, leave us a message below and we will get back faster.
+<h2>Leave us a message</h2>
 </p>
 
 <p>
 <form action="/contact/" method="post">{% csrf_token %}
-<fieldset>
 <table>
     	{{form.as_table}}
 </table>
 <input type="submit" value="Submit" />
-</fieldset>
 </form>
 </p>
 
