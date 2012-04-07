@@ -98,10 +98,10 @@ def writeTree(node, depth, count, url='node_'):
 		else:
 			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem' tabindex='-1'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
+	output += "  " * depth + " <ul role='group'>\n"
 	if count > 0:
-		output += "  " * depth + " <ul role='group'>\n"
 		output += noutput
-		output += "  " * depth + " </ul>\n"
+	output += "  " * depth + " </ul>\n"
 	output += "  " * depth + "</li>\n"
 	return output
 
