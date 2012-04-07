@@ -7,7 +7,6 @@ html, body {
 	color: #525252;
 	height: 100%;
 }
-
 /* begin css tabs */
 
 ul#tabnav { /* general settings */
@@ -94,7 +93,6 @@ img.alignright {
 img.aligncenter {
 	margin: 0px auto;
 }
-
 .tableview table {
 	margin: 1em;
 	width: 100%;
@@ -109,7 +107,6 @@ img.aligncenter {
 	text-align: center;
 	font-weight: bolder;
 }
-
 #wrapper {
 	min-height: 100%;
 }
@@ -218,6 +215,7 @@ img.aligncenter {
 /* Content */
 
 #content {
+	border-top:double;
 	float: left;
 	width: 90%;
 	padding: 0px 0px 0px 0px;

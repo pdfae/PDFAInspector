@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import os, re
 from forms import userChangeForm
 from upload.models import UserFile
+from django.core.files import File
 
 # profile homepage
 @login_required
@@ -27,10 +28,24 @@ def managereports(request):
 	currentPage = "reports"
 	user = request.user
 	file_list = UserFile.objects.filter(owner = user.username)
+	#x = []
 	if (request.method=="POST"):
 		formdata=request.POST
-		for file in file_list:
-			x ="on" in formdata.getlist(file["uid"])
+		for f in file_list:
+			if len(formdata.getlist(f.uid))>0:
+				fname = (unicode(f.file.name).split('/')[1]).rstrip('.pdf')
+				fp = request.user.get_profile().filepath
+				xml_file = fp+"xml-"+fname+".xml"
+				json_file = fp+"json-"+fname+".json"
+				result_file = fp+"result-"+fname+".json"
+				if os.path.isfile(xml_file):
+					os.remove(xml_file)	
+				if os.path.isfile(json_file):
+					os.remove(json_file)
+				if os.path.isfile(result_file):
+					os.remove(result_file)
+				f.delete()
+	file_list = UserFile.objects.filter(owner = user.username)
 	return render_to_response("userprofile/reports.html", locals(), context_instance=RequestContext(request))
 
 # manage rules
