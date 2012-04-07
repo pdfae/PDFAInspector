@@ -15,7 +15,7 @@ You currently have no reports. If you just uploaded a file, try refreshing the p
 
 <script language="JavaScript">
 function toggle(source) {
-  checkboxes = document.getElementsByType('checkbox');
+  checkboxes = document.getElementsByTagName('checkbox');
   for(var i in checkboxes)
     checkboxes[i].checked = source.checked;
 }
@@ -24,7 +24,7 @@ function toggle(source) {
 <p>
 <h1>Reports</h1>
 </p>
-<form method="post" action=".">
+<form method="post" action="." enctype="multipart/fomr-data"> {%csrf_token%}
 <table class="fancy">
 <tr>
 	<th style="width:40px">
