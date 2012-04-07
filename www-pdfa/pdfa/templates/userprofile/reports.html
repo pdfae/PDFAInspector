@@ -14,10 +14,14 @@ You currently have no reports. If you just uploaded a file, try refreshing the p
 {% else %}
 
 <script language="JavaScript">
-function toggle(source) {
-  checkboxes = document.getElementsByTagName('checkbox');
-  for(var i in checkboxes)
-    checkboxes[i].checked = source.checked;
+function toggle(){
+	var c = new Array();
+ 	c = document.getElementsByTagName('input');
+ 	for (var i = 0; i < c.length; i++){
+ 		if (c[i].type == 'checkbox'){
+			c[i].checked = !(c[i].checked);
+		}
+ 	}
 }
 </script>
 
@@ -28,7 +32,7 @@ function toggle(source) {
 <table class="fancy">
 <tr>
 	<th style="width:40px">
-		<input type="checkbox" onClick="toggle(this)" />
+		<input type="checkbox" onClick="toggle()" />
 	</th>
 	<th>
 		Title
