@@ -72,8 +72,7 @@ def writeTag(parsefile, tagName):
 			tags = sect
 	
 	if len(tags["content"]) > 0:
-		js = "<p><a href=\"javascript:check_all()\" style=\"padding-right: 30px;\">Expand All</a><a href=\"javascript:uncheck_all()\">Collapse All</a></p>"	
-		return js + "<ul id='tag-tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul>"
+		return "<div role='application'><ul id='tag-tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul></div>"
 	else:
 		return "<p>No tags found</p>"
 	
@@ -81,7 +80,7 @@ def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag) 
 	output = ""
-	output += "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'>%s\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
+	output += "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1'>%s\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
 	url += "-"
 	
 	if 0:
@@ -97,7 +96,7 @@ def writeTree(node, depth, count, url='node_'):
 		if isinstance(i, dict):
 			noutput += writeTree(i, depth + 1, count, url)
 		else:
-			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
+			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem' tabindex='-1'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
 	if count > 0:
 		output += "  " * depth + " <ul role='group'>\n"
