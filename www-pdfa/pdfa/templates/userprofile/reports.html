@@ -14,6 +14,7 @@ You currently have no reports. If you just uploaded a file, try refreshing the p
 <p style="font-weight: bold;">
 The following reports are available:
 </p>
+<form>
 <table class="fancy">
 <tr>
 	<th style="width:40px">
@@ -28,7 +29,7 @@ The following reports are available:
 {% for file in file_list %}
 	<tr>
 		<td>
-			<input type="checkbox" name="report" />
+			<input type="checkbox" name="report" value="{{file.uid}}" />
 		</td>
 		<td>
 			<a href="../../../reports/{{file.uid}}/">
@@ -42,6 +43,7 @@ The following reports are available:
 {% empty %}
 {% endfor %}
 </table>
+</form>
 (Try refreshing the page if you just uploaded a file and don't see it yet.)
 {% endif %}
 {% endblock %}
