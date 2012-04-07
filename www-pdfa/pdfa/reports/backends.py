@@ -72,7 +72,7 @@ def writeTag(parsefile, tagName):
 			tags = sect
 	
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul></div>"
+		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul></div>"
 	else:
 		return "<p>No tags found</p>"
 	
