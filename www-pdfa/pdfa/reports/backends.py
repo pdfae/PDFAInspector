@@ -92,19 +92,17 @@ def writeTree(node, depth, count, url='node_'):
 			for j, k in i.iteritems():
 				attr.append(unicode(j) + "=" + unicode(k))
 		if attr:
-			output += "("
-			output += ", ".join(attr)
-			output += ")"
+			output += "  " * depth + " (" + ", ".join(attr) + ")\n"
 	count = 0
 	for i in node["content"]:	
 		if isinstance(i, dict):
 			output += writeTree(i, depth + 1, count, url)
 		else:
-			output += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>" % (url, count, unicode(i))
+			output += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
 	if depth > 0:
 		output += "  " * depth + " </ul>\n"
-	output += "  " * depth + "</li>"
+	output += "  " * depth + "</li>\n"
 	return output
 
 def getTable(parsefile, resultfile):
