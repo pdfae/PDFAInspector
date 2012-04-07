@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}User - PDF Accessibilty Inspector{% endblock%}
+{% block title %}Reports - PDF Accessibilty Inspector{% endblock%}
 
 {% block text %}
 
@@ -20,7 +20,7 @@ function toggle(source) {
 </script>
 
 <p>
-<h1>Reports Available</h1>
+<h1>Reports</h1>
 </p>
 <form>
 <table class="fancy">
@@ -52,8 +52,8 @@ function toggle(source) {
 {% empty %}
 {% endfor %}
 </table>
+Delete Selected
 </form>
 (Try refreshing the page if you just uploaded a file and don't see it yet.)
 {% endif %}
 {% endblock %}
-
