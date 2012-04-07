@@ -13,7 +13,7 @@ You currently have no reports. If you just uploaded a file, try refreshing the p
 
 <script language="JavaScript">
 function toggle(source) {
-  checkboxes = document.getElementsByName('report');
+  checkboxes = document.getElementsByType('checkbox');
   for(var i in checkboxes)
     checkboxes[i].checked = source.checked;
 }
@@ -22,7 +22,7 @@ function toggle(source) {
 <p>
 <h1>Reports</h1>
 </p>
-<form>
+<form method="post" action=".">
 <table class="fancy">
 <tr>
 	<th style="width:40px">
@@ -38,7 +38,7 @@ function toggle(source) {
 {% for file in file_list %}
 	<tr>
 		<td>
-			<input type="checkbox" name="report" value="{{file.uid}}" />
+			<input type="checkbox" name="{{file.uid}}" />
 		</td>
 		<td>
 			<a href="../../../reports/{{file.uid}}/">
