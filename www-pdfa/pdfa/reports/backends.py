@@ -82,11 +82,11 @@ def writeTree(node, depth, count, url='node_'):
 	url += unicode(count) + ":" + unicode(nodetag) 
 	output = ""
 	if depth > 0:
-		output += "<li id='%s' role='treeitem' aria-expanded='true'>%s" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
+		output += " " * depth + "<li id='%s' role='treeitem' aria-expanded='true'>%s\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
 	url += "-"
 	
 	if depth > 0:
-		output += "<ul role='group'>"
+		output += "  " * depth + " <ul role='group'>\n"
 		attr = []
 		for i in node["attributes"]:
 			for j, k in i.iteritems():
@@ -100,11 +100,11 @@ def writeTree(node, depth, count, url='node_'):
 		if isinstance(i, dict):
 			output += writeTree(i, depth + 1, count, url)
 		else:
-			output += "<li id='%s_element%d' role='treeitem'>%s</li>" % (url, count, unicode(i))
+			output += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>" % (url, count, unicode(i))
 		count += 1	
 	if depth > 0:
-		output += "</ul>"
-	output += "</li>"
+		output += "  " * depth + " </ul>\n"
+	output += "  " * depth + "</li>"
 	return output
 
 def getTable(parsefile, resultfile):
