@@ -72,8 +72,7 @@ def writeTag(parsefile, tagName):
 			tags = sect
 	
 	if len(tags["content"]) > 0:
-		js = "<p><a href=\"javascript:check_all()\" style=\"padding-right: 30px;\">Expand All</a><a href=\"javascript:uncheck_all()\">Collapse All</a></p>"	
-		return js + writeTree(tags, 0, 0)
+		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul></div>"
 	else:
 		return "<p>No tags found</p>"
 	
@@ -81,30 +80,29 @@ def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag) 
 	output = ""
-	if depth > 0:
-		output += "<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
+	output += "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1'>%s\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
 	url += "-"
 	
-	if depth > 0:
+	if 0:
 		attr = []
 		for i in node["attributes"]:
 			for j, k in i.iteritems():
 				attr.append(unicode(j) + "=" + unicode(k))
 		if attr:
-			output += "("
-			output += ", ".join(attr)
-			output += ")"
-	
-	output += "\n<ul>"
+			output += "  " * depth + " (" + ", ".join(attr) + ")\n"
 	count = 0
+	noutput = ""
 	for i in node["content"]:	
 		if isinstance(i, dict):
-			output += writeTree(i, depth + 1, count, url)
+			noutput += writeTree(i, depth + 1, count, url)
 		else:
-			output += "<li>" + unicode(i) + "</li>"
+			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem' tabindex='-1'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
-	if depth > 0:
-		output += "</ul></ul></div>"
+	output += "  " * depth + " <ul role='group'>\n"
+	if count > 0:
+		output += noutput
+	output += "  " * depth + " </ul>\n"
+	output += "  " * depth + "</li>\n"
 	return output
 
 def getTable(parsefile, resultfile):

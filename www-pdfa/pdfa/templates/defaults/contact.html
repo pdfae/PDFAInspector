@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
+
+{% block title %}
+
+Contact - PDF Accessibility Inspector
+
+{% endblock %}
+
 {% block text %}
+
+<h1>Contact</h1>
 
 <p>
 This project is run and administered by the division for Disability Resources &amp; Education Services at the University of Illinois, Urbana-Champaign.
@@ -20,11 +29,15 @@ Please leave us a note on the above page, and one of the developers will get bac
 Alternatively, leave us a message below and we will get back faster.
 </p>
 
+<p>
 <form action="/contact/" method="post">{% csrf_token %}
+<fieldset>
 <table>
-  		{{form.as_table}}
+    	{{form.as_table}}
 </table>
 <input type="submit" value="Submit" />
+</fieldset>
 </form>
+</p>
 
 {% endblock %}
