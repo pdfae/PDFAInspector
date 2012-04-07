@@ -29,7 +29,7 @@ def managereports(request):
 	file_list = UserFile.objects.filter(owner = user.username)
 	if (request.method=="POST"):
 		x=request.POST
-	return render_to_response("userprofile/reports.html", locals())
+	return render_to_response("userprofile/reports.html", locals(), context_instance=RequestContext(request))
 
 # manage rules
 @login_required
