@@ -13,25 +13,21 @@ Contact - PDF Accessibility Inspector
 <p>
 This project is run and administered by the division for Disability Resources &amp; Education Services at the University of Illinois, Urbana-Champaign.
 </p>
-<p>
+
 <h2>Feature Requests &amp; Bug-Tracking</h2>
-</p>
+
 
 <p>
 <a href = "https://github.com/klange/PDFAInspector/issues">https://github.com/klange/PDFAInspector/issues</a>
 </p>
 
-<p>
-<h2>Leave us a message</h2>
-</p>
+<h2>Leave Us A Message</h2>
 
-<p>
 <form action="/contact/" method="post">{% csrf_token %}
 <table>
     	{{form.as_table}}
 </table>
 <input type="submit" value="Submit" />
 </form>
-</p>
 
 {% endblock %}
