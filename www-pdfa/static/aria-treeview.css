@@ -1,0 +1,29 @@
+ul.tree {
+  width: 10em;
+}
+ul.tree, ul.tree ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 20px;
+  font-weight: normal;
+  background-color: white;
+  color: black;
+}
+
+ul.tree li {
+  margin-left: 17px;
+}
+
+ul.tree li.groupHeader {
+  font-weight: bold;
+  margin-left: 0px;
+}
+
+img.headerImg {
+  margin-right: 5px;
+}
+
+li.focus {
+  color: white;
+  background: black;
+} 
