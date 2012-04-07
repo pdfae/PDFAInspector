@@ -28,7 +28,9 @@ def managereports(request):
 	user = request.user
 	file_list = UserFile.objects.filter(owner = user.username)
 	if (request.method=="POST"):
-		x=request.POST
+		formdata=request.POST
+		for file in file_list:
+			x ="on" in formdata.getlist(file["uid"])
 	return render_to_response("userprofile/reports.html", locals(), context_instance=RequestContext(request))
 
 # manage rules
