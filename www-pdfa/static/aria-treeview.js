@@ -10,7 +10,7 @@ function resetFocusFlag() {
 
 $(document).ready(function() {
 
-  var treeviewApp = new treeview('tree1');
+  var treeviewApp = new treeview('tag-tree');
 
 }); // end ready
 
