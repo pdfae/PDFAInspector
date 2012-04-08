@@ -186,7 +186,8 @@ def displaybookmark(request, uid):
 def displaytables(request, uid):
 	currentTab = "tbl"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)	
-	[ruleRows, output] = getTable(parsefile, resultfile)
+	[ruleRows, tagged, num, output] = getTable(parsefile, resultfile)
+	name = "table"
 	return render_to_response("reports/tableview.html", locals())
 	
 def displayformtree(request, uid):

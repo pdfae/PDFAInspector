@@ -112,6 +112,7 @@ def getTable(parsefile, resultfile):
 			tags = sect
 	list = []
 	getNodesByName(tags, "Table", list)		
+	num = len(list)
 	output = ""
 	for i in range(len(list)):
 		output += "<p>Table" + unicode(i+1) + "</p>"
@@ -122,7 +123,10 @@ def getTable(parsefile, resultfile):
 	resultFP.close()	
 	tests = result_data["results"]
 	data = []
+	tagged = False
 	for test in tests:
+		if test["id"] == "core.DocumentMustBeTagged" and test['tags'][0]['result'] == 1:
+				tagged = True
 		if test['category'] == 5 and len(test['tags']) > 0:
 			ntest = 0
 			npass = 0
@@ -141,7 +145,7 @@ def getTable(parsefile, resultfile):
 			test['nfail'] = nfail
 			test['nins'] = nins
 			data.append(test)	
-	return [data, output]
+	return [data, tagged, num, output]
 	
 def getNodesByName(base, tagType, curr):	
 	if base["tagName"] == tagType:

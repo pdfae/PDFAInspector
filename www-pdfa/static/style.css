@@ -280,17 +280,39 @@ div.tag_summary h3 {
 table th, td {
 	text-align: left;
 }
-table.tableview {
-	margin: 1em;
+.tableview {
+	margin-bottom: 3em;
+	margin-left: 2em;
+}
+.tableview table {
 	table-layout: fixed;
+	color: black;
+	width: 100%;
 	border-collapse: collapse;
 }
-.tableview td {
-	text-align: left;
+.tableview table caption{
+	font-weight: bold;
+	padding-bottom: 0.25em;
 }
-.tableview th, .tableview caption {
-	text-align: left;
-	font-weight: bolder;
+.tableview thead th {
+	text-align: center;
+	border: solid black thin;
+}
+.tableview thead td {
+	text-align: center;
+	border: solid black thin;
+}
+.tableview tr {
+	background: white;
+}
+.tableview tbody th {
+	text-align: center;
+	font-weight: bold;
+	border: solid black thin;
+}
+.tableview tbody td {
+	text-align: center;
+	border: solid black thin;
 }
 table.rules {
 	margin: 1em 1em 1em 0;
