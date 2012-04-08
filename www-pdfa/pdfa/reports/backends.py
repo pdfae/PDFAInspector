@@ -127,7 +127,7 @@ def getTable(parsefile, resultfile):
 	for test in tests:
 		if test["id"] == "core.DocumentMustBeTagged" and test['tags'][0]['result'] == 1:
 				tagged = True
-		if test['category'] == 5 and len(test['tags']) > 0:
+		if test['category'] == 5:
 			ntest = 0
 			npass = 0
 			nfail = 0
