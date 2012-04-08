@@ -63,6 +63,8 @@ h1, h2, h3 {
 	color: black;
 }
 h1 {
+	margin-top: 1em;
+	margin-bottom: 0.5em;
 	font-size: 2em;
 }
 h2 {
@@ -216,6 +218,13 @@ img.aligncenter {
 	width: 100%;
 	float: left;
 }
+
+#content-inner {
+	border-top: double;
+}
+
+
+
 /* Footer */
 
 #footer-wrapper {
@@ -313,13 +322,7 @@ table.rules tbody td {
 	text-align: center;
 	padding: 0.45em;
 }
-table.rule tr:hover {
-	opacity: 0.9;
-}
-table.rule caption {
-	margin-left: inherit;
-	margin-right: inherit;
-}
+
 table.summary tbody th {
 	text-align: right;
 	width: 10em;
@@ -357,17 +360,17 @@ table.document tbody td {
 	color: #222222;
 	font-style: italic;
 }
-form {
+#content-inner form {
 	margin-top: 1.5em;
 	margin-left: 1em;
 	font-size: 120%;
 }
-form label {
+#content-inner form label {
 	display: block;
 	font-weight: bold;
 	margin-right: 1em;
 	font-size: 90%;
 }
-form input[type='submit'], form textarea {
+#content-inner form input[type='submit'], form textarea {
 	display: block;
 }

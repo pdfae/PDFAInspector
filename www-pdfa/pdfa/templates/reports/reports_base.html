@@ -5,7 +5,8 @@ Report: {{ title }}
 {% endblock %}
 
 {% block text %}
-<div id = "menu">
+<div id = "menu" role = "navigation" aria-labelledby="report_nav">
+	<h2 id="report_nav" class="offscreen">Report</h2>
 	<ul>
 		<li {% if currentTab = "summary"%}class="current_page_item"{% endif %}>
 			<a href="/reports/{{uid}}/summary/">Summary</a>
@@ -30,7 +31,7 @@ Report: {{ title }}
 		</li>
 	</ul>
 </div>
-<div id="content-inner">
+<div id="content-inner" role="region" aria-label="title">
 	{% block content %}{% endblock %}
 </div>
 {% endblock %} 
