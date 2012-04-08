@@ -29,5 +29,8 @@ li.focus {
 
 .tag-title {
   font-weight: bold;
+}
+
+.force-zero-margin {
   margin-left: 0px;
 }

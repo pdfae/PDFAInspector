@@ -80,7 +80,7 @@ def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag) 
 	output = ""
-	output += "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1'><span class='tag-title'>%s</span>\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
+	output += "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1' class='force-zero-margin'><span class='tag-title'>%s</span>\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
 	url += "-"
 	
 	attr = []
