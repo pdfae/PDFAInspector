@@ -23,10 +23,10 @@
 					{%if num == 0%}<td class = "none">No {{name}} tags</td><td class = "none">No {{name}} tags</td>
 					{%else%}
 						{%if row.nfail == 0%}<td class = "z">0</td>
-						{%else%}<td class ="v">row.nfail</td>
+						{%else%}<td class ="v">{{row.nfail}}</td>
 						{%endif%}
 						{%if row.nins == 0%}<td class = "z">0</td>
-						{%else%}<td class ="mc">row.nins</td>
+						{%else%}<td class ="mc">{{row.nins}}</td>
 						{%endif%}
 					{%endif%}
 				{%else%}<td class = "v">document is not tagged</td><td class = "v">document is not tagged</td>
@@ -48,6 +48,7 @@
 			<th>Action</th>
 		</tr>
 	</thead>
+	<tbody>
 	{% for row in ruleRows %}
 	{% if row.rowspan > 0%}
 	<tr>
@@ -67,6 +68,7 @@
 	{%else%}
 	{%endif%}
 	{% endfor %}
+	</tbody>
 </table>
 {%else%}
 <h3><span style="color:green;">No violations or manual checks </span></h3>
