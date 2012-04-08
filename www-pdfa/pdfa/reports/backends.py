@@ -92,7 +92,7 @@ def writeTree(node, depth, count, url='node_'):
 			else:
 				attr.append(unicode(j) + "=" + unicode(k))
 	if attr:
-		output += "  <span class='attributes-list'>" * depth + " (" + ", ".join(attr) + ")</span>\n"
+		output += "  " * depth + "<span class='attributes-list'>(" + ", ".join(attr) + ")</span>\n"
 	count = 0
 	noutput = ""
 	for i in node["content"]:	
