@@ -83,13 +83,16 @@ def writeTree(node, depth, count, url='node_'):
 	output += "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1'>%s\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
 	url += "-"
 	
-	if 0:
-		attr = []
-		for i in node["attributes"]:
-			for j, k in i.iteritems():
+	attr = []
+	for i in node["attributes"]:
+		for j, k in i.iteritems():
+			if j.lower() == "page":
+				if k != 0:
+					attr.append("Page %d" % k)
+			else:
 				attr.append(unicode(j) + "=" + unicode(k))
-		if attr:
-			output += "  " * depth + " (" + ", ".join(attr) + ")\n"
+	if attr:
+		output += "  <span class='attributes-list'>" * depth + " (" + ", ".join(attr) + ")</span>\n"
 	count = 0
 	noutput = ""
 	for i in node["content"]:	
