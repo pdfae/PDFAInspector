@@ -4,11 +4,8 @@
 
 {% block text %}
 
-
-{{x}}
-
 {% if file_list|length == 0 %}
-<p style="font-weight: bold;">
+<p>
 You currently have no reports. If you just uploaded a file, try refreshing the page.
 </p>
 {% else %}
@@ -60,6 +57,8 @@ function toggle(){
 </table>
 <input type="submit" value="Delete" />
 </form>
+<p>
 (Try refreshing the page if you just uploaded a file and don't see it yet.)
+</p>
 {% endif %}
 {% endblock %}
