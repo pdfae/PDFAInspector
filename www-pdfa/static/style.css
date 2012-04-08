@@ -101,26 +101,6 @@ img.alignright {
 img.aligncenter {
 	margin: 0px auto;
 }
-
-table th, td {
-	text-align: left;
-	padding-bottom: 10px;
-}
-
-.tableview table {
-	margin: 1em;
-	width: 100%;
-	background: #000;
-}
-.tableview td, .tableview th {
-	background: #fff;
-	text-align: center;
-	vertical-align: inherit
-}
-.tableview th, .tableview caption {
-	text-align: center;
-	font-weight: bolder;
-}
 #wrapper {
 	min-height: 100%;
 }
@@ -224,13 +204,9 @@ table th, td {
 	width: 100%;
 	float: left;
 }
-
 #content-inner {
 	border-top: double;
 }
-
-
-
 /* Footer */
 
 #footer-wrapper {
@@ -301,6 +277,22 @@ div.tag_summary h3 {
 	margin-left: 0;
 }
 /* Tables */
+table th, td {
+	text-align: left;
+	padding-bottom: 10px;
+}
+table.tableview {
+	margin: 1em;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+.tableview td {
+	text-align: left;
+}
+.tableview th, .tableview caption {
+	text-align: left;
+	font-weight: bolder;
+}
 table.rules {
 	margin: 1em 1em 1em 0;
 	table-layout: fixed;
@@ -328,7 +320,6 @@ table.rules tbody td {
 	text-align: center;
 	padding: 0.45em;
 }
-
 table.summary tbody th {
 	text-align: right;
 	width: 10em;

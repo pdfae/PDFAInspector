@@ -1,43 +1,36 @@
 {% extends 'base.html' %}
 
-{% block title %}Account - PDF Accessibilty Inspector{% endblock%}
+{% block title %}Account Information- PDF Accessibilty Inspector{% endblock%}
 
-{% block text %}
+{% block text %} 
 <h1>Account Information</h1>
-
-<table class="fancy">
-<tr>
-	<td>Username</td><td>{{ username }}</td>
-</tr>
-<tr>
-	{% if first_name|length == 0 or last_name|length == 0%}
-	<td>Name</td><td><a href="/accounts/profile/change/">Edit this field</a></td>
-	{% else %}
-	<td>Name</td><td>{{ first_name }} {{ last_name }}</td>
-	{% endif %}
-</tr>
-<tr>
-	{% if email|length == 0 %}
-	<td>Email Address</td><td><a href="/accounts/profile/change/">Edit this field</a></td>
-	{% else %}
-	<td>Email Address</td><td>{{ email }}</td>
-	{% endif %}
-</tr>
-<tr>
-	<td>Last logged in on</td><td>{{ last_login }}</td>
-</tr>
-<tr>
-	<td>Joined on</td><td>{{ date_joined }}</td>
-</tr>
+<table class = "tableview">
+	<tr>
+		<th>Username:</th><td>{{ user.username }}</td>
+	</tr>
+	<tr>
+		<th>Name:</th>
+		{% if first_name|length == 0 or last_name|length == 0%} <td><a href="/accounts/profile/change/">Edit this field</a></td>
+		{% else %} <td>{{ user.first_name }} {{ user.last_name }}</td>
+		{% endif %}
+	</tr>
+	<tr>
+		<th>Email Address:</th>
+		{% if email|length == 0 %} <td><a href="/accounts/profile/change/">Edit this field</a></td>
+		{% else %} <td>{{ user.email }}</td>
+		{% endif %}
+	</tr>
+	<tr>
+		<th>Last login</th><td>{{ user.last_login }}</td>
+	</tr>
+	<tr>
+		<th>Joined on</th><td>{{ user.date_joined }}</td>
+	</tr>
 </table>
-
 <p>
 	<a href="/accounts/profile/change/">Change Account Settings</a>
 </p>
-
 <p>
 	<a href="/accounts/password/change/">Change Password</a>
 </p>
-
-
-{% endblock %}
+{% endblock %} 

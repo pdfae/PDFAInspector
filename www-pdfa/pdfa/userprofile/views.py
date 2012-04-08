@@ -13,12 +13,7 @@ from django.core.files import File
 def profile(request):
 	auth = True
 	currentPage = "account"
-	username = request.user.username
-	first_name = request.user.first_name
-	last_name = request.user.last_name
-	email = request.user.email
-	last_login = request.user.last_login
-	date_joined = request.user.date_joined
+	user = request.user
 	return render_to_response("userprofile/profile.html", locals())
 
 # manage reports

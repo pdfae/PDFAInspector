@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}User - PDF Accessibilty Inspector{% endblock%}
+{% block title %}Change account settings - PDF Accessibilty Inspector{% endblock%}
 
-{% block text %}
-
-<h1>Change Account Settings</h1>
-
-<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
-<table>
-	{{form.as_table}}
-</table>
-
-<p>
-<input type="submit" value="Submit"/>
-<input type="reset" value="Reset"/>
-</p>
-
-{% endblock %}
+{% block text %} <h1>Change Account Settings</h1>
+<form action="." method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<table>
+		{{form.as_table}}
+	</table>
+	<input type="submit" value="Submit"/>
+	<input type="reset" value="Reset"/>
+</form>
+{% endblock %} 
