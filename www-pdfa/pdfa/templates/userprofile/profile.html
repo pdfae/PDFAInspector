@@ -6,8 +6,6 @@
 <h1>Account Information</h1>
 
 <table class="fancy">
-<th type="hidden"></th>
-<th type="hidden"></th>
 <tr>
 	<td>Username</td><td>{{ username }}</td>
 </tr>
@@ -32,31 +30,6 @@
 	<td>Joined on</td><td>{{ date_joined }}</td>
 </tr>
 </table>
-
-
-<p>
-	Username: {{ username }}
-</p>
-<p>
-	{% if first_name|length == 0 or last_name|length == 0%}
-	Name: <a href="/accounts/profile/change/">Edit this field</a>
-	{% else %}
-	Name: {{ first_name }} {{ last_name }}
-	{% endif %}
-</p>
-<p>
-	{% if email|length == 0 %}
-	Email Address: <a href="/accounts/profile/change/">Edit this field</a>
-	{% else %}
-	Email Address: {{ email }}
-</p>
-	{% endif %}
-<p>
-	Last logged in on {{ last_login }}
-</p>
-<p>
-	Joined on {{ date_joined }}
-</p>
 
 <p>
 	<a href="/accounts/profile/change/">Change Account Settings</a>
