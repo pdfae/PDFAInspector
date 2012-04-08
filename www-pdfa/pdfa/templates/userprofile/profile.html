@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}User - PDF Accessibilty Inspector{% endblock%}
+{% block title %}Account - PDF Accessibilty Inspector{% endblock%}
 
 {% block text %}
 <h1>Account Information</h1>
 
-<table>
+<table class="fancy" width="100px">
 <tr>
-	<td style="text-align:left; width:50px; font-weight: bold">Username</td><td style="text-align:left; width:50px; ">{{ username }}</td>
+	<td style="text-align:left; width:50%; font-weight: bold">Username</td><td style="text-align:left; width:50%; ">{{ username }}</td>
 </tr>
 <tr>
 	{% if first_name|length == 0 or last_name|length == 0%}
