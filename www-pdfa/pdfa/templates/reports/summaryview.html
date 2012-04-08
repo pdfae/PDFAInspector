@@ -13,13 +13,13 @@
 		</tr>
 		<tr>
 			<th>Document Title: </th>
-			{% if title != ''%} <td>{{title}}</td>
+			{% if mettitle%} <td>{{mettitle.0}}</td>
 			{%else%} <td class = "v"> No title, documents must be titled to be accessible </td>
 			{%endif%}
 		</tr>
 		<tr>
 			<th>Number of Pages: </th>
-			{%if numpages > 0 %} <td>{{numpages}}</td>
+			{%if numpages%} <td>{{numpages.0}}</td>
 			{%else%} <td class = "v">unknown</td>
 			{%endif%}
 		</tr>
@@ -63,7 +63,7 @@
 <div class="tag_summary">
 	<h3 id = "{{tuple.0}}">{{tuple.0}} Tags</h3>
 	<p>
-		Number of {{tuple.0}} tags: {{ tuple.1}}
+		Number of {{tuple.0}} tags: {%if tagged%}{%if tuple.1 == 0%}<span class = "none">none</span>{%else%}{{tuple.1}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 	</p>
 	<table class="rules" aria-labelledby="{{tuple.0}}">
 		<thead>
@@ -77,9 +77,26 @@
 			{% for row in tuple.2 %}
 			<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 				<th>{{row.0}}</th>
-				<td class = "v">{%if tagged %} {%if row.2 == 0 and row.3 == 0%}No {{tuple.0}} tag violations{%else%} {{row.2}} {%endif%}{%else%} document is not tagged {%endif%}</td>
-				{%if tagged %} {% if row.2 == 0 and row.3 == 0%}<td class = "v">No {{tuple.0}} tag manual checks</td>{%else%} <td class = "z">{{row.3}} </td>{%endif%}{%else%} <td class = "v">document is not tagged </td>	{%endif%}
-				{% endfor %}
+				{%if tagged%}
+					{%if tuple.1 == 0%}<td class = "none">no {{tuple.0}} tags</td>
+					{%else%}
+						{%if row.2 == 0%}<td class = "z">0</td>
+						{%else%}<td class = "v">{{row.2}}</td>
+						{%endif%}
+					{%endif%}	
+				{%else%}<td class = "v">document is not tagged</td>
+				{%endif%}
+				
+				{%if tagged%}
+					{%if tuple.1 == 0%}<td class = "none">no {{tuple.0}} tags</td>
+					{%else%}
+						{%if row.3 == 0%}<td class = "z">0</td>
+						{%else%}<td class = "mc">{{row.3}}</td>
+						{%endif%}
+					{%endif%}
+				{%else%}<td class = "v">document is not tagged</td>
+				{%endif%}
+			{% endfor %}
 		</tbody>
 	</table>
 </div>

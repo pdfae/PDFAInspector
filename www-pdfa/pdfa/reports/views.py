@@ -60,6 +60,16 @@ def displaysummary(request, uid):
 		tagged = False
 		headed = False
 		
+		for c in parse_data['content']:
+			if c["tagName"] == "Metadata":
+				metadata = c["content"]	
+		for m in metadata:
+			if m["tagName"] == "Title":
+				mettitle = m["content"]
+				print mettitle
+			if m["tagName"] == "Pages":
+				numpages = m["content"]
+		
 		rnum = {}
 		rtitle = {}
 		rtest={}

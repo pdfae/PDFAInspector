@@ -355,6 +355,7 @@ table.document tbody td {
 .none {
 	color: #222222;
 	font-style: italic;
+	text-transform: lowercase;
 }
 #content-inner form {
 	margin-top: 1.5em;
