@@ -85,7 +85,7 @@ def writeTree(node, depth, count, url='node_'):
 		for j, k in i.iteritems():
 			if j.lower() == "page":
 				if k != 0:
-					attr.append("Page %d" % k)
+					attr.append("Page %s" % unicode(k))
 			else:
 				attr.append("%s=%s" % (unicode(j),unicode(k)))
 	if attr:
