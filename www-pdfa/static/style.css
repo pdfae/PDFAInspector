@@ -9,6 +9,11 @@ html, body {
 }
 /* begin css tabs */
 
+.offscreen {
+	position: absolute;
+	left: -300em;
+	top: -30em;
+}
 ul#tabnav { /* general settings */
 	text-align: center; /* set to left, right or center */
 	margin: 0 0 0 0; /* set margins as desired */
@@ -55,21 +60,24 @@ h1, h2, h3 {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
-	color: #2C2723;
+	color: black;
 }
 h1 {
 	font-size: 2em;
 }
 h2 {
-	font-size: 1.6em;
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+	font-size: 1.5em;
 }
 h3 {
-	font-size: 1.4em;
+	margin-top: 1em;
+	margin-left: 1em;
+	margin-bottom: 0.5em;
+	font-size: 1.2em;
 }
 p, ul, ol {
-	line-height: 100%;	
-}
-ul, ol {
+	line-height: 100%;
 }
 a {
 	text-decoration: none;
@@ -108,42 +116,36 @@ img.aligncenter {
 #wrapper {
 	min-height: 100%;
 }
-#wrapper hr {
-	height: 1px;
-	border: 1px solid #000;
-	width: 77%;
-}
 /* Header */
 
 #header {
-	width: 76%;
-	height: 55px;
-	margin: 0 auto;
+	margin: 0 10%;
+	padding: 0;
+	width: 80%;
 }
 #logo {
 	float: left;
-	width: 76%;
-	height: 55px;
+	width: 100%;
+	height: 3em;
+	padding-bottom: 1em;
+	margin-bottom: 0.5em;
 }
 #logo h1 {
 	margin: 0;
-	padding: 10px 0px 0px 30px;
+	padding: 10px 0;
 }
 #logo h1 {
-	width: 90%;
+	width: 100%;
 	display: block;
 	float: left;
 	letter-spacing: -1px;
-	text-transform: lowercase;
 	text-shadow: #FFFFFF -1px 1px 2px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 32px;
 	color: #2D2722;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	text-overflow-mode: ellipsis;
 	white-space: nowrap;
-	height: 50px;
 }
 #logo img {
 	vertical-align: text-bottom;
@@ -155,14 +157,13 @@ img.aligncenter {
 /* Menu */
 
 #menu {
-	width: 76%;
-	height: 46px;
-	margin: 0 auto;
-	padding: 15px 0px 0px 0px;
+	margin: 1% auto;
+	padding: 0;
+	width: 80%;
 }
 #menu ul {
 	margin: 0;
-	padding: 0px 0px 0px 4px;
+	padding: 0;
 	list-style: none;
 	line-height: normal;
 }
@@ -199,64 +200,21 @@ img.aligncenter {
 /* Page */
 
 #page {
-	width: 78%;
-	margin: 0 auto;
-	padding: 0;
+	width: 80%;
+	margin: 0 10%;
 	padding-bottom: 5%;
-}
-#page-bgtop {
-}
-#page-bgbtm {
-	margin: 0px;
-	padding: 20px 30px 0px 30px;
+	float: left;
 }
 /* Content */
 
 #content {
-	border-top:double;
+	border-top: double;
+	width: 100%;
+	margin: 0;
+}
+#content div {
+	width: 100%;
 	float: left;
-	width: 90%;
-	padding: 0px 0px 0px 0px;
-}
-.post {
-	padding-top: 20px;
-	padding-bottom: 10px;
-}
-.post .title {
-	margin: 0px;
-	padding-bottom: 10px;
-	letter-spacing: -1px;
-}
-.post .title a {
-	color: #242424;
-	text-decoration: none;
-	border: none;
-}
-.post .meta {
-	border-top: 1px solid #E5E5E5;
-	border-bottom: 1px solid #E5E5E5;
-	padding: 5px 0px;
-	text-align: left;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-style: italic;
-}
-.post .meta a {
-}
-.post .entry {
-	text-align: justify;
-	margin-bottom: 25px;
-	padding: 10px 0px 10px 0px;
-}
-.links {
-	display: block;
-	width: 96px;
-	padding: 2px 0px 2px 0px;
-	background: #A53602;
-	text-align: center;
-	text-transform: uppercase;
-	font-size: 10px;
-	color: #FFFFFF;
 }
 /* Footer */
 
@@ -265,6 +223,7 @@ img.aligncenter {
 	height: 12%;
 	width: 100%;
 	background: #2D2722;
+	float: left;
 }
 #footer {
 	clear: both;
@@ -319,36 +278,96 @@ img.aligncenter {
 .n_9 {
 	background-color: #ee77dd;
 }
+div.tag_summary {
+	margin-bottom: 3em;
+	margin-left: 2em;
+}
+div.tag_summary h3 {
+	margin-left: 0;
+}
 /* Tables */
-table.fancy {
+table.rules {
 	margin: 1em 1em 1em 0;
 	table-layout: fixed;
-	/*background: black;*/
 	color: black;
 	width: 100%;
+	border-collapse: collapse;
 }
-table.fancy th, table.fancy td {
+table.rules thead th {
 	text-align: center;
-	border: 2px;
+	border-bottom: solid black thin;
+}
+table.rules tr {
+	background: white;
+}
+table.rules tr.even {
+	background: #dfefff;
+}
+table.rules tbody th {
+	text-align: left;
+	font-weight: normal;
 	padding: 0.45em;
 }
-table.fancy th {
-	background: #ccc;
-	text-align: center;
-}
-table.fancy tr.even td {
-	background: #abc;
-}
-table.fancy td {
-	background: #eee;
+table.rules tbody td {
 	overflow: hidden;
-	text-overflow: ellipsis;
 	text-align: center;
+	padding: 0.45em;
 }
-table.fancy tr:hover {
+table.rule tr:hover {
 	opacity: 0.9;
 }
-table.fancy caption {
+table.rule caption {
 	margin-left: inherit;
 	margin-right: inherit;
+}
+table.summary tbody th {
+	text-align: right;
+	width: 10em;
+	padding-right: .25em;
+	font-weight: normal;
+}
+table.summary tbody td {
+	text-align: right;
+}
+table.document {
+	font-size: 120%;
+	margin-left: 1em;
+}
+table.document tbody th {
+	text-align: left;
+	font-weight: normal;
+}
+table.document tbody td {
+	text-align: left;
+}
+.mc {
+	color: #E8A317;
+	font-weight: bold;
+	letter-spacing: .03em;
+}
+.p {
+	color: black;
+}
+.v {
+	color: #7E2217;
+	font-weight: bold;
+	letter-spacing: .03em;
+}
+.none {
+	color: #222222;
+	font-style: italic;
+}
+form {
+	margin-top: 1.5em;
+	margin-left: 1em;
+	font-size: 120%;
+}
+form label {
+	display: block;
+	font-weight: bold;
+	margin-right: 1em;
+	font-size: 90%;
+}
+form input[type='submit'], form textarea {
+	display: block;
 }

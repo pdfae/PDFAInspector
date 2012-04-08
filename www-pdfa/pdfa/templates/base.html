@@ -4,14 +4,14 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="/static/style.css" />
 		<link rel="stylesheet" href="/static/aria-treeview.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script src="/static/aria-treeview.js"></script>
+		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="/static/aria-treeview.js"></script-->
 		<title>{% block title %}PDF Accessibilty Inspector - DRES UIUC{% endblock%}</title>
 	</head>
 	<body>
 		<div id="wrapper">
 			<div id="menu" role="navigation" aria-labelledby="main_nav">
-				<!--h2 id="main_nav" class="offscreen">Main</h2-->
+				<h2 id="main_nav" class="offscreen">Main</h2>
 				<ul>
 					{% block navigation %}
 					<li {% if currentPage = "upload"   %}class="current_page_item"{% endif %}>
@@ -44,24 +44,20 @@
 			<!-- end #menu -->
 			<div id="header" role="banner">
 				<div id="logo">
-					<h1 id="title"><a href="/"> {% block header %} <img src="/static/images/black38.gif" alt="[Logo]"/> pdf accessibility inspector
+					<h1 id="title"><a href="/"> {% block header %} <img src="/static/images/black38.gif" alt="[Logo]"/ align="left" height="40px">&nbsp;pdf accessibility inspector
 					{% endblock %} </a></h1>
 				</div>
 			</div>
 			<!-- end #header -->
 			<div id="page">
-				<div id="page-bgtop">
-					<div id="page-bgbtm">
-						<div id="content" role="main">
-							{% block text %}
+			<div id="content" role="main">
+				{% block text %}
 
-							{% endblock %}
-						</div>
-						<!-- end #content -->
-					</div>
-				</div>
+				{% endblock %}
 			</div>
-			<!-- end #page -->
+			<!-- end #content-->
+		</div>
+		<!-- end #page -->
 		</div>
 		<div id="footer-wrapper" role="contentinfo">
 			<div id="footer">
