@@ -26,3 +26,8 @@ li.focus {
   color: white;
   background: black;
 } 
+
+.tag-title {
+  font-weight: bold;
+  margin-left: 0px;
+}
