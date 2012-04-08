@@ -14,7 +14,6 @@ ul.tree li {
 }
 
 ul.tree li.groupHeader {
-  font-weight: bold;
   margin-left: 0px;
 }
 
@@ -31,6 +30,3 @@ li.focus {
   font-weight: bold;
 }
 
-.force-zero-margin {
-  margin-left: 0px;
-}

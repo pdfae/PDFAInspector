@@ -78,11 +78,8 @@ def writeTag(parsefile, tagName):
 	
 def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
-	url += unicode(count) + ":" + unicode(nodetag) 
-	output = ""
-	output += "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1' class='force-zero-margin'><span class='tag-title'>%s</span>\n" % (url, nodetag) #"<div class=\"treestyle\"><ul><input type=\"checkbox\" id=\"elem-" + url + "\" checked=\"checked\"/><label for=\"elem-" + url + "\"><b><a name = \"" + url + "\" id = \"" + url + "\">" + nodetag + "</a></b></label>\n"
-	url += "-"
-	
+	url += "%d:%s-" % (count, unicode(nodetag))
+	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
@@ -90,7 +87,7 @@ def writeTree(node, depth, count, url='node_'):
 				if k != 0:
 					attr.append("Page %d" % k)
 			else:
-				attr.append(unicode(j) + "=" + unicode(k))
+				attr.append("%s=%s" % (unicode(j),unicode(k)))
 	if attr:
 		output += "  " * depth + "<span class='attributes-list'>(" + ", ".join(attr) + ")</span>\n"
 	count = 0
