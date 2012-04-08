@@ -205,7 +205,7 @@ img.aligncenter {
 	float: left;
 }
 #content-inner {
-	border-top: double;
+	border-top: groove;
 }
 /* Footer */
 
@@ -279,7 +279,6 @@ div.tag_summary h3 {
 /* Tables */
 table th, td {
 	text-align: left;
-	padding-bottom: 10px;
 }
 table.tableview {
 	margin: 1em;
@@ -371,3 +370,4 @@ table.document tbody td {
 #content-inner form input[type='submit'], form textarea {
 	display: block;
 }
+

@@ -27,7 +27,7 @@ def setup(user, uid):
 	filepath = MEDIA_ROOT + filepath + "/"
 	parsefile = filepath + "json-" + filename.replace('.pdf','') + ".json"
 	resultfile = filepath + "result-" + filename.replace('.pdf','') + ".json"
-	return [auth, currentPage, parsefile, resultfile, title, notes, fileObj]
+	return [auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename]
 
 def setup_notes_form(request, uid, notes, fileObj):
 	if (request.method=="POST"):
@@ -45,7 +45,7 @@ def setup_notes_form(request, uid, notes, fileObj):
 
 def displaysummary(request, uid):
 	currentTab = "summary"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
 		
@@ -57,7 +57,8 @@ def displaysummary(request, uid):
 		parse_data = json.load(parseFP)
 		parseFP.close()
 		
-		message = "<span style=\"color:red\">The document is untagged and not accessible</span>"
+		tagged = False
+		headed = False
 		
 		rnum = {}
 		rtitle = {}
@@ -72,7 +73,6 @@ def displaysummary(request, uid):
 			rpass[i] = []
 			rfail[i] = []
 			rinspect[i] = []
-		
 		tests = result_data["results"]	
 		for test in tests:
 			tags = test["tags"]
@@ -86,11 +86,18 @@ def displaysummary(request, uid):
 				if (tag["result"]==1):
 					npass += 1
 					if test["id"] == "core.DocumentMustBeTagged":
-						message = "<span style=\"color:#FFA500\">The document is partially accessible</span>"
+						tagged = True
+					if test["id"] == "core.MultiPageDocumentsMustHaveHeaders":
+						headed = True
 				elif (tag["result"]==2):
 					nfail += 1
 				elif (tag["result"]==3):
 					nins += 1	
+			
+			if category == 0:
+				continue
+			category -= 1	
+				
 			rnum[category] += 1
 			rtitle[category].append([test["title"], npass, nfail, nins])
 			rtest[category].append(ntest)
@@ -99,24 +106,22 @@ def displaysummary(request, uid):
 			rinspect[category].append(nins)
 				
 		content = []
-		content.append(["Document Level Rules:"])
-		content.append(["Links:"])
-		content.append(["Figures:"])
-		content.append(["Forms:"])
-		content.append(["Headers:"])
-		content.append(["Tables:"])
+		content.append(["Link"])
+		content.append(["Figure"])
+		content.append(["Form Control"])
+		content.append(["Header"])
+		content.append(["Table"])
 		
 		tot_test = 0
 		tot_pass = 0
 		tot_fail = 0
 		tot_ins = 0
-		for i in range(0,6):
+		for i in range(0,5):
 			if sum(rtest[i]) > 0:
 				content[i].append(sum(rtest[i])/rnum[i])
-				content[i].append(rtitle[i])
 			else:
-				content[i].append("")
-			
+				content[i].append(0)
+			content[i].append(rtitle[i])
 			tot_test += sum(rtest[i])
 			tot_pass += sum(rpass[i])
 			tot_fail += sum(rfail[i])
@@ -125,13 +130,14 @@ def displaysummary(request, uid):
 		if tot_fail == 0:
 			message = "<span style = \"color:green\">The document is accessible</span>"	
 		form = setup_notes_form(request, uid, notes, fileObj)
+		message = content
 		return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())
 
 def displaytreeview(request, uid):
 	currentTab = "tree"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	tags = "<div class=\"css-treeview\">"
 	tags += writeTag(parsefile, "tags")
 	tags += "</div>"
@@ -139,27 +145,28 @@ def displaytreeview(request, uid):
 
 def displaylinks(request, uid):
 	currentTab = "links"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 1)
 	name = "Link"
 	return render_to_response("reports/rowView.html", locals())
 
 def displayfigures(request, uid):
 	currentTab = "img"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 2)
-	name = "Figure"
+	name = "figure"
 	return render_to_response("reports/rowView.html", locals())
 
 def displayforms(request, uid):
 	currentTab = "form"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 3)
+	name = "form control"
 	return render_to_response("reports/formview.html", locals())
 
 def displaybookmark(request, uid):
 	currentTab = "bm"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	tags = "<div class=\"css-treeview\">"
 	tags += writeTag(parsefile, "Bookmarks")
 	tags += "</div>"
@@ -167,13 +174,13 @@ def displaybookmark(request, uid):
 
 def displaytables(request, uid):
 	currentTab = "tbl"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)	
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)	
 	[ruleRows, output] = getTable(parsefile, resultfile)
 	return render_to_response("reports/tableview.html", locals())
 	
 def displayformtree(request, uid):
 	currentTab = "formtree"
-	[auth, currentPage, parsefile, resultfile, title, notes, fileObj] = setup(request.user, uid)
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	result = open(parsefile)
 	base = json.loads(result.read())
 	output = '<a href="javascript:check_all()">Expand All</a>'

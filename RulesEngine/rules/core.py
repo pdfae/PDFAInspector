@@ -92,7 +92,7 @@ class LinksMustContainTextContent(Rules.Rule):
 
 	@staticmethod
 	def validation(tag):
-		if tag.text == ""
+		if tag.text == "":
 			return (Rules.Violation, "Link does not contain text content", [])
 		return (Rules.Pass, "Link contains text content", [])
 
