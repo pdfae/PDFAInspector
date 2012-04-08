@@ -5,7 +5,7 @@
 {% block content %} <h2>Summary</h2>
 <div class="tag_summary">
 	<p>
-		Number of {{name}} tags: {{ruleRows.0.ntest}}
+		Number of {{name}} tags: {%if tagged%}{%if num == 0%}<span class = "none">none</span>{%else%}{{num}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 	</p>
 	<table class="rules" aria-labelledby="summary">
 		<thead>
@@ -19,8 +19,18 @@
 			{% for row in ruleRows %}
 			<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 				<th>{{row.title}}</th>
-				<td class = "v">{%if row.nfail == 0 and row.nins == 0%}No violations{%else%} {{row.nfail}} {%endif%}</td>
-				{%if row.nfail == 0 and row.nins == 0%}<td class = "v">No manual checks</td>{%else%} <td class = "z">{{row.nins}} {%endif%}</td>
+				{%if tagged%}
+					{%if num == 0%}<td class = "none">No {{name}} tags</td><td class = "none">No {{name}} tags</td>
+					{%else%}
+						{%if row.nfail == 0%}<td class = "z">0</td>
+						{%else%}<td class ="v">row.nfail</td>
+						{%endif%}
+						{%if row.nins == 0%}<td class = "z">0</td>
+						{%else%}<td class ="mc">row.nins</td>
+						{%endif%}
+					{%endif%}
+				{%else%}<td class = "v">document is not tagged</td><td class = "v">document is not tagged</td>
+				{%endif%}
 			</tr>
 			{% endfor %}
 		</tbody>
@@ -28,56 +38,38 @@
 </div>
 <h2>{{name}}s</h2>
 <div class="tag_summary">
+{% if numfail > 0 %}	
 <table class = "rules">
 	<thead>
 		<tr>
 			<th>Accessibility Requirement</th>
-			<th>{{name}}</th>
+			<th>Tag</th>
 			<th>Page</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	{% for row in ruleRows %}
-	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-		<td> {{row.title}} </td>
-		<td> {{row.npass}} </td>
-		<td> {{row.nfail}} </td>
-		<td> {{row.nins}} </td>
+	{% if row.rowspan > 0%}
+	<tr>
+		<td rowspan="{{row.rowspan}}"> {{row.title}} </td>
+		{% for tag in row.tags%}
+		{% if forloop.counter != 1 %}
+		<tr>
+		{%endif%}
+		<td>{{tag.tagName}} {{tag.tag}}</td>
+		{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
+		<td>{{tag.message}}</td>
+		{% if forloop.counter != 1 %}
+		<tr>
+		{%endif%}
+		{%endfor%}
 	</tr>
+	{%else%}
+	{%endif%}
 	{% endfor %}
 </table>
+{%else%}
+<h3><span style="color:green;">No violations or manual checks </span></h3>
+{%endif%}
 </div>
-{%comment%}
-{% if tableRows|length > 0%}
-<p>
-	<b> Detailed report: </b>
-</p>
-<table class = "fancy">
-	<tr>
-		<th> Rule </th>
-		<th> Tag </th>
-		<th> Page </th>
-		<th> Result </th>
-	</tr>
-	{% for row in tableRows %}
-	<tr>
-		<td rowspan="{{row.tags|length}}"> {{row.title}} </td>
-		{% for tag in row.tags %}
-
-		{% if forloop.counter == 1 %}
-		{% else %}
-	<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-		{% endif %} <td><a href="../treeview/{{ tag.tag }}"> {{name}} {{forloop.counter}} </a></td>
-		<td> {{tag.page}} </td>
-		<td> {%if tag.result == 2 %} <span style="color: red">Violation</span> {% else %} <span style ="color: #FFA500">Manual inspection</span> {% endif %} </td>
-		{% if forloop.counter == 1 %}
-		{% else %}
-	</tr>
-	{% endif %}
-	{% endfor %}
-	</tr>
-	{%endfor%}
-</table>
-{% else %} <h3><span style = "color:green;text-align: center;">All tests passed</span></h3>
-{%endcomment%}
 {% endblock %}

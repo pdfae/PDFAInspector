@@ -5,9 +5,8 @@ from django.contrib.auth.decorators import login_required
 import os
 import uuid
 
-def getData(parsefile, resultfile, uid, category):
+def getData(parsefile, resultfile, uid, category, name):
 	data = []
-	data2 = []
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
 		
 		resultFP = open(resultfile)
@@ -16,28 +15,20 @@ def getData(parsefile, resultfile, uid, category):
 		
 		parseFP = open(parsefile)
 		parse_data = json.load(parseFP)
+		lis = []
+		getNodesByName(parse_data, name, lis)
+		num = len(lis)
 		tag_urls = {}
 		getNodes(parse_data, 0, tag_urls)
 		parseFP.close()
+		tagged = False
+		numfail = 0
 		tests = result_data["results"]
 		for test in tests:
-			if test['category'] == category and len(test['tags']) > 0:
-				
-				for tag in test['tags']:
-						
-					actual_tag = tag_urls[tag['tag']]
-					attr = []
-					if 'attributes' in actual_tag:
-						attr = actual_tag['attributes']
-					for a in attr:
-						if 'Page' in a:
-							tag['page'] = a['Page']
-					tag['tagName'] = tag_urls[tag['tag']]['tagName']
-				
-			if test['category'] == category and len(test['tags']) > 0:
-				test2 = {}
-				test2['title'] = test['title']
-				test2['tags'] = []
+			if test["id"] == "core.DocumentMustBeTagged" and test['tags'][0]['result'] == 1:
+				tagged = True
+			if test['category'] == category:
+				#data.append(test)
 				ntest = 0
 				npass = 0
 				nfail = 0
@@ -49,17 +40,23 @@ def getData(parsefile, resultfile, uid, category):
 					elif tag['result'] == 2:
 						nfail += 1
 					else:
-						nins += 1			
-					if tag['result'] != 1:
-						test2['tags'].append(tag)
+						nins += 1
+					actual_tag = tag_urls[tag['tag']]
+					attr = []
+					if 'attributes' in actual_tag:
+						attr = actual_tag['attributes']
+					for a in attr:
+						if 'Page' in a:
+							tag['page'] = a['Page']
+					if 'tagName' in actual_tag:		
+						tag['tagName'] = actual_tag['tagName']
 				test['ntest'] = ntest
-				test['npass'] = npass
 				test['nfail'] = nfail
-				test['nins'] = nins		
-				if test2['tags']:		
-					data2.append(test2)
-				data.append(test)	
-	return [data, data2]
+				test['nins'] = nins	
+				test['rowspan'] = nfail + nins
+				numfail += nfail+nins
+				data.append(test)
+	return [data, tagged, num, numfail]
 
 def writeTag(parsefile, tagName):
 	parseFP = open(parsefile)

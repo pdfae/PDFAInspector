@@ -66,10 +66,8 @@ def displaysummary(request, uid):
 		for m in metadata:
 			if m["tagName"] == "Title":
 				mettitle = m["content"]
-				print mettitle
 			if m["tagName"] == "Pages":
 				numpages = m["content"]
-		
 		rnum = {}
 		rtitle = {}
 		rtest={}
@@ -120,6 +118,8 @@ def displaysummary(request, uid):
 		content.append(["Figure"])
 		content.append(["Form Control"])
 		content.append(["Header"])
+		tables = []
+		getNodesByName(parse_data, "Table", tables)
 		content.append(["Table"])
 		
 		tot_test = 0
@@ -128,7 +128,10 @@ def displaysummary(request, uid):
 		tot_ins = 0
 		for i in range(0,5):
 			if sum(rtest[i]) > 0:
-				content[i].append(sum(rtest[i])/rnum[i])
+				if i!=4:
+					content[i].append(sum(rtest[i])/rnum[i])
+				else:
+					content[i].append(len(tables))
 			else:
 				content[i].append(0)
 			content[i].append(rtitle[i])
@@ -136,9 +139,7 @@ def displaysummary(request, uid):
 			tot_pass += sum(rpass[i])
 			tot_fail += sum(rfail[i])
 			tot_ins += sum(rinspect[i])
-		
-		if tot_fail == 0:
-			message = "<span style = \"color:green\">The document is accessible</span>"	
+
 		form = setup_notes_form(request, uid, notes, fileObj)
 		message = content
 		return render_to_response("reports/summaryview.html", locals(), context_instance=RequestContext(request))
@@ -156,23 +157,23 @@ def displaytreeview(request, uid):
 def displaylinks(request, uid):
 	currentTab = "links"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 1)
 	name = "Link"
+	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 1, name)
 	return render_to_response("reports/rowView.html", locals())
 
 def displayfigures(request, uid):
 	currentTab = "img"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 2)
-	name = "figure"
+	name = "Figure"
+	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 2, name)
 	return render_to_response("reports/rowView.html", locals())
 
 def displayforms(request, uid):
 	currentTab = "form"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	[ruleRows, tableRows] = getData(parsefile, resultfile, uid, 3)
 	name = "form control"
-	return render_to_response("reports/formview.html", locals())
+	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 3, name)
+	return render_to_response("reports/rowView.html", locals())
 
 def displaybookmark(request, uid):
 	currentTab = "bm"
