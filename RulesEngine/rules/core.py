@@ -94,7 +94,7 @@ class LinksMustContainTextContent(Rules.Rule):
 	def validation(tag):
 		if tag.text == "":
 			return (Rules.Violation, "Link does not contain text content", [])
-		return (Rules.Pass, "Link contains text content", [])
+		return (Rules.ManualInspection, "Link text must describe target of the link", [])
 
 class ImagesMustHaveAltText(Rules.Rule):
 	"""
@@ -115,30 +115,8 @@ class ImagesMustHaveAltText(Rules.Rule):
 	def validation(tag):
 		for attr in tag.attributes:
 			if attr.has_key("Alt"):
-				return (Rules.Pass, "Has alt-text", [])
+				return (Rules.ManualInspection, "Figure alt-text must describe the figure", [])
 		return (Rules.Violation, "Does not have alt-text", [])
-
-class FormElementsMustHaveNames(Rules.Rule):
-	"""
-		The Name property must be set in all form elements
-	"""
-	title    = "Form Elements Must Have Names"
-	severity = Rules.Violation
-	wcag_id  = "n/a"
-	wcag_level = Rules.WCAG.NotSet
-	category = Rules.Categories.Forms
-	
-	@staticmethod
-	def applies(tag):
-		""" Only applies to form elements """
-		return (tag.parent != None and tag.parent.tagName == "Form")
-
-	@staticmethod
-	def validation(tag):
-		for child in tag.content:
-			if child.tagName == "Name":
-				return (Rules.Pass, "Form element has a name", [])
-		return (Rules.Violation, "Form element has no name", [])
 
 class FormElementsMustHaveTooltips(Rules.Rule):
 	"""
@@ -159,7 +137,7 @@ class FormElementsMustHaveTooltips(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Tooltip":
-				return (Rules.Pass, "Form element has a tooltip", [])
+				return (Rules.ManualInspection, "Tooltip must describe the purpose of the control", [])
 		return (Rules.Violation, "Form element has no tooltip", [])
 
 class TablesMustHaveHeaders(Rules.Rule):
