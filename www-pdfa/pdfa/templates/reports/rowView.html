@@ -71,7 +71,18 @@
 	</tbody>
 </table>
 {%else%}
-<h3><span style="color:green;">No violations or manual checks </span></h3>
+
+
+{% if tagged %}
+{%if num == 0%}
+<p><span class = "none">No {{name}} tags</span></p>
+{%else%}
+{%endif%}
+{%else%}
+<p><span class = "v">document is not tagged</span></p>
+{%endif%}
+
+
 {%endif%}
 </div>
 {% endblock %}

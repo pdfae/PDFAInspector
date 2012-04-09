@@ -39,17 +39,19 @@
 </div>
 
 <h2>Tables</h2>
+<div class = "tableview">
+
 {% if tagged %}
 {%if num == 0%}
-<span class = "none">No {{name}} tags</span>
+<p><span class = "none">No {{name}} tags</span></p>
 {%else%}
-<div class = "tableview">
 {% autoescape off %}
 {{output}}
 {% endautoescape %}
-</div>
+
 {%endif%}
 {%else%}
-<span class = "v">document is not tagged</span>
+<p><span class = "v">document is not tagged</span></p>
 {%endif%}
+</div>
 {% endblock %}
