@@ -42,9 +42,31 @@ class DocumentShouldBeTitled(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		for child in tag.content:
-			if child.tagName == "Title":
+			if child.tagName == "Title" and not child.text == "":
 				return (Rules.Pass, "Document has a title", [])
 		return (Rules.Violation, "Document does not have a title", [])
+
+class DocumentMustHaveALanguageSet(Rules.Rule):
+	"""
+		The language should be specified in every document
+	"""
+	title    = "Documents Must Have A Language Set"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.DocumentLevel
+
+	@staticmethod
+	def applies(tag):
+		"""Applies to any document"""
+		return (tag.tagName == "Metadata")
+
+	@staticmethod
+	def validation(tag):
+		for child in tag.content:
+			if child.tagName == "Language" and not child.text == "":
+				return (Rules.Pass, "Language set", [])
+		return (Rules.Violation, "Language not set", [])
 
 class MultiPageDocumentsMustHaveHeaders(Rules.Rule):
 	"""
