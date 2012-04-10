@@ -16,6 +16,7 @@ class Categories():
 	Forms            = 3
 	Headers          = 4
 	Tables           = 5
+	Bookmarks        = 6
 
 #WCAG Levels
 class WCAG():

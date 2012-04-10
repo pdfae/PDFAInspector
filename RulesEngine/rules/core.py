@@ -269,3 +269,26 @@ class HeadersMustContainTextContent(Rules.Rule):
 		if tag.text == "":
 			return (Rules.Violation, "Header does not contain text content", [])
 		return (Rules.ManualInspection, "Header text should describe the corresponding section", [])
+
+class BookmarksMustDescribeTheRelevantPartOfTheDocument(Rules.Rule):
+	"""
+		Bookmarks must describe the section of the document to which they link
+	"""
+	title    = "Bookmarks Must Describe The Relevant Part Of The Document"
+	severity = Rules.ManualInspection
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Bookmarks
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to bookmarks """
+		while not tag.parent == None:
+			if tag.parent.tagName == "Bookmarks":
+				return True
+			tag = tag.parent
+		return False
+
+	@staticmethod
+	def validation(tag):
+		return (Rules.ManualInspection, "Bookmarks should describe the corresponding section", [])
