@@ -173,6 +173,8 @@ class FormElementsMustHaveTooltips(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Tooltip":
+				if tag.tagName == "Radiobutton":
+					return (Rules.ManualInspection, "Tooltip must describe both the response indicated by the button and the question responds to", [])
 				return (Rules.ManualInspection, "Tooltip must describe the purpose of the control", [])
 		return (Rules.Violation, "Form element has no tooltip", [])
 
