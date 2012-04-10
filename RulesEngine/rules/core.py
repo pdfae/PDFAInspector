@@ -68,11 +68,11 @@ class DocumentMustHaveALanguageSet(Rules.Rule):
 				return (Rules.Pass, "Language set", [])
 		return (Rules.Violation, "Language not set", [])
 
-class MultiPageDocumentsMustHaveHeaders(Rules.Rule):
+class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 	"""
-		A document longer than one page must have at least one header.
+		A document must have at least one header tag for every 7 pages it has.
 	"""
-	title    = "Multi Page Documents Must Have Headers"
+	title    = "Documents must have a header per seven pages"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
@@ -84,19 +84,33 @@ class MultiPageDocumentsMustHaveHeaders(Rules.Rule):
 		if not tag.parent == None and tag.parent.parent == None and tag.tagName == "tags":
 			for metadata in tag.parent.content[1].content:
 				if metadata.tagName == "Pages":
-					return (int(metadata.text) > 1)
+					return (int(metadata.text) >= 7)
 		return False
 
 	@staticmethod
-	def validation(tag):
+	def helper(tag, required, found):
 		if tag.tagName in Rules.TagTypes.Heading:
-			return (Rules.Pass, "Document contains headers", [])
+			found = found + 1
+		if found >= required:
+			return True
 		for child in tag.content:
-			result = MultiPageDocumentsMustHaveHeaders.validation(child)
-			if result[0] == Rules.Pass:
+			result = DocumentsMustHaveAHeaderPerSevenPages.helper(child,required,found)
+			if result == True:
 				return result
-		return (Rules.Violation, "Document does not contain headers", [])
+		return False
 
+
+	@staticmethod
+	def validation(tag):
+		numHeaders = 1
+		for metadata in tag.parent.content[1].content:
+			if metadata.tagName == "Pages":
+				numHeaders = int(metadata.text) / 7
+		result = DocumentsMustHaveAHeaderPerSevenPages.helper(tag,numHeaders,0)
+		if result == True:
+			return (Rules.Pass, "Document has enough headers", [])
+		return (Rules.Violation, "Document does not have enough headers", [])
+		
 class LinksMustContainTextContent(Rules.Rule):
 	"""
 		A link must contain some text content.
@@ -252,4 +266,4 @@ class HeadersMustContainTextContent(Rules.Rule):
 	def validation(tag):
 		if tag.text == "":
 			return (Rules.Violation, "Header does not contain text content", [])
-		return (Rules.Pass, "Header contains text content", [])
+		return (Rules.ManualInspection, "Header text should describe the corresponding section", [])
