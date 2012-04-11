@@ -23,6 +23,9 @@ Report: {{ title }}
 		<li {% if currentTab = "form"%}class="current_page_item"{% endif %}>
 			<a href="/reports/{{uid}}/formview/">Forms</a>
 		</li>
+		<li {% if currentTab = "head"%}class="current_page_item"{% endif %}>
+			<a href="/reports/{{uid}}/headview/">Headers</a>
+		</li>
 		<li {% if currentTab = "tbl"%}class="current_page_item"{% endif %}>
 			<a href="/reports/{{uid}}/tableview/">Tables</a>
 		</li>

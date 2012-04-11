@@ -178,6 +178,14 @@ def displayforms(request, uid):
 	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 3, name)
 	return render_to_response("reports/formview.html", locals())
 
+def displayhead(request, uid):
+	currentTab = "head"
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
+	name = "Header"
+	info = "Tooltip"
+	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 4, name)
+	return render_to_response("reports/headerview.html", locals())
+
 def displaybookmark(request, uid):
 	currentTab = "bm"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
