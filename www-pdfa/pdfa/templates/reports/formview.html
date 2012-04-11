@@ -69,7 +69,6 @@
 			{% if tag.result == 3 %}
 			<tr>
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
-				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "mc">Manual Check</td>
 				{% if tag.info %}
 					<td>{{tag.info}}</td>	
