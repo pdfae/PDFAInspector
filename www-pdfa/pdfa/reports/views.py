@@ -182,7 +182,7 @@ def displayhead(request, uid):
 	currentTab = "head"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	name = "Header"
-	info = "Tooltip"
+	info = "Text"
 	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 4, name)
 	return render_to_response("reports/headerview.html", locals())
 
