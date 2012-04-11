@@ -97,13 +97,12 @@ def displaysummary(request, uid):
 					npass += 1
 					if test["id"] == "core.DocumentMustBeTagged":
 						tagged = True
-					if test["id"] == "core.HeadersMustContainTextContent":
-						headed = True
 				elif (tag["result"]==2):
 					nfail += 1
 				elif (tag["result"]==3):
 					nins += 1	
-			
+				if test["id"] == "core.HeadersMustContainTextContent":
+					headed = True
 			if category == 0:
 				continue
 			category -= 1	
