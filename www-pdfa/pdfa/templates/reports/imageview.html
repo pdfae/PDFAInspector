@@ -1,55 +1,7 @@
-{% extends 'reports/reports_base.html' %}
-
-{% block title %}Image View - PDF Accessibilty Inspector{% endblock%}
-
-{% block content %}
-<p>
-<b>Graphic View:</b>
-</p>
-{% autoescape off %}
-{{output}}
-{% endautoescape %}
-
-<p>
-<b>Summary:</b>
-</p>
-{% if content|length > 0 %}
-	<table class="fancy">
-	<tr>
-	<th>Image No.</th>
-	<th>Page No.</th>
-	<th>Width</th>
-	<th>Height</th>
-	</tr>
-	{% for c in content %}
-		<tr>
-		<td>{{forloop.counter}}</td>
-		
-		{% for obj in c.attributes %}
-			{% if obj.Page != None %}
-				<td>{{obj.Page}}</td>
-			{% else %}
-				
-			{% endif %}
-			{% if obj.Width != None %}
-				<td>{{obj.Width}}</td>
-			{% else %}
-				
-			{% endif %}
-			{% if obj.Height != None %}
-				<td>{{obj.Height}}</td>
-			{% else %}
-				
-			{% endif %}
-		{% empty %}
-		{% endfor %}		
-		</tr>
-	{% empty %}
-	{% endfor %}
-{% else %}
-	This file does not have images.
-{% endif %}
-
-</table>
-
+{% extends 'reports/rowView.html' %}
+{% block attrv %}
+<td>{{tag.attr.0.Alt}}</td>
+{% endblock %}
+{% block attrm %}
+<td>{{tag.attr.0.Alt}}</td>
 {% endblock %}

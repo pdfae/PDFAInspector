@@ -2,7 +2,7 @@
 
 {% block title %}{{name}} View - PDF Accessibilty Inspector{% endblock%}
 
-{% block content %} <h2>Summary</h2>
+{% block content %} <h2>{{name}} Tag Accessibility Summary</h2>
 <div class="tag_summary">
 	<p>
 		Number of {{name}} tags: {%if tagged%}{%if num == 0%}<span class = "none">none</span>{%else%}{{num}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
@@ -18,7 +18,7 @@
 		<tbody>
 			{% for row in ruleRows %}
 			<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-				<th>{{row.title}}</th>
+				<td>{{row.title}}</td>
 				{%if tagged%}
 					{%if num == 0%}<td class = "none">No {{name}} tags</td><td class = "none">No {{name}} tags</td>
 					{%else%}
@@ -36,37 +36,51 @@
 		</tbody>
 	</table>
 </div>
-<h2>{{name}}s</h2>
+<h2>{{name}} Tag Accessibility Details</h2>
 <div class="tag_summary">
 {% if numfail > 0 %}	
 <table class = "rules">
 	<thead>
 		<tr>
-			<th>Accessibility Requirement</th>
-			<th>Tag</th>
+			<th>{{name}} number</th>
 			<th>Page</th>
+			<th>Result</th>
+			<th>{{name}} Text</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 	{% for row in ruleRows %}
-	{% if row.rowspan > 0%}
-	<tr>
-		<td rowspan="{{row.rowspan}}"> {{row.title}} </td>
 		{% for tag in row.tags%}
-		{% if forloop.counter != 1 %}
-		<tr>
-		{%endif%}
-		<td>{{tag.tagName}} {{tag.tag}}</td>
-		{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
-		<td>{{tag.message}}</td>
-		{% if forloop.counter != 1 %}
-		<tr>
-		{%endif%}
+			{% if tag.result == 2 %}
+			<tr>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
+				<td class = "v">Violation</td>
+				{% if name == "Figure" %}
+				<td>{{tag.attr.0.Alt}}</td>
+				{%else%}
+				td>{{tag.attr}}</td>	
+				{% endif %}
+				<td>{{tag.message}}</td>
+			</tr>
+			{% endif %}
 		{%endfor%}
-	</tr>
-	{%else%}
-	{%endif%}
+		{% for tag in row.tags%}
+			{% if tag.result == 3 %}
+			<tr>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
+				<td class = "mc">Manual Check</td>
+				{% if name == "Figure" %}
+				<td>{{tag.attr.0.Alt}}</td>
+				{%else%}
+				td>{{tag.attr}}</td>	
+				{% endif %}	
+				<td>{{tag.message}}</td>
+			</tr>
+			{% endif %}
+		{%endfor%}
 	{% endfor %}
 	</tbody>
 </table>
