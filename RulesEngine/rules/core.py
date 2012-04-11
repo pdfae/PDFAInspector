@@ -168,7 +168,7 @@ class ImagesAltTextMustDescribeImage(Rules.Rule):
 	@staticmethod
 	def applies(tag):
 		""" Only applies to images """
-		return ImagesMustHaveAltText.applies(tag) and ImagesMustHaveAltText.validation(tag)[0] == Results.Pass
+		return ImagesMustHaveAltText.applies(tag) and ImagesMustHaveAltText.validation(tag)[0] == Rules.Pass
 
 	@staticmethod
 	def validation(tag):
