@@ -51,8 +51,8 @@ def getData(parsefile, resultfile, uid, category, name):
 							tag['info'] = a['Alt']	
 					if 'tagName' in actual_tag:		
 						tag['tagName'] = actual_tag['tagName'] + " " + unicode(ntest)
-					if test['category'] == 1 or test['category'] == 4:
-							tag['info'] = tag['content']
+						if test['category'] == 1 or test['category'] == 4:
+							tag['info'] = actual_tag['content']
 				test['ntest'] = ntest
 				test['nfail'] = nfail
 				test['nins'] = nins	
