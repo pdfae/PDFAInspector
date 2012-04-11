@@ -95,7 +95,7 @@ def displaysummary(request, uid):
 					npass += 1
 					if test["id"] == "core.DocumentMustBeTagged":
 						tagged = True
-					if test["id"] == "core.MultiPageDocumentsMustHaveHeaders":
+					if test["id"] == "core.HeadersMustContainTextContent":
 						headed = True
 				elif (tag["result"]==2):
 					nfail += 1
