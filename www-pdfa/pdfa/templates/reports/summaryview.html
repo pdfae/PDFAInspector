@@ -2,7 +2,8 @@
 
 {% block title %}Summary View - PDF Accessibilty Inspector{% endblock%}
 
-{% block content %}<h2 id="doc_acc">Document Accessibility</h2>
+{% block content %}
+<h2 id="doc_acc">Document Accessibility</h2>
 <table class="document" aria-labelledby="doc_acc">
 	<tbody>
 		<tr>
@@ -35,11 +36,15 @@
 		</tr>
 	</tbody>
 </table>
+
 <form action="." method="post" enctype="multipart/form-data">
 	{% csrf_token %} <label for="id_notes">Accessibility Notes</label>
 	{{form.notes}}
+	<p>
 	<input type="submit" value="Save Notes" />
+	</p>
 </form>
+
 <h2>Tag Accessibility</h2>
 <p>
 	Total number of tags in document: {{numtags}}
@@ -96,6 +101,7 @@
 					{%endif%}
 				{%else%}<td class = "v">document is not tagged</td>
 				{%endif%}
+			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
