@@ -6,6 +6,7 @@
 
 <h1>Account Login</h1>
 
+<p>
 <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
 <table>
 	{{form.as_table}}
@@ -13,6 +14,7 @@
 <input type="submit" value="Submit" /> <input type="reset" value="Reset" />
 <input type="hidden" name="next" value = "{{next}}" />
 </form>
+</p>
 
 <p>
 Don't have an account? <a href="/accounts/register/">Register here</a>!
