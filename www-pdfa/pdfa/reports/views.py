@@ -193,7 +193,7 @@ def displaytables(request, uid):
 	name = "table"
 	return render_to_response("reports/tableview.html", locals())
 	
-def displ
+
 	
 	
 def displayformtree(request, uid):
