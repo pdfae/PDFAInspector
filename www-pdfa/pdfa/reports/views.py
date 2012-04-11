@@ -158,6 +158,7 @@ def displaylinks(request, uid):
 	currentTab = "links"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	name = "Link"
+	info = "Text"
 	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 1, name)
 	return render_to_response("reports/rowView.html", locals())
 
@@ -165,13 +166,15 @@ def displayfigures(request, uid):
 	currentTab = "img"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	name = "Figure"
+	info = "Alt Text"
 	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 2, name)
 	return render_to_response("reports/rowView.html", locals())
 
 def displayforms(request, uid):
 	currentTab = "form"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	name = "form control"
+	name = "Form Control"
+	info = "Tooltip"
 	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 3, name)
 	return render_to_response("reports/rowView.html", locals())
 
@@ -189,6 +192,9 @@ def displaytables(request, uid):
 	[ruleRows, tagged, num, output] = getTable(parsefile, resultfile)
 	name = "table"
 	return render_to_response("reports/tableview.html", locals())
+	
+def displ
+	
 	
 def displayformtree(request, uid):
 	currentTab = "formtree"
