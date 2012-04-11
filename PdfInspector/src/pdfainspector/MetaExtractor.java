@@ -29,7 +29,7 @@ public class MetaExtractor {
     	String pages = Integer.toString(reader.getNumberOfPages());
 
     	// Language data is stored somewhere else
-    	String language = "";
+    	String language = "None";
 		PdfDictionary catalog = reader.getCatalog();
 		if(catalog.contains(PdfName.LANG)){
 				language = catalog.getAsString(PdfName.LANG).toString();
