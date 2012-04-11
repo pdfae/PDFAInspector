@@ -64,7 +64,7 @@ class DocumentMustHaveALanguageSet(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		for child in tag.content:
-			if child.tagName == "Language" and not child.text == "":
+			if child.tagName == "Language" and not child.text == "None":
 				return (Rules.Pass, "Language set", [])
 		return (Rules.Violation, "Language not set", [])
 
