@@ -348,6 +348,7 @@ table.summary tbody td {
 table.document {
 	font-size: 120%;
 	margin-left: 1em;
+	margin-bottom: 1em;
 }
 table.document tbody th {
 	text-align: left;
