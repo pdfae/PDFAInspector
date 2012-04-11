@@ -173,10 +173,10 @@ def displayfigures(request, uid):
 def displayforms(request, uid):
 	currentTab = "form"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	name = "Form Control"
+	name = "Form"
 	info = "Tooltip"
 	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 3, name)
-	return render_to_response("reports/rowView.html", locals())
+	return render_to_response("reports/formview.html", locals())
 
 def displaybookmark(request, uid):
 	currentTab = "bm"

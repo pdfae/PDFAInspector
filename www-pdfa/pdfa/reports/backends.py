@@ -28,7 +28,6 @@ def getData(parsefile, resultfile, uid, category, name):
 			if test["id"] == "core.DocumentMustBeTagged" and test['tags'][0]['result'] == 1:
 				tagged = True
 			if test['category'] == category:
-				#data.append(test)
 				ntest = 0
 				npass = 0
 				nfail = 0
