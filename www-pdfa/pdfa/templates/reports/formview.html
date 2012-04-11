@@ -1,88 +1,102 @@
 {% extends 'reports/reports_base.html' %}
 
-{% block title %}Form View - PDF Accessibilty Inspector{% endblock%}
+{% block title %}{{name}} View - PDF Accessibilty Inspector{% endblock%}
 
-{% block content %}
-
-{% if ruleRows|length > 0%} 
-<p>
-	<b>
-		Summary:
-	</b>
-</p>
-<table class = "fancy">
-	<tr>
-		<th>Rule</th>
-		<th>Pass</th>
-		<th>Violation</th>
-		<th>Manual Inspection</th>
-	</tr>
+{% block content %} <h2>{{name}} Tag Accessibility Summary</h2>
+<div class="tag_summary">
+	<p>
+		Number of {{name}} tags: {%if tagged%}{%if num == 0%}<span class = "none">none</span>{%else%}{{num}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
+	</p>
+	<table class="rules" aria-labelledby="summary">
+		<thead>
+			<tr>
+				<th>Accessibility Requirement</th>
+				<th>Violation</th>
+				<th>Manual Inspection</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in ruleRows %}
+			<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
+				<td>{{row.title}}</td>
+				{%if tagged%}
+					{%if num == 0%}<td class = "none">No {{name}} tags</td><td class = "none">No {{name}} tags</td>
+					{%else%}
+						{%if row.nfail == 0%}<td class = "z">0</td>
+						{%else%}<td class ="v">{{row.nfail}}</td>
+						{%endif%}
+						{%if row.nins == 0%}<td class = "z">0</td>
+						{%else%}<td class ="mc">{{row.nins}}</td>
+						{%endif%}
+					{%endif%}
+				{%else%}<td class = "v">document is not tagged</td><td class = "v">document is not tagged</td>
+				{%endif%}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<h2>{{name}} Tag Accessibility Details</h2>
+<div class="tag_summary">
+{% if numfail > 0 %}	
+<table class = "rules">
+	<thead>
+		<tr>
+			<th>{{name}} number</th>
+			<th>Page</th>
+			<th>Result</th>
+			<th>{{name}} {{info}}</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
 	{% for row in ruleRows %}
-	<tr>
-		<td>
-			{{row.title}}
-		</td>
-		<td>
-			{{row.npass}}
-		</td>
-		<td>
-			{{row.nfail}}
-		</td>
-		<td>
-			{{row.nins}}
-		</td>
-	</tr>
+		{% for tag in row.tags%}
+			{% if tag.result == 2 %}
+			<tr>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
+				<td class = "v">Violation</td>
+				{% if tag.info %}
+					<td>{{tag.info}}</td>	
+				{%else%}
+					<td class="none">not available</td>
+				{%endif%}
+				<td>{{tag.message}}</td>
+			</tr>
+			{% endif %}
+		{%endfor%}
+		{% for tag in row.tags%}
+			{% if tag.result == 3 %}
+			<tr>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
+				<td class = "mc">Manual Check</td>
+				{% if tag.info %}
+					<td>{{tag.info}}</td>	
+				{%else%}
+					<td class="none">not available</td>
+				{%endif%}	
+				<td>{{tag.message}}</td>
+			</tr>
+			{% endif %}
+		{%endfor%}
 	{% endfor %}
+	</tbody>
 </table>
-{% if tableRows|length > 0%}
-<p>
-	<b>
-		Detailed report:
-	</b>
-</p>
-<table class = "fancy">
-	<tr>
-		<th> Rule </th>
-		<th> Element </th>
-		<th> Result </th>
-	</tr>
-	{% for row in tableRows %}
-	<tr>
-		<td rowspan="{{row.tags|length}}"> {{row.title}} </td>
-		{% for tag in row.tags %}
-				
-			{% if forloop.counter == 1 %}
-			{% else %}
-				<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-			{% endif %}
-			
-			<td> {{tag.tagName}}</td>
-			<td> 
-				{%if tag.result == 2 %} 
-					<span style="color: red">Violation</span> 
-				{% else %}
-					<span style ="color: #FFA500">Manual inspection</span> 
-				{% endif %} 
-			</td>
-			
-			{% if forloop.counter == 1 %}
-			{% else %}
-				</tr>
-			{% endif %}
-		{% endfor %}
-	</tr>
-	{%endfor%}
-</table>
-{% else %}
-<h3>
-	<span style = "color:green;text-align: center;">All tests passed</span>
-</h3>
-{% endif %}
 {%else%}
-<p>
-	No form elements found
-</p>
-{% endif %}
 
 
+{% if tagged %}
+{%if num == 0%}
+<p><span class = "none">No {{name}} tags</span></p>
+{%else%}
+{%endif%}
+{%else%}
+<p><span class = "v">document is not tagged</span></p>
+{%endif%}
+
+
+{%endif%}
+</div>
 {% endblock %}

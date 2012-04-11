@@ -52,13 +52,11 @@
 	<tbody>
 	{% for row in ruleRows %}
 		{% for tag in row.tags%}
-			{{tag.attr}}
 			{% if tag.result == 2 %}
 			<tr>
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
 				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "v">Violation</td>
-				
 				{% if tag.info %}
 					<td>{{tag.info}}</td>	
 				{%else%}
@@ -69,13 +67,11 @@
 			{% endif %}
 		{%endfor%}
 		{% for tag in row.tags%}
-		{{tag.attr}}
 			{% if tag.result == 3 %}
 			<tr>
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
 				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "mc">Manual Check</td>
-				{{tag.attr}}
 				{% if tag.info %}
 					<td>{{tag.info}}</td>	
 				{%else%}
