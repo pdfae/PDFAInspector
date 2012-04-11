@@ -32,8 +32,11 @@ public class MetaExtractor {
     	String language = "None";
 		PdfDictionary catalog = reader.getCatalog();
 		if(catalog.contains(PdfName.LANG)){
-				language = catalog.getAsString(PdfName.LANG).toString();
-		}		
+				language = sanitize(catalog.getAsString(PdfName.LANG).toString());
+		}
+		if(language == ""){
+			language = "None";
+		}
     	
     	// Make an element for it...
     	Element root = new Element("Metadata");
@@ -59,4 +62,20 @@ public class MetaExtractor {
     	
     	return root;
 	}
+	
+	/**
+	 * Remove all null characters from a string so we can put it into XML.
+	 * @param dict The string to sanitize.
+	 * @return The sanitized string (i.e. with all null chars removed).
+	 */
+    private static String sanitize(String input){
+		String sanitized = "";
+		for(int i = 0; i < input.length(); i++){
+			char c = input.charAt(i);
+			if(c != '\0'){
+				sanitized = sanitized + c;
+			}
+		}
+		return sanitized;
+    }
 }
