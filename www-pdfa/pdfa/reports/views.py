@@ -68,6 +68,8 @@ def displaysummary(request, uid):
 				mettitle = m["content"]
 			if m["tagName"] == "Pages":
 				numpages = m["content"]
+			if m["tagName"] == "Language":
+				language = m["content"]
 		rnum = {}
 		rtitle = {}
 		rtest={}
