@@ -110,6 +110,7 @@ img.aligncenter {
 	margin: 0 10%;
 	padding: 0;
 	width: 80%;
+	background: #eee;
 }
 #logo {
 	float: left;
@@ -117,6 +118,7 @@ img.aligncenter {
 	height: 3em;
 	padding-bottom: 1em;
 	margin-bottom: 0.5em;
+	
 }
 #logo h1 {
 	margin: 0;
@@ -148,6 +150,7 @@ img.aligncenter {
 	margin: 1% auto;
 	padding: 0;
 	width: 80%;
+	background: #eee;
 }
 #menu ul {
 	margin: 0;
