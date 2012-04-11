@@ -144,20 +144,20 @@ img.aligncenter {
 }
 /* Menu */
 
-#menu {
+.menu {
 	margin: 1% 10%;
 	width: 80%;
 	background: #eee;
 	float: left;
 }
-#menu ul {
+.menu ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	line-height: normal;	
 }
 
-#menu a {
+.menu a {
 	display: block;
 	float: left;
 	height: 30px;
@@ -171,11 +171,11 @@ img.aligncenter {
 	border: none;
 }
 
-#menu .current_page_item a {
+.menu .current_page_item a {
 	background: #00598D;
 	color: #FFFFFF;
 }
-#menu a:hover {
+.menu a:hover {
 	background: #00598D;
 	color: #FFFFFF;
 }
@@ -315,9 +315,10 @@ table.rules {
 	color: black;
 	width: 100%;
 	border-collapse: collapse;
+	
 }
 table.rules thead th {
-	text-align: center;
+	text-align: left;
 	border-bottom: solid black thin;
 }
 table.rules tr {
@@ -333,11 +334,11 @@ table.rules tbody th {
 }
 table.rules tbody td {
 	overflow: hidden;
-	text-align: center;
 	padding: 0.45em;
+	text-align: left;
 }
 table.summary tbody th {
-	text-align: right;
+	text-align: left;
 	width: 10em;
 	padding-right: .25em;
 	font-weight: normal;
@@ -348,6 +349,7 @@ table.summary tbody td {
 table.document {
 	font-size: 120%;
 	margin-left: 1em;
+	margin-bottom: 1em;
 }
 table.document tbody th {
 	text-align: left;

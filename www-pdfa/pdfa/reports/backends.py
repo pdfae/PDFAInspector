@@ -79,7 +79,7 @@ def writeTag(parsefile, tagName):
 def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
 	url += "%d:%s-" % (count, unicode(nodetag))
-	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true' tabindex='-1'><span class='tag-title'>%s</span>\n" % (url, nodetag)
+	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
@@ -96,7 +96,7 @@ def writeTree(node, depth, count, url='node_'):
 		if isinstance(i, dict):
 			noutput += writeTree(i, depth + 1, count, url)
 		else:
-			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem' tabindex='-1'>%s</li>\n" % (url, count, unicode(i))
+			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
 	output += "  " * depth + " <ul role='group'>\n"
 	if count > 0:
