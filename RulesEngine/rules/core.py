@@ -159,7 +159,7 @@ class ImagesAltTextMustDescribeImage(Rules.Rule):
 	"""
 		
 	"""
-	title    = "Images Must Have Alt-Tex"
+	title    = "Image Alt-Text Must Describe Image"
 	severity = Rules.ManualInspection
 	wcag_id  = "7.1"
 	wcag_level = Rules.WCAG.NotSet
