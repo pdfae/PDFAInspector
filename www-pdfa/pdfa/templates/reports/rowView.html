@@ -58,11 +58,11 @@
 				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "v">Violation</td>
 				{{tag.attr}}
-				{% if name == "Figure" %}
-				<td>{{tag.attr.0.Alt}}</td>
+				{% if tag.info %}
+					<td>{{tag.info}}</td>	
 				{%else%}
-				<td>{{tag.attr}}</td>	
-				{% endif %}
+					<td class="none">not available</td>
+				{%endif%}
 				<td>{{tag.message}}</td>
 			</tr>
 			{% endif %}
@@ -74,11 +74,11 @@
 				{%if tag.page > 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "mc">Manual Check</td>
 				{{tag.attr}}
-				{% if name == "Figure" %}
-				<td>{{tag.attr.0.Alt}}</td>
+				{% if tag.info %}
+					<td>{{tag.info}}</td>	
 				{%else%}
-				<td>{{tag.attr}}</td>	
-				{% endif %}	
+					<td class="none">not available</td>
+				{%endif%}	
 				<td>{{tag.message}}</td>
 			</tr>
 			{% endif %}
