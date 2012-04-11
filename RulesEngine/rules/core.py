@@ -151,8 +151,30 @@ class ImagesMustHaveAltText(Rules.Rule):
 	def validation(tag):
 		for attr in tag.attributes:
 			if attr.has_key("Alt"):
-				return (Rules.ManualInspection, "Figure alt-text must describe the figure", [])
-		return (Rules.Violation, "Does not have alt-text", [])
+				return (Rules.Pass, "Has alt-text", [])
+		return (Rules.Violation, "Add an alternative text attribute to the image.", [])
+
+
+class ImagesAltTextMustDescribeImage(Rules.Rule):
+	"""
+		
+	"""
+	title    = "Images Must Have Alt-Tex"
+	severity = Rules.ManualInspection
+	wcag_id  = "7.1"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Images
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to images """
+		return ImagesMustHaveAltText.applies(tag) and ImagesMustHaveAltText.validation(tag)[0] == Results.Pass
+
+	@staticmethod
+	def validation(tag):
+		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
+		return (Rules.ManualInspection, "Ensure that alternate text describes the image.", [])
+
 
 class FormElementsMustHaveTooltips(Rules.Rule):
 	"""
