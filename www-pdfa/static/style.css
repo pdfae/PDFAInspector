@@ -118,7 +118,10 @@ img.aligncenter {
 	height: 3em;
 	padding-bottom: 1em;
 	margin-bottom: 0.5em;
-	
+	background: #eee;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 #logo h1 {
 	margin: 0;
@@ -133,9 +136,6 @@ img.aligncenter {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 40px;
 	color: #2D2722;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 #logo img {
 	vertical-align: text-bottom;
@@ -147,20 +147,18 @@ img.aligncenter {
 /* Menu */
 
 #menu {
-	margin: 1% auto;
-	padding: 0;
+	margin: 1% 10%;
 	width: 80%;
 	background: #eee;
+	float: left;
 }
 #menu ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	line-height: normal;
+	line-height: normal;	
 }
-#menu li {
-	float: left;
-}
+
 #menu a {
 	display: block;
 	float: left;
@@ -174,12 +172,7 @@ img.aligncenter {
 	color: #181818;
 	border: none;
 }
-#menu a:hover {
-	background-color: #cccccc;
-}
-#menu li.current_page_item {
-	background: #00598D;
-}
+
 #menu .current_page_item a {
 	background: #00598D;
 	color: #FFFFFF;
@@ -206,6 +199,7 @@ img.aligncenter {
 #content div {
 	width: 100%;
 	float: left;
+	margin: 1% auto 0 0;
 }
 #content-inner {
 	border-top: groove;
