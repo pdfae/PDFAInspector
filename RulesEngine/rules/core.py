@@ -22,7 +22,7 @@ class DocumentMustBeTagged(Rules.Rule):
 	def validation(tag):
 		if len(tag.content) > 0:
 			return (Rules.Pass, "Document contains tags", [])
-		return (Rules.Violation, "Document does not contain tags", [])
+		return (Rules.Violation, "Add tags to the document.", [])
 
 class DocumentShouldBeTitled(Rules.Rule):
 	"""
@@ -44,7 +44,7 @@ class DocumentShouldBeTitled(Rules.Rule):
 		for child in tag.content:
 			if child.tagName == "Title" and not child.text == "":
 				return (Rules.Pass, "Document has a title", [])
-		return (Rules.Violation, "Document does not have a title", [])
+		return (Rules.Violation, "Set the document title.", [])
 
 class DocumentMustHaveALanguageSet(Rules.Rule):
 	"""
@@ -66,7 +66,7 @@ class DocumentMustHaveALanguageSet(Rules.Rule):
 		for child in tag.content:
 			if child.tagName == "Language" and not child.text == "None":
 				return (Rules.Pass, "Language set", [])
-		return (Rules.Violation, "Language not set", [])
+		return (Rules.Violation, "Set the document's language.", [])
 
 class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 	"""
@@ -109,7 +109,7 @@ class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 		result = DocumentsMustHaveAHeaderPerSevenPages.helper(tag,numHeaders,0)
 		if result == True:
 			return (Rules.Pass, "Document has enough headers", [])
-		return (Rules.Violation, "Document does not have enough headers", [])
+		return (Rules.Violation, "Add more headers to the document.", [])
 
 class NonFigureTagsMustContainContent(Rules.Rule):
 	"""
@@ -161,7 +161,7 @@ class LinksMustContainTextContent(Rules.Rule):
 				result = LinksMustContainTextContent.validation(child)
 				if result[0] == Rules.Pass:
 					return result
-			return (Rules.Violation, "Link does not contain text content", [])
+			return (Rules.Violation, "Add text content to the link.", [])
 		return (Rules.Pass, "Link contains text content", [])
 
 class LinkTextMustDescribeItsTarget(Rules.Rule):
@@ -224,7 +224,7 @@ class FigureAltTextMustDescribeFigure(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
-		return (Rules.ManualInspection, "Ensure that alternate text describes the figure.", [])
+		return (Rules.ManualInspection, "Ensure that alternative text describes the figure.", [])
 
 
 class FormControlsMustHaveTooltips(Rules.Rule):
@@ -247,7 +247,7 @@ class FormControlsMustHaveTooltips(Rules.Rule):
 		for child in tag.content:
 			if child.tagName == "Tooltip":
 				return (Rules.Pass, "Form control has tooltip", [])
-		return (Rules.Violation, "Form control has no tooltip", [])
+		return (Rules.Violation, "Set the tooltip for this form control.", [])
 
 class FormControlTooltipMustDescribeFormControl(Rules.Rule):
 	"""
@@ -294,7 +294,7 @@ class TablesMustHaveHeaders(Rules.Rule):
 					if not grandchild.tagName in Rules.TagTypes.TableHeader:
 						return (Rules.Violation, "First row contains non-header element " + grandchild.tagName, [])
 				return (Rules.Pass, "First row of table consists of header cells", [])
-		return (Rules.Violation, "No table row found", [])
+		return (Rules.Violation, "Add a row of table header (TH) elements to the table.", [])
 
 class TablesMustContainDataCells(Rules.Rule):
 	"""
@@ -319,7 +319,7 @@ class TablesMustContainDataCells(Rules.Rule):
 			result = TablesMustContainDataCells.validation(child)
 			if result[0] == Rules.Pass:
 				return result
-		return (Rules.Violation, "Table does not contain data cells", [])
+		return (Rules.Violation, "Add data (TD) cells to the table.", [])
 
 class TableCellsMustContainContent(Rules.Rule):
 	"""
@@ -340,7 +340,7 @@ class TableCellsMustContainContent(Rules.Rule):
 	def validation(tag):
 		if len(tag.content) > 0:
 			return (Rules.Pass, "Cell contains content", [])
-		return (Rules.Violation, "Cell does not contain content", [])
+		return (Rules.Violation, "Add content to this table cell.", [])
 
 class HeadersMustContainTextContent(Rules.Rule):
 	"""
@@ -360,7 +360,7 @@ class HeadersMustContainTextContent(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		if tag.text == "":
-			return (Rules.Violation, "Header does not contain text content", [])
+			return (Rules.Violation, "Add some text content to this header.", [])
 		return (Rules.Pass, "Header contains text content", [])
 
 class HeadersMustDescribeTheSection(Rules.Rule):
