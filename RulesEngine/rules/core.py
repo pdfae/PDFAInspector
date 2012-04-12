@@ -249,11 +249,44 @@ class FormControlsMustHaveTooltips(Rules.Rule):
 				return (Rules.Pass, "Form control has tooltip", [])
 		return (Rules.Violation, "Set the tooltip for this form control.", [])
 
+class FormControlTooltipMustBeUnique(Rules.Rule):
+	"""
+		The tooltip of a form control must be unique within the document.
+	"""
+	title    = "Form Control Tooltip Must Be Unique"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Forms
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to form controls with tooltips """
+		return FormControlsMustHaveTooltips.applies(tag) and FormControlsMustHaveTooltips.validation(tag)[0] == Rules.Pass
+
+	@staticmethod
+	def validation(tag):
+		foundOnce = False
+		tooltip = ""
+		for child in tag.content:
+			if child.tagName == "Tooltip":
+				tooltip = child.text
+		form = tag.parent.content
+		for control in form:
+			for child in control.content:
+				if child.tagName == "Tooltip":
+					if child.text == tooltip:
+						if foundOnce:
+							return (Rules.Violation, "At least one other form control shares this tooltip. Change all but one of them to ensure uniqueness.")
+						else:
+							foundOnce = True
+		return (Rules.Pass, "Tooltip is unique", [])
+
 class FormControlTooltipMustDescribeFormControl(Rules.Rule):
 	"""
 		The tooltip of a form control must describe the purpose of the control.
 	"""
-	title    = "Form Tooltip Must Describe Form"
+	title    = "Form Control Tooltip Must Describe Form"
 	severity = Rules.ManualInspection
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
