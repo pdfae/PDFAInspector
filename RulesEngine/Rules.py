@@ -12,7 +12,7 @@ ManualInspection = 3
 class Categories():
 	DocumentLevel    = 0
 	Links            = 1
-	Images           = 2
+	Figures          = 2
 	Forms            = 3
 	Headers          = 4
 	Tables           = 5
@@ -41,7 +41,7 @@ class TagTypes():
 	TableData = ["TD"]
 	TableHeader = ["TH"]
 	Inline = ["BibEntry","Quote","Span"]
-	Image = ["Figure"]
+	Figure = ["Figure"]
 	Form = ["Form"]
 	Link = ["Link"]
 	SpecialInline = ["Code","Formula","Note","Reference"]
@@ -54,6 +54,7 @@ class Rule():
 	severity = NotSet
 	wcag_id = ""
 	wcag_level = WCAG.NotSet
+	category = Categories.DocumentLevel
 	@staticmethod
 	def applies(tag):
 		return False

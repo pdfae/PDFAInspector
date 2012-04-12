@@ -156,48 +156,48 @@ class LinkTextMustDescribeItsTarget(Rules.Rule):
 	def validation(tag):
 		return (Rules.ManualInspection, "Link text must describe target of the link", [])
 
-class ImagesMustHaveAltText(Rules.Rule):
+class FiguresMustHaveAltText(Rules.Rule):
 	"""
-		Images must contain alternative text.
+		Figures must contain alternative text.
 	"""
-	title    = "Images Must Have Alt-Text"
+	title    = "Figures Must Have Alt-Text"
 	severity = Rules.Violation
 	wcag_id  = "7.1"
 	wcag_level = Rules.WCAG.NotSet
-	category = Rules.Categories.Images
+	category = Rules.Categories.Figures
 
 	@staticmethod
 	def applies(tag):
-		""" Only applies to images """
-		return (tag.tagName in Rules.TagTypes.Image and (tag.parent and tag.parent.tagName != 'Images'))
+		""" Only applies to figures """
+		return (tag.tagName in Rules.TagTypes.Figure and (tag.parent and tag.parent.tagName != 'Figures'))
 
 	@staticmethod
 	def validation(tag):
 		for attr in tag.attributes:
 			if attr.has_key("Alt"):
 				return (Rules.Pass, "Has alt-text", [])
-		return (Rules.Violation, "Add an alternative text attribute to the image.", [])
+		return (Rules.Violation, "Add an alternative text attribute to the figure.", [])
 
 
-class ImagesAltTextMustDescribeImage(Rules.Rule):
+class FigureAltTextMustDescribeFigure(Rules.Rule):
 	"""
 		
 	"""
-	title    = "Image Alt-Text Must Describe Image"
+	title    = "Figure Alt-Text Must Describe Figure"
 	severity = Rules.ManualInspection
 	wcag_id  = "7.1"
 	wcag_level = Rules.WCAG.NotSet
-	category = Rules.Categories.Images
+	category = Rules.Categories.Figures
 
 	@staticmethod
 	def applies(tag):
-		""" Only applies to images """
-		return ImagesMustHaveAltText.applies(tag) and ImagesMustHaveAltText.validation(tag)[0] == Rules.Pass
+		""" Only applies to figures """
+		return FiguresMustHaveAltText.applies(tag) and FiguresMustHaveAltText.validation(tag)[0] == Rules.Pass
 
 	@staticmethod
 	def validation(tag):
 		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
-		return (Rules.ManualInspection, "Ensure that alternate text describes the image.", [])
+		return (Rules.ManualInspection, "Ensure that alternate text describes the figure.", [])
 
 
 class FormElementsMustHaveTooltips(Rules.Rule):
