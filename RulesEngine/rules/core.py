@@ -110,7 +110,34 @@ class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 		if result == True:
 			return (Rules.Pass, "Document has enough headers", [])
 		return (Rules.Violation, "Document does not have enough headers", [])
-		
+
+class NonFigureTagsMustContainContent(Rules.Rule):
+	"""
+		A non-figure tag must not be empty. It must contain text content or another tag.
+	"""
+	title    = "TagsMustContainContent"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.DocumentLevel
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to tags """
+		if tag.tagName in Rules.TagTypes.Figure:
+			return False
+		while not tag.parent == None:
+			if tag.parent.tagName == "tags":
+				return True
+			tag = tag.parent
+		return False
+
+	@staticmethod
+	def validation(tag):
+		if tag.text == "" and not tag.content:
+			return (Rules.Violation, "Place either text content or another tag inside this tag.", [])
+		return (Rules.Pass, "Tag contains content", [])	
+
 class LinksMustContainTextContent(Rules.Rule):
 	"""
 		A link must contain some text content.
