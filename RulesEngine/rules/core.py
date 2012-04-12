@@ -142,7 +142,7 @@ class LinkTextMustDescribeItsTarget(Rules.Rule):
 		A link's text should describe the page/object it links to.
 	"""
 	title    = "Link Text Must Describe Its Target"
-	severity = Rules.Violation
+	severity = Rules.ManualInspection
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.Links
@@ -154,7 +154,7 @@ class LinkTextMustDescribeItsTarget(Rules.Rule):
 
 	@staticmethod
 	def validation(tag):
-		return (Rules.ManualInspection, "Link text must describe target of the link", [])
+		return (Rules.ManualInspection, "Ensure that the link's text describes what it is linking to.", [])
 
 class FiguresMustHaveAltText(Rules.Rule):
 	"""
@@ -181,7 +181,7 @@ class FiguresMustHaveAltText(Rules.Rule):
 
 class FigureAltTextMustDescribeFigure(Rules.Rule):
 	"""
-		
+		The alternative text of a figure must describe the figure
 	"""
 	title    = "Figure Alt-Text Must Describe Figure"
 	severity = Rules.ManualInspection
@@ -200,11 +200,11 @@ class FigureAltTextMustDescribeFigure(Rules.Rule):
 		return (Rules.ManualInspection, "Ensure that alternate text describes the figure.", [])
 
 
-class FormElementsMustHaveTooltips(Rules.Rule):
+class FormControlsMustHaveTooltips(Rules.Rule):
 	"""
-		The Tooltip property must be set in all form elements
+		The Tooltip property must be set in all form controls
 	"""
-	title    = "Form Elements Must Have Tooltips"
+	title    = "Form Controls Must Have Tooltips"
 	severity = Rules.Violation
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
@@ -212,17 +212,37 @@ class FormElementsMustHaveTooltips(Rules.Rule):
 
 	@staticmethod
 	def applies(tag):
-		""" Only applies to form elements """
+		""" Only applies to form controls """
 		return (tag.parent != None and tag.parent.tagName == "Form")
 
 	@staticmethod
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Tooltip":
-				if tag.tagName == "Radiobutton":
-					return (Rules.ManualInspection, "Tooltip must describe both the response indicated by the button and the question responds to", [])
-				return (Rules.ManualInspection, "Tooltip must describe the purpose of the control", [])
-		return (Rules.Violation, "Form element has no tooltip", [])
+				return (Rules.Pass, "Form control has tooltip", [])
+		return (Rules.Violation, "Form control has no tooltip", [])
+
+class FormControlTooltipMustDescribeFormControl(Rules.Rule):
+	"""
+		The tooltip of a form control must describe the purpose of the control.
+	"""
+	title    = "Form Tooltip Must Describe Form"
+	severity = Rules.ManualInspection
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Forms
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to form controls with tooltips """
+		return FormControlsMustHaveTooltips.applies(tag) and FormControlsMustHaveTooltips.validation(tag)[0] == Rules.Pass
+
+	@staticmethod
+	def validation(tag):
+		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
+		if tag.tagName == "Radiobutton":
+			return (Rules.ManualInspection, "Ensure that the tooltip both the response indicated by the button and the question responds to.", [])
+		return (Rules.ManualInspection, "Ensure that the tooltip describes the purpose of this form control.", [])
 
 class TablesMustHaveHeaders(Rules.Rule):
 	"""
@@ -314,11 +334,31 @@ class HeadersMustContainTextContent(Rules.Rule):
 	def validation(tag):
 		if tag.text == "":
 			return (Rules.Violation, "Header does not contain text content", [])
-		return (Rules.ManualInspection, "Header text should describe the corresponding section", [])
+		return (Rules.Pass, "Header contains text content", [])
+
+class HeadersMustDescribeTheSection(Rules.Rule):
+	"""
+		A header must describe the section it precedes.
+	"""
+	title    = "Headers Must Describe The Section"
+	severity = Rules.ManualInspection
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Headers
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to headers with text content """
+		return HeadersMustContainTextContent.applies(tag) and HeadersMustContainTextContent.validation(tag)[0] == Rules.Pass
+
+	@staticmethod
+	def validation(tag):
+		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
+		return (Rules.ManualInspection, "Ensure that the header describes the section it precedes.", [])
 
 class BookmarksMustDescribeTheRelevantPartOfTheDocument(Rules.Rule):
 	"""
-		Bookmarks must describe the section of the document to which they link
+		Bookmarks must describe the section of the document to which they link.
 	"""
 	title    = "Bookmarks Must Describe The Relevant Part Of The Document"
 	severity = Rules.ManualInspection
@@ -337,4 +377,4 @@ class BookmarksMustDescribeTheRelevantPartOfTheDocument(Rules.Rule):
 
 	@staticmethod
 	def validation(tag):
-		return (Rules.ManualInspection, "Bookmarks should describe the corresponding section", [])
+		return (Rules.ManualInspection, "Ensure that the bookmark describes the bookmarked content.", [])
