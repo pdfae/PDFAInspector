@@ -129,7 +129,31 @@ class LinksMustContainTextContent(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		if tag.text == "":
+			children = tag.content
+			for child in children:
+				result = LinksMustContainTextContent.validation(child)
+				if result[0] == Rules.Pass:
+					return result
 			return (Rules.Violation, "Link does not contain text content", [])
+		return (Rules.Pass, "Link contains text content", [])
+
+class LinkTextMustDescribeItsTarget(Rules.Rule):
+	"""
+		A link's text should describe the page/object it links to.
+	"""
+	title    = "Link Text Must Describe Its Target"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Links
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to links with text content """
+		return LinksMustContainTextContent.applies(tag) and LinksMustContainTextContent.validation(tag)[0] == Rules.Pass
+
+	@staticmethod
+	def validation(tag):
 		return (Rules.ManualInspection, "Link text must describe target of the link", [])
 
 class ImagesMustHaveAltText(Rules.Rule):
