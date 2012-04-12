@@ -43,7 +43,7 @@ class DocumentShouldBeTitled(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Title" and not child.text == "":
-				return (Rules.Pass, "Document has a title", [])
+				return (Rules.Pass, "Document has a title", [child.text])
 		return (Rules.Violation, "Set the document title.", [])
 
 class DocumentMustHaveALanguageSet(Rules.Rule):
@@ -65,7 +65,7 @@ class DocumentMustHaveALanguageSet(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Language" and not child.text == "None":
-				return (Rules.Pass, "Language set", [])
+				return (Rules.Pass, "Language set", [child.text])
 		return (Rules.Violation, "Set the document's language.", [])
 
 class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
@@ -88,28 +88,23 @@ class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 		return False
 
 	@staticmethod
-	def helper(tag, required, found):
+	def helper(tag, found):
+		for child in tag.content:
+			found = found + DocumentsMustHaveAHeaderPerSevenPages.helper(child,required,found)
 		if tag.tagName in Rules.TagTypes.Heading:
 			found = found + 1
-		if found >= required:
-			return True
-		for child in tag.content:
-			result = DocumentsMustHaveAHeaderPerSevenPages.helper(child,required,found)
-			if result == True:
-				return result
-		return False
-
+		return found
 
 	@staticmethod
 	def validation(tag):
-		numHeaders = 1
+		neededHeaders = 0
 		for metadata in tag.parent.content[1].content:
 			if metadata.tagName == "Pages":
-				numHeaders = int(metadata.text) / 7
-		result = DocumentsMustHaveAHeaderPerSevenPages.helper(tag,numHeaders,0)
-		if result == True:
-			return (Rules.Pass, "Document has enough headers", [])
-		return (Rules.Violation, "Add more headers to the document.", [])
+				neededHeaders = int(metadata.text) / 7
+		foundHeaders = DocumentsMustHaveAHeaderPerSevenPages.helper(tag,0)
+		if foundHeaders >= neededHeaders:
+			return (Rules.Pass, "Document has enough headers", [str(foundHeaders)])
+		return (Rules.Violation, "Add more headers to the document.", ["Needs " + str(neededHeaders - foundHeaders) + " more headers."])
 
 class NonFigureTagsMustContainContent(Rules.Rule):
 	"""
@@ -136,7 +131,7 @@ class NonFigureTagsMustContainContent(Rules.Rule):
 	def validation(tag):
 		if tag.text == "" and not tag.content:
 			return (Rules.Violation, "Place either text content or another tag inside this tag.", [])
-		return (Rules.Pass, "Tag contains content", [])	
+		return (Rules.Pass, "Tag contains content", [tag.text])	
 
 class LinksMustContainTextContent(Rules.Rule):
 	"""
@@ -162,7 +157,7 @@ class LinksMustContainTextContent(Rules.Rule):
 				if result[0] == Rules.Pass:
 					return result
 			return (Rules.Violation, "Add text content to the link.", [])
-		return (Rules.Pass, "Link contains text content", [])
+		return (Rules.Pass, "Link contains text content", [tag.text])
 
 class LinkTextMustDescribeItsTarget(Rules.Rule):
 	"""
@@ -181,7 +176,7 @@ class LinkTextMustDescribeItsTarget(Rules.Rule):
 
 	@staticmethod
 	def validation(tag):
-		return (Rules.ManualInspection, "Ensure that the link's text describes what it is linking to.", [])
+		return (Rules.ManualInspection, "Ensure that the link's text describes what it is linking to.", LinksMustContainTextContent.validation(tag)[2])
 
 class FiguresMustHaveAltText(Rules.Rule):
 	"""
@@ -202,7 +197,7 @@ class FiguresMustHaveAltText(Rules.Rule):
 	def validation(tag):
 		for attr in tag.attributes:
 			if attr.has_key("Alt"):
-				return (Rules.Pass, "Has alt-text", [])
+				return (Rules.Pass, "Has alt-text", [attr["Alt"]])
 		return (Rules.Violation, "Add an alternative text attribute to the figure.", [])
 
 
@@ -224,7 +219,7 @@ class FigureAltTextMustDescribeFigure(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
-		return (Rules.ManualInspection, "Ensure that alternative text describes the figure.", [])
+		return (Rules.ManualInspection, "Ensure that the alternative text describes the figure.", FiguresMustHaveAltText.validation(tag)[2])
 
 
 class FormControlsMustHaveTooltips(Rules.Rule):
@@ -246,7 +241,7 @@ class FormControlsMustHaveTooltips(Rules.Rule):
 	def validation(tag):
 		for child in tag.content:
 			if child.tagName == "Tooltip":
-				return (Rules.Pass, "Form control has tooltip", [])
+				return (Rules.Pass, "Form control has tooltip", [child.text])
 		return (Rules.Violation, "Set the tooltip for this form control.", [])
 
 class FormControlTooltipMustBeUnique(Rules.Rule):
@@ -277,7 +272,7 @@ class FormControlTooltipMustBeUnique(Rules.Rule):
 				if child.tagName == "Tooltip":
 					if child.text == tooltip:
 						if foundOnce:
-							return (Rules.Violation, "At least one other form control shares this tooltip. Change all but one of them to ensure uniqueness.")
+							return (Rules.Violation, "At least one other form control shares this tooltip. Change all but one of them to ensure uniqueness.", FormControlsMustHaveTooltips.validation(tag)[2])
 						else:
 							foundOnce = True
 		return (Rules.Pass, "Tooltip is unique", [])
@@ -301,8 +296,8 @@ class FormControlTooltipMustDescribeFormControl(Rules.Rule):
 	def validation(tag):
 		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
 		if tag.tagName == "Radiobutton":
-			return (Rules.ManualInspection, "Ensure that the tooltip both the response indicated by the button and the question responds to.", [])
-		return (Rules.ManualInspection, "Ensure that the tooltip describes the purpose of this form control.", [])
+			return (Rules.ManualInspection, "Ensure that the tooltip both the response indicated by the button and the question responds to.", FormControlsMustHaveTooltips.validation(tag)[2])
+		return (Rules.ManualInspection, "Ensure that the tooltip describes the purpose of this form control.", FormControlsMustHaveTooltips.validation(tag)[2])
 
 class TablesMustHaveHeaders(Rules.Rule):
 	"""
@@ -325,7 +320,7 @@ class TablesMustHaveHeaders(Rules.Rule):
 			if child.tagName in Rules.TagTypes.TableRow:
 				for grandchild in child.content:
 					if not grandchild.tagName in Rules.TagTypes.TableHeader:
-						return (Rules.Violation, "First row contains non-header element " + grandchild.tagName, [])
+						return (Rules.Violation, "First row contains non-header element " + grandchild.tagName + ". Consider changing to a TH.", [])
 				return (Rules.Pass, "First row of table consists of header cells", [])
 		return (Rules.Violation, "Add a row of table header (TH) elements to the table.", [])
 
@@ -394,7 +389,7 @@ class HeadersMustContainTextContent(Rules.Rule):
 	def validation(tag):
 		if tag.text == "":
 			return (Rules.Violation, "Add some text content to this header.", [])
-		return (Rules.Pass, "Header contains text content", [])
+		return (Rules.Pass, "Header contains text content", [tag.text])
 
 class HeadersMustDescribeTheSection(Rules.Rule):
 	"""
@@ -414,7 +409,7 @@ class HeadersMustDescribeTheSection(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
-		return (Rules.ManualInspection, "Ensure that the header describes the section it precedes.", [])
+		return (Rules.ManualInspection, "Ensure that the header describes the section it precedes.", HeadersMustContainTextContent.validation(tag)[2])
 
 class BookmarksMustDescribeTheRelevantPartOfTheDocument(Rules.Rule):
 	"""
@@ -428,7 +423,9 @@ class BookmarksMustDescribeTheRelevantPartOfTheDocument(Rules.Rule):
 
 	@staticmethod
 	def applies(tag):
-		""" Only applies to bookmarks """
+		""" Only applies to bookmarks with text """
+		if tag.text == "":
+			return False
 		while not tag.parent == None:
 			if tag.parent.tagName == "Bookmarks":
 				return True
@@ -437,4 +434,4 @@ class BookmarksMustDescribeTheRelevantPartOfTheDocument(Rules.Rule):
 
 	@staticmethod
 	def validation(tag):
-		return (Rules.ManualInspection, "Ensure that the bookmark describes the bookmarked content.", [])
+		return (Rules.ManualInspection, "Ensure that the bookmark describes the bookmarked content.", [tag.text])
