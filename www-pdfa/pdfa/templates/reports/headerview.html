@@ -19,7 +19,7 @@
 		<tbody>
 			{% for row in ruleRows %}
 			<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-				<td>{{row.title}}</td>
+				<th>{{row.title}}</th>
 				{%if tagged%}
 					{%if numfail == 0%}<td class = "none">No {{name}} tags</td><td class = "none">No {{name}} tags</td>
 					{%else%}
@@ -40,7 +40,7 @@
 <h2>{{name}} Tag Accessibility Details</h2>
 <div class="tag_summary">
 {% if numfail > 0 %}	
-<table class = "rules">
+<table class = "details">
 	<thead>
 		<tr>
 			<th>{{name}} number</th>
