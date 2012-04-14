@@ -58,12 +58,13 @@
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
 				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "v">Violation</td>
+				<td>{{tag.message}}</td>
 				{% if tag.args %}
 					<td>{{tag.args}}</td>	
 				{%else%}
 					<td class="none">not available</td>
 				{%endif%}
-				<td>{{tag.message}}</td>
+				
 			</tr>
 			{% endif %}
 		{%endfor%}
@@ -73,12 +74,13 @@
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
 				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "mc">Manual Check</td>
+				<td>{{tag.message}}</td>
 				{% if tag.args %}
 					<td>{{tag.args.0}}</td>	
 				{%else%}
 					<td class="none">not available</td>
 				{%endif%}	
-				<td>{{tag.message}}</td>
+				
 			</tr>
 			{% endif %}
 		{%endfor%}
