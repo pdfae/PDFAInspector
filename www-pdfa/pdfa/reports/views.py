@@ -150,66 +150,90 @@ def displaysummary(request, uid):
 def displaytreeview(request, uid):
 	currentTab = "tree"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	tags = "<div class=\"css-treeview\">"
-	tags += writeTag(parsefile, "tags")
-	tags += "</div>"
-	return render_to_response("reports/treeview.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		tags = "<div class=\"css-treeview\">"
+		tags += writeTag(parsefile, "tags")
+		tags += "</div>"
+		return render_to_response("reports/treeview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
 def displaylinks(request, uid):
 	currentTab = "links"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	name = "Link"
-	info = "Text"
-	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 1, name)
-	return render_to_response("reports/rowView.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		name = "Link"
+		info = "Text"
+		[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 1, name)
+		return render_to_response("reports/rowView.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
 def displayfigures(request, uid):
 	currentTab = "img"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	name = "Figure"
-	info = "Alt Text"
-	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 2, name)
-	return render_to_response("reports/rowView.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		name = "Figure"
+		info = "Alt Text"
+		[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 2, name)
+		return render_to_response("reports/rowView.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
 def displayforms(request, uid):
 	currentTab = "form"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	name = "Form Control"
-	info = "Tooltip"
-	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 3, name)
-	return render_to_response("reports/formview.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		name = "Form Control"
+		info = "Tooltip"
+		[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 3, name)
+		return render_to_response("reports/formview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
 def displayhead(request, uid):
 	currentTab = "head"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	name = "Header"
-	info = "Text"
-	[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 4, name)
-	return render_to_response("reports/headerview.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		name = "Header"
+		info = "Text"
+		[ruleRows, tagged, num, numfail] = getData(parsefile, resultfile, uid, 4, name)
+		return render_to_response("reports/headerview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
 def displaybookmark(request, uid):
 	currentTab = "bm"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	tags = "<div class=\"css-treeview\">"
-	tags += writeTag(parsefile, "Bookmarks")
-	tags += "</div>"
-	return render_to_response("reports/treeview.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		tags = "<div class=\"css-treeview\">"
+		tags += writeTag(parsefile, "Bookmarks")
+		tags += "</div>"
+		return render_to_response("reports/treeview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 
 def displaytables(request, uid):
 	currentTab = "tbl"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)	
-	[ruleRows, tagged, num, output] = getTable(parsefile, resultfile)
-	name = "table"
-	return render_to_response("reports/tableview.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		[ruleRows, tagged, num, output] = getTable(parsefile, resultfile)
+		name = "table"
+		return render_to_response("reports/tableview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 		
 def displayformtree(request, uid):
 	currentTab = "formtree"
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
-	result = open(parsefile)
-	base = json.loads(result.read())
-	output = '<a href="javascript:check_all()">Expand All</a>'
-	output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
-	output += "<div class=\"css-treeview\">"
-	output += writeNode2(base, "Form")
-	output += "</div>"
-	return render_to_response("reports/treeview.html", locals())
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		result = open(parsefile)
+		base = json.loads(result.read())
+		output = '<a href="javascript:check_all()">Expand All</a>'
+		output += '&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:uncheck_all()">Collapse All</a>'
+		output += "<div class=\"css-treeview\">"
+		output += writeNode2(base, "Form")
+		output += "</div>"
+		return render_to_response("reports/treeview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
