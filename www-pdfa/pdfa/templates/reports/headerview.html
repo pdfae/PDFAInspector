@@ -45,8 +45,9 @@
 		<tr>
 			<th>{{name}} number</th>
 			<th>Result</th>
-			<th>{{name}} {{info}}</th>
 			<th>Action</th>
+			<th>{{name}} {{info}}</th>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -56,12 +57,13 @@
 			<tr>
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
 				<td class = "v">Violation</td>
-				{% if tag.info %}
-					<td>{{tag.info.0}}</td>	
+				<td>{{tag.message}}</td>
+				{% if tag.args %}
+					<td>{{tag.args.0}}</td>	
 				{%else%}
 					<td class="none">not available</td>
 				{%endif%}
-				<td>{{tag.message}}</td>
+				
 			</tr>
 			{% endif %}
 		{%endfor%}
@@ -70,12 +72,13 @@
 			<tr>
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
 				<td class = "mc">Manual Check</td>
-				{% if tag.info %}
-					<td>{{tag.info.0}}</td>	
+				<td>{{tag.message}}</td>
+				{% if tag.args %}
+					<td>{{tag.args.0}}</td>	
 				{%else%}
 					<td class="none">not available</td>
 				{%endif%}	
-				<td>{{tag.message}}</td>
+				
 			</tr>
 			{% endif %}
 		{%endfor%}
