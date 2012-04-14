@@ -10,30 +10,32 @@ import os
 import subprocess
 import shlex
 
-if (len(sys.argv) > 4):
+PDF_JAR = "../PdfInspector/lib/pdfainspector.jar"
+RULES_SCRIPT = "../RulesEngine/RulesEngine.py"
+
+if (len(sys.argv) > 1):
 	# XXX: The jar and Python script paths should be hard coded relative to THIS file
 	#      and we should use Pythons' really nice directory management to find them.
-	PDF_JAR = sys.argv[1].strip('\"')
-	PYTHON_SCRIPT = sys.argv[2].strip('\"')
-	filepath = sys.argv[3].strip('\"')
-	filename = sys.argv[4].strip('\"')
-	pdf_file = "\"" + filepath + filename + "\""
-
+	dir = os.path.dirname(sys.argv[0])
+	PDF_JAR = os.path.join(dir, PDF_JAR)
+	RULES_SCRIPT = os.path.join(dir, RULES_SCRIPT)
+	
 	# Generate file names for the output files
-	parse_file = "\"" + filepath + "json-" + filename.rpartition('.pdf')[0] + ".json" + "\""
-	result_file = filepath + "result-" + filename.rpartition('.pdf')[0] + ".json"
-
-	# Open the result file (rules processing) for writes
-	result_file_object = open(result_file,'w')
+	pdf_file = sys.argv[1]
+	(fp,fname) = os.path.split(pdf_file)
+	parse_file = os.path.join(fp, "json-" + fname.rsplit(".pdf")[0] + ".json")
+	result_file = os.path.join(fp, "result-" + fname.rsplit(".pdf")[0] + ".json")
 
 	command1 = "java -jar " + PDF_JAR + " " + pdf_file
-	command2 = "python2.7 "+ PYTHON_SCRIPT + " " + parse_file
-
+	command2 = "python2.7 "+ RULES_SCRIPT + " " + parse_file
+	
 	# Execute the PDF to JSON/XML converter
 	p = subprocess.Popen(shlex.split(command1))
 	p.wait()
 	# XXX: We should set a time out for this for extremely large PDFs...
-
+	
+	# Open the result file (rules processing) for writes
+	result_file_object = open(result_file,'w')
 	# Run the rules processor
 	q = subprocess.Popen(shlex.split(command2), stdout = result_file_object)
 

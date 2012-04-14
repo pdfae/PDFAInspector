@@ -17,10 +17,15 @@ def upload (request):
 				data = form.cleaned_data
 				if (data['title'] == ''):
 					data['title'] = "Report for " + filename
-				fileObj = UserFile(uid = unicode(uuid.uuid4()), owner = request.user.username, title = data['title'], notes = data['notes'])
-				fileObj.file.save(request.FILES['file'].name, ContentFile(request.FILES['file'].read()))
+				unid = unicode(uuid.uuid4())
+				filename = unid + ".pdf"
+				filepath = MEDIA_ROOT + "public/"
+				if auth:
+					filepath = request.user.get_profile().filepath
+				fileObj = UserFile(uid = unid, owner = request.user.username, title = data['title'], notes = data['notes'])
+				fileObj.file.save(filename, ContentFile(request.FILES['file'].read()))
 				fileObj.save()
-				process_file(fileObj.file.name)
+				process_file(filename, filepath)
 				if auth:
 					user = request.user.get_profile()
 					user.filecount = user.filecount + 1
@@ -34,6 +39,7 @@ def upload (request):
 	return render_to_response("upload/fileupload.htm", locals(), context_instance=RequestContext(request))
 
 
-def process_file(filename):
-	[filepath, filename] = filename.rsplit('/', 1)
-	subprocess.Popen(["python", PROCESS_SCRIPT, "\""+PDF_JAR+"\"","\""+PYTHON_SCRIPT+"\"","\""+MEDIA_ROOT+filepath+"/\"","\""+filename+"\""])
+def process_file(filename, filepath):
+	print filepath + filename
+	subprocess.Popen(["python2.7", PROCESS_SCRIPT, filepath + filename])
+	#subprocess.Popen(["python2.7", PROCESS_SCRIPT, "\""+PDF_JAR+"\"","\""+PYTHON_SCRIPT+"\"","\""+MEDIA_ROOT+filepath+"/\"","\""+filename+"\""])
