@@ -104,9 +104,9 @@ img.aligncenter {
 /* Header */
 
 #header {
-	margin: 0 10%;
+	margin: 0 5%;
 	padding: 0;
-	width: 80%;
+	width: 90%;
 	background: #eee;
 }
 #logo {
@@ -145,8 +145,8 @@ img.aligncenter {
 /* Menu */
 
 .menu {
-	margin: 1% 10%;
-	width: 80%;
+	margin: 1% 5%;
+	width: 90%;
 	background: #eee;
 	float: left;
 }
@@ -182,8 +182,8 @@ img.aligncenter {
 /* Page */
 
 #page {
-	width: 80%;
-	margin: 0 10%;
+	width: 90%;
+	margin: 0 5%;
 	padding-bottom: 5%;
 	float: left;
 }
@@ -318,7 +318,7 @@ table.rules {
 	
 }
 table.rules thead th {
-	text-align: left;
+	text-align: center;
 	border-bottom: solid black thin;
 }
 table.rules tr {
@@ -333,6 +333,34 @@ table.rules tbody th {
 	padding: 0.45em;
 }
 table.rules tbody td {
+	overflow: hidden;
+	padding: 0.45em;
+	text-align: center;
+}
+table.details {
+	margin: 1em 1em 1em 0;
+	table-layout: fixed;
+	color: black;
+	width: 100%;
+	border-collapse: collapse;
+	
+}
+table.details thead th {
+	text-align: left;
+	border-bottom: solid black thin;
+}
+table.details tr {
+	background: white;
+}
+table.details tr.even {
+	background: #dfefff;
+}
+table.details tbody th {
+	text-align: left;
+	font-weight: normal;
+	padding: 0.45em;
+}
+table.details tbody td {
 	overflow: hidden;
 	padding: 0.45em;
 	text-align: left;
