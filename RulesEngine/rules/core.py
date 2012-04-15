@@ -90,7 +90,7 @@ class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 	@staticmethod
 	def helper(tag, found):
 		for child in tag.content:
-			found = found + DocumentsMustHaveAHeaderPerSevenPages.helper(child,required,found)
+			found = found + DocumentsMustHaveAHeaderPerSevenPages.helper(child,found)
 		if tag.tagName in Rules.TagTypes.Heading:
 			found = found + 1
 		return found
