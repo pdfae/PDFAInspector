@@ -130,7 +130,7 @@ class NonFigureTagsMustContainContent(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		if tag.text == "" and not tag.content:
-			return (Rules.Violation, "Place either text content or another tag inside this tag.", [])
+			return (Rules.Violation, "Place either text content or another tag inside this tag. Or, remove this empty tag.", [])
 		return (Rules.Pass, "Tag contains content", [tag.text])	
 
 class LinksMustContainTextContent(Rules.Rule):
