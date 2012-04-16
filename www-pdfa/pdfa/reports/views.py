@@ -222,6 +222,42 @@ def displaytables(request, uid):
 		return render_to_response("reports/tableview.html", locals())
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())
+
+def displayempty(request, uid):
+	currentTab = "empty"
+	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)	
+	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
+		resultFP = open(resultfile)
+		result_data = json.load(resultFP)
+		resultFP.close()
+		parseFP = open(parsefile)
+		parse_data = json.load(parseFP)
+		parseFP.close()
+		tests = result_data["results"]
+		numfail = 0
+		empty = []
+		tagged = False
+		tag_urls = {}
+		getNodes(parse_data, 0, tag_urls)
+		for test in tests:
+			if test["id"] == "core.DocumentMustBeTagged" and test['tags'][0]['result'] == 1:
+				tagged = True
+			if test["id"] == "core.NonFigureTagsMustContainContent":	
+				for tag in test["tags"]:
+					if tag['result'] == 2:
+						numfail += 1
+						actual_tag = tag_urls[tag['tag']]
+						tag['tagName'] = actual_tag['tagName']
+						attr = []
+						if 'attributes' in actual_tag:
+							attr = actual_tag['attributes']
+						for a in attr:
+							if 'Page' in a:
+								tag['page'] = a['Page']
+						empty.append(tag)
+		return render_to_response("reports/emptyview.html", locals())
+	else:
+		return render_to_response("reports/summary_notfound.html", locals())
 		
 def displayformtree(request, uid):
 	currentTab = "formtree"

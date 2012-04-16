@@ -32,6 +32,9 @@ Report: {{ title }}
 		<li {% if currentTab = "bm"%}class="current_page_item"{% endif %}>
 			<a href="/reports/{{uid}}/bookmarkview/">Bookmarks</a>
 		</li>
+		<li {% if currentTab = "empty"%}class="current_page_item"{% endif %}>
+			<a href="/reports/{{uid}}/emptyview/">Empty tags</a>
+		</li>
 	</ul>
 </div>
 <div class ="content-inner" role="region" aria-label="title">
