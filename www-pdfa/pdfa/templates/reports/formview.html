@@ -2,7 +2,7 @@
 
 {% block title %}{{name}} View - PDF Accessibilty Inspector{% endblock%}
 
-{% block content %} <h2>{{name}} Tag Accessibility Summary</h2>
+{% block content %} <h2>{{name}} Accessibility Summary</h2>
 <div class="tag_summary">
 	<p>
 		Number of {{name}} tags: {%if tagged%}{%if numfail == 0%}<span class = "none">none</span>{%else%}{{numfail}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
@@ -37,7 +37,7 @@
 		</tbody>
 	</table>
 </div>
-<h2>{{name}} Tag Accessibility Details</h2>
+<h2>{{name}} Accessibility Details</h2>
 <div class="tag_summary">
 {% if numfail > 0 %}	
 <table class = "details">
