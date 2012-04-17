@@ -58,7 +58,7 @@ def getData(parsefile, resultfile, uid, category, name):
 				data.append(test)
 	return [data, tagged, num, numfail]
 
-def writeBkTag (parsefile, tagname):
+def writeBkTag (parsefile, tagName):
 	parseFP = open(parsefile)
 	parse_data = json.load(parseFP)
 	parseFP.close()
