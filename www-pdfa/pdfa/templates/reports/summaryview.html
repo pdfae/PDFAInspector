@@ -69,7 +69,7 @@
 </div>
 {%for tuple in content%}
 <div class="tag_summary">
-	<h3 id = "{{tuple.0}}">{{tuple.0}} Tags</h3>
+	<h3 id = "{{tuple.0}}">{{tuple.0}}</h3>
 	<p>
 		Number of {{tuple.0}} tags: {%if tagged%}{%if tuple.1 == 0%}<span class = "none">none</span>{%else%}{{tuple.1}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 	</p>
