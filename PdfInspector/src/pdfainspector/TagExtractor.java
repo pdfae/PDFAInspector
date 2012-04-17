@@ -285,7 +285,7 @@ public class TagExtractor {
 				if(numChild < 0){
 					return numChild;
 				}
-				num+=numChild;
+				num = numChild;
 			}
 		}
 		return num;
