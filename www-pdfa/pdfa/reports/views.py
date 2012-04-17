@@ -115,13 +115,13 @@ def displaysummary(request, uid):
 			rinspect[category].append(nins)
 				
 		content = []
-		content.append(["Link"])
-		content.append(["Figure"])
-		content.append(["Form Control"])
-		content.append(["Header"])
+		content.append(["Link Tags"])
+		content.append(["Figure (Image) Tags"])
+		content.append(["Form Controls"])
+		content.append(["Header Tags"])
 		tables = []
 		getNodesByName(parse_data, "Table", tables)
-		content.append(["Table"])
+		content.append(["Table Tags"])
 		
 		tot_test = 0
 		tot_pass = 0
