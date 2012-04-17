@@ -58,6 +58,21 @@ def getData(parsefile, resultfile, uid, category, name):
 				data.append(test)
 	return [data, tagged, num, numfail]
 
+def writeBkTag (parsefile, tagname):
+	parseFP = open(parsefile)
+	parse_data = json.load(parseFP)
+	parseFP.close()
+	
+	content = parse_data["content"]
+	for sect in content:
+		if sect["tagName"] == tagName:
+			tags = sect
+	
+	if len(tags["content"]) > 0:
+		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeBkTree(tags, 0, 0) + "</ul></div>"
+	else:
+		return "<p>No tags found</p>"
+
 def writeTag(parsefile, tagName):
 	parseFP = open(parsefile)
 	parse_data = json.load(parseFP)
@@ -72,6 +87,36 @@ def writeTag(parsefile, tagName):
 		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul></div>"
 	else:
 		return "<p>No tags found</p>"
+	
+def writeBkTree(node, depth, count, url='node_'):
+	nodetag = node["tagName"]
+	url += "%d:%s-" % (count, unicode(nodetag))
+	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
+	attr = []
+	for i in node["attributes"]:
+		for j, k in i.iteritems():
+			if j.lower() == "page":
+				if k != 0:
+					attr.append("Page %s" % unicode(k))
+			else:
+				attr.append("%s=%s" % (unicode(j),unicode(k)))
+	if attr:
+		output += "  " * depth + "<span class='attributes-list'>(" + ", ".join(attr) + ")</span>\n"
+	count = 0
+	noutput = ""
+	for i in node["content"]:	
+		if isinstance(i, dict):
+			noutput += writeTree(i, depth + 1, count, url)
+		else:
+			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
+		count += 1	
+	output += "  " * depth + " <ul role='group'>\n"
+	if count > 0:
+		output += noutput
+	output += "  " * depth + " </ul>\n"
+	output += "  " * depth + "</li>\n"
+	return output
+
 	
 def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
