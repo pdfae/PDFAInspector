@@ -93,15 +93,6 @@ def writeBkTree(node, depth, count, url='node_'):
 	url += "%d:%s-" % (count, unicode(nodetag))
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
-	for i in node["attributes"]:
-		for j, k in i.iteritems():
-			if j.lower() == "page":
-				if k != 0:
-					attr.append("Page %s" % unicode(k))
-			else:
-				attr.append("%s=%s" % (unicode(j),unicode(k)))
-	if attr:
-		output += "  " * depth + "<span class='attributes-list'>(" + ", ".join(attr) + ")</span>\n"
 	count = 0
 	noutput = ""
 	for i in node["content"]:	
