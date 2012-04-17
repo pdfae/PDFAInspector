@@ -26,6 +26,8 @@ import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
  * @author schiele1
  */
 public class TagExtractor {
+	
+	private static PdfReader reader;
 
 	/**
 	 * Given an iText PDF Reader, extract tag data from the PDF and store it in
@@ -34,6 +36,7 @@ public class TagExtractor {
 	 * @return A XOM element containing tag data.
 	 */
 	public static Element extractToXML(PdfReader reader){
+		TagExtractor.reader = reader;
 		Element root = new Element("tags");
 		
 		// Find the root of the tag structure tree
@@ -253,6 +256,61 @@ public class TagExtractor {
 	}
 	
 	/**
+	 * Recursively search for a page dictionary within the master Pages dict and return its
+	 * page number. We search recursively because Pages dicts can be nested.
+	 * @param page The page dictionary to search for.
+	 * @param pages The page dictionary to search.
+	 * @param num The number of pages already counted (since Pages dicts can be nested).
+	 * @return The page number. This is 0 if the page is null, positive if the page was not
+	 * found, and negative if the page was found.
+	 */
+	private static int getPageHelper(PdfDictionary page, PdfArray pages, int num){
+		// Return zero if we aren't passed a page.
+		if(page == null){
+			return 0;
+		}
+		// Behave differently depending on whether we're reading a Page or Pages dict.
+		for(int i = 0; i < pages.size(); i++){
+			PdfDictionary child = pages.getAsDict(i);
+			// If it's a Page dict, we need to check to see if it's our page.
+			if(child.getAsName(PdfName.TYPE) == PdfName.PAGE){
+				num++;
+				if(child == page){
+					return (-1) * num;
+				}
+			}
+			// If it's a Pages dict, we need to recursively check all of its children.
+			else if(child.getAsName(PdfName.TYPE) == PdfName.PAGES){
+				int numChild = getPageHelper(page, child.getAsArray(PdfName.KIDS), num);
+				if(numChild < 0){
+					return numChild;
+				}
+				num+=numChild;
+			}
+		}
+		return num;
+	}
+	
+	/**
+	 * Wraps the getPageHelper function to find the page number of a given page dict.
+	 * @param page The page dictionary whose number we want to know.
+	 * @return The page number, or zero if it is not known.
+	 */
+	private static int getPage(PdfDictionary page){
+		// Ensure we actually have a page dictionary, just in case, then call our helper.
+		PdfDictionary catalog = TagExtractor.reader.getCatalog();
+		if(catalog.contains(PdfName.PAGES)){
+			PdfArray pages = catalog.getAsDict(PdfName.PAGES).getAsArray(PdfName.KIDS);
+			int pageNumber = getPageHelper(page, pages, 0);
+			// Our helper returns a negative number if it actually finds the page.
+			if(pageNumber < 0){
+				return (-1) * pageNumber;
+			}
+		}
+		return 0;
+	}
+	
+	/**
 	 * Search a tag dictionary for attributes and return a list of them.
 	 * @param dict The tag dictionary to search.
 	 * @return A list of all the attributes found.
@@ -262,17 +320,8 @@ public class TagExtractor {
     	
     	// To find the page number, first get the page dictionary.
     	PdfDictionary page = dict.getAsDict(PdfName.PG);
-    	int pageNumber = 0;
-		if(page != null){
-			// ...then search for it in the master list of pages.
-			PdfArray pages = page.getAsDict(PdfName.PARENT).getAsArray(PdfName.KIDS);
-			for(int i = 0; i < pages.length(); i ++){
-				if(page == pages.getAsDict(i)){
-					pageNumber = i + 1;
-					break;
-				}
-			}
-		}
+		// ...then search for it in the master list of pages.
+    	int pageNumber = getPage(page);
 		attributes.add(new Attribute("Page", Integer.toString(pageNumber)));
 		
 		// If there's an alt-text, get it.
