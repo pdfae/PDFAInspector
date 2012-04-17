@@ -207,7 +207,7 @@ def displaybookmark(request, uid):
 	[auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
 	if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):	
 		tags = "<div class=\"css-treeview\">"
-		tags += writeTag(parsefile, "Bookmarks")
+		tags += writeBkTag(parsefile, "Bookmarks")
 		tags += "</div>"
 		return render_to_response("reports/treeview.html", locals())
 	else:
