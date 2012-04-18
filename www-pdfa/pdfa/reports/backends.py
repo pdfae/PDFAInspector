@@ -132,7 +132,7 @@ def writeTree(node, depth, count, url='node_', rolemap={}):
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
 	if nodetag in rolemap:
-		node["attributes"].append({"Standard Name", rolemap[nodetag]})
+		node["attributes"].append({"Standard Name": rolemap[nodetag]})
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
 			if j.lower() == "page":
