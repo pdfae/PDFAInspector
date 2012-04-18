@@ -150,7 +150,7 @@ def writeTree(node, depth, count, url='node_', rolemap={}):
 		else:
 			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
-	output += "  " * depth + " <ul role='group tree'>\n"
+	output += "  " * depth + " <ul role='tree'>\n"
 	if count > 0:
 		output += noutput
 	output += "  " * depth + " </ul>\n"
