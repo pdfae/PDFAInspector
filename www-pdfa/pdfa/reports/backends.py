@@ -87,7 +87,6 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 		i += 1
 	rl = {}
 	rl_node = 0
-	output = ""
 	for sect in content:
 		if sect["tagName"] == "RoleMap":
 			rl_node = sect
@@ -95,11 +94,10 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 				if "attributes" in j and len(j["attributes"]) > 0:
 					for k,v in j["attributes"][0].items():
 						rl[v] = k
-						output += "%s -&gt; %s<br />" % (v, k)
 			break
 
 	if len(tags["content"]) > 0:
-		return "<p>" + output + "</p>" + "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	
@@ -134,7 +132,6 @@ def writeTree(node, depth, count, url='node_', rolemap={}):
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
 	if nodetag in rolemap:
-		output += "testing: %s -&gt; %s" % (nodetag, rolemap[nodetag])
 		node["attributes"].append({"Standard Name", rolemap[nodetag]})
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
@@ -149,7 +146,7 @@ def writeTree(node, depth, count, url='node_', rolemap={}):
 	noutput = ""
 	for i in node["content"]:	
 		if isinstance(i, dict):
-			noutput += writeTree(i, depth + 1, count, url + "-")
+			noutput += writeTree(i, depth + 1, count, url + "-", rolemap)
 		else:
 			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
