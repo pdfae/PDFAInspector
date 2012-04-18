@@ -90,6 +90,8 @@ def writeTag(parsefile, tagName):
 	
 def writeBkTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
+	if (nodetag=="Title"):
+		nodetag = " "
 	url += "%d:%s-" % (count, unicode(nodetag))
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
