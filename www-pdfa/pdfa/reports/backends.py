@@ -79,12 +79,14 @@ def writeTag(parsefile, tagName):
 	parseFP.close()
 	
 	content = parse_data["content"]
+	i = 0
 	for sect in content:
 		if sect["tagName"] == tagName:
 			tags = sect
+		i += 1
 	
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul></div>"
+		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-") + "</ul></div>"
 	else:
 		return "<p>No tags found</p>"
 	
@@ -113,7 +115,7 @@ def writeBkTree(node, depth, count, url='node_'):
 	
 def writeTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
-	url += "%d:%s-" % (count, unicode(nodetag))
+	url += "%d:%s" % (count, unicode(nodetag))
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
 	for i in node["attributes"]:
@@ -129,7 +131,7 @@ def writeTree(node, depth, count, url='node_'):
 	noutput = ""
 	for i in node["content"]:	
 		if isinstance(i, dict):
-			noutput += writeTree(i, depth + 1, count, url)
+			noutput += writeTree(i, depth + 1, count, url + "-")
 		else:
 			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
