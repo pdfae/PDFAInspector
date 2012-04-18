@@ -92,9 +92,9 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 			rl_node = sect
 			break
 	if rl_node:
-		for i in rl_node["content"]:
+		for j in rl_node["content"]:
 			try:
-				for k,v in i["attributes"][0]:
+				for k,v in j["attributes"][0]:
 					rl[v] = k
 			except:
 				""" Well, bullocks """
