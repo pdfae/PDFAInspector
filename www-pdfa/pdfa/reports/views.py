@@ -154,6 +154,9 @@ def displaytreeview(request, uid):
 		tags = "<div class=\"css-treeview\">"
 		tags += writeTag(parsefile, "tags")
 		tags += "</div>"
+		tags = "<div class=\"css-treeview\">"
+		tags += writeTag(parsefile, "Form", "No forms found.")
+		tags += "</div>"
 		return render_to_response("reports/treeview.html", locals())
 	else:
 		return render_to_response("reports/summary_notfound.html", locals())

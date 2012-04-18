@@ -73,7 +73,7 @@ def writeBkTag (parsefile, tagName):
 	else:
 		return "<p>No tags found</p>"
 
-def writeTag(parsefile, tagName):
+def writeTag(parsefile, tagName, errorMessage="No tags found"):
 	parseFP = open(parsefile)
 	parse_data = json.load(parseFP)
 	parseFP.close()
@@ -87,9 +87,9 @@ def writeTag(parsefile, tagName):
 		i += 1
 	
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-") + "</ul></div>"
+		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-") + "</ul></div>"
 	else:
-		return "<p>No tags found</p>"
+		return "<p>%s</p>" % (errorMessage)
 	
 def writeBkTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
