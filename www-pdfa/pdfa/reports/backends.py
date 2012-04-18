@@ -105,9 +105,9 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 	
 def writeBkTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
+	url += "%d:%s-" % (count, unicode(nodetag))
 	if (nodetag=="Title"):
 		nodetag = " "
-	url += "%d:%s-" % (count, unicode(nodetag))
 	output = "" * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
 	count = 0
@@ -129,9 +129,12 @@ def writeBkTree(node, depth, count, url='node_'):
 def writeTree(node, depth, count, url='node_', rolemap={}):
 	nodetag = node["tagName"]
 	url += "%d:%s" % (count, unicode(nodetag))
+	if nodetag == "tags":
+		nodetag = "Tags"
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
 	if nodetag in rolemap:
+		output += "testing: %s -&gt; %s" % (nodetag, rolemap[nodetag])
 		node["attributes"].append({"Standard Name", rolemap[nodetag]})
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
