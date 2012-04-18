@@ -90,15 +90,11 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 	for sect in content:
 		if sect["tagName"] == "RoleMap":
 			rl_node = sect
+			for j in rl_node["content"]:
+				if "attributes" in j and len(j["attributes"]) > 0:
+					for k,v in j["attributes"][0]:
+						rl[v] = k
 			break
-	if rl_node:
-		for j in rl_node["content"]:
-			try:
-				for k,v in j["attributes"][0]:
-					rl[v] = k
-			except:
-				""" Well, bullocks """
-				pass
 
 	if len(tags["content"]) > 0:
 		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
