@@ -95,7 +95,7 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 				if "attributes" in j and len(j["attributes"]) > 0:
 					for k,v in j["attributes"][0].items():
 						rl[v] = k
-						output += "%s -&gt; %s" % (v, k)
+						output += "%s -&gt; %s<br />" % (v, k)
 			break
 
 	if len(tags["content"]) > 0:
