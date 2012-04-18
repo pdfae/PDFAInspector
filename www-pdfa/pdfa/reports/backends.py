@@ -80,13 +80,16 @@ def writeTag(parsefile, tagName):
 	
 	content = parse_data["content"]
 	i = 0
+	output = ""
 	for sect in content:
 		if sect["tagName"] == tagName:
 			tags = sect
+		else:
+			output += "<p>Nope [%d=%s]</p>" % (i, sect["tagName"])
 		i += 1
 	
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-") + "</ul></div>"
+		return output + "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-") + "</ul></div>"
 	else:
 		return "<p>No tags found</p>"
 	
