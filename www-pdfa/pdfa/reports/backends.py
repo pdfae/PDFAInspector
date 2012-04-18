@@ -287,11 +287,11 @@ def searchNode (node, tagName, depth=0, a=[]):
 			if isinstance(i, dict):
 				searchNode(i, tagName, depth + 1, a)		
 
-def getNodes(node, count=0, dic={}, url='#'):
+def getNodes(node, count=0, dic={}, url='#nodes_'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag)
 	dic[url] = node
-	url += "/"
+	url += "-"
 	count = 0
 	for i in node["content"]:
 		if isinstance(i, dict):
