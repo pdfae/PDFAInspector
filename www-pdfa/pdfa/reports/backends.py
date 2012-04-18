@@ -92,7 +92,7 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 			rl_node = sect
 			for j in rl_node["content"]:
 				if "attributes" in j and len(j["attributes"]) > 0:
-					for k,v in j["attributes"][0]:
+					for k,v in j["attributes"][0].items():
 						rl[v] = k
 			break
 
