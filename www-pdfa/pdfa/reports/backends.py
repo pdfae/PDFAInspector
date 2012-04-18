@@ -101,7 +101,7 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 				pass
 
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	
