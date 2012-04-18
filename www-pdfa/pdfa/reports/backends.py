@@ -85,9 +85,23 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 			tags = sect
 			break
 		i += 1
-	
+	rl = {}
+	rl_node = 0
+	for sect in content:
+		if sect["tagName"] == "RoleMap":
+			rl_node = sect
+			break
+	if rl_node:
+		for i in rl_node["content"]:
+			try:
+				for k,v in i["attributes"][0]:
+					rl[v] = k
+			except:
+				""" Well, bullocks """
+				pass
+
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-") + "</ul></div>"
+		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, "node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	
@@ -114,11 +128,13 @@ def writeBkTree(node, depth, count, url='node_'):
 	return output
 
 	
-def writeTree(node, depth, count, url='node_'):
+def writeTree(node, depth, count, url='node_', rolemap={}):
 	nodetag = node["tagName"]
 	url += "%d:%s" % (count, unicode(nodetag))
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
+	if nodetag in rolemap:
+		node["attributes"].append({"Standard Name", rolemap[nodetag]})
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
 			if j.lower() == "page":
