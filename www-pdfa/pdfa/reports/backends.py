@@ -97,7 +97,7 @@ def writeBkTree(node, depth, count, url='node_'):
 	noutput = ""
 	for i in node["content"]:	
 		if isinstance(i, dict):
-			noutput += writeTree(i, depth + 1, count, url)
+			noutput += writeBkTree(i, depth + 1, count, url)
 		else:
 			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
