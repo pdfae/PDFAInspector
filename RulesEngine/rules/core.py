@@ -89,9 +89,22 @@ class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 
 	@staticmethod
 	def helper(tag, found):
+		headers = Rules.TagTypes.H1
+		for head in Rules.TagTypes.H2:
+			headers.append(head)
+		for head in Rules.TagTypes.H3:
+			headers.append(head)
+		for head in Rules.TagTypes.H3:
+			headers.append(head)
+		for head in Rules.TagTypes.H4:
+			headers.append(head)
+		for head in Rules.TagTypes.H5:
+			headers.append(head)
+		for head in Rules.TagTypes.H6:
+			headers.append(head)
 		for child in tag.content:
 			found = found + DocumentsMustHaveAHeaderPerSevenPages.helper(child,found)
-		if tag.tagName in Rules.TagTypes.Heading:
+		if tag.tagName in headers:
 			found = found + 1
 		return found
 
@@ -383,7 +396,21 @@ class HeadersMustContainTextContent(Rules.Rule):
 	@staticmethod
 	def applies(tag):
 		""" Only applies to headers """
-		return (tag.tagName in Rules.TagTypes.Heading)
+		headers = Rules.TagTypes.H1
+		for head in Rules.TagTypes.H2:
+			headers.append(head)
+		for head in Rules.TagTypes.H3:
+			headers.append(head)
+		for head in Rules.TagTypes.H3:
+			headers.append(head)
+		for head in Rules.TagTypes.H4:
+			headers.append(head)
+		for head in Rules.TagTypes.H5:
+			headers.append(head)
+		for head in Rules.TagTypes.H6:
+			headers.append(head)
+
+		return (tag.tagName in headers)
 
 	@staticmethod
 	def validation(tag):
