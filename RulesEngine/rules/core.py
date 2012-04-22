@@ -89,22 +89,9 @@ class DocumentsMustHaveAHeaderPerSevenPages(Rules.Rule):
 
 	@staticmethod
 	def helper(tag, found):
-		headers = Rules.TagTypes.H1
-		for head in Rules.TagTypes.H2:
-			headers.append(head)
-		for head in Rules.TagTypes.H3:
-			headers.append(head)
-		for head in Rules.TagTypes.H3:
-			headers.append(head)
-		for head in Rules.TagTypes.H4:
-			headers.append(head)
-		for head in Rules.TagTypes.H5:
-			headers.append(head)
-		for head in Rules.TagTypes.H6:
-			headers.append(head)
 		for child in tag.content:
 			found = found + DocumentsMustHaveAHeaderPerSevenPages.helper(child,found)
-		if tag.tagName in headers:
+		if HeadersMustContainTextContent.applies(tag):
 			found = found + 1
 		return found
 
@@ -396,21 +383,19 @@ class HeadersMustContainTextContent(Rules.Rule):
 	@staticmethod
 	def applies(tag):
 		""" Only applies to headers """
-		headers = Rules.TagTypes.H1
-		for head in Rules.TagTypes.H2:
-			headers.append(head)
-		for head in Rules.TagTypes.H3:
-			headers.append(head)
-		for head in Rules.TagTypes.H3:
-			headers.append(head)
-		for head in Rules.TagTypes.H4:
-			headers.append(head)
-		for head in Rules.TagTypes.H5:
-			headers.append(head)
-		for head in Rules.TagTypes.H6:
-			headers.append(head)
-
-		return (tag.tagName in headers)
+		if tag.tagName in Rules.TagTypes.H1:
+			return True
+		if tag.tagName in Rules.TagTypes.H2:
+			return True
+		if tag.tagName in Rules.TagTypes.H3:
+			return True
+		if tag.tagName in Rules.TagTypes.H4:
+			return True
+		if tag.tagName in Rules.TagTypes.H5:
+			return True
+		if tag.tagName in Rules.TagTypes.H6:
+			return True
+		return False
 
 	@staticmethod
 	def validation(tag):
@@ -437,6 +422,133 @@ class HeadersMustDescribeTheSection(Rules.Rule):
 	def validation(tag):
 		# This manual-inspection rule always returns "ManualInspection" because it can not "fail".
 		return (Rules.ManualInspection, "Ensure that the header describes the section it precedes.", HeadersMustContainTextContent.validation(tag)[2])
+
+class HeadersSharingParentsMustHaveUniqueContent(Rules.Rule):
+	"""
+		A pair of headers which have the same parent header must have different content.
+	"""
+	title    = "Headers Sharing Parents Must Have Unique Content"
+	severity = Rules.Violation
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Headers
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to headers """
+		if tag.tagName in Rules.TagTypes.H1:
+			return True
+		if tag.tagName in Rules.TagTypes.H2:
+			return True
+		if tag.tagName in Rules.TagTypes.H3:
+			return True
+		if tag.tagName in Rules.TagTypes.H4:
+			return True
+		if tag.tagName in Rules.TagTypes.H5:
+			return True
+		if tag.tagName in Rules.TagTypes.H6:
+			return True
+		return False
+
+	@staticmethod
+	def getHeaderLevel(tag):
+		if tag.tagName in Rules.TagTypes.H1:
+			return 1
+		if tag.tagName in Rules.TagTypes.H2:
+			return 2
+		if tag.tagName in Rules.TagTypes.H3:
+			return 3
+		if tag.tagName in Rules.TagTypes.H4:
+			return 4
+		if tag.tagName in Rules.TagTypes.H5:
+			return 5
+		if tag.tagName in Rules.TagTypes.H6:
+			return 6
+		return 7
+
+	@staticmethod
+	def validation(tag):
+		siblings = tag.parent.content
+		index = siblings.index(tag)
+		level = HeadersSharingParentsMustHaveUniqueContent.getHeaderLevel(tag)
+		i = index - 1
+		while i > 0:
+			if HeadersSharingParentsMustHaveUniqueContent.getHeaderLevel(siblings[i]) < level:
+				break
+			i = i - 1
+		i = i + 1
+		while i < len(siblings):
+			level2 = HeadersSharingParentsMustHaveUniqueContent.getHeaderLevel(siblings[i])
+			if level2 < level:
+				break
+			elif level2 == level and not i == index:
+				if siblings[i].text == tag.text:
+					return (Rules.Violation, "At least one header under the same parent has the same text as this one. Change the text of at least one of these headers to make them unique.", [tag.text])
+			i = i + 1
+		return (Rules.Pass, "Header text is unique.", [tag.text])
+		
+class HeadersShouldBeProperlyNested(Rules.Rule):
+	"""
+		Headers should be nested in the order H1, H2, H3, etc. They can go back in any order.
+	"""
+	title    = "Headers Should Be Properly Nested"
+	severity = Rules.Warning
+	wcag_id  = "n/a"
+	wcag_level = Rules.WCAG.NotSet
+	category = Rules.Categories.Headers
+
+	@staticmethod
+	def applies(tag):
+		""" Only applies to headers """
+		if tag.tagName in Rules.TagTypes.H1:
+			return True
+		if tag.tagName in Rules.TagTypes.H2:
+			return True
+		if tag.tagName in Rules.TagTypes.H3:
+			return True
+		if tag.tagName in Rules.TagTypes.H4:
+			return True
+		if tag.tagName in Rules.TagTypes.H5:
+			return True
+		if tag.tagName in Rules.TagTypes.H6:
+			return True
+		return False
+
+	@staticmethod
+	def getHeaderLevel(tag):
+		if tag.tagName in Rules.TagTypes.H1:
+			return 1
+		if tag.tagName in Rules.TagTypes.H2:
+			return 2
+		if tag.tagName in Rules.TagTypes.H3:
+			return 3
+		if tag.tagName in Rules.TagTypes.H4:
+			return 4
+		if tag.tagName in Rules.TagTypes.H5:
+			return 5
+		if tag.tagName in Rules.TagTypes.H6:
+			return 6
+		return 7
+
+	@staticmethod
+	def validation(tag):
+		siblings = tag.parent.content
+		index = siblings.index(tag)
+		level = HeadersShouldBeProperlyNested.getHeaderLevel(tag)
+		if index == 0:
+			if level == 1:
+				return (Rules.Pass, "Header is properly nested.", [])
+			else:
+				return (Rules.Warning, "Ensure this tag is only one level below its parent (H1->H2, etc.)", [])
+		i = index - 1
+		while i > 0:
+			if HeadersShouldBeProperlyNested.getHeaderLevel(siblings[i]) < level:
+				break
+			i = i - 1
+		parent = siblings[i]
+		if HeadersShouldBeProperlyNested.getHeaderLevel(parent) == level - 1:
+			return (Rules.Pass, "Header is properly nested.", [])
+		return (Rules.Warning, "Ensure this tag is only one level below its parent (H1->H2, etc.)", [])
 
 class BookmarksMustDescribeTheRelevantPartOfTheDocument(Rules.Rule):
 	"""

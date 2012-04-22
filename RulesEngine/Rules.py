@@ -7,6 +7,7 @@ NotSet           = 0
 Pass             = 1
 Violation        = 2
 ManualInspection = 3
+Warning          = 4
 
 # Rule Categories
 class Categories():
