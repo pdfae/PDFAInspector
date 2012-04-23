@@ -69,6 +69,9 @@ public class MetaExtractor {
 	 * @return The sanitized string (i.e. with all null chars removed).
 	 */
     private static String sanitize(String input){
+    	if(input.startsWith("\u00fe\u00ff")){
+    		input = input.substring(2);
+    	}
 		String sanitized = "";
 		for(int i = 0; i < input.length(); i++){
 			char c = input.charAt(i);

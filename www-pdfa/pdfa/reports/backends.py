@@ -58,7 +58,7 @@ def getData(parsefile, resultfile, uid, category, name):
 				data.append(test)
 	return [data, tagged, num, numfail]
 
-def writeTag(parsefile, tagName):
+def writeBkTag (parsefile, tagName):
 	parseFP = open(parsefile)
 	parse_data = json.load(parseFP)
 	parseFP.close()
@@ -69,15 +69,70 @@ def writeTag(parsefile, tagName):
 			tags = sect
 	
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeTree(tags, 0, 0) + "</ul></div>"
+		return "<div role='application'><ul id='tag-tree' class='tree' role='tree'>" + writeBkTree(tags, 0, 0) + "</ul></div>"
 	else:
 		return "<p>No tags found</p>"
+
+def writeTag(parsefile, tagName, errorMessage="No tags found"):
+	parseFP = open(parsefile)
+	parse_data = json.load(parseFP)
+	parseFP.close()
 	
-def writeTree(node, depth, count, url='node_'):
+	content = parse_data["content"]
+	i = 0
+	for sect in content:
+		if sect["tagName"] == tagName:
+			tags = sect
+			break
+		i += 1
+	rl = {}
+	rl_node = 0
+	for sect in content:
+		if sect["tagName"] == "RoleMap":
+			rl_node = sect
+			for j in rl_node["content"]:
+				if "attributes" in j and len(j["attributes"]) > 0:
+					for k,v in j["attributes"][0].items():
+						rl[v] = k
+			break
+
+	if len(tags["content"]) > 0:
+		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+	else:
+		return "<p>%s</p>" % (errorMessage)
+	
+def writeBkTree(node, depth, count, url='node_'):
 	nodetag = node["tagName"]
 	url += "%d:%s-" % (count, unicode(nodetag))
+	if (nodetag=="Title"):
+		nodetag = " "
+	output = "" * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
+	attr = []
+	count = 0
+	noutput = ""
+	for i in node["content"]:	
+		if isinstance(i, dict):
+			noutput += writeBkTree(i, depth + 1, count, url)
+		else:
+			noutput += " " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
+		count += 1	
+	output += "" * depth + " <ul role='group'>\n"
+	if count > 0:
+		output += noutput
+	output += "  " * depth + " </ul>\n"
+	output += "  " * depth + "</li>\n"
+	return output
+
+	
+def writeTree(node, depth, count, url='node_', rolemap={}):
+	nodetag = node["tagName"]
+	url += "%d:%s" % (count, unicode(nodetag))
+	if nodetag == "tags":
+		nodetag = "Tags"
 	output = "  " * depth + "<li id='%s' role='treeitem' aria-expanded='true'><span class='tag-title'>%s</span>\n" % (url, nodetag)
 	attr = []
+	if nodetag in rolemap:
+		node["attributes"].append({"Standard Name": rolemap[nodetag]})
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
 			if j.lower() == "page":
@@ -91,11 +146,11 @@ def writeTree(node, depth, count, url='node_'):
 	noutput = ""
 	for i in node["content"]:	
 		if isinstance(i, dict):
-			noutput += writeTree(i, depth + 1, count, url)
+			noutput += writeTree(i, depth + 1, count, url + "-", rolemap)
 		else:
 			noutput += "  " * depth + "  <li id='%s_element%d' role='treeitem'>%s</li>\n" % (url, count, unicode(i))
 		count += 1	
-	output += "  " * depth + " <ul role='group'>\n"
+	output += "  " * depth + " <ul role='tree'>\n"
 	if count > 0:
 		output += noutput
 	output += "  " * depth + " </ul>\n"
@@ -249,11 +304,11 @@ def searchNode (node, tagName, depth=0, a=[]):
 			if isinstance(i, dict):
 				searchNode(i, tagName, depth + 1, a)		
 
-def getNodes(node, count=0, dic={}, url='#'):
+def getNodes(node, count=0, dic={}, url='#node_'):
 	nodetag = node["tagName"]
 	url += unicode(count) + ":" + unicode(nodetag)
 	dic[url] = node
-	url += "/"
+	url += "-"
 	count = 0
 	for i in node["content"]:
 		if isinstance(i, dict):

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="/static/style.css" />
 		<link rel="stylesheet" href="/static/aria-treeview.css" />
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script-->
 		<title>{% block title %}PDF Accessibilty Inspector - DRES UIUC{% endblock%}</title>
 	</head>
 	<body>
@@ -13,7 +14,7 @@
 				<ul>
 					{% block navigation %}
 					<li {% if currentPage = "upload"   %}class="current_page_item"{% endif %}>
-						<span><a href="/upload/">Evaluate a PDF</a></span>
+						<span><a href="/upload/">Evaluate</a></span>
 					</li>
 					{% if auth %}
 					<li {% if currentPage = "reports"   %}class="current_page_item"{% endif %}>

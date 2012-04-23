@@ -60,7 +60,7 @@ public class FormExtractor {
             // Create the element corresponding to each tag.
             Element tagElement = new Element(tag);
             Element name = new Element("Name");
-            name.appendChild(key);
+            name.appendChild(sanitize(key));
             tagElement.appendChild(name);
             
             // Give the element its attributes (tooltips) and add it to root.
@@ -69,7 +69,7 @@ public class FormExtractor {
             	PdfDictionary widget = form.getFieldItem(key).getWidget(j);
             	if (widget.get(PdfName.TU) != null){
             		Element tooltip = new Element("Tooltip");
-	            		tooltip.appendChild(widget.get(PdfName.TU).toString());
+	            		tooltip.appendChild(sanitize(widget.get(PdfName.TU).toString()));
 	            		tagElement.appendChild(tooltip);
 	            	}
 	            }
@@ -79,4 +79,23 @@ public class FormExtractor {
 	        
 	        return root;
 	}
+	
+	/**
+	 * Remove all null characters from a string so we can put it into XML.
+	 * @param dict The string to sanitize.
+	 * @return The sanitized string (i.e. with all null chars removed).
+	 */
+    private static String sanitize(String input){
+    	if(input.startsWith("\u00fe\u00ff")){
+    		input = input.substring(2);
+    	}
+		String sanitized = "";
+		for(int i = 0; i < input.length(); i++){
+			char c = input.charAt(i);
+			if(c != '\0'){
+				sanitized = sanitized + c;
+			}
+		}
+		return sanitized;
+    }
 }

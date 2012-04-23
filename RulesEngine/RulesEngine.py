@@ -52,7 +52,7 @@ def load():
 	print >> sys.stderr, "Loaded %d rule%s from %d package%s. Ready to process." % (len(rules), plural(len(rules)), len(packages), plural(len(packages)))
 
 def recName(lst):
-	return "#" + "/".join(["%d:%s" % (i, x.tagName) for (i,x) in lst])
+	return "#node_" + "-".join(["%d:%s" % (i, x.tagName) for (i,x) in lst])
 
 def generateTree(tag, parent=None):
 	node = Rules.Tag()
