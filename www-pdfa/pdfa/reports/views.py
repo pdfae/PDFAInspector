@@ -76,7 +76,7 @@ def displaysummary(request, uid):
 		rpass={}
 		rfail={}
 		rinspect={}
-		for i in range(0,6):
+		for i in range(0,7):
 			rnum[i] = 0
 			rtitle[i] = []
 			rtest[i] = []
@@ -87,6 +87,10 @@ def displaysummary(request, uid):
 		for test in tests:
 			tags = test["tags"]
 			category = test["category"]
+			if category == 3:
+				category = 7
+			if category >= 4:
+				category-=1
 			ntest = 0
 			npass = 0
 			nfail = 0
@@ -103,10 +107,8 @@ def displaysummary(request, uid):
 					nins += 1	
 				if test["id"] == "core.HeadersMustContainTextContent":
 					headed = True
-			if category == 0:
+			if category == 0 and test["id"] != "core.NonFigureTagsMustContainContent":
 				continue
-			category -= 1	
-				
 			rnum[category] += 1
 			rtitle[category].append([test["title"], npass, nfail, nins])
 			rtest[category].append(ntest)
@@ -115,21 +117,24 @@ def displaysummary(request, uid):
 			rinspect[category].append(nins)
 				
 		content = []
+		content.append(["Empty Tags"])
 		content.append(["Link Tags"])
 		content.append(["Figure (Image) Tags"])
-		content.append(["Form Controls"])
 		content.append(["Header Tags"])
 		tables = []
 		getNodesByName(parse_data, "Table", tables)
 		content.append(["Table Tags"])
-		
+		content.append(["Bookmarks"])
+		content.append(["Form Controls"])
 		tot_test = 0
 		tot_pass = 0
 		tot_fail = 0
 		tot_ins = 0
-		for i in range(0,5):
+		for i in range(0,7):
 			if sum(rtest[i]) > 0:
-				if i!=4:
+				if i == 0:
+					content[i].append(sum(rfail[i]))
+				elif i!=4:
 					content[i].append(sum(rtest[i])/rnum[i])
 				else:
 					content[i].append(len(tables))
@@ -241,11 +246,13 @@ def displayempty(request, uid):
 		empty = []
 		tagged = False
 		tag_urls = {}
+		title2 = ""
 		getNodes(parse_data, 0, tag_urls)
 		for test in tests:
 			if test["id"] == "core.DocumentMustBeTagged" and test['tags'][0]['result'] == 1:
 				tagged = True
 			if test["id"] == "core.NonFigureTagsMustContainContent":	
+				title2 = test["title"]
 				for tag in test["tags"]:
 					if tag['result'] == 2:
 						numfail += 1

@@ -2,33 +2,51 @@
 
 {% block title %}Empty Tags - PDF Accessibilty Inspector{% endblock%}
 
-{% block content %} <h2>Empty tags</h2>
+{% block content %} <h2>Empty Tags Accessibility Summary</h2>
 <div class="tag_summary">
 	<p>
 		Number of empty tags: {%if tagged%}{%if numfail == 0%}<span class = "none">none</span>{%else%}{{numfail}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 	</p>
+	<table class="rules" aria-labelledby="summary">
+		<thead>
+			<tr>
+				<th>Accessibility Requirement</th>
+				<th>Violation</th>
+				<th>Manual Inspection</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>{{title2}}</th>
+				<td class="v">{{numfail}}</td>
+				<td class="z">0</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
+<h2>Empty Tags Accessibility Details</h2>
 <div class="tag_summary">
-{% if numfail > 0 %}	
-<table class = "rules">
-	<thead>
-		<tr>
-			<th>Tag</th>
-			<th>Page</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-	<tbody>
-	{% for tag in empty %}
+	{% if numfail > 0 %}
+	<table class = "details">
+		<thead>
+			<tr>
+				<th>Tag Name</th>
+				<th>Page</th>
+				<th>Result</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for tag in empty %}
 			<tr>
 				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
-				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
+				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%} <td class="v">Violation</td>
 				<td>{{tag.message}}</td>
 			</tr>
-	{%endfor%}
-	</tbody>
-</table>
-{%else%}
-{%endif%}
+			{%endfor%}
+		</tbody>
+	</table>
+	{%else%}
+	{%endif%}
 </div>
 {% endblock %}
