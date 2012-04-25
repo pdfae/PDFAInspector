@@ -110,7 +110,7 @@ class NonFigureTagsMustContainContent(Rules.Rule):
 	"""
 		A non-figure tag must not be empty. It must contain text content or another tag.
 	"""
-	title    = "TagsMustContainContent"
+	title    = "Tags Must Contain Content"
 	severity = Rules.Warning
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
