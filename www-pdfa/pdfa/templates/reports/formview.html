@@ -5,7 +5,7 @@
 {% block content %} <h2>{{name}} Accessibility Summary</h2>
 <div class="tag_summary">
 	<p>
-		Number of {{name}} tags: {%if tagged%}{%if numfail == 0%}<span class = "none">none</span>{%else%}{{numfail}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
+		Number of {{name}}s: {%if tagged%}{%if numfail == 0%}<span class = "none">none</span>{%else%}{{numfail}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 		
 	</p>
 	<table class="rules" aria-labelledby="summary">
@@ -87,7 +87,7 @@
 
 {% if tagged %}
 {%if num == 0%}
-<p><span class = "none">No {{name}} tags</span></p>
+<p><span class = "none">No {{name}}s</span></p>
 {%else%}
 {%endif%}
 {%else%}

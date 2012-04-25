@@ -106,7 +106,7 @@ def displaysummary(request, uid):
 					nfail += 1
 				elif (tag["result"]==3):
 					nins += 1	
-				if test["id"] == "core.HeadersMustContainTextContent":
+				if test["id"] == "core.HeadingsMustContainTextContent":
 					headed = True
 			if category == 0 and test["id"] != "core.NonFigureTagsMustContainContent":
 				continue

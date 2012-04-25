@@ -32,6 +32,7 @@ def getData(parsefile, resultfile, uid, category, name):
 				npass = 0
 				nfail = 0
 				nins = 0
+				numbering = {}
 				for tag in test['tags']:
 					ntest += 1
 					if tag['result'] == 1:
@@ -47,15 +48,22 @@ def getData(parsefile, resultfile, uid, category, name):
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
-					if 'tagName' in actual_tag:		
-						tag['tagName'] = actual_tag['tagName'] + " " + unicode(ntest)
-
+					if 'tagName' in actual_tag:
+						tN	= actual_tag['tagName']
+						print tN
+						if tN in numbering:
+							numbering[tN] += 1
+						else:
+							numbering[tN] = 1		 
+						tag['tagName'] = tN + " " + unicode(numbering[tN])
+						
 				test['ntest'] = ntest
 				test['nfail'] = nfail
 				test['nins'] = nins	
 				test['rowspan'] = nfail + nins
 				numfail += nfail+nins
 				data.append(test)
+		print numbering
 	return [data, tagged, num, numfail]
 
 def writeBkTag (parsefile, tagName):

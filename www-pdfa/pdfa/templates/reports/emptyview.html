@@ -18,7 +18,7 @@
 		<tbody>
 			<tr>
 				<th>{{title2}}</th>
-				<td class="v">{{numfail}}</td>
+				<td class="{%if numfail == 0%}z{%else%}v{%endif%}">{{numfail}}</td>
 				<td class="z">0</td>
 			</tr>
 		</tbody>
@@ -47,6 +47,17 @@
 		</tbody>
 	</table>
 	{%else%}
+
+	{% if tagged %}
+	<p>
+		<span class = "none">No empty tags</span>
+	</p>
+	{%else%}
+	<p>
+		<span class = "v">document is not tagged</span>
+	</p>
+	{%endif%}
+
 	{%endif%}
 </div>
 {% endblock %}
