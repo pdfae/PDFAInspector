@@ -16,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for row in ruleRows %}
+			{% for row in ruleRows reversed%}
 			<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
 				<th>{{row.title}}</th>
 				{%if tagged%}
@@ -52,7 +52,7 @@
 	</thead>
 	<tbody>
 		
-	{% for row in ruleRows %}
+	{% for row in ruleRows reversed%}
 		{% for tag in row.tags%}
 			{% if tag.result == 2 %}
 			<tr>
