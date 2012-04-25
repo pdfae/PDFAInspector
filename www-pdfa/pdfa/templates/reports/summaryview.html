@@ -61,9 +61,14 @@
 				<td class="v">{{tot_fail}}</td>
 			</tr>
 			<tr>
+				<th>Warnings: </th>
+				<td class="war">{{tot_war}}</td>
+			</tr>
+			<tr>
 				<th>Manual Checks: </th>
 				<td class="mc">{{tot_ins}}</td>
 			</tr>
+			
 		</tbody>
 	</table>
 </div>
@@ -71,13 +76,14 @@
 <div class="tag_summary">
 	<h3 id = "{{tuple.0}}">{{tuple.0}}</h3>
 	<p>
-		Number of {{tuple.0}} tags: {%if tagged%}{%if tuple.1 == 0%}<span class = "none">none</span>{%else%}{{tuple.1}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
+		Number of {{tuple.0}}: {%if tagged%}{%if tuple.1 == 0%}<span class = "none">none</span>{%else%}{{tuple.1}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 	</p>
 	<table class="rules" aria-labelledby="{{tuple.0}}">
 		<thead>
 			<tr>
 				<th>Accessibility Requirement</th>
 				<th>Violation</th>
+				<th>Warning</th>
 				<th>Manual Inspection</th>
 			</tr>
 		</thead>
@@ -92,6 +98,15 @@
 						{%else%}<td class = "v">{{row.2}}</td>
 						{%endif%}
 					{%endif%}	
+				{%else%}<td class = "v">document is not tagged</td>
+				{%endif%}
+				{%if tagged%}
+					{%if tuple.1 == 0%}<td class = "none">no {{tuple.0}} tags</td>
+					{%else%}
+						{%if row.4 == 0%}<td class = "z">0</td>
+						{%else%}<td class = "war">{{row.4}}</td>
+						{%endif%}
+					{%endif%}
 				{%else%}<td class = "v">document is not tagged</td>
 				{%endif%}
 				

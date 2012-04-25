@@ -50,7 +50,6 @@ def getData(parsefile, resultfile, uid, category, name):
 							tag['page'] = a['Page']
 					if 'tagName' in actual_tag:
 						tN	= actual_tag['tagName']
-						print tN
 						if tN in numbering:
 							numbering[tN] += 1
 						else:

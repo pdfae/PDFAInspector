@@ -266,7 +266,7 @@ img.aligncenter {
 div.tag_summary {
 	margin-top: 1em;
 	margin-bottom: 3em;
-	margin-left: 2em;
+	
 }
 div.tag_summary h3 {
 	margin-left: 0;
@@ -310,7 +310,7 @@ table th, td {
 	border: solid black thin;
 }
 table.rules {
-	margin: 1em 1em 1em 0;
+	margin: 0;
 	table-layout: fixed;
 	color: black;
 	width: 100%;
@@ -329,15 +329,15 @@ table.rules tr.even {
 table.rules tbody th {
 	text-align: left;
 	font-weight: normal;
-	padding: 0.45em;
+	padding: 0.45em 0;
 }
 table.rules tbody td {
 	overflow: hidden;
-	padding: 0.45em;
+	padding: 0.45em 0;
 	text-align: center;
 }
 table.details {
-	margin: 1em 1em 1em 1em;
+	margin: 0;
 	table-layout: auto;
 	color: black;
 	width: 100%;
@@ -356,12 +356,12 @@ table.details tr.even {
 table.details tbody th {
 	text-align: left;
 	font-weight: normal;
-	padding: 0.45em;
+	padding: 0.45em 0;
 }
 table.details tbody td {
 	overflow: hidden;
-	padding: 0.45em;
 	text-align: left;
+	padding: 0.45em 0;
 }
 table.summary tbody th {
 	text-align: left;
@@ -374,7 +374,6 @@ table.summary tbody td {
 }
 table.document {
 	font-size: 120%;
-	margin-left: 1em;
 	margin-bottom: 1em;
 }
 table.document tbody th {
@@ -397,7 +396,7 @@ table.acc tbody th {
 table.acc tbody td {
 	text-align: left;
 }
-.mc {
+.war {
 	color: #E8A317;
 	font-weight: bold;
 	letter-spacing: .03em;
@@ -410,6 +409,13 @@ table.acc tbody td {
 	font-weight: bold;
 	letter-spacing: .03em;
 }
+.mc {
+	color: #800080;
+	font-weight: bold;
+	letter-spacing: .03em;
+}
+
+
 .none {
 	color: #222222;
 	font-style: italic;

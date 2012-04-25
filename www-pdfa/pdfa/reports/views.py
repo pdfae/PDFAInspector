@@ -77,6 +77,7 @@ def displaysummary(request, uid):
 		rpass={}
 		rfail={}
 		rinspect={}
+		rwar = {}
 		for i in range(0,7):
 			rnum[i] = 0
 			rtitle[i] = []
@@ -84,6 +85,7 @@ def displaysummary(request, uid):
 			rpass[i] = []
 			rfail[i] = []
 			rinspect[i] = []
+			rwar[i] = []
 		tests = result_data["results"]	
 		for test in tests:
 			tags = test["tags"]
@@ -96,6 +98,7 @@ def displaysummary(request, uid):
 			npass = 0
 			nfail = 0
 			nins = 0
+			nwar = 0
 			for tag in tags:		
 				ntest += 1
 				if (tag["result"]==1):
@@ -105,7 +108,9 @@ def displaysummary(request, uid):
 				elif (tag["result"]==2):
 					nfail += 1
 				elif (tag["result"]==3):
-					nins += 1	
+					nins += 1
+				elif (tag["result"]==4):
+					nwar += 1
 				if test["id"] == "core.HeadingsMustContainTextContent":
 					headed = True
 			if category == 0 and test["id"] != "core.NonFigureTagsMustContainContent":
@@ -115,12 +120,12 @@ def displaysummary(request, uid):
 			if test["id"] == "core.FiguresMustHaveAltText":
 				numtags += len(tags)	
 			rnum[category] += 1
-			rtitle[category].append([test["title"], npass, nfail, nins])
+			rtitle[category].append([test["title"], npass, nfail, nins, nwar])
 			rtest[category].append(ntest)
 			rpass[category].append(npass)
 			rfail[category].append(nfail)
 			rinspect[category].append(nins)
-				
+			rwar[category].append(nwar)	
 		content = []
 		content.append(["Empty Tags"])
 		content.append(["Link Tags"])
@@ -135,10 +140,11 @@ def displaysummary(request, uid):
 		tot_pass = 0
 		tot_fail = 0
 		tot_ins = 0
+		tot_war = 0
 		for i in range(0,7):
 			if sum(rtest[i]) > 0:
 				if i == 0:
-					content[i].append(sum(rfail[i]))
+					content[i].append(sum(rwar[i]))
 				elif i!=4:
 					content[i].append(sum(rtest[i])/rnum[i])
 				else:
@@ -150,6 +156,7 @@ def displaysummary(request, uid):
 			tot_pass += sum(rpass[i])
 			tot_fail += sum(rfail[i])
 			tot_ins += sum(rinspect[i])
+			tot_war += sum(rwar[i])
 
 		form = setup_notes_form(request, uid, notes, fileObj)
 		message = content
@@ -247,7 +254,7 @@ def displayempty(request, uid):
 		parse_data = json.load(parseFP)
 		parseFP.close()
 		tests = result_data["results"]
-		numfail = 0
+		numwar = 0
 		empty = []
 		tagged = False
 		tag_urls = {}
@@ -259,8 +266,8 @@ def displayempty(request, uid):
 			if test["id"] == "core.NonFigureTagsMustContainContent":	
 				title2 = test["title"]
 				for tag in test["tags"]:
-					if tag['result'] == 2:
-						numfail += 1
+					if tag['result'] == 4:
+						numwar += 1
 						actual_tag = tag_urls[tag['tag']]
 						tag['tagName'] = actual_tag['tagName']
 						attr = []
