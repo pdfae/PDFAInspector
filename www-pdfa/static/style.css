@@ -193,10 +193,10 @@ img.aligncenter {
 	width: 100%;
 	margin: 0;
 }
-#content div {
+#content div.menu {
 	width: 100%;
 	float: left;
-	margin: 1% auto 0 0;
+	margin: 1% 0;
 }
 #content-inner {
 	border-top: groove;
@@ -264,6 +264,7 @@ img.aligncenter {
 	background-color: #ee77dd;
 }
 div.tag_summary {
+	margin-top: 1em;
 	margin-bottom: 3em;
 	margin-left: 2em;
 }
@@ -337,7 +338,7 @@ table.rules tbody td {
 }
 table.details {
 	margin: 1em 1em 1em 0;
-	table-layout: fixed;
+	table-layout: auto;
 	color: black;
 	width: 100%;
 	border-collapse: collapse;
@@ -405,6 +406,9 @@ table.document tbody td {
 	margin-top: 1.5em;
 	margin-left: 1em;
 	font-size: 120%;
+}
+#content h2 {
+	margin-top: 3em;
 }
 #content-inner form label {
 	display: block;

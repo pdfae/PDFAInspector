@@ -59,6 +59,7 @@ def displaysummary(request, uid):
 		
 		tagged = False
 		headed = False
+		numtags = 0
 		
 		for c in parse_data['content']:
 			if c["tagName"] == "Metadata":
@@ -109,6 +110,10 @@ def displaysummary(request, uid):
 					headed = True
 			if category == 0 and test["id"] != "core.NonFigureTagsMustContainContent":
 				continue
+			if test["id"] == "core.NonFigureTagsMustContainContent":
+				numtags += len(tags)
+			if test["id"] == "core.FiguresMustHaveAltText":
+				numtags += len(tags)	
 			rnum[category] += 1
 			rtitle[category].append([test["title"], npass, nfail, nins])
 			rtest[category].append(ntest)
