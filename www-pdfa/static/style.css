@@ -337,7 +337,7 @@ table.rules tbody td {
 	text-align: center;
 }
 table.details {
-	margin: 1em 1em 1em 0;
+	margin: 1em 1em 1em 1em;
 	table-layout: auto;
 	color: black;
 	width: 100%;
@@ -384,6 +384,19 @@ table.document tbody th {
 table.document tbody td {
 	text-align: left;
 }
+table.acc {
+	margin-top: 1em;
+	font-size: 1.2em;
+}
+table.acc tbody th {
+	text-align: left;
+	width: 10em;
+	padding-right: .25em;
+	font-weight: bold;
+}
+table.acc tbody td {
+	text-align: left;
+}
 .mc {
 	color: #E8A317;
 	font-weight: bold;
@@ -408,7 +421,7 @@ table.document tbody td {
 	font-size: 120%;
 }
 #content h2 {
-	margin-top: 3em;
+	margin-top: 2em;
 }
 #content-inner form label {
 	display: block;
