@@ -111,7 +111,7 @@ class NonFigureTagsMustContainContent(Rules.Rule):
 		A non-figure tag must not be empty. It must contain text content or another tag.
 	"""
 	title    = "TagsMustContainContent"
-	severity = Rules.Violation
+	severity = Rules.Warning
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.DocumentLevel
@@ -130,7 +130,7 @@ class NonFigureTagsMustContainContent(Rules.Rule):
 	@staticmethod
 	def validation(tag):
 		if tag.text == "" and not tag.content:
-			return (Rules.Violation, "Place either text content or another tag inside this tag. Or, remove this empty tag.", [])
+			return (Rules.Warning, "Place either text content or another tag inside this tag. Or, remove this empty tag.", [])
 		return (Rules.Pass, "Tag contains content", [tag.text])	
 
 class LinksMustContainTextContent(Rules.Rule):
@@ -354,7 +354,7 @@ class TableCellsMustContainContent(Rules.Rule):
 		Any data or header cell in a table must contain some content
 	"""
 	title    = "Table Cells Must Contain Content"
-	severity = Rules.Violation
+	severity = Rules.Warning
 	wcag_id  = "n/a"
 	wcag_level = Rules.WCAG.NotSet
 	category = Rules.Categories.Tables
@@ -368,7 +368,7 @@ class TableCellsMustContainContent(Rules.Rule):
 	def validation(tag):
 		if len(tag.content) > 0:
 			return (Rules.Pass, "Cell contains content", [])
-		return (Rules.Violation, "Add content to this table cell.", [])
+		return (Rules.Warning, "Add content to this table cell.", [])
 
 class HeadersMustContainTextContent(Rules.Rule):
 	"""
