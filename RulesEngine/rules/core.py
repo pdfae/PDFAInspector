@@ -319,7 +319,7 @@ class TablesMustHaveHeadings(Rules.Rule):
 		for child in tag.content:
 			if child.tagName in Rules.TagTypes.TableRow:
 				for grandchild in child.content:
-					if not grandchild.tagName in Rules.TagTypes.TableHeading:
+					if not grandchild.tagName in Rules.TagTypes.TableHeader:
 						return (Rules.Violation, "First row contains non-heading element " + grandchild.tagName + ". Consider changing to a TH.", [])
 				return (Rules.Pass, "First row of table consists of heading cells", [])
 		return (Rules.Violation, "Add a row of table heading (TH) elements to the table.", [])
@@ -362,7 +362,7 @@ class TableCellsMustContainContent(Rules.Rule):
 	@staticmethod
 	def applies(tag):
 		""" Only applies to tables """
-		return (tag.tagName in Rules.TagTypes.TableData or tag.tagName in Rules.TagTypes.TableHeading)
+		return (tag.tagName in Rules.TagTypes.TableData or tag.tagName in Rules.TagTypes.TableHeader)
 
 	@staticmethod
 	def validation(tag):
