@@ -72,7 +72,6 @@ h2 {
 }
 h3 {
 	margin-top: 1em;
-	margin-left: 1em;
 	font-size: 1.2em;
 }
 p, ul, ol {
@@ -310,7 +309,7 @@ table th, td {
 	border: solid black thin;
 }
 table.rules {
-	margin: 0;
+	margin-bottom: 0;
 	table-layout: fixed;
 	color: black;
 	width: 100%;
@@ -337,7 +336,7 @@ table.rules tbody td {
 	text-align: center;
 }
 table.details {
-	margin: 0;
+	margin-bottom: 2em;
 	table-layout: auto;
 	color: black;
 	width: 100%;

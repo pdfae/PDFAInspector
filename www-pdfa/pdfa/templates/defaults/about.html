@@ -13,8 +13,10 @@ About - PDF Accessibility Inspector
 </p>
 <h2>Rules Run By The Evaluator</h2>
 {%if rules%}
+{%for category in rules%}
+<h3>{{category.0}}</h3>
 <table class="details" width="auto">
-	{%for rule in rules%}
+	{%for rule in category.1%}
 	<tr>
 		<th colspan="2" style="font-weight: bold;line-height: 3em;">Rule {{forloop.counter}}: {{rule.title}}</th>
 	</tr>
@@ -36,6 +38,7 @@ About - PDF Accessibility Inspector
 	</tr>
 	{%endfor%}
 </table>
+{%endfor%}
 {%else%}
 {{message}}
 {%endif%}

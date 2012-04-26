@@ -18,10 +18,21 @@ def about(request):
 	sys.path.append(rulesPath)
 	rulesFile = os.path.join(rulesPath, 'core.py')
 	rules = []
+	rules.append(["Document Level Rules"])
+	rules.append(["Rules for Link Tags"])
+	rules.append(["Rules for Figure (Image) Tags"])
+	rules.append(["Rules for Header Tags"])
+	rules.append(["Rules for Table Tags"])
+	rules.append(["Rules for Form Controls"])
+	rules.append(["Rules for Bookmarks"])
+	for i in range(7):
+		rules[i].append([])
+	print rules
 	try:
 		import core
 		for name, clas in inspect.getmembers(core, inspect.isclass):
 			dic = {}
+			category = -1
 			for key, value in clas.__dict__.iteritems():
 				if key == "__doc__":
 					dic['description'] = value.strip('\n\t')
@@ -31,8 +42,10 @@ def about(request):
 							dic['Condition'] = inspect.getdoc(val)
 				else:
 					dic[key] = value
-			rules.append(dic)	
-		rules = sorted(rules, key=itemgetter('category'))
+				if key == "category":
+					category = int(value)	
+			rules[category][1].append(dic)	
+		#rules = sorted(rules, key=itemgetter('category'))
 		
 	except ImportError as e:
 		message = "Rules file not found"
