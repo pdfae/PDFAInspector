@@ -24,7 +24,7 @@ About - PDF Accessibility Inspector
 	</tr>
 	<tr class = "even">
 		<th> Severity </th>
-		<td> {{rule.severity}} </td>
+		<td> {%if rule.severity == 2%}Violation{%else%}{%if rule.severity == 3%}Manual Inspection{%else%}Warning{%endif%}{%endif%} </td>
 	</tr>
 	<tr>
 		<th> WCAG ID </th>
