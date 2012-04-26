@@ -335,8 +335,23 @@ table.rules tbody td {
 	padding: 0.45em 0;
 	text-align: center;
 }
-table.details {
+table.about {
 	margin-bottom: 2em;
+	table-layout: fixed;
+	color: black;
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+}
+table.about tr.even {
+	background: #dfefff;
+}
+table.about th, td{
+	font-weight: normal;
+	padding: 0.45em 0;
+}
+table.details {
+	margin: 0;
 	table-layout: auto;
 	color: black;
 	width: 100%;

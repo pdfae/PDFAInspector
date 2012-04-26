@@ -15,7 +15,7 @@ About - PDF Accessibility Inspector
 {%if rules%}
 {%for category in rules%}
 <h3>{{category.0}}</h3>
-<table class="details" width="auto">
+<table class="about">
 	{%for rule in category.1%}
 	<tr>
 		<th colspan="2" style="font-weight: bold;line-height: 3em;">Rule {{forloop.counter}}: {{rule.title}}</th>
