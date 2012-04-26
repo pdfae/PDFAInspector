@@ -32,6 +32,7 @@ def getData(parsefile, resultfile, uid, category, name):
 				npass = 0
 				nfail = 0
 				nins = 0
+				nwar = 0
 				numbering = {}
 				for tag in test['tags']:
 					ntest += 1
@@ -39,8 +40,10 @@ def getData(parsefile, resultfile, uid, category, name):
 						npass += 1
 					elif tag['result'] == 2:
 						nfail += 1
-					else:
+					elif tag['result'] == 3:
 						nins += 1
+					else:
+						nwar += 1
 					actual_tag = tag_urls[tag['tag']]
 					attr = []
 					if 'attributes' in actual_tag:
@@ -59,8 +62,9 @@ def getData(parsefile, resultfile, uid, category, name):
 				test['ntest'] = ntest
 				test['nfail'] = nfail
 				test['nins'] = nins	
-				test['rowspan'] = nfail + nins
-				numfail += nfail+nins
+				test['nwar'] = nins
+				test['rowspan'] = nfail + nins + nwar
+				numfail += nfail+nins+nwar
 				data.append(test)
 		print numbering
 	return [data, tagged, num, numfail]

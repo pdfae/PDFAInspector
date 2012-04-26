@@ -22,7 +22,6 @@ def about(request):
 		import core
 		for name, clas in inspect.getmembers(core, inspect.isclass):
 			dic = {}
-			
 			for key, value in clas.__dict__.iteritems():
 				if key == "__doc__":
 					dic['description'] = value.strip('\n\t')
