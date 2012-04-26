@@ -18,5 +18,6 @@ class UserFile(models.Model):
     file = models.FileField(upload_to = content_file_name)
     title = models.CharField(max_length = 130)
     notes = models.CharField(max_length = 2000)
+    date = models.DateTimeField(auto_now_add = True)
     def __unicode__(self):
         return "Id: " + self.uid + " Owner: " + self.owner + " Title: " + self.title + " Notes: " + self.notes

@@ -22,8 +22,7 @@ def managereports(request):
 	auth = True
 	currentPage = "reports"
 	user = request.user
-	file_list = UserFile.objects.filter(owner = user.username)
-	#x = []
+	file_list = UserFile.objects.filter(owner = user.username).order_by('-date')
 	if (request.method=="POST"):
 		formdata=request.POST
 		for f in file_list:
@@ -40,7 +39,7 @@ def managereports(request):
 				if os.path.isfile(result_file):
 					os.remove(result_file)
 				f.delete()
-	file_list = UserFile.objects.filter(owner = user.username)
+	file_list = UserFile.objects.filter(owner = user.username).order_by('-date')
 	return render_to_response("userprofile/reports.html", locals(), context_instance=RequestContext(request))
 
 # manage rules
