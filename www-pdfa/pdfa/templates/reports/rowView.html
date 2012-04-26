@@ -59,8 +59,9 @@
 	{% for row in ruleRows reversed%}
 		{% for tag in row.tags%}
 			{% if tag.result == 2 %}
+			
 			<tr>
-				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
 				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "v">Violation</td>
 				<td>{{tag.message}}</td>
@@ -74,9 +75,25 @@
 			{% endif %}
 		{%endfor%}
 		{% for tag in row.tags%}
+			{% if tag.result == 4 %}
+			<tr>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
+				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
+				<td class = "mc">Manual Check</td>
+				<td>{{tag.message}}</td>
+				{% if tag.args %}
+					<td>{{tag.args.0}}</td>	
+				{%else%}
+					<td class="none">not available</td>
+				{%endif%}	
+				
+			</tr>
+			{% endif %}
+		{%endfor%}
+		{% for tag in row.tags%}
 			{% if tag.result == 3 %}
 			<tr>
-				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
 				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%}
 				<td class = "mc">Manual Check</td>
 				<td>{{tag.message}}</td>

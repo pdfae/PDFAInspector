@@ -12,12 +12,14 @@
 			<tr>
 				<th>Accessibility Requirement</th>
 				<th>Violation</th>
+				<th>Warning</th>
 				<th>Manual Inspection</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<th>{{title2}}</th>
+				<td class="z">0</td>
 				<td class="{%if numwar == 0%}z{%else%}war{%endif%}">{{numwar}}</td>
 				<td class="z">0</td>
 			</tr>
@@ -39,8 +41,9 @@
 		<tbody>
 			{% for tag in empty %}
 			<tr>
-				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
-				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%} <td class="v">Violation</td>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
+				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%} 
+				<td class="war">Warning</td>
 				<td>{{tag.message}}</td>
 			</tr>
 			{%endfor%}

@@ -57,7 +57,8 @@ def getData(parsefile, resultfile, uid, category, name):
 							numbering[tN] += 1
 						else:
 							numbering[tN] = 1		 
-						tag['tagName'] = tN + " " + unicode(numbering[tN])
+						tag['tagName'] = tN
+						tag['level'] = unicode(numbering[tN])
 						
 				test['ntest'] = ntest
 				test['nfail'] = nfail

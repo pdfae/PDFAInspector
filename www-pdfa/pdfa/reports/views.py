@@ -265,11 +265,19 @@ def displayempty(request, uid):
 				tagged = True
 			if test["id"] == "core.NonFigureTagsMustContainContent":	
 				title2 = test["title"]
+				numbering = {}
 				for tag in test["tags"]:
+					actual_tag = tag_urls[tag['tag']]
+					tag['tagName'] = actual_tag['tagName']
+					tN	= actual_tag['tagName']
+					if tN in numbering:
+						numbering[tN] += 1
+					else:
+						numbering[tN] = 1
+					tag['level'] = unicode(numbering[tN])	
 					if tag['result'] == 4:
 						numwar += 1
-						actual_tag = tag_urls[tag['tag']]
-						tag['tagName'] = actual_tag['tagName']
+						
 						attr = []
 						if 'attributes' in actual_tag:
 							attr = actual_tag['attributes']

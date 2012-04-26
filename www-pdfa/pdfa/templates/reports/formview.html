@@ -58,7 +58,7 @@
 		{% for tag in row.tags%}
 			{% if tag.result == 2 %}
 			<tr>
-				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
 				<td class = "v">Violation</td>
 				<td>{{tag.message}}</td>
 				{% if tag.args %}
@@ -70,9 +70,23 @@
 			{% endif %}
 		{%endfor%}
 		{% for tag in row.tags%}
+			{% if tag.result == 4 %}
+			<tr>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
+				<td class = "war">Warning</td>
+				<td>{{tag.message}}</td>
+				{% if tag.args %}
+					<td>{{tag.args.0}}</td>	
+				{%else%}
+					<td class="none">not available</td>
+				{%endif%}	
+			</tr>
+			{% endif %}
+		{%endfor%}
+		{% for tag in row.tags%}
 			{% if tag.result == 3 %}
 			<tr>
-				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
 				<td class = "mc">Manual Check</td>
 				<td>{{tag.message}}</td>
 				{% if tag.args %}
