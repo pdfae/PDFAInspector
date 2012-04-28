@@ -1,4 +1,5 @@
-# Author: Prateek Arora
+# Author: Prateek Arora, Atul Gupte
+
 # including required modules
 from django.shortcuts import render_to_response, HttpResponseRedirect, RequestContext
 from settings import *
@@ -7,10 +8,17 @@ import inspect
 import sys, os, pkgutil
 from operator import itemgetter
 
-# about page
+# About Page
+#
+# This page lists all the rules that are run by the Accessibility Evaluator.
+# These rules are updated automatically, whenever a rule is added to the 
+# core.py file within the RulesEngine.
+# 
+
 def about(request):
 	currentPage = "about"
 	auth = request.user.is_authenticated()
+	# build the file path of the file that contains rule descriptions
 	sys.path.append(DIR)
 	enginePath = os.path.join(DIR, 'RulesEngine')
 	sys.path.append(enginePath)
@@ -45,18 +53,18 @@ def about(request):
 				if key == "category":
 					category = int(value)	
 			rules[category][1].append(dic)	
-		#rules = sorted(rules, key=itemgetter('category'))
 		
 	except ImportError as e:
-		message = "Rules file not found"
+		message = "Rules File Not Found"
 	
 	return render_to_response("defaults/about.html", locals())
 
-# contact page
-#def contact(request):
-#	currentPage = "contact"
-#	auth = request.user.is_authenticated()
-#	return render_to_response("defaults/contact.html", locals())
+# Contact Page
+#
+# This page allows users to contact the administrators of this service.
+# A link to the Github Issues page for this project has been provided.
+# There is also a contact form that e-mails the administrator.
+#
 	
 def contact (request):
 	currentPage = "contact"
@@ -68,7 +76,7 @@ def contact (request):
 			message = form.cleaned_data['message']
 			sender = form.cleaned_data['sender']
 			cc_myself = form.cleaned_data['cc_myself']
-			recipients = ['jongund@illinois.edu']
+			recipients = ['jongund@illinois.edu'] 
 			if cc_myself:
 				recipients.append(sender)
 		from django.core.mail import send_mail
