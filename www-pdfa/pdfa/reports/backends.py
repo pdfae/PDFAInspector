@@ -165,11 +165,14 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 	else:
 		output += "  " * depth + "<td></td>"
 	children = []
+	count = 0
 	for i in node["content"]:	
 		if isinstance(i, dict):
 			children.append("<a href='#%s'>%s</a>" % (tagName(i, depth + 1, count, url + "-"), unicode(i["tagName"])))
+		count += 1
 	output += "  " * depth + "<td>" + ", ".join(children) + "</td>"
 	output += "  " * depth + "<td>"
+	count = 0
 	for i in node["content"]:	
 		if not isinstance(i, dict):
 			output += "  " * depth + "  <span id='%s_element%d'>%s</span>\n" % (url, count, unicode(i))
