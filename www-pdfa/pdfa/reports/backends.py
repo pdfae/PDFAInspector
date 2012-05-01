@@ -153,14 +153,18 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 			else:
 				attr.append("%s=%s" % (unicode(j),unicode(k)))
 	output += "  " * depth + "<td class='attributes-list'>" + ", ".join(attr) + "</td>\n"
+	output += "  " * depth + "<td>"
+	for i in node["content"]:	
+		if not isinstance(i, dict):
+			noutput += "  " * depth + "  <spanid='%s_element%d'>%s</span>\n" % (url, count, unicode(i))
+		count += 1	
+	output += "  " * depth + "</td>"
 	output += "  " * depth + "</tr>"
 	count = 0
 	noutput = ""
 	for i in node["content"]:	
 		if isinstance(i, dict):
 			noutput += writeTable(i, depth + 1, count, url + "-", rolemap)
-		else:
-			noutput += "  " * depth + "  <tr id='%s_element%d'><td>%s</td></tr>\n" % (url, count, unicode(i))
 		count += 1	
 	#output += "  " * depth + " <ul role='tree'>\n"
 	if count > 0:
