@@ -109,7 +109,8 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 			break
 
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+		#return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+		return "<div role='application'><table id='tag-table-" + tagName + "' >" + writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	
@@ -133,6 +134,40 @@ def writeBkTree(node, depth, count, url='node_'):
 		output += noutput
 	output += "  " * depth + " </ul>\n"
 	output += "  " * depth + "</li>\n"
+	return output
+
+def writeTable(node, depth, count, url='node_', rolemap={}):
+	nodetag = node["tagName"]
+	url += "%d:%s" % (count, unicode(nodetag))
+	if nodetag == "tags":
+		nodetag = "Tags"
+	output = "  " * depth + "<tr id='%s'><td><span class='tag-title'>%s</span>\n" % (url, nodetag)
+	attr = []
+	if nodetag in rolemap:
+		node["attributes"].append({"Standard Name": rolemap[nodetag]})
+	for i in node["attributes"]:
+		for j, k in i.iteritems():
+			if j.lower() == "page":
+				if k != 0:
+					attr.append("Page %s" % unicode(k))
+			else:
+				attr.append("%s=%s" % (unicode(j),unicode(k)))
+	if attr:
+		output += "  " * depth + "<span class='attributes-list'>(" + ", ".join(attr) + ")</span>\n"
+	output += "  " * depth + "</td></tr>"
+	count = 0
+	noutput = ""
+	for i in node["content"]:	
+		if isinstance(i, dict):
+			noutput += writeTable(i, depth + 1, count, url + "-", rolemap)
+		else:
+			noutput += "  " * depth + "  <tr id='%s_element%d'><td>%s</td></tr>\n" % (url, count, unicode(i))
+		count += 1	
+	#output += "  " * depth + " <ul role='tree'>\n"
+	if count > 0:
+		output += noutput
+	#output += "  " * depth + " </ul>\n"
+	#output += "  " * depth + "</li>\n"
 	return output
 
 	
