@@ -6,10 +6,12 @@
 <script>
 function highlight(elemId){
     var elem = $(document.getElementById(elemId.replace("#","")));
-    elem.css("background-color", "#AAAA00");
+    elem.css("background-color", "#FFEF00");
 }
-if (document.location.hash) {
-    highlight(document.location.hash);
+document.onLoad = function() {
+  if (document.location.hash) {
+      highlight(document.location.hash);
+  }
 }
 </script>
 
