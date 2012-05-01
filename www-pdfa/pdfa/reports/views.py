@@ -208,6 +208,20 @@ def displaytreeview(request, uid):
     else:
         return render_to_response("reports/summary_notfound.html", locals())
 
+def displaytagtable(request, uid):
+    currentTab = "table"
+    [auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)
+    if (os.path.isfile(parsefile) and os.path.isfile(resultfile)):    
+        tags = "<div class=\"css-treeview\">"
+        tags += writeTag(parsefile, "tags", mode="table")
+        tags += "</div>"
+        tags += "<div class=\"css-treeview\">"
+        tags += writeTag(parsefile, "Form", "No forms found.", mode="table")
+        tags += "</div>"
+        return render_to_response("reports/treeview.html", locals())
+    else:
+        return render_to_response("reports/summary_notfound.html", locals())
+
 def displaylinks(request, uid):
     currentTab = "links"
     [auth, currentPage, parsefile, resultfile, title, notes, fileObj, filename] = setup(request.user, uid)

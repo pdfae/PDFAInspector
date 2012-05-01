@@ -85,7 +85,7 @@ def writeBkTag (parsefile, tagName):
 	else:
 		return "<p>No tags found</p>"
 
-def writeTag(parsefile, tagName, errorMessage="No tags found"):
+def writeTag(parsefile, tagName, errorMessage="No tags found", mode="tree"):
 	parseFP = open(parsefile)
 	parse_data = json.load(parseFP)
 	parseFP.close()
@@ -109,11 +109,13 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 			break
 
 	if len(tags["content"]) > 0:
-		#return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
-		return "<p>&nbsp;</p><div role='application'>" + \
-				"<table class='tag-table' id='tag-table-" + tagName + "' >" + \
-				"<tr><th>Tag</th><th>Page</th><th>Attributes</th><th>Content</th></tr>" + \
-				writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
+		if mode == "tree":
+			return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+		elif mode == "table":
+			return "<p>&nbsp;</p><div role='application'>" + \
+					"<table class='tag-table' id='tag-table-" + tagName + "' >" + \
+					"<tr><th>Tag</th><th>Page</th><th>Attributes</th><th>Content</th></tr>" + \
+					writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	

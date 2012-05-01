@@ -11,8 +11,11 @@ Report: {{ title }}
 		<li {% if currentTab = "summary"%}class="current_page_item"{% endif %}>
 			<a href="/reports/{{uid}}/summary/">Summary</a>
 		</li>
-		<li {% if currentTab = "tree"%}class="current_page_item"{% endif %}>
+		<!-- <li {% if currentTab = "tree"%}class="current_page_item"{% endif %}>
 			<a href="/reports/{{uid}}/treeview/">Tag Tree</a>
+		</li> -->
+		<li {% if currentTab = "table"%}class="current_page_item"{% endif %}>
+			<a href="/reports/{{uid}}/tagtable/">Tag Table</a>
 		</li>
 		<li {% if currentTab = "links"%}class="current_page_item"{% endif %}>
 			<a href="/reports/{{uid}}/linkview/">Links</a>
