@@ -142,7 +142,7 @@ def writeBkTree(node, depth, count, url='node_'):
 	return output
 
 def tagName(node, depth, count, url='node_'):
-	return url + "%d:%s" % (count, unicode(node))
+	return url + "%d:%s" % (count, unicode(node["tagName"]))
 
 def writeTable(node, depth, count, url='node_', rolemap={}):
 	nodetag = node["tagName"]
@@ -167,7 +167,7 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 	children = []
 	for i in node["content"]:	
 		if isinstance(i, dict):
-			children.append("<a href='#%s'>%s</a>" % (tagName(i, depth + 1, count, url + "-"), i))
+			children.append("<a href='#%s'>%s</a>" % (tagName(i, depth + 1, count, url + "-"), unicode(i["tagName"])))
 	output += "  " * depth + "<td>" + ", ".join(children) + "</td>"
 	output += "  " * depth + "<td>"
 	for i in node["content"]:	
