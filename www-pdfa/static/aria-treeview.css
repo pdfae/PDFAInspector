@@ -36,3 +36,8 @@ li.focus {
   vertical-align: top;
   text-align: left;
 }
+.tag-table td {
+  border-width: 1px solid #000;
+  vertical-align: top;
+  text-align: left;
+}
