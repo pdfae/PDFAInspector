@@ -31,13 +31,15 @@ li.focus {
 }
 
 .tag-table {
-  border: 1px solid #000;
   border-collapse: collapse;
   vertical-align: top;
   text-align: left;
 }
 .tag-table td {
-  border: 1px solid #000;
   vertical-align: top;
   text-align: left;
+}
+
+.tag-table tr:nth-child(even) td {
+  background-color: #dfefff;
 }
