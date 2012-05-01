@@ -110,7 +110,7 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 
 	if len(tags["content"]) > 0:
 		#return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
-		return "<div role='application'><table id='tag-table-" + tagName + "' >" + writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
+		return "<p>&nbsp;</p><div role='application'><table id='tag-table-" + tagName + "' >" + writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	
@@ -141,7 +141,7 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 	url += "%d:%s" % (count, unicode(nodetag))
 	if nodetag == "tags":
 		nodetag = "Tags"
-	output = "  " * depth + "<tr id='%s'><td><span class='tag-title'>%s</span>\n" % (url, nodetag)
+	output = "  " * depth + "<tr id='%s'><td class='tag-title'>%s</td>" % (url, nodetag)
 	attr = []
 	if nodetag in rolemap:
 		node["attributes"].append({"Standard Name": rolemap[nodetag]})
@@ -152,9 +152,8 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 					attr.append("Page %s" % unicode(k))
 			else:
 				attr.append("%s=%s" % (unicode(j),unicode(k)))
-	if attr:
-		output += "  " * depth + "<span class='attributes-list'>(" + ", ".join(attr) + ")</span>\n"
-	output += "  " * depth + "</td></tr>"
+	output += "  " * depth + "<td class='attributes-list'>" + ", ".join(attr) + "</td>\n"
+	output += "  " * depth + "</tr>"
 	count = 0
 	noutput = ""
 	for i in node["content"]:	
