@@ -144,7 +144,7 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 	url += "%d:%s" % (count, unicode(nodetag))
 	if nodetag == "tags":
 		nodetag = "Tags"
-	output = "  " * depth + "<tr id='%s'><td class='tag-title'>%s</td>" % (url, nodetag)
+	output = "  " * depth + "<tr><td class='tag-title' id='%s'>%s</td>" % (url, nodetag)
 	attr = []
 	if nodetag in rolemap:
 		node["attributes"].append({"Standard Name": rolemap[nodetag]})
