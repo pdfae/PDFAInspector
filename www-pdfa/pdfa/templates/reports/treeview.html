@@ -6,9 +6,7 @@
 <script>
 function highlight(elemId){
     var elem = $(document.getElementById(elemId.replace("#","")));
-    elem.css("backgroundColor", "#ffffff"); // hack for Safari
-    elem.animate({ backgroundColor: '#ffffaa' }, 1500);
-    setTimeout(function(){$(elemId).animate({ backgroundColor: "#ffffff" }, 3000)},1000);
+    elem.css("background-color", "#AAAA00");
 }
 if (document.location.hash) {
     highlight(document.location.hash);
