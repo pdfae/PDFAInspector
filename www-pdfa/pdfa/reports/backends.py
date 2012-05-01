@@ -114,7 +114,7 @@ def writeTag(parsefile, tagName, errorMessage="No tags found", mode="tree"):
 		elif mode == "table":
 			return "<p>&nbsp;</p><div role='application'>" + \
 					"<table class='tag-table' id='tag-table-" + tagName + "' >" + \
-					"<tr><th>Tag</th><th>Page</th><th>Standard Name</th><th>Attributes</th><th>Content</th></tr>" + \
+					"<tr><th>Tag</th><th>Page</th><th>Standard Name</th><th>Children</th><th>Content</th></tr>" + \
 					writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
@@ -141,6 +141,9 @@ def writeBkTree(node, depth, count, url='node_'):
 	output += "  " * depth + "</li>\n"
 	return output
 
+def tagName(node, depth, count, url='node_'):
+	return url + "%d:%s" % (count, unicode(node))
+
 def writeTable(node, depth, count, url='node_', rolemap={}):
 	nodetag = node["tagName"]
 	url += "%d:%s" % (count, unicode(nodetag))
@@ -161,6 +164,11 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 		output += "  " * depth + "<td>%s</td>" % rolemap[nodetag]
 	else:
 		output += "  " * depth + "<td></td>"
+	children = []
+	for i in node["content"]:	
+		if isinstance(i, dict):
+			children.append("<a href='#%s'>%s</a>" % (tagName(i, depth + 1, count, url + "-"), i))
+	output += "  " * depth + "<td>" + ", ".join(children) + "</td>"
 	output += "  " * depth + "<td>"
 	for i in node["content"]:	
 		if not isinstance(i, dict):
@@ -174,11 +182,8 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 		if isinstance(i, dict):
 			noutput += writeTable(i, depth + 1, count, url + "-", rolemap)
 		count += 1	
-	#output += "  " * depth + " <ul role='tree'>\n"
 	if count > 0:
 		output += noutput
-	#output += "  " * depth + " </ul>\n"
-	#output += "  " * depth + "</li>\n"
 	return output
 
 	
