@@ -110,7 +110,10 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 
 	if len(tags["content"]) > 0:
 		#return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
-		return "<p>&nbsp;</p><div role='application'><table id='tag-table-" + tagName + "' >" + writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
+		return "<p>&nbsp;</p><div role='application'>" + \
+				"<table id='tag-table-" + tagName + "' >" + \
+				"<th><td>Tag</td><td>Page</td><td>Attributes</td><td>Content</td></th>" + \
+				writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	
@@ -187,7 +190,7 @@ def writeTree(node, depth, count, url='node_', rolemap={}):
 		for j, k in i.iteritems():
 			if j.lower() == "page":
 				if k != 0:
-					attr.append("Page %s" % unicode(k))
+					continue
 			else:
 				attr.append("%s=%s" % (unicode(j),unicode(k)))
 	if attr:

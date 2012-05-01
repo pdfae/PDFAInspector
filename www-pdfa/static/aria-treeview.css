@@ -30,3 +30,9 @@ li.focus {
   font-weight: bold;
 }
 
+.css-treeview>table {
+  border-width: 1px solid #000;
+  border-collapse: collapse;
+  vertical-align: top;
+  text-align: left;
+}
