@@ -30,12 +30,10 @@ li.focus {
   font-weight: bold;
 }
 
-.tag-table {
-  border-collapse: collapse;
-  vertical-align: top;
-  text-align: left;
+.tag-table tr th {
+  text-align: center;
 }
-.tag-table td {
+.tag-table tr td {
   vertical-align: top;
   text-align: left;
 }
