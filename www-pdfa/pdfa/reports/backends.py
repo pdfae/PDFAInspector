@@ -156,7 +156,7 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 	output += "  " * depth + "<td>"
 	for i in node["content"]:	
 		if not isinstance(i, dict):
-			noutput += "  " * depth + "  <spanid='%s_element%d'>%s</span>\n" % (url, count, unicode(i))
+			output += "  " * depth + "  <spanid='%s_element%d'>%s</span>\n" % (url, count, unicode(i))
 		count += 1	
 	output += "  " * depth + "</td>"
 	output += "  " * depth + "</tr>"
