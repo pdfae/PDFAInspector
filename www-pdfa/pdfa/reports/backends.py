@@ -114,7 +114,7 @@ def writeTag(parsefile, tagName, errorMessage="No tags found", mode="tree"):
 		elif mode == "table":
 			return "<p>&nbsp;</p><div role='application'>" + \
 					"<table class='tag-table' id='tag-table-" + tagName + "' >" + \
-					"<tr><th>Tag</th><th>Page</th><th>Standard Name</th><th>Children</th><th>Content</th></tr>" + \
+					"<tr><th>Tag</th><th>Page</th><th>Standard Name</th><th width='10%'>Children</th><th>Content</th></tr>" + \
 					writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
