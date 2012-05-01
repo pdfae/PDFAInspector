@@ -2,8 +2,7 @@
 
 {% block title %}Summary View - PDF Accessibilty Inspector{% endblock%}
 
-{% block content %}
-<h2 id="doc_acc">Document Accessibility</h2>
+{% block content %} <h2 id="doc_acc">Document Accessibility</h2>
 <table class="document" aria-labelledby="doc_acc">
 	<tbody>
 		<tr>
@@ -36,18 +35,15 @@
 			{%else%} <td class = "v">document has no language</td>
 			{%endif%}
 		</tr>
-
 	</tbody>
 </table>
-
 <form action="." method="post" enctype="multipart/form-data">
 	{% csrf_token %} <label for="id_notes">Accessibility Notes</label>
 	{{form.notes}}
 	<p>
-	<input type="submit" value="Save Notes" />
+		<input type="submit" value="Save Notes" />
 	</p>
 </form>
-
 <h2>Tag Accessibility</h2>
 <p>
 	Total number of tags in document: {{numtags}}
@@ -68,17 +64,16 @@
 				<th>Manual Checks: </th>
 				<td class="mc">{{tot_ins}}</td>
 			</tr>
-			
 		</tbody>
 	</table>
 </div>
-{%for tuple in content%}
+{%for category in levels%}
 <div class="tag_summary">
-	<h3 id = "{{tuple.0}}">{{tuple.0}}</h3>
+	<h3 id = "{{category.title}}">{{category.title}}</h3>
 	<p>
-		Number of {{tuple.0}}: {%if tagged%}{%if tuple.1 == 0%}<span class = "none">none</span>{%else%}{{tuple.1}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
+		Number of {{category.title}}: {%if tagged %}{%if category.num == 0%}<span class="none">none</span>{%else%}{{category.num}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 	</p>
-	<table class="rules" aria-labelledby="{{tuple.0}}">
+	<table class="rules" aria-labelledby="{{category.title}}">
 		<thead>
 			<tr>
 				<th>Accessibility Requirement</th>
@@ -88,39 +83,28 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for row in tuple.2 %}
+			{%for test in category.tests%}
 			<tr class = "{% if forloop.counter|divisibleby:2 %}even{% else %}{% endif %}">
-				<th>{{row.0}}</th>
+				<th>
+					{{test.title}}
+				</th>
 				{%if tagged%}
-					{%if tuple.1 == 0%}<td class = "none">no {{tuple.0}} tags</td>
+					{%if category.num == 0%}
+						<td class = "none">no {{category.title}}</td>
+						<td class = "none">no {{category.title}}</td>
+						<td class = "none">no {{category.title}}</td>
 					{%else%}
-						{%if row.2 == 0%}<td class = "z">0</td>
-						{%else%}<td class = "v">{{row.2}}</td>
-						{%endif%}
-					{%endif%}	
-				{%else%}<td class = "v">document is not tagged</td>
-				{%endif%}
-				{%if tagged%}
-					{%if tuple.1 == 0%}<td class = "none">no {{tuple.0}} tags</td>
-					{%else%}
-						{%if row.4 == 0%}<td class = "z">0</td>
-						{%else%}<td class = "war">{{row.4}}</td>
-						{%endif%}
+						<td class = "{%if test.nfail == 0%}z{%else%}v{%endif%}">{{test.nfail}}</td>
+						<td class = "{%if test.nwar == 0%}z{%else%}war{%endif%}">{{test.nwar}}</td>
+						<td class = "{%if test.nins == 0%}z{%else%}mc{%endif%}">{{test.nins}}</td>
 					{%endif%}
-				{%else%}<td class = "v">document is not tagged</td>
-				{%endif%}
-				
-				{%if tagged%}
-					{%if tuple.1 == 0%}<td class = "none">no {{tuple.0}} tags</td>
-					{%else%}
-						{%if row.3 == 0%}<td class = "z">0</td>
-						{%else%}<td class = "mc">{{row.3}}</td>
-						{%endif%}
-					{%endif%}
-				{%else%}<td class = "v">document is not tagged</td>
+				{%else%}
+					<td class="v">document is not tagged</td>
+					<td class="v">document is not tagged</td>
+					<td class="v">document is not tagged</td>
 				{%endif%}
 			</tr>
-			{% endfor %}
+			{%endfor%}
 		</tbody>
 	</table>
 </div>
