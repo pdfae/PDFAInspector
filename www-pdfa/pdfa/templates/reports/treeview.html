@@ -7,12 +7,9 @@
 function highlight(elemId){
     var elem = $(document.getElementById(elemId.replace("#","")));
     elem.css("background-color", "#FFEF00");
+    alert(elemId);
 }
-document.onLoad = function() {
-  if (document.location.hash) {
-      highlight(document.location.hash);
-  }
-}
+$.address.change(function(e) { highlight(e.value);});
 </script>
 
 
