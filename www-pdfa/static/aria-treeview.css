@@ -32,10 +32,13 @@ li.focus {
 
 .tag-table tr th {
   text-align: center;
+  border-bottom: 1px solid #000;
+  border-collapse: collapse;
 }
 .tag-table tr td {
   vertical-align: top;
   text-align: left;
+  border-collapse: collapse;
 }
 
 .tag-table tr:nth-child(even) td {
