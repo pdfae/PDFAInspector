@@ -148,13 +148,17 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 	attr = []
 	if nodetag in rolemap:
 		node["attributes"].append({"Standard Name": rolemap[nodetag]})
+	page = 0
 	for i in node["attributes"]:
 		for j, k in i.iteritems():
 			if j.lower() == "page":
-				if k != 0:
-					output += "  " * depth + "<td>%s</td>" % unicode(k)
+				page = k
 			else:
 				attr.append("%s=%s" % (unicode(j),unicode(k)))
+	if page != 0:
+		output += "  " * depth + "<td>%s</td>" % unicode(k)
+	else:
+		output += "  " * depth + "<td></td>"
 	output += "  " * depth + "<td class='attributes-list'>" + ", ".join(attr) + "</td>\n"
 	output += "  " * depth + "<td>"
 	for i in node["content"]:	
