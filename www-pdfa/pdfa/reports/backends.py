@@ -166,11 +166,17 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 		output += "  " * depth + "<td></td>"
 	children = []
 	count = 0
+	ccount = 0
 	for i in node["content"]:	
 		if isinstance(i, dict):
-			children.append("<a href='#%s'>%s</a>" % (tagName(i, depth + 1, count, url + "-"), unicode(i["tagName"])))
+			#children.append("<a href='#%s'>%s</a>" % (tagName(i, depth + 1, count, url + "-"), unicode(i["tagName"])))
+			ccount += 1
 		count += 1
-	output += "  " * depth + "<td>" + ", ".join(children) + "</td>"
+	if ccount > 0:
+		#output += "  " * depth + "<td>" + ", ".join(children) + "</td>"
+		output += "  " * depth + "<td>%d</td>" % ccount
+	else:
+		output += "  " * depth + "<td></td>"
 	output += "  " * depth + "<td>"
 	count = 0
 	for i in node["content"]:	
