@@ -114,7 +114,7 @@ def writeTag(parsefile, tagName, errorMessage="No tags found", mode="tree"):
 		elif mode == "table":
 			return "<p>&nbsp;</p><div role='application'>" + \
 					"<table class='tag-table' id='tag-table-" + tagName + "' >" + \
-					"<tr><th>Tag</th><th>Page</th><th>Standard Name</th><th width='10%'>Children</th><th>Content</th></tr>" + \
+					"<tr><th>Page</th><th>Table</th><th>Standard Name</th><th>Content</th></tr>" + \
 					writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
@@ -149,7 +149,7 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 	url += "%d:%s" % (count, unicode(nodetag))
 	if nodetag == "tags":
 		nodetag = "Tags"
-	output = "  " * depth + "<tr><td class='tag-title' id='%s'>%s</td>" % (url, nodetag)
+	output = ""
 	attr = []
 	page = 0
 	for i in node["attributes"]:
@@ -157,14 +157,9 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 			if j.lower() == "page":
 				page = k
 	if page != 0:
-		output += "  " * depth + "<td>%s</td>" % unicode(page)
+		output = "  " * depth + "<tr><td>%s</td>" % unicode(page)
 	else:
-		output += "  " * depth + "<td></td>"
-	if nodetag in rolemap:
-		output += "  " * depth + "<td>%s</td>" % rolemap[nodetag]
-	else:
-		output += "  " * depth + "<td></td>"
-	children = []
+		output = "  " * depth + "<tr><td></td>"
 	count = 0
 	ccount = 0
 	for i in node["content"]:	
@@ -173,10 +168,14 @@ def writeTable(node, depth, count, url='node_', rolemap={}):
 			ccount += 1
 		count += 1
 	if ccount > 0:
-		#output += "  " * depth + "<td>" + ", ".join(children) + "</td>"
-		output += "  " * depth + "<td>%d</td>" % ccount
+		output += "  " * depth + "<td class='tag-title' id='%s'>%s (<span class='tag-children'>%d</span>)</td>" % (url, nodetag, ccount)
+	else:
+		output += "  " * depth + "<td class='tag-title' id='%s'>%s</td>" % (url, nodetag)
+	if nodetag in rolemap:
+		output += "  " * depth + "<td>%s</td>" % rolemap[nodetag]
 	else:
 		output += "  " * depth + "<td></td>"
+	children = []
 	output += "  " * depth + "<td>"
 	count = 0
 	for i in node["content"]:	
