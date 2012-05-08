@@ -1,0 +1,39 @@
+Installation instructions for PDF Accessibility Inspector
+
+Mac / Linux Users
+
+Prerequisites:
+1. Working installation of Python 2.7 or higher
+2. Working installation of Django 1.3 or higher
+3. Working installation of Java 1.6 or higher
+4. Working installation of git 1.7.5 or higher
+
+Instructions:
+1. Open "Terminal" on or Mac or Linux computer.
+2. Open the directory you would like to install the application in 
+	or create new directory using 'mkdir'.
+3. At the command line, type
+	'git clone git@github.com:pdfae/PDFAInspector.git'
+4. This will create a directory called 'PDFAInspector'. At the command line type
+	'cd PDFAInspector/www-pdfa/pdfa/'
+5. Type 'ls' at the command line. You should see a file named 'example-settings.py'.
+   Copy this file to 'settings.py' by typing 'cp example-settings.py settings.py'.
+6. Open 'settings.py' using a text editor of your choice.
+7. Make the following changes to 'settings.py'
+   a) Set value of DIR to absolute path to the directory where the application was installed.
+   		For example if the directory 'PDFAInspector' is in folder '/Users/mike/webapps', the
+   		absolute path is '/Users/arora6/sp12/Pdf/PDFAInspector'
+   b) Set value of SECRET_KEY to a unique string. You can use websites like 'Random.org'
+8. At the command line, type the following command 'python2.7 manage.py syncdb'
+	This will create the required database tables. Here you will be prompted to set up a 
+	superuser / password. You must remember this as this the login you will need when using
+	the application.
+
+Running the application:
+1. In the directory ~PDFAInspector/www-pdfa/pdfa/, type the following at the command line
+	'python2.7 manage.py runserver'
+2. Open a browser of your choice and open the following URL: 'http://127.0.0.1:8000/'
+3. Login using the user/password set up in step 8 of installation.
+	
+   		
+
