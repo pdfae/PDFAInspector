@@ -4,6 +4,7 @@ from views import *
 
 urlpatterns = patterns('',
 	(r'^treeview/', displaytreeview),
+	(r'^tagtable/', displaytagtable),
 	(r'^figureview/', displayfigures),
 	(r'^formview/', displayforms),
 	(r'^tableview/', displaytables),

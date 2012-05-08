@@ -30,3 +30,19 @@ li.focus {
   font-weight: bold;
 }
 
+.tag-table {
+  border-collapse: collapse;
+}
+.tag-table tr th {
+  text-align: center;
+  border-bottom: 1px solid #000;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.tag-table tr td {
+  vertical-align: top;
+}
+
+.tag-table tr:nth-child(even) td {
+  background-color: #dfefff;
+}

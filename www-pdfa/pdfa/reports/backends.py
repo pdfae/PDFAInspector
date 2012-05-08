@@ -32,14 +32,18 @@ def getData(parsefile, resultfile, uid, category, name):
 				npass = 0
 				nfail = 0
 				nins = 0
+				nwar = 0
+				numbering = {}
 				for tag in test['tags']:
 					ntest += 1
 					if tag['result'] == 1:
 						npass += 1
 					elif tag['result'] == 2:
 						nfail += 1
-					else:
+					elif tag['result'] == 3:
 						nins += 1
+					else:
+						nwar += 1
 					actual_tag = tag_urls[tag['tag']]
 					attr = []
 					if 'attributes' in actual_tag:
@@ -47,15 +51,23 @@ def getData(parsefile, resultfile, uid, category, name):
 					for a in attr:
 						if 'Page' in a:
 							tag['page'] = a['Page']
-					if 'tagName' in actual_tag:		
-						tag['tagName'] = actual_tag['tagName'] + " " + unicode(ntest)
-
+					if 'tagName' in actual_tag:
+						tN	= actual_tag['tagName']
+						if tN in numbering:
+							numbering[tN] += 1
+						else:
+							numbering[tN] = 1		 
+						tag['tagName'] = tN
+						tag['level'] = unicode(numbering[tN])
+						
 				test['ntest'] = ntest
 				test['nfail'] = nfail
 				test['nins'] = nins	
-				test['rowspan'] = nfail + nins
-				numfail += nfail+nins
+				test['nwar'] = nins
+				test['rowspan'] = nfail + nins + nwar
+				numfail += nfail+nins+nwar
 				data.append(test)
+		print numbering
 	return [data, tagged, num, numfail]
 
 def writeBkTag (parsefile, tagName):
@@ -73,7 +85,7 @@ def writeBkTag (parsefile, tagName):
 	else:
 		return "<p>No tags found</p>"
 
-def writeTag(parsefile, tagName, errorMessage="No tags found"):
+def writeTag(parsefile, tagName, errorMessage="No tags found", mode="tree"):
 	parseFP = open(parsefile)
 	parse_data = json.load(parseFP)
 	parseFP.close()
@@ -97,7 +109,13 @@ def writeTag(parsefile, tagName, errorMessage="No tags found"):
 			break
 
 	if len(tags["content"]) > 0:
-		return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+		if mode == "tree":
+			return "<div role='application'><ul id='tag-tree-" + tagName + "' class='tree' role='tree'>" + writeTree(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</ul></div>"
+		elif mode == "table":
+			return "<p>&nbsp;</p><div role='application'>" + \
+					"<table class='tag-table' id='tag-table-" + tagName + "' >" + \
+					"<tr><th>Page</th><th>Table</th><th>Standard Name</th><th>Content</th></tr>" + \
+					writeTable(tags, 0, i, url="node_0:PdfInfo-", rolemap=rl) + "</table></div>"
 	else:
 		return "<p>%s</p>" % (errorMessage)
 	
@@ -123,6 +141,59 @@ def writeBkTree(node, depth, count, url='node_'):
 	output += "  " * depth + "</li>\n"
 	return output
 
+def tagName(node, depth, count, url='node_'):
+	return url + "%d:%s" % (count, unicode(node["tagName"]))
+
+def writeTable(node, depth, count, url='node_', rolemap={}):
+	nodetag = node["tagName"]
+	url += "%d:%s" % (count, unicode(nodetag))
+	if nodetag == "tags":
+		nodetag = "Tags"
+	output = ""
+	attr = []
+	page = 0
+	for i in node["attributes"]:
+		for j, k in i.iteritems():
+			if j.lower() == "page":
+				page = k
+	if page != 0:
+		output = "  " * depth + "<tr><td>%s</td>" % unicode(page)
+	else:
+		output = "  " * depth + "<tr><td></td>"
+	count = 0
+	ccount = 0
+	for i in node["content"]:	
+		if isinstance(i, dict):
+			#children.append("<a href='#%s'>%s</a>" % (tagName(i, depth + 1, count, url + "-"), unicode(i["tagName"])))
+			ccount += 1
+		count += 1
+	if ccount > 0:
+		output += "  " * depth + "<td class='tag-title' id='%s'>%s (<span class='tag-children'>%d</span>)</td>" % (url, nodetag, ccount)
+	else:
+		output += "  " * depth + "<td class='tag-title' id='%s'>%s</td>" % (url, nodetag)
+	if nodetag in rolemap:
+		output += "  " * depth + "<td>%s</td>" % rolemap[nodetag]
+	else:
+		output += "  " * depth + "<td></td>"
+	children = []
+	output += "  " * depth + "<td>"
+	count = 0
+	for i in node["content"]:	
+		if not isinstance(i, dict):
+			output += "  " * depth + "  <span id='%s_element%d'>%s</span>\n" % (url, count, unicode(i))
+		count += 1	
+	output += "  " * depth + "</td>"
+	output += "  " * depth + "</tr>"
+	count = 0
+	noutput = ""
+	for i in node["content"]:	
+		if isinstance(i, dict):
+			noutput += writeTable(i, depth + 1, count, url + "-", rolemap)
+		count += 1	
+	if count > 0:
+		output += noutput
+	return output
+
 	
 def writeTree(node, depth, count, url='node_', rolemap={}):
 	nodetag = node["tagName"]
@@ -137,7 +208,7 @@ def writeTree(node, depth, count, url='node_', rolemap={}):
 		for j, k in i.iteritems():
 			if j.lower() == "page":
 				if k != 0:
-					attr.append("Page %s" % unicode(k))
+					continue
 			else:
 				attr.append("%s=%s" % (unicode(j),unicode(k)))
 	if attr:

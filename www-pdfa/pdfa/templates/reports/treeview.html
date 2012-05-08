@@ -1,8 +1,15 @@
 {% extends 'reports/reports_base.html' %}
 
-{% block title %}Tree View - PDF Accessibilty Inspector{% endblock%}
+{% block title %}Tag View - PDF Accessibilty Inspector{% endblock%}
 
 {% block content %}
+<script>
+function highlight(elemId){
+    var elem = $(document.getElementById(elemId.replace("#","")));
+    elem.css("background-color", "#FFEF00");
+}
+$.address.change(function(e) { highlight(e.value);});
+</script>
 
 
 {% autoescape off %}

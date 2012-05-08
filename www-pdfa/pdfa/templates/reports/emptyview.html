@@ -5,20 +5,22 @@
 {% block content %} <h2>Empty Tags Accessibility Summary</h2>
 <div class="tag_summary">
 	<p>
-		Number of empty tags: {%if tagged%}{%if numfail == 0%}<span class = "none">none</span>{%else%}{{numfail}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
+		Number of empty tags: {%if tagged%}{%if numwar == 0%}<span class = "none">none</span>{%else%}{{numwar}}{%endif%}{%else%}<span class = "v">document is not tagged</span>{%endif%}
 	</p>
 	<table class="rules" aria-labelledby="summary">
 		<thead>
 			<tr>
 				<th>Accessibility Requirement</th>
 				<th>Violation</th>
+				<th>Warning</th>
 				<th>Manual Inspection</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<th>{{title2}}</th>
-				<td class="v">{{numfail}}</td>
+				<td class="z">0</td>
+				<td class="{%if numwar == 0%}z{%else%}war{%endif%}">{{numwar}}</td>
 				<td class="z">0</td>
 			</tr>
 		</tbody>
@@ -26,7 +28,7 @@
 </div>
 <h2>Empty Tags Accessibility Details</h2>
 <div class="tag_summary">
-	{% if numfail > 0 %}
+	{% if numwar > 0 %}
 	<table class = "details">
 		<thead>
 			<tr>
@@ -39,14 +41,26 @@
 		<tbody>
 			{% for tag in empty %}
 			<tr>
-				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}}</a></td>
-				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%} <td class="v">Violation</td>
+				<td><a href = "../treeview/{{tag.tag}}">{{tag.tagName}} {{tag.level}}</a></td>
+				{%if tag.page == 0%}<td class = "none">unknown</td>{%else%}<td>{{tag.page}}</td>{%endif%} 
+				<td class="war">Warning</td>
 				<td>{{tag.message}}</td>
 			</tr>
 			{%endfor%}
 		</tbody>
 	</table>
 	{%else%}
+
+	{% if tagged %}
+	<p>
+		<span class = "none">No empty tags</span>
+	</p>
+	{%else%}
+	<p>
+		<span class = "v">document is not tagged</span>
+	</p>
+	{%endif%}
+
 	{%endif%}
 </div>
 {% endblock %}

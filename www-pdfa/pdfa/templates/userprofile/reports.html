@@ -21,13 +21,14 @@
 </script>
 <form method="post" action="." enctype="multipart/form-data">
 	{%csrf_token%}
-	<table style="width:50%;margin:1em 0;">
+	<table style="table-layout:auto; margin:1em 0;">
 		<thead style="background: #eee";>
 			<tr>
 				<th style="width:40px;">
 				<input type="checkbox" name="all" onClick="toggle()" />
 				</th>
 				<th> Title </th>
+				<th> Uploaded</th>
 				<th> Notes </th>
 			</tr>
 		</thead>
@@ -38,6 +39,7 @@
 				<input type="checkbox" name="{{file.uid}}" />
 				</td>
 				<td><a href="../../../reports/{{file.uid}}/"> {{ file.title }} </a></td>
+				<td> {{file.date}} </td>
 				<td> {{file.notes}} </td>
 			</tr>
 			{% empty %}

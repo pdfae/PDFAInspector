@@ -4,246 +4,42 @@
 About - PDF Accessibility Inspector
 {% endblock %}
 
-
-{% block text %}
-<h1>About</h1>
+{% block text %} <h1>About</h1>
 <p>
-The PDF Accessibility Inspector is a project of the Disability Resources &amp; Educational Services at the University of Illinois, Urbana-Champaign.
+	The PDF Accessibility Inspector is a project of the Disability Resources &amp; Educational Services at the University of Illinois, Urbana-Champaign.
 </p>
 <p>
-This project is focused on raising attention about inaccessible PDF documents
+	This project is focused on raising attention about inaccessible PDF documents
 </p>
-
 <h2>Rules Run By The Evaluator</h2>
-<table class = "rules">
+{%if rules%}
+{%for category in rules%}
+<h3>{{category.0}}</h3>
+<table class="about">
+	{%for rule in category.1%}
 	<tr>
-		<th colspan="2" class="even"><b>Rule 1: Documents must be tagged</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>Any document must have tags</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
+		<th colspan="2" style="font-weight: bold;line-height: 3em;">Rule {{forloop.counter}}: {{rule.title}}</th>
 	</tr>
 	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
+		<th> Description </th>
+		<td> {{rule.description}} </td>
 	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Applies to every document</td>
+	<tr class = "even">
+		<th> Severity </th>
+		<td> {%if rule.severity == 2%}Violation{%else%}{%if rule.severity == 3%}Manual Inspection{%else%}Warning{%endif%}{%endif%} </td>
 	</tr>
+	<tr>
+		<th> WCAG ID </th>
+		<td> {{rule.wcag_id}} </td>
+	</tr>
+	<tr class = "even">
+		<th> Condition </th>
+		<td> {{rule.Condition}} </td>
+	</tr>
+	{%endfor%}
 </table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 2: Documents must be titled</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>A document must have a title</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Applies to every document</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 3: Multi-page documents must have headers</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>A document longer than one page must have at least one header</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Applies to any multi-page document</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 4: Links must have alt-text</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>A link must contain alternative-text</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to images</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 5: Images must have alt-text</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>An image must contain alternative text</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>7.1</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to images</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 6: Form elements must have names</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>The 'name' property must be set in all form elements</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to form elements</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 7: Form elements must have tooltips</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>The tooltip property must be set in all form elements</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to form elements</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 8: Tables must have headers</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>The first row of any table must be header cells</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to tables</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 9: Tables must contain data cells</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>Any table must contain at least one data cell</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to tables</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 10: Table cells must contain content</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>Any data or header cell in a table must contain some content</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to tables</td>
-	</tr>
-</table>
-<table class = "rules">
-	<tr>
-		<th colspan="2" class="even"><b>Rule 11: Headers must contain text content</b></th>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td>Any header must contain some non-null text content</td>
-	</tr>
-	<tr class="even">
-		<td>Severity</td>
-		<td>Violation</td>
-	</tr>
-	<tr>
-		<td>WCAG ID</td>
-		<td>not defined</td>
-	</tr>
-	<tr class="even">
-		<td>Condition</td>
-		<td>Only applies to headers</td>
-	</tr>
-</table>
-{% endblock %} 
+{%endfor%}
+{%else%}
+{{message}}
+{%endif%}
+{%endblock%}
